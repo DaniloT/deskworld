@@ -6,8 +6,7 @@ Neste capítulo, primeiro será exemplificado mesas com superfície multi-toque sim
 \label{cap2.1}
 As mesas com tela multi-toque s\~ao relativamente recentes no mercado, com muitas pesquisas ainda sendo desenvolvidas para viabilizá-las ao p\'ublico. Uma alternativa criativa foi proposta por~[\citenum{mtmini}] onde demonstra a viabilidade de se montar uma pequena mesa com superfície multi-toque com menos de US\$50 dólares. Com materiais baratos como papelão, papel e vidro pode-se construir uma mesa utilizando um computador pessoal e uma \textit{webcam}.
 
-%TODO estudo sobre viabilidade, eh bom botar uma referencia disso aqui
-Utilidades diversas s\~ao propostas para essas mesas. Tem-se por exemplo a \textit{Reactable}~[\citenum{react}], Figura~\ref{react}, dispon\'ivel desde 2008, que, apesar de não exatamente possibilitar o toque do usuário, trata-se de uma mesa que utiliza marcadores fiduciais para habilitar a intera\c{c}\~ao de seus usu\'arios com a m\'usica, fornecendo um instrumento musical diferente. Ela \'e utilizada em concertos e eventos.
+Utilidades diversas s\~ao propostas para essas mesas. Tem-se por exemplo a \textit{Reactable}~[\citenum{react}] (Figura~\ref{react}), dispon\'ivel desde 2008, que, apesar de não exatamente possibilitar o toque do usuário, trata-se de uma mesa que utiliza marcadores fiduciais para habilitar a intera\c{c}\~ao de seus usu\'arios com a m\'usica, fornecendo um instrumento musical diferente. Ela \'e utilizada em concertos e eventos.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -17,7 +16,7 @@ Utilidades diversas s\~ao propostas para essas mesas. Tem-se por exemplo a \text
 	\end{center}
 \end{figure}
 
-Pode-se citar tamb\'em a \textit{Microsoft Surface}~[\citenum{microsoftsurface}], Figura~\ref{msurface}, que proporciona funcionalidades diversas como habilidade de compartilhamento de Figuras e arquivos atrav\'es da intera\c{c}\~ao com objetos eletr\^onicos colocados sobre sua superf\'icie e comandos via o toque do usuário. 
+Pode-se citar tamb\'em a \textit{Microsoft Surface}~[\citenum{microsoftsurface}] (Figura~\ref{msurface}), que proporciona funcionalidades diversas como habilidade de compartilhamento de figuras e arquivos atrav\'es da intera\c{c}\~ao com objetos eletr\^onicos colocados sobre sua superf\'icie e comandos via o toque do usuário. 
 
 \begin{figure}[h!]
 	\begin{center}
@@ -39,9 +38,9 @@ A idéia de todas é a mesma: Temos uma superfície onde se usa um projetor multimí
 	\end{center}
 \end{figure}
 
-Existem várias maneiras de se iluminar a mesa. DI (\textit{Diffuse Ilumination}), Figura~\ref{touchtable}, se trata de LEDs iluminando a mesa por baixo do acrílico. Esse método é utilizado, por exemplo, na \textit{Microsoft Surface}~[\citenum{microsoftsurface}] e na mesa construída durante o desenvolvimento do jogo \textit{Eco-Defense}~[\citenum{pedrosaulo}], por exemplo.
+Existem várias maneiras de se iluminar a mesa. DI (\textit{Diffuse Ilumination}), observado na Figura~\ref{touchtable}, se trata de LEDs iluminando a mesa por baixo do acrílico. Esse método é utilizado, por exemplo, na \textit{Microsoft Surface}~[\citenum{microsoftsurface}] e na mesa construída durante o desenvolvimento do jogo \textit{Eco-Defense}~[\citenum{pedrosaulo}], por exemplo.
 
-Outro sistema de iluminação é o sistema FTIR (\textit{Frustrated Total Internal Reflection}), Figura~\ref{FTIR}. Nesse sistema, os LEDS são imbutidos no acrílico da superfície da mesa. Assim, a iluminação sofre de um fenômeno denominado reflexão interna total frustada. Isso significa que a iluminação fica retida dentro do acrílico sem conseguir sair. Ao momento que um dedo toca na superfície, a capacidade de refração da superfície muda, o que permite que a luz saia e ilumine o toque, e uma camêra infravermelho consegue captar essa luz, detectando o local do toque. Essa detecção é normalmente bem mais precisa que a detecção por DI, por possuir menos interferência do fundo, porém ela não funciona muito bem para objetos que não são o corpo humano, sendo ruins para funcionamento com marcadores fiduciais.
+Outro sistema de iluminação é o sistema FTIR (\textit{Frustrated Total Internal Reflection}), acompanhado na Figura~\ref{FTIR}. Nesse sistema, os LEDS são imbutidos no acrílico da superfície da mesa. Assim, a iluminação sofre de um fenômeno denominado reflexão interna total frustada. Isso significa que a iluminação fica retida dentro do acrílico sem conseguir sair. Ao momento que um dedo toca na superfície, a capacidade de refração da superfície muda, o que permite que a luz saia e ilumine o toque, e uma camêra infravermelho consegue captar essa luz, detectando o local do toque. Essa detecção é normalmente bem mais precisa que a detecção por DI, por possuir menos interferência do fundo, porém ela não funciona muito bem para objetos que não são o corpo humano, sendo ruins para funcionamento com marcadores fiduciais.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -51,7 +50,7 @@ Outro sistema de iluminação é o sistema FTIR (\textit{Frustrated Total Internal 
 	\end{center}
 \end{figure}
 
-A última abordagem trata de uma mesclagem das duas abordagens anteriores, como vemos no exemplo da \textit{Virttable}~[\citenum{virttable}], Figura~\ref{virttable}, que utiliza ambos os métodos DI e FTIR, procurando proporcionar a melhor possível detecção de toques e marcadores fiduciais. O problema desta abordagem é que ela recebe os pontos fracos da iluminação DI em relação a ter que diminuir a interferência do fundo na detecção e ter que controlar o ambiente em que a mesa se encontra, mas em relação a uma mesa exclusivamente DI os toques são mais bem iluminados, facilitando as suas detecções.
+A última abordagem trata de uma mesclagem das duas abordagens anteriores, como vemos no exemplo da \textit{Virttable}~[\citenum{virttable}] (Figura~\ref{virttable}), que utiliza ambos os métodos DI e FTIR, procurando proporcionar a melhor possível detecção de toques e marcadores fiduciais. O problema desta abordagem é que ela recebe os pontos fracos da iluminação DI em relação a ter que diminuir a interferência do fundo na detecção e ter que controlar o ambiente em que a mesa se encontra, mas em relação a uma mesa exclusivamente DI os toques são mais bem iluminados, facilitando as suas detecções.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -64,7 +63,7 @@ A última abordagem trata de uma mesclagem das duas abordagens anteriores, como v
 \section{Softwares interativos para mesas com superfícies multi-toque}
 \label{cap2.2}
 
-Existem v\'arios jogos produzidos para utiliza\c{c}\~ao em mesas com superf\'icies multi-toque. Por exemplo, o \textit{IRTaktiks}~[\citenum{IRTaktiks}], Figura~\ref{irtaktiks}, um jogo de estratégia desenvolvido para uma mesa \textit{FTIR} construída durante o mesmo projeto. Este jogo é para dois jogadores, onde cada jogador tem suas unidades e deve derrotar as unidades inimigas. Porém, um problema dele é a identificação do jogador, pois ele não verifica a qual jogador pertence os toques feitos sobre a mesa, o que permite aos jogadores acidentalmente, ou não, controlar as unidades do inimigo, e o jogo também limita o número de usuários para dois jogadores, algo que deve ser evitado em mesas multi-toque. 
+Existem v\'arios jogos produzidos para utiliza\c{c}\~ao em mesas com superf\'icies multi-toque. Por exemplo, o \textit{IRTaktiks}~[\citenum{IRTaktiks}] (Figura~\ref{irtaktiks}), um jogo de estratégia desenvolvido para uma mesa \textit{FTIR} construída durante o mesmo projeto. Este jogo é para dois jogadores, onde cada jogador tem suas unidades e deve derrotar as unidades inimigas. Porém, um problema dele é a identificação do jogador, pois ele não verifica a qual jogador pertence os toques feitos sobre a mesa, o que permite aos jogadores acidentalmente, ou não, controlar as unidades do inimigo, e o jogo também limita o número de usuários para dois jogadores, algo que deve ser evitado em mesas multi-toque. 
 
 \begin{figure}[h!]
 	\begin{center}
@@ -74,7 +73,7 @@ Existem v\'arios jogos produzidos para utiliza\c{c}\~ao em mesas com superf\'ici
 	\end{center}
 \end{figure}
 
-Por se tratarem de superf\'icies normalmente sem limita\c{c}\~oes de n\'umero de toques, os jogos desenvolvidos para mesas devem focar em interatividade de v\'arios jogadores. Softwares como o \textit{The Laundry Game}~[\citenum{laundrygame}], Figura~\ref{laundry}, que \'e um jogo de separa\c{c}\~ao de roupas em categorias, e o \textit{Game of Life}, Figura~\ref{life}, feito pelo \textit{Verve Project}~[\citenum{gameoflife}], que \'e o tradicional jogo da vida onde uma bact\'eria vive dependendo do n\'umero de bact\'erias ao seu redor, s\~ao simples e divertidos, e permitem que qualquer número de usuários participe, mas como é muito limitado o que se pode ser feito nesses softwares, normalmente os usuários param de os utilizar após pouco tempo.
+Por se tratarem de superf\'icies normalmente sem limita\c{c}\~oes de n\'umero de toques, os jogos desenvolvidos para mesas devem focar em interatividade de v\'arios jogadores. Softwares como o \textit{The Laundry Game}~[\citenum{laundrygame}] (Figura~\ref{laundry}), que \'e um jogo de separa\c{c}\~ao de roupas em categorias, e o \textit{Game of Life} (Figura~\ref{life}), feito pelo \textit{Verve Project}~[\citenum{gameoflife}], que \'e o tradicional jogo da vida onde uma bact\'eria vive dependendo do n\'umero de bact\'erias ao seu redor, s\~ao simples e divertidos, e permitem que qualquer número de usuários participe, mas como é muito limitado o que se pode ser feito nesses softwares, normalmente os usuários param de os utilizar após pouco tempo.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -92,7 +91,7 @@ Por se tratarem de superf\'icies normalmente sem limita\c{c}\~oes de n\'umero de
 	\end{center}
 \end{figure}
 
-Outros softwares para a mesa s\~ao mais completos, possuindo dificuldade e sistema de pontua\c{c}\~ao. Um desses jogos seria o \textit{Eco Defense}~[\citenum{pedrosaulo}], Figura~\ref{ecodefense}, onde se deve destruir nuvens de polui\c{c}\~ao antes que afetem a floresta ao redor, podendo se colocar torres de defesa para ajudar, e a dificuldade sobe quanto mais se joga, aumentando a velocidade das nuvens, at\'e os jogadores perderem. Outro exemplo seria o \textit{Station Defender}~[\citenum{multphys}], Figura~\ref{defender}, onde os jogadores devem defender sua base construindo paredes ao redor dela. Ambos estes jogos proporcionam durabilidade pela dificuldade que escala e focam na sobreviv\^encia do jogador pelo maior tempo poss\'ivel.
+Outros softwares para a mesa s\~ao mais completos, possuindo dificuldade e sistema de pontua\c{c}\~ao. Um desses jogos seria o \textit{Eco Defense}~[\citenum{pedrosaulo}] (Figura~\ref{ecodefense}), onde se deve destruir nuvens de polui\c{c}\~ao antes que afetem a floresta ao redor, podendo se colocar torres de defesa para ajudar, e a dificuldade sobe quanto mais se joga, aumentando a velocidade das nuvens, at\'e os jogadores perderem. Outro exemplo seria o \textit{Station Defender}~[\citenum{multphys}] (Figura~\ref{defender}), onde os jogadores devem defender sua base construindo paredes ao redor dela. Ambos estes jogos proporcionam durabilidade pela dificuldade que escala e focam na sobreviv\^encia do jogador pelo maior tempo poss\'ivel.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -126,7 +125,7 @@ Um jogo que abriu as portas para a popularização desse tipo de software se chama
 
 Ainda no mesmo estilo de \textit{Play, Create, Share}, a mesma empresa criadora do \textit{Little Big Planet} lançou um jogo chamado \textit{Modnation Racer}~[\citenum{mdr}], que se trata de um jogo de corrida onde os jogadores podem criar as suas próprias pistas de corridas e compartilhar com todos. Lançado em Maio de 2010, já possui milhares de pistas criadas por usuários. Esses jogos demonstram a popularidade do estilo de se criar seu próprio jogo.
 
-No cenário de softwares simuladores de física bidimensionais, tem-se um software chamado \textit{Phun}~[\citenum{phun}], Figura~[\ref{phun}], que não possui objetivo. Ele é uma ferramenta simuladora de física bidimensional que permite ao usuário construir o ambiente que desejar e fazer o que quiser com ele, podendo desenhar formas normais ou abstratas, mudar a taxa de gravidade e fricção dos objetos, fazer líquido e controlar densidade dos elementos, entre outros. O jogador é livre para montar o mundo que desejar e fazer o que quiser com ele, sem possuir qualquer objetivo.
+No cenário de softwares simuladores de física bidimensionais, tem-se um software chamado \textit{Phun}~[\citenum{phun}] (Figura~[\ref{phun}]), que não possui objetivo. Ele é uma ferramenta simuladora de física bidimensional que permite ao usuário construir o ambiente que desejar e fazer o que quiser com ele, podendo desenhar formas normais ou abstratas, mudar a taxa de gravidade e fricção dos objetos, fazer líquido e controlar densidade dos elementos, entre outros. O jogador é livre para montar o mundo que desejar e fazer o que quiser com ele, sem possuir qualquer objetivo.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -146,7 +145,7 @@ Um jogo muito popular neste estilo é o \textit{Crayon Physics}~[\citenum{crayonp
 	\end{center}
 \end{figure}
 
-Inspirado no \textit{Crayon Physics}, existe outro jogo chamado \textit{Numpty Physics}~[\citenum{numptyphysics}]. Tem-se o mesmo objetivo e ferramentas neste jogo, porém o jogo possui código aberto. Este jogo foi adaptado para funcionar em mesas com superfícies multi-toque através de um trabalho de graduação da Universidade Técnica de Viena~[\citenum{multnump}], Como visto na Figura~[\ref{numpty}]. O jogo possui as mesmas fases que existiam no Numpty Physics, com algumas novas possuindo mais de uma bola para proporcionar um pouco de diversão para um segundo jogador. Infelizmente, esse jogo é muito instável e só planeja a até no máximo dois jogadores, não proporcionando ferramentas mais elaboradas ou desafios melhores.
+Inspirado no \textit{Crayon Physics}, existe outro jogo chamado \textit{Numpty Physics}~[\citenum{numptyphysics}]. Tem-se o mesmo objetivo e ferramentas neste jogo, porém o jogo possui código aberto. Este jogo foi adaptado para funcionar em mesas com superfícies multi-toque através de um trabalho de graduação da Universidade Técnica de Viena~[\citenum{multnump}], como pode ser observado na Figura~[\ref{numpty}]. O jogo possui as mesmas fases que existiam no Numpty Physics, com algumas novas possuindo mais de uma bola para proporcionar um pouco de diversão para um segundo jogador. Infelizmente, esse jogo é muito instável e só planeja a até no máximo dois jogadores, não proporcionando ferramentas mais elaboradas ou desafios melhores.
 
 \begin{figure}[h!]
 	\begin{center}
