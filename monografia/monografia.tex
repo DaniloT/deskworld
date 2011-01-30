@@ -20,7 +20,7 @@
 
 \coordenador{\prof \dr Marcus Vinicius Lamar}{CIC/UnB}
 
-\diamesano{08}{fevereiro}{2011}
+\diamesano{10}{fevereiro}{2011}
 
 %\membrobanca{\prof\dr Marcus Vinicius Lamar}{CIC/UnB}
 
@@ -32,8 +32,8 @@
 \coautor{Victor Sampaio}{Zucca}
 \CDU{004.4}
 
-\palavraschave{multi-toque, f\'isica, jogo }
-\keywords{multi-touch, physics, game}
+\palavraschave{superfície multi-toque, simulador de f\'isica, software interativo }
+\keywords{multi-touch surface, physics sandbox, interactive software}
 
 
 \begin{document}
@@ -42,11 +42,19 @@
 
 \pretextual
 \begin{agradecimentos}
-Gostariamos de agradecer primeiramente aos membros da banca
+Agradecemos primeiramente aos membros da banca, professores Carla Castanho, Marcus Lamar, Pedro Berger e Ricardo Jacobi, por terem aceitado o convite para a apresentação deste trabalho, em particular aos nossos orientadores Carla Castanho e Marcus Lamar por nos ajudarem nesta empreitada em uma área de constante crescimento em nosso departamento. Agradecemos também aos colegas Pedro Brandão e Saulo Camarotti pelo seu trabalho que inspirou este, e também pelo auxílio no desenvolvimento deste.
+
+Agradecemos ao nosso amigo Luciano Santos, que está desenvolvendo um outro projeto que utiliza a mesma mesa construída neste trabalho e nos ajudou imensamente na construção dela, e em especial ao seu tio, Antônio Santos, que construiu a estrutura de alumínio da mesa e nos forneceu ela gratuitamente para a realização do nosso projeto.
+
+Agradecemos especialmente aos nossos amigos e familiares, que sempre nos apoiaram e nos ajudaram a seguir em frente.
 \end{agradecimentos}
 
 \begin{resumo}
-Este trabalho foca na contru\c{c}\~ao de um jogo interativo para v\'arios jogadores em superf\' icies com telas sens\'iveis a v\'arios toques simult\^aneos.
+A medida que se evolui tecnologicamente, sempre se busca maneiras de \textit{input} alternativos, de forma a tornar mais fácil a interação do ser humano com a máquina. Nos dias atuais, estão sendo desenvolvidos \textit{hardwares} que conseguem processar movimentações, gestos e toques, diminuindo a curva de aprendizado necessário para se utilizar esses dispositivos. Para acompanhar esses novos paradigmas de utilização dos dispositivos, os \textit{softwares} desenvolvidos para eles devem considerar usos não tradicionais como a tradução dos movimentos que o usuário faz ou a capacidade de utilização por um número indeterminado de usuários.
+
+Este trabalho foca na construção de um \textit{software} simulador de física 2D, chamado \textit{Deskworld}, para um dispositivo diferente, uma mesa com superfície multi-toque. Uma mesa multi-toque normalmente é utilizada em um local público, com usuários podendo começar a utilizá-la a qualquer momento, em qualquer direção ou posição. Por causa disso, foi escolhido um \textit{software} simulador de física 2D por permitir a colaboração de vários usuários na criação de um mundo interativo. Por se tratar de um \textit{input} diferente, foram implementadas ferramentas inovadoras que facilitam a interação com o mundo virtual do \textit{Deskworld}.
+
+Devido ao alto custo de mesas com superfície multi-toque comerciais, este trabalho também constroi, com materiais de menor custo, uma mesa multi-toque própria para ser utilizada com o \textit{software}.
 \end{resumo}
 
 \selectlanguage{american}
@@ -67,8 +75,6 @@ This paper focus on the construction of an interactive multiplayer game for mult
 \input{chapters/capitulo3}
 \input{chapters/capitulo4}
 \input{chapters/capitulo5}
-%\input{chapters/capitulo6}
-%\input{chapters/capitulo7}
 \input{chapters/conclusao}
 
 \postextual
