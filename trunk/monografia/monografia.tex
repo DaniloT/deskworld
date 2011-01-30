@@ -1,0 +1,87 @@
+\documentclass[bacharelado]{unb-cic}
+\usepackage[american,brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst}
+\usepackage{natbib}
+\usepackage{xcolor,graphicx,url}
+\usepackage[latin1]{inputenc}
+\usepackage{listings}
+\usepackage{subfigure}
+\setlength{\parindent}{16pt}
+\setlength{\parskip}{2ex}
+
+\bibpunct[; ]{(}{)}{,}{a}{}{;} %muda colchetes para parenteses
+
+% definicoes previas do documento
+\title{Deskworld: Software Simulador de F\'isica 2D para Mesas com Superf\'icie Multi-Toque}
+
+\orientador[a]{\prof[a] \dr[a] Carla Denise Castanho}{CIC/UnB}
+\coorientador{\prof \dr Marcus Vinicius Lamar}{CIC/UnB}
+
+\coordenador{\prof \dr Marcus Vinicius Lamar}{CIC/UnB}
+
+\diamesano{08}{fevereiro}{2011}
+
+%\membrobanca{\prof\dr Marcus Vinicius Lamar}{CIC/UnB}
+
+\membrobanca{\prof\dr Pedro de Azevedo Berger}{CIC/UnB}
+
+\membrobanca{\prof\dr Ricardo Pezzuol Jacobi}{CIC/UnB}
+
+\autor{Danilo Gaby Andersen}{Trindade}
+\coautor{Victor Sampaio}{Zucca}
+\CDU{004.4}
+
+\palavraschave{multi-toque, f\'isica, jogo }
+\keywords{multi-touch, physics, game}
+
+
+\begin{document}
+
+\maketitle
+
+\pretextual
+\begin{agradecimentos}
+Gostariamos de agradecer primeiramente aos membros da banca
+\end{agradecimentos}
+
+\begin{resumo}
+Este trabalho foca na contru\c{c}\~ao de um jogo interativo para v\'arios jogadores em superf\' icies com telas sens\'iveis a v\'arios toques simult\^aneos.
+\end{resumo}
+
+\selectlanguage{american}
+
+\begin{abstract}
+This paper focus on the construction of an interactive multiplayer game for multi-touch surfaces.
+\end{abstract}
+
+\selectlanguage{brazil}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\textual
+
+\input{chapters/capitulo1}
+\input{chapters/capitulo2}
+\input{chapters/capitulo3}
+\input{chapters/capitulo4}
+\input{chapters/capitulo5}
+%\input{chapters/capitulo6}
+%\input{chapters/capitulo7}
+\input{chapters/conclusao}
+
+\postextual
+
+\bibliographystyle{plain}
+
+\bibliography{bibliografia}
+
+\appendix
+
+\input{appendix/apendiceA}
+\input{appendix/apendiceB}
+
+\end{document}
+
+

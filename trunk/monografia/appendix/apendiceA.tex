@@ -1,0 +1,307 @@
+\chapter{Referência Não Oficial da \textit{Touchlib}}
+\label{apendiceA}
+
+A configuração da Touchlib é toda armazenada em um arquivo \textit{XML}, \textit{config.xml}. Este apêndice, adaptado de~[\citenum{Touchlibref}], explica como configurar a Touchlib e como editar o arquivo de configuração.
+
+\section{Detalhes do Projeto}
+
+\begin{itemize}
+	\item \textit{Website} do projeto: www.touchlib.com
+	\item \textit{SVN}: http://code.google.com/p/touchlib/
+	\item \textit{SVN} (repositório): http://touchlib.googlecode.com/svn/multitouch/
+\end{itemize}
+
+
+\section{Arquivo \textit{config.xml}}
+O arquivo de configuração é dividido nas seguintes partes:
+\begin{enumerate}
+
+	\item Definição da versão do \textit{XML}.
+	
+	Exemplo: <?xml version="1.0"\ ?>
+	
+	\item Configuração do \textit{Tracker}.
+	
+	Exemplo: <blobconfig distanceThreshold="250"\ minDimension="2"\ maxDimension="250"\ ghostFrames="0"\ minDisplacementThreshold="2.000000"\ />
+
+	Configuração de tolerância do \textit{tracker} de \textit{blobs}. O \textit{distanceThreshold} contêm o valor de quantos \textit{píxels} um \textit{blob} pode passar. Os valores de \textit{minDimension} and \textit{maxDimension} especificam o quão pequeno ou grande o contorno pode ser para ser detectado como um toque. O valor de \textit{ghostFrames} especifíca o número de \textit{frames} extras que a \textit{Touchlib} deve usar no \textit{tracker} de \textit{blobs}. O \textit{minDisplacementThreshold} especifíca quantos \textit{píxels} de contorno serão necessários serem movidos antes de se chamar o evento de atualização.
+	
+	\item Caixa de limitação.
+	
+	Exemplo: <bbox ulX="0.000000"\ ulY="0.000000"\ lrX="1.000000"\ lrY="1.000000"\ />
+	
+	Especifíca em que região deve ser aplicada a detecção de blobs.
+	
+	\item Pontos de calibração da tela.
+	
+	Exemplo: <screen>...[pontos]...</screen>
+	
+	Estes valores serão preenchidos após rodar o configapp.
+	
+	\item Os gráficos de filtro
+	
+	Exemplo: <filtergraph>...[filtros]...</filtergraph>
+	
+	Filtros serão explicados na próxima seção.
+\end{enumerate}
+	
+\section{Filtros da \textit{Touchlib}}
+Todos os filtros precisam estar entre as \textit{tags} de \textit{filtergraph}.
+\begin{center}
+\textit{<filtergraph> ... </filtergraph>}
+\end{center}
+
+O primeiro filtro tem que ser um filtro de captura de vídeo, e o último deve ser o filtro \textit{rectify}.
+
+\subsection{Filtros de captura de vídeo}
+\begin{itemize}
+	\item cvccapture.
+	
+	Descrição: Filtro de captura de vídeo padrão usado pela \textit{Touchlib}. Ele usa a função da OpenCV para capturar um \textit{stream} de vídeo. Também é possível utilizar um arquivo de vídeo para o propósito de testes.
+	
+	Utilização (arquivo de vídeo):
+	
+	<cvcapture label="cvcapture"\ >
+	
+	<source value="../tests/rear4.avi"\ />
+
+	</cvcapture>
+	
+	Utilização (câmera):
+	
+	<cvcapture label="cvcapture"\ >
+	
+	<source value="cam"\ />
+	
+	</cvcapture>
+	
+	\item dsvlcapture
+	
+	Descrição: Esta implementação utiliza \textit{DirectShow} para capturar o \textit{stream} de vídeo.
+	
+	Utilização:
+	
+	<dsvlcapture label="dsvlcapture"\ />
+	
+	\item cmucapture
+	
+	Descrição: Este filtro utiliza o driver \textit{CMU} para acessar dispositivos de captura de vídeo \textit{FireWire}.
+	
+	Utilização:
+	
+	<cmucapture label="cmucapture"\ >
+	
+	<brightness value="-1"\ />
+	
+	<exposure value="-1"\ />
+	
+	<flipRGB value="false"\ />
+	
+	<gain value="87"\ />
+	
+	<gamma value="1"\ />
+	
+	<mode value="640x480mono"\ />
+	
+	<rate value="30fps"\ />
+	
+	<saturation value="90"\ />
+	
+	<sharpness value="80"\ />
+	
+	<whitebalanceH value="0"\ />
+	
+	<whitebalanceL value="-1"\ />
+	
+	</cmucapture>
+
+	\item vwcapture
+	
+	Descrição: Este filtro utiliza a \textit{API VideoWrapper} para acessar dispositivos de captura de vídeo \textit{FireWire}.
+	
+	Utilização:
+	
+	<vwcapture label="capture1"\ >
+	
+	<videostring value="pgr: 0 640 30 grey16 1 rgb"\ />
+	
+	</vwcapture>
+	
+	O \textit{videostring} contêm os parâmetros da câmera que dependem do tipo de interface:
+	
+	
+\begin{itemize}
+	\item Câmeras utilizando a especificação \textit{DCAM} do \textit{Videre Design}.
+	
+	Parâmetros: "dcam: número largura \textit{frameRate} modoDeCor escala"\ 
+	
+	Exemplo: "dcam: 0 640 30 rgb 2"\ 
+	
+	
+	
+	\item Câmeras do \textit{Point Grey Research}.
+	
+	Parâmetros: "pgr: número largura \textit{frameRate} modoDeCor escala modoDaSaída"\ 
+	
+	Exemplo: "pgr: 0 640 30 grey8 1 rgb"\ 
+	
+	
+	
+	\item Câmeras utilizando \textit{VidCapture} (\textit{DirectShow}).
+	
+	Parâmetros: "vc: número largura \textit{frameRate} modoDeCor escala modoDaSaída"\ 
+	
+	Exemplo: "vc: 0 640 15 rgb 0"\ 
+\end{itemize}
+	
+	
+\end{itemize}
+
+\subsection{Filtros de processamento de vídeo}
+
+\begin{itemize}
+	\item Filtro de \textit{Mono}.
+	
+	Descrição: A \textit{Touchlib} requer uma imagem fonte de 8 \textit{bits} em escala de cinza. Este filtro só é necessário se o filtro de captura de vídeo não for capaz de entregar o formato correto.
+	
+	Utilização:
+	
+	<mono label="monofilter"\ />
+	
+	\item Filtro de \textit{Background}.
+	
+	Descrição: Este filtro remove o fundo através da criação de uma imagem de referência na sua inicialização, que depois é subtraida do frame ativo atual.
+	
+	Utilização:
+	
+	<backgroundremove label="backgroundfilter"\ >
+	
+	<threshold value="20"\ />
+	
+	</backgroundremove>
+	
+	o valor de \textit{threshold} varia de 0-255.
+	
+	\item Filtro de \textit{Smoothing}.
+	
+	Descrição: Este filtro de suavização aplica o \textit{gaussian blur} na imagem fonte.
+	
+	Utilização:
+	
+	<smooth label="smoothfilter"\ />
+	
+	\item Filtro de \textit{Invert}.
+	
+	Descrição: Este filtro inverte uma imagem em escala de cinza. Ele só é necessário em caso de detecção reversa, onde se detecta os pontos que não estão iluminados.
+	
+	Utilização:
+	
+	<invert label="invert"\ />
+	
+	\item Filtro de \textit{Scaler}.
+	
+	Descrição: Se o filtro usado antes deste der uma saída fraca, este filtro de escala é utilizado para ampliar a imagem atual.
+	
+	Utilização:
+	
+	<scaler label="scaler"\ >
+	
+	<level value="70"\ />
+	
+	</scaler>
+	
+	\item Filtro de Brilho e Contraste.
+	
+	Descrição: Situações particulares podem precisar de um ajuste no brilho e contraste da imagem. Este filtro normalmente é usado para iluminações FTIR.
+	
+	Utilização:
+	
+	<brightnesscontrast label="brightnesscontrast4"\ >
+	
+	<brightness value="0.1"\ />
+	
+	<contrast value="0.4"\ />
+	
+	</brightnesscontrast>
+	
+	\item Filtro de \textit{Highpass}.
+	
+	Descrição: Iluminações difusas produzem um \textit{blob} com brilho muito inferior a iluminação FTIR. No entanto, se tiver contraste suficiente disponível, o filtro de \textit{Highpass} é capaz de aplificar a saída desses \textit{blobs}.
+	
+	Utilização:
+	
+	<highpass label="highpass"\ >
+	
+	<filter value="6"\ />
+	
+	<scale value="32"\ />
+	
+	</highpass>
+	
+	\item Filtro de \textit{Highpass} (simples).
+	
+	Descrição: Similar ao filtro anterior, mas usa um algoritmo mais simples, possuindo uma performance mais rápida que o filtro de \textit{Highpass} padrão. Este filtro possui duas maneiras diferentes de amplificar a imagem fonte, é recomendado utilizar o \textit{noiseMethod} como 1.
+	
+	Utilização:
+	
+	<simplehighpass label="simplehighpass"\ >
+	
+	<blur value="13"\ />
+	
+	<noise value="3"\ />
+	
+	<noiseMethod value="1"\ />
+	
+	</simplehighpass>
+	
+	\item Filtro de Correção da Distorção em Barril.
+	
+	Descrição: Uma lente de câmera de ângulo grande normalmente contêm uma distorção radial que não pode ser corrigida pelo algoritmo padrão da \textit{Touchlib}. Este filtro corrige a distorção em barril baseada na característica da lente. Este filtro necessita de um arquivo \textit{camera.yml} que é criado pela ferramenta de correção da distorção em barril. Como a imagem é corrigida, o resultado pode perder algumas partes importantes. Pode-se arrumar isso mudando o \textit{border size} (se não for necessário, este valor deve ser colocado como 0).
+	
+	Utilização:
+	
+	<barreldistortioncorrection label="barreldistortioncorrection1"\ >
+	
+	<border size value="20"\ />
+	
+	</barreldistortioncorrection>
+	
+	\item Filtro de Corte.
+	
+	Descrição: Permite o usuário a cortar a imagem do vídeo. Os valores \textit{posX} e \textit{posY} definem a posição de cima e esquerda que começa a área de corte. O \textit{height} e \textit{width} definem a altura e largura, respectivamente, da área de corte.
+	
+	Utilização:
+	
+	<crop label="crop"\ >
+	
+	<posX value="40"\ />
+	
+	<posY value="40"\ />
+	
+	<height value="120"\ />
+	
+	<width value="160"\ />
+	
+	</crop>
+	
+	\item Filtro \textit{Rectify}.
+	
+	Descrição: Este é o filtro final do \textit{pipeline} do processamento de imagem. Ele deve ser colocado em um valor no qual os \textit{blobs} sejam visíveis mas a entrada de barulho seja ignorada. Esta imagem será a usada para se fazer a detecção de \textit{blobs}.
+	
+	Utilização:
+	
+	<rectify label="rectify"\ >
+	
+	<level value="75"\ />
+	
+	</rectify>
+	
+	O valor de \textit{level} varia de 0-255.
+	
+\end{itemize}
+
+\section{Calibração da \textit{Touchlib}}
+
+Para calibrar a Touchlib, é necessário possuir uma mesa multi-toque completamente funcional, incluindo projetor e câmera. É recomendado que utilize arquivos de \textit{config.xml} de exemplo para poder criar um. Cada técnica de iluminação requer uma cadeia diferente de filtros. Quando a cadeia tiver finalizada, a aplicação de configuração deve ser usada iniciando o arquivo \textit{configapp.exe} do diretório \textit{bin} da \textit{Touchlib} (ou \textit{./configapp} do diretório \textit{/src} no \textit{Linux}). A aplicação agora irá mostrar os filtros iniciados no arquivo \textit{config.xml}. Aperte 'b' para capturar a imagem de referência do filtro de \textit{background}, depois ajuste os parâmetros até que a janela do filtro \textit{rectify} só mostre \textit{blobs} claros quando a mesa for tocada. Se for necessário recapturar a imagem de referência para o filtro de \textit{background}, aperte 'b'.
+
+Quando tiver satisfeito com os resultados da cadeia de filtros, inicie a calibração apertando 'enter' para ir para o modo de calibração em tela cheia. A aplicação de configuração irá agora mostrar um fundo preto com 20 cruzes verdes de referência, 5 horizontais por linha e 4 verticais. No canto superior esquerdo tem um exemplo do input da câmera. Pode-se mudar o filtro que se vê no exemplo apertado os números de 1-0. Se não quiser utilizar o tamanho completo do vídeo da câmera, é possível apertar 'x' para ajustar a caixa de limitação, seguindo as instruções na tela. Para começar a calibração, aperte 'c'. O ponto de referência atual a ser selecionado fica marcado em vermelho. Se a sua câmera estiver em alguma orientação diferente, a \textit{Touchlib} irá corrigir isso automaticamente durante a calibração, ao tocar no primeiro ponto. Continue a calibração tocando nos pontos restantes. Ao terminar a calibração, teste a precisão dela tocando na tela. A aplicação mostrará um retângulo do tamanho do toque no local em que for tocado a superfície. Para sair da aplicação de configuração, aperte 'ESC'. Ao sair, todos os valores da aplicação são escritos para o arquivo \textit{config.xml}. Se necessário, pode se ajustar os valores da calibração dentro das \textit{tags <screen>...</screen>}.

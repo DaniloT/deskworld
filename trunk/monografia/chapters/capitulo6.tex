@@ -1,0 +1,97 @@
+\chapter{Arquitetura e Detalhes de Implementação}
+\label{cap6}
+
+\section{Arquitetura do jogo}
+\label{cap6.1}
+
+A evolução da tecnologia dos hardwares dos computadores pessoais proporcionou grande desenvolvimento à indústria de jogos eletrônicos levando-a a aprimorar seu produto ao longo do tempo. Este caminho foi marcado por grandes equipes e pela extensiva codificação. Os jogos eletrônicos mais modernos podem ultrapassar um milhão de linhas de código de acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}]. Portanto, foi necessário organizar estes extensivos códigos a fim de obter melhor performace no desenvolvimento de novos jogos. Esta organização pode ser realizada por meio da adoção de uma arquitetura bem definida.
+
+Para este jogo escolhemos uma arquitetura de desenvolvimento baseada em um sistema de componentes.
+
+\subsection{Sistema de Componentes}
+\label{cap6.1.1}
+
+Um sistema de componentes é caracterizado pela sua estrutura não-hierárquica. O jogo que se baseia em componentes terá somente uma classe pai que representará todas as entidades do jogo, enquanto quaisquer outras classes serão irmãs entre si, pois todas serão filhas da entidade do jogo. Cada classe filha da entidade é um componente, ou seja, o entidade do jogo é formada por uma composição de componentes.
+
+É observado a independência de cada componente, onde podemos, por exemplo, ter a liberdade de transformar um elemento de uma classe jogador em veículo. Entretanto, mesmo com a mudança podemos manter a coerência lógica do jogo, pois estas classes terão a mesma estrutura que forma a entidade do jogo, como audio, corpo físico e aparência.
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.8]{componente.png}
+	\caption{Exemplo de uso de componentes em entidades de jogo~[\citenum{pedrosaulo}]}
+	\label{componente}
+	\end{center}
+\end{figure}
+
+\subsection{Vantagens em relação ao sistema hierárquico}
+\label{cap6.1.2}
+
+Um sistema baseado em componentes é uma alternativa ao forte acomplamento provocado pela hierarquia de classes. Em linguagens orientadas à objeto a hierarquia de classes pode ser de grande ajuda como pode dificultar a codificação do software. Isto porque, em sistemas onde temos tipos de objetos pré-definidos, assim como as relações entre eles, a hierarquia pode ser de grande ajuda. Isto acontece pelo fato da fácil representação do jogo como um hierarquia. Por exemplo, em jogos de esporte, geralmente, temos características fortemente consolidadas. Um jogador de basquete, dificilmente, se transformará em uma bola. A forte acoplação entre as classes favorece a implementação de uma arquitetura hierarquizada.
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.65]{hierarquia.png}
+	\caption{Exemplo de uso de hierarquia em entidades de jogo~[\citenum{pedrosaulo}]}
+	\label{hierarquia}
+	\end{center}
+\end{figure}
+
+No entanto, no caso do jogo \textit{DeskWorld} teremos problemas se utilizarmos este tipo de arquitetura. Isto porque, de acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}], uma arquitetura majoritariamente baseada em hierarquia de classes possui significantes limitações. Uma de suas principais é a baixa flexibilidade devido ao forte acomplamento. O fato de termos classes hierárquicas gera a dependência \textit{inter-classe}, já que, parte de suas características são herdadas de uma classe, sendo que, mudanças realizadas em características de uma classe refletiram sobre suas filhas.
+
+Outro ponto apresentado em~[\citenum{I2GMDVP}], é que, em linguagens bem difundidas no desenvolvimento de jogos, como \textit{C++} e \textit{Java}, a estrutura modelada em hierarquia é estática, não permitindo a alteração de classes em tempo de execução. Isto pode ser um grande entrave, pois certos jogos podem realizar diversas alterações drásticas no comportamento de entidades. Podemos exemplificar esse ponto tomando um jogo em que a morte de um certo inimigo possa se transformar em um item ou dinheiro.
+
+\subsection{Comunicação entre componentes}
+\label{cap6.1.3}
+
+Para aproveitar a flexibilidade provida pelo sistema de componentes, necessitamos realizar a comunicação entre componentes, visto que, será a responsável por engatilhar a transformação de uma entidade. É a mensagem que avisará ao objeto que seu comportamento irá ser alterado e associado a uma outra classe.
+
+Esta comunicação pode ficar a cargo da entidade do jogo, onde, por exemplo, pode realizar a transferência de um som de uma classe de áudio para uma classe veículo. Num sistema simples, essa comunicação pode ser implementada por uma simples chamada de função onde ponteiros são passados referênciando suas respectivas características.
+
+\section{\textit{Design Patterns}}
+\label{cap6.2}
+
+\textit{Design Patterns} são padrões de projeto de orientação a objetos que visam reconhecer padrões recorrentes de forma a aumentar a flexibilidade e permitir o reuso do código se usados de forma adequada. Isso se dá pois o seu uso aumenta a indepêndencia dos sistemas, o que também aumenta a capacidade de evolução do código em si.
+
+Como foi descrito em~[\citenum{pedrosaulo}], para cada padrão, são estabelecidos os seguintes aspectos:
+\begin{itemize}
+	\item{O \textbf{nome} usado para descrever, de maneira sucinta e precisa em no máximo duas palavras, o problema, a solução e as consequências inerentes do padrão.}
+	\item{O \textbf{problema} e o contexto adequados para a aplicação do padrão.}
+	\item{A \textbf{solução} descreve os elementos que compõem o padrão. Cada solução inclui relacionamentos entre classes e a colaboração entre estes casos existam.}
+	\item{As \textbf{consequências} de se aplicar o padrão, ou seja, os resultados e as desvantagens.}
+\end{itemize}
+
+Graças ao fato de jogos serem extremamente modulares, eles ganham um grande benefício por utilizar alguns padrões de projeto. Abaixo estão explicados os mais utilizados para este propósito.
+
+\subsection{\textit{Singleton}}
+\label{cap6.2.1}
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=1]{singleton.png}
+	\caption{Padrão \textit{Singleton}~[\citenum{pedrosaulo}]}
+	\label{singleton}
+	\end{center}
+\end{figure}
+
+O padrão \textit{Singleton} trata de um padrão aonde uma classe necessita necessariamente ser única durante todo o programa, mesmo ela podendo ser utilizada em várias situações.
+
+Através desse padrão, a classe \textit{Singleton} cuida para que ela seja instanciada somente uma vez. Podemos verificar a implementação desse padrão na figura~[\ref{singleton}], onde temos uma operação de classe, 'Instance()', que retorna a única instância, e é salvo como ponteiro estático dessa classe. Caso seja a primeira vez que é chamado, a classe é instaciada, caso contrário, retorna a instância já existente. O construtor é privado para que a classe não possa ser criada por fora dela.
+
+Em jogos, o padrão \textit{Singleton} é muito usado para controlar eventos e gerenciar mensagens, bem como controlar recursos. Em todos esses casos, apensa uma instância pode existir e ela deve permitir acesso global a ela.
+
+\subsection{\textit{Observer}}
+\label{cap6.2.2}
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=1]{observer.png}
+	\caption{Padrão \textit{Observer}~[\citenum{pedrosaulo}]}
+	\label{observer}
+	\end{center}
+\end{figure}
+
+O padrão \textit{Observer}, visto na figura~[\ref{observer}], define um padrão onde um objeto, chamado de \textit{subject}, mantêm uma lista de observadores e os notifica de mudanças de estados. Quando a informação é passada, os observadores consultam o \textit{subject} para sincronizar os dados. O \textit{subject} não precisa conhecer detalhes do observador.
+
+Utilizando a classe \textit{subject}, podemos adicionar ou remover observadores O observador, no entanto, define uma interface para objetos que notificam sobre sua alteração para o subject. Essa é a única ligação entre o observador e o \textit{subject}.
+
+Este padrão também é reconhecido na indústria de jogo. Como a arquitetura de jogos é marcada pela interação entre entidades distintas, o \textit{observer} deve ser usado. Assim as entidades se conhecem e aguardam receber atualizações de outras entidades que compõem o seu meio ambiente.

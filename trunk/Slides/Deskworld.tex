@@ -1,0 +1,194 @@
+\documentclass[9pt]{beamer}
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usetheme{PaloAlto}
+
+
+\title{Deskworld: Software Simulador de F\'isica para Superf\'icies com Tela Multi-Toque\\}
+\author{Danilo Gaby Andersen Trindade\\ Victor Sampaio Zucca\\ Orientadora: Prof.\nobreak\kern-.05em\textordfeminine\ Dr.\nobreak\kern-.05em\textordfeminine\ Carla Denise Castanho}
+\institute[UnB]{Instituto de Ciências Exatas\\Departamento de Ciência da Computação\\Universidade de Brasília}
+
+\newtheorem{email}{Contatos}
+
+\begin{document}
+
+\frame{
+\titlepage
+\centerline{Trabalho apresentado como requisito parcial de conclusão de curso}
+\centerline{Bacharelado em Ciência da Computação}
+}
+
+\section{Introdução}
+\frame{
+  \frametitle{Introdução}
+  \begin{itemize}
+       \vfill
+      \item Problema: Falta de jogos que demonstrem o potencial do \textit{input} de uma mesa multi-toque.
+      \vfill
+      \item Hipótese: Criação de um jogo simulador de física para mesas multi-toque.
+      \vfill
+      \item Motivação: Um jogo simulador de física consegue utilizar todo potencial do \textit{input} de uma mesa multi-toque,
+      sendo perfeito para demonstrar suas capacidades.
+   \end{itemize}
+}
+
+\frame{
+  \frametitle{Introdução}
+  \begin{itemize}
+   \item Objetivos: Demonstração das funcionalidades de uma mesa multi-toque em um estilo de jogo inovador.
+    \vfill
+   \item Objetivos específicos: Criação do Deskworld.
+    \vfill
+   \item Resultados Esperados: Um jogo divertido e inovador que demonstra a capacidade das mesas multi-toque.
+\vfill
+  \item Metodologia: Criar um jogo em um estilo pouco utilizado mostrando inovações e naturalidade de movimentos.
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Introdução}
+  \begin{itemize}
+  \item Este trabalho tem duas partes distintas marcantes:
+  \vfill
+  	\begin{itemize}
+  	\item{Construção de uma mesa multi-toque}
+  	\vfill
+  	\item{Desenvolvimento do jogo Deskworld}
+  	\vfill
+		\end{itemize}   
+  \end{itemize}
+}
+
+\section{Mesa Multi-toque}
+
+\frame{
+  \frametitle{Projeto da Mesa}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.10]{virttable.jpg}
+    \caption{Projeto de Mesa multi-toque: \textit{Virttable} (imagem retirada de~\cite{virttable})}
+    \label{fig:virttable}
+  \end{figure}
+
+}
+
+\frame{
+  \frametitle{Detecção de gestos} 
+  \begin{itemize}
+   \item \textit{Webcam} captura imagem projetada na superfície da mesa\vfill
+   \item São utilizados filtros para captar somete o espectro de luz infravermelha\vfill
+   \item Imagem é processada e geram-se eventos de \textit{input}\vfill
+   \item Eventos são tratado e interpretados como gestos de acordo com software\vfill
+  \end{itemize}
+
+}
+
+\section{Deskworld}
+\frame{
+	\frametitle{Jogo Simulador de Física}
+	\begin{itemize}
+	\item{O que são jogos simuladores de física?}
+	\vfill
+		\begin{itemize}
+		\item{Jogo sem objetivo inicial}
+		\vfill
+		\item{Permite a criação de um mundo do jeito que o jogador quiser}
+		\vfill
+		\item{Objetos no mundo interagem de acordo com as leis da física}
+		\vfill
+		\item{Propriedades dos objetos editáveis}
+		\vfill
+		\end{itemize}
+	\end{itemize}
+}
+
+\frame{
+  \frametitle{Jogo Similar \textit{Phun}}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.25]{Phun.jpg}
+    \caption{Jogo para \textit{PC} \textit{Phun}~\cite{phun}}
+    \label{fig:Phun}
+  \end{figure}
+}
+
+\frame{
+	\frametitle{Diferenciais}
+	\begin{itemize}
+	\item{Gênero pouco aprofundado.}
+	\vfill
+	\item{Desenvolvimento para um \textit{input} diferenciado.}
+	\vfill
+	\item{Personalização de seu mundo.}
+	\vfill
+	\item{Interatividade entre \textit{N} jogadores.}
+	\vfill
+	\item{Divisão de mundos.}
+	\vfill
+	\item{Criação de regras.}
+	\vfill
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Exemplo: Pong}
+	\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{pong.png}
+    \label{fig:pong}
+  \end{figure}
+}
+
+\section{Cronograma}
+\frame{
+  \frametitle{Cronograma}
+  \vfill
+   \begin{tabular}{ |l | c | c | c | c | c | c | }
+    \hline
+	Atividades/Meses      & Ago & Set & Out & Nov & Dez & Jan\\
+    \hline
+    Construção da Mesa &  x  &  x   &     &     &     &   \\
+    \hline
+    Implementação Básica do Jogo &  x  &  x  &     &     &     &   \\
+    \hline
+    Implementação Avançada do Jogo  &    &  x  &  x  &  x  &  x   &   \\
+    \hline
+    Testes e Finalizações &    &     &     &     &  x  &  x  \\
+    \hline
+  \end{tabular}
+  \vfill
+}
+
+\nocite{scient}
+\nocite{virttable}
+\nocite{phun}
+\nocite{muller}
+\nocite{Box2Dmanual}
+\nocite{pedrosaulo}
+\nocite{multphys}
+\nocite{multnump}
+\nocite{I2GMDVP}
+\nocite{barcelonamultcrayon}
+
+\section{Referências}
+\frame[allowframebreaks]{
+  \frametitle{Referências}
+  \bibliographystyle{plain}
+  \bibliography{bibliografia}
+}
+
+\section{Dúvidas}
+\frame{
+	\frametitle{Dúvidas?}
+	\vfill
+	\begin{email}
+		\centerline{danilotrindade@gmail.com}
+		\centerline{victorzucca@gmail.com}
+	\end{email}
+	\vfill
+	\centerline{Bacharelado em Ciência da Computação - UnB}
+}
+
+\end{document}

@@ -1,0 +1,576 @@
+/*
+ * Universidade de Brasilia
+ * Instituto de Ciencias Exatas
+ * Departamento de Ciencia da Computacao
+ *
+ * Introducao ao Desenvolvimento de Jogos - 01/2010
+ *
+ * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
+ * 			Victor Sampaio Zucca 		  - 06/25566
+ * Turma: A
+ *
+ * Descricao: State in game do jogo.
+ */
+
+#include "LevelState.h"
+
+LevelState::~LevelState() {
+	Unload();
+}
+
+void LevelState::Load(){
+	inputManager = inputManager->getInstance();
+	engine = engine->getInstace();
+	graphics = graphics->getInstace();
+	background = new ImageLoader("fundo.jpg",0,0);
+	dinamico = new ImageLoader("D.png",0,0);
+	estatico = new ImageLoader("E2.png",0,75);
+	circulo = new ImageLoader("BOLA2.png",0,150);
+	retangulo = new ImageLoader("retangulo.png",0,225);
+	triangulo = new ImageLoader("triangulo.png",0,300);
+	borracha = new ImageLoader("B1.png",0,375);
+	musica = new ImageLoader("music.png",0,450);
+	vermelho = new ImageLoader("red.png",0,525);
+	azul = new ImageLoader("blue.png",37,525);
+	verde = new ImageLoader("green.png",74,525);
+	amarelo = new ImageLoader("yellow.png",0,562);
+	preto = new ImageLoader("black2.png",37,562);
+	branco = new ImageLoader("white.png",74,562);
+	fechar = new ImageLoader("Fechar.png",(background->GetRect().w-25),3);
+	bgMusic = new Audio("Wesnothmusic.ogg",1); //Background Music
+	bgMusic->Play(-1);
+	toolColor.r = 0;
+	toolColor.g = 0;
+	toolColor.b = 0;
+	toolColor.a = 255;
+	currentTool = freeform;
+	dynamic = false;
+	thickness = 5;
+}
+
+void LevelState::Unload(){
+	delete background;
+	delete dinamico;
+	delete estatico;
+	delete circulo;
+	delete retangulo;
+	delete triangulo;
+	delete borracha;
+	delete fechar;
+	delete musica;
+	delete vermelho;
+	delete azul;
+	delete verde;
+	delete amarelo;
+	delete preto;
+	delete branco;
+	delete bgMusic;
+}
+
+int LevelState::Update(){
+	Sint16 id;
+	DrawObject* drawTemp = (DrawObject*) malloc(sizeof(DrawObject));
+
+	drawTemp->drawing = false;
+	drawTemp->xMouse = 0;
+	drawTemp->xOrig = 0;
+	drawTemp->yMouse = 0;
+	drawTemp->yOrig = 0;
+
+	for(itTouch = inputManager->getTouchBegin(); itTouch != inputManager->getTouchEnd(); itTouch++){
+		id = itTouch->second->id;
+		if(drawObjects.find(id) == drawObjects.end()){
+			drawObjects.insert(pair<Sint16,DrawObject*>(id, drawTemp));
+		}
+		if(drawObjects[id]->drawing){
+			if(inputManager->isKeyDown(SDLK_ESCAPE)){
+				drawObjects[id]->drawing = false;
+			}else if(inputManager->isTouchUp(id)){
+				vector<Sint16> vx, vy;
+				switch(currentTool){
+				case triangle:
+					// Mouse point above from origin
+					if(drawObjects[id]->yMouse < drawObjects[id]->yOrig){
+						if(drawObjects[id]->xMouse < drawObjects[id]->xOrig){
+							// Mouse point at left from origin
+							vx.push_back((((drawObjects[id]->xOrig-drawObjects[id]->xMouse)/2)+drawObjects[id]->xMouse));
+							vy.push_back(drawObjects[id]->yMouse);
+							vx.push_back(drawObjects[id]->xOrig);
+							vy.push_back(drawObjects[id]->yOrig);
+							vx.push_back(drawObjects[id]->xMouse);
+							vy.push_back(drawObjects[id]->yOrig);
+						}else if(drawObjects[id]->xMouse > drawObjects[id]->xOrig){
+							// Mouse point at right from origin
+							vx.push_back((((drawObjects[id]->xMouse-drawObjects[id]->xOrig)/2)+drawObjects[id]->xOrig));
+							vy.push_back(drawObjects[id]->yMouse);
+							vx.push_back(drawObjects[id]->xMouse);
+							vy.push_back(drawObjects[id]->yOrig);
+							vx.push_back(drawObjects[id]->xOrig);
+							vy.push_back(drawObjects[id]->yOrig);
+						}
+						else{break;}
+					// Mouse point below from origin
+					}else if(drawObjects[id]->yMouse > drawObjects[id]->yOrig){
+						if(drawObjects[id]->xMouse < drawObjects[id]->xOrig){
+							// Mouse point at left from origin
+							vx.push_back((((drawObjects[id]->xOrig-drawObjects[id]->xMouse)/2)+drawObjects[id]->xMouse));
+							vy.push_back(drawObjects[id]->yOrig);
+							vx.push_back(drawObjects[id]->xOrig);
+							vy.push_back(drawObjects[id]->yMouse);
+							vx.push_back(drawObjects[id]->xMouse);
+							vy.push_back(drawObjects[id]->yMouse);
+						}else if(drawObjects[id]->xMouse > drawObjects[id]->xOrig){
+							// Mouse point at right from origin
+							vx.push_back((((drawObjects[id]->xMouse-drawObjects[id]->xOrig)/2)+drawObjects[id]->xOrig));
+							vy.push_back(drawObjects[id]->yOrig);
+							vx.push_back(drawObjects[id]->xMouse);
+							vy.push_back(drawObjects[id]->yMouse);
+							vx.push_back(drawObjects[id]->xOrig);
+							vy.push_back(drawObjects[id]->yMouse);
+						}else{break;}
+					}else{break;}
+					GOTriangle* t = new GOTriangle(vx, vy, toolColor, dynamic);
+					objects.push_back(t);
+					break;
+				case rectangle:
+					vx.push_back(drawObjects[id]->xOrig);
+					vy.push_back(drawObjects[id]->yOrig);
+					vx.push_back(drawObjects[id]->xMouse);
+					vy.push_back(drawObjects[id]->yMouse);
+					GORectangle* r = new GORectangle(vx, vy, toolColor, dynamic);
+					objects.push_back(r);
+					break;
+				case circle:
+					vx.push_back(drawObjects[id]->xOrig);
+					vy.push_back(drawObjects[id]->yOrig);
+					vx.push_back(drawObjects[id]->xMouse);
+					vy.push_back(drawObjects[id]->yMouse);
+					GOCircle* c = new GOCircle(vx, vy, toolColor, dynamic);
+					objects.push_back(c);
+					break;
+				case freeform:
+					vx = ff_vx[id];
+					vy = ff_vy[id];
+					GOFreeform* ff = new GOFreeform(vx, vy, toolColor, dynamic, thickness);
+					ff_vx[id].clear();
+					ff_vy[id].clear();
+					inputManager->xy.clear();
+					objects.push_back(ff);
+					break;
+				}
+
+				drawObjects[id]->drawing = false;
+
+			}else if(currentTool == freeform){
+			//Free form should have all the coordinates of a series of circles
+				if(inputManager->isTouching(id)){
+					if(id == 10000){
+						//Test for finger movement
+						if((ff_vx[id].back() != drawObjects[id]->xMouse)|| (ff_vy[id].back() != drawObjects[id]->yMouse)){
+							ff_vx[id].push_back(drawObjects[id]->xMouse);
+							ff_vy[id].push_back(drawObjects[id]->yMouse);
+						}
+					}else{
+						multimap<int ,point>::iterator it;
+						while((inputManager->xy.end()!= (it = inputManager->xy.find(id)))){
+							ff_vx[id].push_back(it->second.x);
+							ff_vy[id].push_back(it->second.y);
+							inputManager->xy.erase(it);
+						}
+					}
+				}
+			}
+		}else{
+			//Test mouse down
+			if(inputManager->isTouched(id)){
+				drawObjects[id]->xOrig = inputManager->touchPosX(id);
+				drawObjects[id]->yOrig = inputManager->touchPosY(id);
+				//Test overlap to erase objects
+				if (inputManager->isTouchInside(fechar, id)){
+					SDL_Event* event = new SDL_Event();
+					event->type = SDL_QUIT;
+					SDL_PushEvent(event);
+				} else {
+					if (inputManager->isTouchInside(dinamico, id)){
+						if (!dynamic) {
+							delete dinamico;
+							dinamico = new ImageLoader("D2.png",0,0);
+							delete estatico;
+							estatico = new ImageLoader("E.png",0,75);
+						}
+						dynamic = true;
+					} else {
+						if (inputManager->isTouchInside(estatico, id)){
+							if (dynamic) {
+								delete dinamico;
+								dinamico = new ImageLoader("D.png",0,0);
+								delete estatico;
+								estatico = new ImageLoader("E2.png",0,75);
+							}
+							dynamic = false;
+						} else {
+							if (inputManager->isTouchInside(circulo, id)){
+								if (currentTool == rectangle) {
+									delete circulo;
+									circulo = new ImageLoader("BOLA2.png",0,150);
+									delete retangulo;
+									retangulo = new ImageLoader("retangulo.png",0,225);
+								} else {
+									if (currentTool == triangle) {
+										delete circulo;
+										circulo = new ImageLoader("BOLA2.png",0,150);
+										delete triangulo;
+										triangulo = new ImageLoader("triangulo.png",0,300);
+									} else {
+										if (currentTool == erase) {
+											delete circulo;
+											circulo = new ImageLoader("BOLA2.png",0,150);
+											delete borracha;
+											borracha = new ImageLoader("B1.png",0,375);
+										}
+									}
+								}
+								currentTool = circle;
+							} else {
+								if (inputManager->isTouchInside(retangulo, id)){
+									if (currentTool == circle) {
+										delete circulo;
+										circulo = new ImageLoader("BOLA.png",0,150);
+										delete retangulo;
+										retangulo = new ImageLoader("retangulo2.png",0,225);
+									} else {
+										if (currentTool == triangle) {
+											delete retangulo;
+											retangulo = new ImageLoader("retangulo2.png",0,225);
+											delete triangulo;
+											triangulo = new ImageLoader("triangulo.png",0,300);
+										} else {
+											if (currentTool == erase) {
+												delete retangulo;
+												retangulo = new ImageLoader("retangulo2.png",0,225);
+												delete borracha;
+												borracha = new ImageLoader("B1.png",0,375);
+											}
+										}
+									}
+									currentTool = rectangle;
+								} else {
+									if (inputManager->isTouchInside(triangulo, id)){
+										if (currentTool == rectangle) {
+											delete triangulo;
+											triangulo = new ImageLoader("triangulo2.png",0,300);
+											delete retangulo;
+											retangulo = new ImageLoader("retangulo.png",0,225);
+										} else {
+											if (currentTool == circle) {
+												delete circulo;
+												circulo = new ImageLoader("BOLA.png",0,150);
+												delete triangulo;
+												triangulo = new ImageLoader("triangulo2.png",0,300);
+											} else {
+												if (currentTool == erase) {
+													delete triangulo;
+													triangulo = new ImageLoader("triangulo2.png",0,300);
+													delete borracha;
+													borracha = new ImageLoader("B1.png",0,375);
+												}
+											}
+										}
+										currentTool = triangle;
+									} else {
+										if (inputManager->isTouchInside(borracha, id)){
+											if (currentTool == rectangle) {
+												delete borracha;
+												borracha = new ImageLoader("B2.png",0,375);
+												delete retangulo;
+												retangulo = new ImageLoader("retangulo.png",0,225);
+											} else {
+												if (currentTool == triangle) {
+													delete borracha;
+													borracha = new ImageLoader("B2.png",0,375);
+													delete triangulo;
+													triangulo = new ImageLoader("triangulo.png",0,300);
+												} else {
+													if (currentTool == circle) {
+														delete circulo;
+														circulo = new ImageLoader("BOLA.png",0,150);
+														delete borracha;
+														borracha = new ImageLoader("B2.png",0,375);
+													}
+												}
+											}
+											currentTool = erase;
+										}else{
+											//Changing colors
+											if(inputManager->isTouchInside(vermelho, id)){
+												delete vermelho;
+												vermelho = new ImageLoader("red2.png",0,525);
+												delete azul;
+												azul = new ImageLoader("blue.png",37,525);
+												delete verde;
+												verde = new ImageLoader("green.png",74,525);
+												delete amarelo;
+												amarelo = new ImageLoader("yellow.png",0,562);
+												delete preto;
+												preto = new ImageLoader("black.png",37,562);
+												delete branco;
+												branco = new ImageLoader("white.png",74,562);
+												toolColor.r = 255;
+												toolColor.g = 0;
+												toolColor.b = 0;
+											}else if(inputManager->isTouchInside(azul, id)){
+												delete vermelho;
+												vermelho = new ImageLoader("red.png",0,525);
+												delete azul;
+												azul = new ImageLoader("blue2.png",37,525);
+												delete verde;
+												verde = new ImageLoader("green.png",74,525);
+												delete amarelo;
+												amarelo = new ImageLoader("yellow.png",0,562);
+												delete preto;
+												preto = new ImageLoader("black.png",37,562);
+												delete branco;
+												branco = new ImageLoader("white.png",74,562);
+												toolColor.r = 0;
+												toolColor.g = 0;
+												toolColor.b = 255;
+											}else if(inputManager->isTouchInside(verde, id)){
+												delete vermelho;
+												vermelho = new ImageLoader("red.png",0,525);
+												delete azul;
+												azul = new ImageLoader("blue.png",37,525);
+												delete verde;
+												verde = new ImageLoader("green2.png",74,525);
+												delete amarelo;
+												amarelo = new ImageLoader("yellow.png",0,562);
+												delete preto;
+												preto = new ImageLoader("black.png",37,562);
+												delete branco;
+												branco = new ImageLoader("white.png",74,562);
+												toolColor.r = 0;
+												toolColor.g = 255;
+												toolColor.b = 0;
+											}else if(inputManager->isTouchInside(amarelo, id)){
+												delete vermelho;
+												vermelho = new ImageLoader("red.png",0,525);
+												delete azul;
+												azul = new ImageLoader("blue.png",37,525);
+												delete verde;
+												verde = new ImageLoader("green.png",74,525);
+												delete amarelo;
+												amarelo = new ImageLoader("yellow2.png",0,562);
+												delete preto;
+												preto = new ImageLoader("black.png",37,562);
+												delete branco;
+												branco = new ImageLoader("white.png",74,562);
+												toolColor.r = 200;
+												toolColor.g = 200;
+												toolColor.b = 0;
+											}else if(inputManager->isTouchInside(preto, id)){
+												delete vermelho;
+												vermelho = new ImageLoader("red.png",0,525);
+												delete azul;
+												azul = new ImageLoader("blue.png",37,525);
+												delete verde;
+												verde = new ImageLoader("green.png",74,525);
+												delete amarelo;
+												amarelo = new ImageLoader("yellow.png",0,562);
+												delete preto;
+												preto = new ImageLoader("black2.png",37,562);
+												delete branco;
+												branco = new ImageLoader("white.png",74,562);
+												toolColor.r = 0;
+												toolColor.g = 0;
+												toolColor.b = 0;
+											}else if(inputManager->isTouchInside(branco, id)){
+												delete vermelho;
+												vermelho = new ImageLoader("red.png",0,525);
+												delete azul;
+												azul = new ImageLoader("blue.png",37,525);
+												delete verde;
+												verde = new ImageLoader("green.png",74,525);
+												delete amarelo;
+												amarelo = new ImageLoader("yellow.png",0,562);
+												delete preto;
+												preto = new ImageLoader("black.png",37,562);
+												delete branco;
+												branco = new ImageLoader("white2.png",74,562);
+												toolColor.r = 255;
+												toolColor.g = 255;
+												toolColor.b = 255;
+											}else if(inputManager->isTouchInside(musica, id)){
+												delete musica;
+												if(bgMusic->Tocando()){
+													bgMusic->Pause();
+													musica = new ImageLoader("musicoff.png",0,450);
+												}else{
+													bgMusic->Resume();
+													musica = new ImageLoader("music.png",0,450);
+												}
+											}else{
+												if(currentTool == erase){
+													Object* delObj;
+													delObj = engine->EraseObject(drawObjects[id]->xOrig, drawObjects[id]->yOrig);
+													if(delObj != NULL){
+														for(Uint32 i = 0; i < objects.size() ; i++){
+															if(objects.at(i)->GetBody() == (delObj->body)){
+																objects.erase(objects.begin()+i);
+																engine->DestroyObject(*delObj);
+																break;
+															}
+														}
+													}
+												//Drawing or Mousejoint
+												} else {
+													engine->MouseDown(drawObjects[id]->xOrig, drawObjects[id]->yOrig, id);
+													if (engine->mouseJoint.find(id) == engine->mouseJoint.end()){//engine->mouseJoint[id] == NULL) {
+														drawObjects[id]->drawing = true;
+														if(currentTool == freeform){
+															ff_vx[id].push_back(drawObjects[id]->xOrig);
+															ff_vy[id].push_back(drawObjects[id]->yOrig);
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			} else {
+				//Mouse up to destroy joint
+				if(inputManager->isTouchUp(id)){
+					if(engine->mouseJoint.find(id) != engine->mouseJoint.end()){//engine->mouseJoint[id] != NULL)
+						engine->DestroyMouseJoint(id);
+						inputManager->xy.clear();
+					}
+				//Update grabbed object with mouse position
+				}else if(engine->mouseJoint.find(id) != engine->mouseJoint.end()){//engine->mouseJoint[id]){
+					b2Vec2 p(CONVERT(inputManager->touchPosX(id)), CONVERT(inputManager->touchPosY(id)));
+					engine->mouseJoint[id]->SetTarget(p);
+				}
+			}
+		}
+	}
+
+	//Objects update
+	for(Uint32 i = 0; i < objects.size() ; i++){
+		if(objects.at(i)->Update() > 2000){
+			objects.erase(objects.begin()+i);
+		}
+	}
+	//World update
+	engine->Update();
+	return 0;
+}
+
+void LevelState::Render(SDL_Surface * screen){
+	Sint16 id;
+
+	background->Render(screen);
+	for(it = drawObjects.begin(); it != drawObjects.end(); it++){
+		id = it->first;
+		if(drawObjects[id]->drawing){
+
+			drawObjects[id]->xMouse = inputManager->touchPosX(id);
+			drawObjects[id]->yMouse = inputManager->touchPosY(id);
+
+			if(inputManager->isTouching(id)){
+				vector<Sint16> vx, vy;
+				switch(currentTool){
+				case triangle:
+					// Mouse point above from origin
+					if(drawObjects[id]->yMouse < drawObjects[id]->yOrig){
+						if(drawObjects[id]->xMouse < drawObjects[id]->xOrig){
+							// Mouse point at left from origin
+							graphics->DrawTriangle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, ((drawObjects[id]->xOrig-drawObjects[id]->xMouse)/2)+drawObjects[id]->xMouse, drawObjects[id]->yMouse, drawObjects[id]->xMouse, drawObjects[id]->yOrig, toolColor);
+						}else if(drawObjects[id]->xMouse > drawObjects[id]->xOrig){
+							// Mouse point at right from origin
+							graphics->DrawTriangle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, ((drawObjects[id]->xMouse-drawObjects[id]->xOrig)/2)+drawObjects[id]->xOrig, drawObjects[id]->yMouse, drawObjects[id]->xMouse, drawObjects[id]->yOrig, toolColor);
+						}
+					// Mouse point below from origin
+					}else if(drawObjects[id]->yMouse > drawObjects[id]->yOrig){
+						if(drawObjects[id]->xMouse < drawObjects[id]->xOrig){
+							// Mouse point at left from origin
+							graphics->DrawTriangle(screen, ((drawObjects[id]->xOrig-drawObjects[id]->xMouse)/2)+drawObjects[id]->xMouse, drawObjects[id]->yOrig, drawObjects[id]->xOrig, drawObjects[id]->yMouse, drawObjects[id]->xMouse, drawObjects[id]->yMouse, toolColor);
+						}else if(drawObjects[id]->xMouse > drawObjects[id]->xOrig){
+							// Mouse point at right from origin
+							graphics->DrawTriangle(screen, ((drawObjects[id]->xMouse-drawObjects[id]->xOrig)/2)+drawObjects[id]->xOrig, drawObjects[id]->yOrig, drawObjects[id]->xOrig, drawObjects[id]->yMouse, drawObjects[id]->xMouse, drawObjects[id]->yMouse, toolColor);
+						}
+					}
+					break;
+				case rectangle:
+					vx.push_back(drawObjects[id]->xOrig);
+					vy.push_back(drawObjects[id]->yOrig);
+					vx.push_back(drawObjects[id]->xMouse);
+					vy.push_back(drawObjects[id]->yOrig);
+					vx.push_back(drawObjects[id]->xMouse);
+					vy.push_back(drawObjects[id]->yMouse);
+					vx.push_back(drawObjects[id]->xOrig);
+					vy.push_back(drawObjects[id]->yMouse);
+					graphics->DrawRectangle(screen, vx, vy, toolColor);
+					break;
+				case circle:
+					if(drawObjects[id]->yMouse < drawObjects[id]->yOrig){
+						if(drawObjects[id]->xMouse < drawObjects[id]->xOrig){
+							// Ponto do mouse a esquerda da origem
+							if((drawObjects[id]->xOrig-drawObjects[id]->xMouse)>(drawObjects[id]->yOrig-drawObjects[id]->yMouse)){
+								graphics->DrawCircle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, (drawObjects[id]->xOrig-drawObjects[id]->xMouse), toolColor);
+							}else{
+								graphics->DrawCircle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, (drawObjects[id]->yOrig-drawObjects[id]->yMouse), toolColor);
+							}
+						}else if(drawObjects[id]->xMouse > drawObjects[id]->xOrig){
+							// Ponto do mouse a direita da origem
+							if((drawObjects[id]->xMouse-drawObjects[id]->xOrig)>(drawObjects[id]->yOrig-drawObjects[id]->yMouse)){
+								graphics->DrawCircle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, (drawObjects[id]->xMouse-drawObjects[id]->xOrig), toolColor);
+							}else{
+								graphics->DrawCircle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, (drawObjects[id]->yOrig-drawObjects[id]->yMouse), toolColor);
+							}
+						}
+					}else if(drawObjects[id]->yMouse > drawObjects[id]->yOrig){
+						if(drawObjects[id]->xMouse < drawObjects[id]->xOrig){
+							// Ponto do mouse a esquerda da origem
+							if((drawObjects[id]->xOrig-drawObjects[id]->xMouse)>(drawObjects[id]->yMouse-drawObjects[id]->yOrig)){
+								graphics->DrawCircle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, (drawObjects[id]->xOrig-drawObjects[id]->xMouse), toolColor);
+							}else{
+								graphics->DrawCircle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, (drawObjects[id]->yMouse-drawObjects[id]->yOrig), toolColor);
+							}
+						}else if(drawObjects[id]->xMouse > drawObjects[id]->xOrig){
+							// Ponto do mouse a direita da origem
+							if((drawObjects[id]->xMouse-drawObjects[id]->xOrig)>(drawObjects[id]->yMouse-drawObjects[id]->yOrig)){
+								graphics->DrawCircle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, (drawObjects[id]->xMouse-drawObjects[id]->xOrig), toolColor);
+							}else{
+								graphics->DrawCircle(screen, drawObjects[id]->xOrig, drawObjects[id]->yOrig, (drawObjects[id]->yMouse-drawObjects[id]->yOrig), toolColor);
+							}
+						}
+					}
+					break;
+				case freeform:
+						for(Uint32 i = 0 ; i < ff_vx[id].size() ; i++){
+							graphics->DrawCircle(screen, ff_vx[id].at(i), ff_vy[id].at(i), (Uint16)thickness, toolColor);
+						}
+					break;
+				}
+			}
+		}
+	}
+	for(Uint32 i = 0; i < objects.size() ; i++){
+		objects.at(i)->Render(screen);
+	}
+	dinamico->Render(screen);
+	estatico->Render(screen);
+	circulo->Render(screen);
+	retangulo->Render(screen);
+	triangulo->Render(screen);
+	borracha->Render(screen);
+	fechar->Render(screen);
+	musica->Render(screen);
+	vermelho->Render(screen);
+	azul->Render(screen);
+	verde->Render(screen);
+	amarelo->Render(screen);
+	preto->Render(screen);
+	branco->Render(screen);
+}

@@ -1,0 +1,62 @@
+\begin{thebibliography}{10}
+
+\bibitem{phun}
+Algoryx.
+\newblock Phun.
+\newblock \url{http://www.phunland.com/wiki/Home}, acessado em 26/06/2010.
+
+\bibitem{barcelonamultcrayon}
+Multitouch Barcelona.
+\newblock Multitouch crayon physics.
+\newblock
+  \url{http://blog.multitouch-barcelona.com/2008/05/multitouch-crayon-physics-%
+is-available.html}, acessado em 26/06/2010, 2008.
+
+\bibitem{pedrosaulo}
+Pedro~Guerra Brandão and Saulo Camarotti~Rayol Braga.
+\newblock Constru\c{c}\~ao de um jogo eletr\^onico multiusu\'ario em uma
+  superf\'icie de proje\c{c}\~ao multitoque.
+\newblock Trabalho de gradua\c{c}\~ao, Universidade de Brasília, departamento
+  de Ciência da Computação, Bras\'ilia, July 2009.
+
+\bibitem{scient}
+Stuart~F. Brown.
+\newblock How it works: Multi-touch surfaces explained.
+\newblock {\em Scientific American}, July 2008.
+
+\bibitem{Box2Dmanual}
+Erin Catto.
+\newblock {\em Box2D v2.1.0 User Manual}, 2007-2010.
+\newblock Dispoível em \url{http://www.box2d.org/manual.html}.
+
+\bibitem{multphys}
+Hans Hartman.
+\newblock Multiplayer games and physics on multi-touch screen devices.
+\newblock Bachelor's thesis, Lule\aa{} University of Technology, departament of
+  Skellefte\aa{} Campus, 2008.
+
+\bibitem{virttable}
+Johannes Luderschmidt.
+\newblock The multi-touch virttable.
+\newblock
+  \url{http://johannesluderschmidt.de/lang/en-us/the-multi-touch-table-virttab%
+le/153/}, acessado em 26/06/2010.
+
+\bibitem{muller}
+LYL Muller.
+\newblock {Multi-touch displays: design, applications and performance
+  evaluation}.
+
+\bibitem{multnump}
+Thomas Perl and Stefan Kögl.
+\newblock Adaptation and evaluation of numpty physics for multi-touch
+  multi-player interaction.
+\newblock Bachelor's thesis, Vienna University of Technology, Institute of
+  Computarized Automation, Vienna, August 2009.
+
+\bibitem{I2GMDVP}
+Steve Rabin, editor.
+\newblock {\em Introduction to game development}.
+\newblock Charles River Media, 2005.
+
+\end{thebibliography}

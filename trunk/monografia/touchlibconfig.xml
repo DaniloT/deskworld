@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<blobconfig distanceThreshold="250" minDimension="2" maxDimension="250"
+	ghostFrames="0" minDisplacementThreshold="2.000000" />
+<bbox ulX="0.000000" ulY="0.000000" lrX="1.000000" lrY="1.000000" />
+<screen>
+	<!-- Coordenadas de calibração da superfície -->
+</screen>
+<filtergraph>
+	<dsvlcapture label="dsvlcapture0" />
+	<mono label="mono1" />
+	<backgroundremove label="backgroundremove2">
+		<threshold value="0" />
+	</backgroundremove>
+	<highpass label="highpass3">
+		<filter value="12" />
+		<scale value="11" />
+	</highpass>
+	<scaler label="scaler4">
+		<level value="3" />
+	</scaler>
+	<brightnesscontrast label="brightnesscontrast5">
+		<brightness value="0.0980392" />
+		<contrast value="0.788235" />
+	</brightnesscontrast>
+	<rectify label="rectify6">
+		<level value="25" />
+	</rectify>
+</filtergraph>
