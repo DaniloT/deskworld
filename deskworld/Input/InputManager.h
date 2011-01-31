@@ -21,6 +21,7 @@
 #include "Tuio/TuioListener.h"
 #include "Tuio/TuioObject.h"
 #include "../Graphics/ImageLoader.h"
+#include "../Common.h"
 #include <iostream>
 #include <map>
 

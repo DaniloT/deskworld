@@ -228,8 +228,8 @@ void InputManager::addTuioCursor(TuioCursor *tcur){
 
 	event.type = CURSOR_ADDEVENT;
 	data->id = tcur->getCursorID();
-	data->x = (Sint16)tcur->getScreenX(800);
-	data->y = (Sint16)tcur->getScreenY(600);
+	data->x = (Sint16)tcur->getScreenX(WIDTH);
+	data->y = (Sint16)tcur->getScreenY(HEIGHT);
 	data->remove = false;
 	data->tocou = false;
 	data->destocou = false;
@@ -247,16 +247,16 @@ void InputManager::updateTuioCursor(TuioCursor *tcur){
 	float dxRatio, dyRatio;
 	list <TuioPoint>::reverse_iterator rit = tcur->path.rbegin();
 	++rit;	//Getting penult object
-	int penultimoX = (*rit).getScreenX(800),
-		penultimoY = (*rit).getScreenY(600);
+	int penultimoX = (*rit).getScreenX(WIDTH),
+		penultimoY = (*rit).getScreenY(HEIGHT);
 
 	event->type = CURSOR_MOVEEVENT;
 	data->id = tcur->getCursorID();
 
-	dist = tcur->getScreenDistance((*rit), 800, 600);
+	dist = tcur->getScreenDistance((*rit), WIDTH, HEIGHT);
 
-	distX = tcur->getScreenX(800) - penultimoX;
-	distY = tcur->getScreenY(600) - penultimoY;
+	distX = tcur->getScreenX(WIDTH) - penultimoX;
+	distY = tcur->getScreenY(HEIGHT) - penultimoY;
 
 	dxRatio = (3*((float)distX/(float)dist));
 	dyRatio = (3*((float)distY/(float)dist));
@@ -280,8 +280,8 @@ void InputManager::updateTuioCursor(TuioCursor *tcur){
 		data->id = tcur->getCursorID();
 	}
 
-	data->x = (Sint16)(tcur->getScreenX(800));
-	data->y = (Sint16)(tcur->getScreenY(600));
+	data->x = (Sint16)(tcur->getScreenX(WIDTH));
+	data->y = (Sint16)(tcur->getScreenY(HEIGHT));
 	data->remove = false;
 	data->tocou = false;
 	data->destocou = false;
@@ -297,8 +297,8 @@ void InputManager::removeTuioCursor(TuioCursor *tcur){
 
 	event.type = CURSOR_REMOVEEVENT;
 	data->id = tcur->getCursorID();
-	data->x = (Sint16)tcur->getScreenX(800);
-	data->y = (Sint16)tcur->getScreenY(600);
+	data->x = (Sint16)tcur->getScreenX(WIDTH);
+	data->y = (Sint16)tcur->getScreenY(HEIGHT);
 	data->remove = false;
 	data->tocou = false;
 	data->destocou = false;

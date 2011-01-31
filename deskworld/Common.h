@@ -23,6 +23,10 @@
 
 #define CONVERT(pix) (((float32)(pix))/PIXELS_PER_METRE)
 
+#define WIDTH 1024
+
+#define HEIGHT 768
+
 struct RGBAColor{
 	Uint8 r;
 	Uint8 g;
