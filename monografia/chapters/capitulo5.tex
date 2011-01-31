@@ -1,4 +1,4 @@
-\chapter{Implementação do \textit{Software Deskworld}}
+\chapter{\textit{Software Deskworld}}
 \label{cap5}
 
 Neste capítulo, é apresentado o \textit{Design} do \textit{Software Deskworld} bem como seus detalhes de implementação, sua arquitetura e a estrutura utilizada para implementar o simulador.
@@ -19,11 +19,11 @@ Nesta seção, apresenta-se o \textit{Design} do \textit{Software}, isto é, o proj
 
 \subsection{Conceito}
 \label{cap5.1.2}
-O simulador de física \textit{Deskworld} tem como principal proposta deixar a encargo da criatividade do(s) jogador(es) a construções de cenários, objetos e seus objetivos no respectivo mundo. O principal objetivo é prover ferramentas aos usuários para auxiliá-los na construção. Assim sendo, objetos e elementos físicos são representados em um plano bidimensional e regido pelas leis da física. É possível desenhar um objeto e associá-lo a algum tipo de elemento de acordo com suas propriedades como densidade, massa, coeficiente de atrito e elasticidade. O usuário pode aplicar uma força a este objeto como a gravidade, fixá-lo no plano, entre outras opções. Os usuários têm a maior liberadade possível para criar diferentes jogos, fazer desenhos ou a simulação de objetos.
+O simulador de física \textit{Deskworld} tem como principal proposta deixar a encargo da criatividade do(s) usuário(s) a construções de cenários, objetos e seus objetivos no respectivo mundo. O principal objetivo é prover ferramentas aos usuários para auxiliá-los na construção. Assim sendo, objetos e elementos físicos são representados em um plano bidimensional e regidos pelas leis da física. É possível desenhar um objeto e associá-lo a algum tipo de elemento de acordo com suas propriedades como massa, coeficiente de atrito e elasticidade. O usuário pode aplicar uma força a este objeto como a gravidade, fixá-lo no plano, entre outras opções. Os usuários têm a maior liberadade possível para criar diferentes mundos, fazer desenhos ou a simulação de objetos.
 
 \subsection{Regras e Objetos}
 \label{cap5.1.3}
-Basicamente, pode-se criar qualquer tipo de objeto bidimensional com ou sem auxílio das ferramentas fornecidas. A construção funciona como desenhar virtualmente, sendo o dedo o lápis e a superfície da mesa o papel.
+Basicamente, pode-se criar qualquer tipo de objeto 2D com ou sem auxílio das ferramentas fornecidas. A construção funciona como desenhar virtualmente, sendo o dedo o lápis e a superfície da mesa o papel.
 
 Cada objeto pode ter as seguintes características:
 \begin{itemize}
@@ -43,15 +43,15 @@ Neste simulador não existe uma regra pré-definida, ela pode ser definida pontual
 \label{cap5.1.4}
 Interface utilizada para testes é a mesa descrita no capítulo~\ref{cap4}. Porém, o jogo é portável para qualquer interface multi-toque.
 
-\section{Estrutura de implementação do simulador}
+\section{Ferramentas de suporte do simulador}
 \label{cap5.2}
 
-Nesta seção, será descrito as ferramentas de suporte utilizadas na construção do simulador.
+Nesta seção, serão descritos as ferramentas de suporte utilizadas na construção do simulador.
 
 \subsection{\textit{Game Engine}}
 \label{cap5.2.1}
 
-A \textit{engine} utilizada neste jogo foi a \textit{Box2D}.Seu manual pode ser encontrado em~[\citenum{Box2Dmanual}]. A principal funcionalidade da \textit{Box2D} neste jogo foi auxiliar na criação dos objetos e no tratamento de eventos relacionados a simulação das leis da física. Estes eventos estão apresentados abaixo:
+A \textit{engine} utilizada neste \textit{software} foi a \textit{Box2D}. Seu manual pode ser encontrado em~[\citenum{Box2Dmanual}]. A principal funcionalidade da \textit{Box2D} neste \textit{software} foi auxiliar na criação dos objetos e no tratamento de eventos relacionados a simulação das leis da física. Estes eventos estão apresentados abaixo.
 
 \begin{itemize}
 	\item Gravidade
@@ -66,19 +66,19 @@ Além dessas funcionalidades, a \textit{Box2D} é responsável pela gerência de mem
 \subsection{\textit{Bibliotecas de apoio}}
 \label{cap5.2.2}
 
-Para facilitar a implementação de foram utilizadas diversas bibliotecas. Uma das bibliotecas padrão do C++ a STL \textit{(Standart Template Library)} possui algumas estruturas complexas de dados já implementadas, sendo amplamente utilizada neste simulador. Para a parte gráfica do jogo foi utilizada a biblioteca SDL \textit{(Simple Direct Layer)} conjuntamente com a \textit{OpenGL} (\textit{Open Graphics Library}). Com relação ao áudio, utilizou-se a SDL\_mixer. Para tratamento de \textit{input} foi utilizada a \textit{Touchlib}.
+Para facilitar a implementação do \textit{software} foram utilizadas diversas bibliotecas. Uma das bibliotecas padrão do C++, a \textit{STL} \textit{(Standart Template Library)}, possui algumas estruturas complexas de dados já implementadas, sendo amplamente utilizada neste simulador. Para a parte gráfica do jogo foi utilizada a biblioteca \textit{SDL} \textit{(Simple Direct Layer)} conjuntamente com a \textit{OpenGL} (\textit{Open Graphics Library}). Com relação ao áudio, utilizou-se a \textit{SDL\_mixer}. Para tratamento de \textit{input} foi utilizada a \textit{Touchlib}.
 
-\subsubsection{SDL e \textit{OpenGL}}
+\subsubsection{\textit{SDL} e \textit{OpenGL}}
 \label{cap5.2.2.1}
 
-Por oferecer uma boa abstração de \textit{hardware}, ser bem difundida no mercado de jogos e possuir ampla documentação, utilizou-se a SDL para disponibilizar o acesso ao ambiente \textit{OpenGL}. Conjuntamente com a SDL, na parte gráfica, foi utilizado a \textit{OpenGL} (\textit{Open Graphics Library}) que realiza a renderização das imagens.
+Por oferecer uma boa abstração de \textit{hardware}, ser bem difundida no mercado de jogos e possuir ampla documentação, utilizou-se a \textit{SDL} para disponibilizar o acesso ao ambiente. Conjuntamente com a \textit{SDL}, na parte gráfica, foi utilizado a \textit{OpenGL} (\textit{Open Graphics Library}) que realiza a renderização das imagens.
 
-A SDL\_mixer é utilizada para permitir a reprodução de diversas faixas de audio simultaneamente.
+A \textit{SDL\_mixer} é utilizada para permitir a reprodução de diversas faixas de audio simultaneamente.
 
 \subsubsection{Protocolo \textit{TUIO}}
 \label{cap5.2.2.2}
 
-Comunicação entre o usuário da mesa com o aplicativo é realizada de acordo com o protocolo \textit{TUIO}~[\citenum{TUIO}] (\textit{Tangible User Interface System}). Este protocolo especificado para atender as necessidades da comunicação das interfaces tangíveis. Interfaces tangíveis são interfaces sensíveis a toque, capazes de serem controladas por movimentos corporais e gestos. A implementação é simples e visa melhorar a performace na comunicação. Para isso, ele opera sobre a camada UDP(\textit{User Datagram Protocol}) de transporte utilizando três tipos de mensagens: \textit{set}, \textit{alive} e \textit{fseq}. Mensagens \textit{set} são utilizadas para informar o estado de um objeto. Mensagens \textit{alive} indicam o conjunto de objetos presentes na interface através de uma identificação única atribuída a cada novo elemento reconhecido. Mensagens \textit{fseq} são transmitidas antes da etapa de atualização de cada quadro para marcar-lo unicamente, associando-o a cada mensagem \textit{set} e \textit{alive} dele. Resumindo o funcionamento do protocolo:
+Comunicação entre o usuário da mesa com o aplicativo é realizada de acordo com o protocolo \textit{TUIO}~[\citenum{TUIO}] (\textit{Tangible User Interface System}). Este protocolo é especificado para atender as necessidades da comunicação das interfaces tangíveis. Interfaces tangíveis são interfaces sensíveis ao toque, capazes de serem controladas por movimentos corporais e gestos. A implementação é simples e visa melhorar a performance na comunicação. Para isso, ele opera sobre a camada \textit{UDP}(\textit{User Datagram Protocol}) de transporte utilizando três tipos de mensagens: \textit{set}, \textit{alive} e \textit{fseq}. Mensagens \textit{set} são utilizadas para informar o estado de um objeto. Mensagens \textit{alive} indicam o conjunto de objetos presentes na interface através de uma identificação única atribuída a cada novo elemento reconhecido. Mensagens \textit{fseq} são transmitidas antes da etapa de atualização de cada quadro para marcá-lo unicamente, associando-o a cada mensagem \textit{set} e \textit{alive} dele. Resumindo o funcionamento do protocolo:
 
 \begin{itemize}
 	\item Parâmetros do objeto são enviados após mudança de estado através da mensagem \textit{set}
@@ -87,7 +87,7 @@ Comunicação entre o usuário da mesa com o aplicativo é realizada de acordo com o
 	\item Mensagens \textit{fseq} associam um ID a um conjunto de mensagens \textit{set} e \textit{alive} do quadro
 \end{itemize}
 
-Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o TUIO implementa redundância de informação para se precaver contra a perda de dados na transmissão. Além disso, o estado de um objeto, mesmo inalterado, é enviado periodicamente em uma mensagem \textit{set}. Portanto, o protocolo é ideal para ser utilizado em aplicativos controlados interfaces multitoques otimizando a iteração e confiabilidade da comunicação.
+Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o TUIO implementa redundância de informação para se precaver contra a perda de dados na transmissão. Além disso, o estado de um objeto, mesmo inalterado, é enviado periodicamente em uma mensagem \textit{set}. Portanto, o protocolo é ideal para ser utilizado em aplicativos controlados por interfaces multitoques otimizando a interação e confiabilidade da comunicação.
 
 \textbf{\large{Parâmetros das mensagens TUIO}}
 
@@ -108,7 +108,7 @@ Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o
 \subsubsection{\textit{Touchlib}}
 \label{cap5.2.3}
 
-\textit{Touchlib}~[\citenum{Touchlib}] é uma biblioteca para auxiliar o processamento de imagens capturadas pela webcam em iterações com superfícies multitoque. Ela lida com o acompanhamento de \textit{blobs} de luz infravermelha, e envia para seus programas esses eventos multitoques, como o encostar do dedo, deslocamento do dedo e o retirar do dedo. Inclui um aplicativo de configuração, algumas demos para exemplificar seu uso. Interage com a maioria dos tipos de webcams e os dispositivos de captura de vídeo sendo muito útil para um projeto de \textit{software} para mesa multitoque. Em contrapartida só tem suporte para para sistema operacional \textit{Windows}.
+\textit{Touchlib}~[\citenum{Touchlib}] é uma biblioteca para auxiliar o processamento de imagens capturadas pela câmera em interações com superfícies multi-toque. Ela lida com o acompanhamento de \textit{blobs} de luz infravermelha, e envia para seus programas esses eventos multi-toques, como o encostar do dedo, deslocamento do dedo e o retirar do dedo. Inclui um aplicativo de configuração e algumas demos para exemplificar seu uso. Interage com a maioria dos tipos de dispositivos de captura de vídeo sendo muito útil para um projeto de \textit{software} para mesa multi-toque. Em contrapartida só tem suporte para o sistema operacional \textit{Windows}.
 
 Seu funcionamento consiste na aplicação de filtros de forma customizável como os mostrados nesta figura~[\ref{filtros}]. A execução destes filtros são realizadas pela \textit{Touchlib} com o uso da \textit{OpenCV (Open Source Computer Vision Library)}, uma biblioteca para o desenvolvimento de aplicativos de processamento de imagens. A execução da \textit{Touchlib} funciona de acordo com o paradigma cliente-servidor, sendo a mesma atuando como servidor e a aplicação como cliente. Esta comunicação cliente-servidor é feita utilizando o protocolo TUIO~[\citenum{TUIO}] \textit{(Tangible User Interface System)}, permitindo uma arquitetura distribuída, onde o aplicativo é executado separadamente da aplicação do processamento de imagens.
 
