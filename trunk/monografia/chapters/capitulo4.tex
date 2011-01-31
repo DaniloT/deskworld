@@ -15,19 +15,19 @@ Sendo uma importante parte do projeto, será apresentado neste capítulo o projeto
 
 A estrutura da mesa é feita de alumínio para dar estabilidade e leveza, permitindo mobilidade sem prejudicar sua eficiência. O material foi confeccionado sob medida, pois cada elemento influi na configuração da mesa. As dimensões da mesa estão inclusas na Figura~\ref{mesa}.
 
-Outra característica importante da mesa é a possibilidade de ser desmontada para facilitar seu transporte. Apesar de possuir grandes medidas, ao se desmontar fica fácil de carregar e guardar. Portanto, retirando seus equipamentos, sua estrutura de alumínio pesa muito pouco. Além disso, mesmo montada, a mesa possui rodas com travas para poder ser movimentada com mais facilidade e podendo ser travada para o devido uso.
+Outra característica importante da mesa é a possibilidade de ser desmontada para facilitar seu transporte. Apesar de possuir grandes medidas, ao ser desmontada fica fácil de carregar e guardar. Portanto, retirando seus equipamentos, sua estrutura de alumínio pesa muito pouco. Além disso, mesmo montada, a mesa possui rodas com travas para poder ser movimentada com mais facilidade e podendo ser travada para o devido uso.
 
 \section{Superfície}
 \label{cap4.2}
 
-O material da superfície é de acrílico, pois oferece o melhor custo/benefício. Isto porque, nenhum material é tão resistente, transparente com o seu custo. O coeficiente de refração é ideal e permite a iluminação de toda superfície. A transparência permite a captação dos toques com clareza pela câmera.
+O material da superfície é de acrílico, pois oferece uma alta resistência e transparência a um custo acessível. O coeficiente de refração é ideal e permite a iluminação de toda superfície. A transparência permite a captação dos toques com clareza pela câmera.
 
-O acrílico tem dimensões de 120 x 90 cm e 1cm de espessura. Para reter a projeção é colocado um papel vegetal na face do acrílico interna à mesa. Este papel fica na face interna para impedir que a luz saindo do canhão de luz do projetor reflita no acrílico causando uma interferência detectável pela câmera, como visto na Figura(***colocar figura mostrando o ponto de luz***). Além disso, ele ajuda a destacar a iluminação dos dedos quando comparadas a da mão, facilitando a detecção de toques.
+O acrílico tem dimensões de 120 x 90 cm e 1cm de espessura. Para reter a projeção é colocado um papel vegetal na face do acrílico interna à mesa. Este papel fica na face interna para impedir que a luz saindo do canhão de luz do projetor multimídia reflita no acrílico causando uma interferência detectável pela câmera, como pode ser observado na Figura(***colocar figura mostrando o ponto de luz***). Além disso, ele ajuda a destacar a iluminação dos dedos quando comparadas a da mão, facilitando a detecção de toques.
 
 \section{Iluminação Infravermelha}
 \label{cap4.3}
 
-Para um bom reconhecimento de toques e de marcadores fiduciais, foi utilizado iluminação híbrida utilizando as técnicas de FTIR e DI juntas. Os LEDs para a iluminação FTIR foram posicionados em furos no acrílico ao seu redor apontado paralelamente a sua superfície, Figura~[\ref{furosacrilico}]. Aproveitando a resistência do acrílico, furou-se a lateral do acrílico a aproximadamente cada 1cm utilizando uma furadeira profissional para o posicionamento e fixação dos LEDs. Foram relizados 400 furos no total, 115 em cada lado da mesa com 120cm e 85 em cada lado com 90cm. Os LEDs foram então inseridos nos furos e soldados, Figura(***figura dos leds soldados***). (***confirmar especificações do led, montar diagrama***)Os LEDs são diodos com potência XXw máxima, tendo a sua tensão máxima XXV e corrente XXA. Como utilizamos uma fonte de 12V, montamos o diagrama da Figura(***figura do diagrama***) com séries de 8 LEDs e um resistor para regular a corrente, todas essas séries em paralelo. Assim, obtemos a iluminação desejada de forma que consigamos detectar facilmente toques com o mínimo de interferência de imperfeições no acrílico e fundo possíveis.
+Para um bom reconhecimento de toques, foi utilizado iluminação FTIR. Os LEDs para a iluminação FTIR foram posicionados em furos no acrílico ao seu redor apontado paralelamente a sua superfície (Figura~[\ref{furosacrilico}]). Aproveitando a resistência do acrílico, furou-se a lateral do acrílico a aproximadamente cada 1cm utilizando uma furadeira profissional para o posicionamento e fixação dos LEDs. Foram relizados 200 furos no total, 115 em um dos lados da mesa com 120cm e 85 em um dos lados com 90cm. Os LEDs foram então inseridos nos furos e soldados (Figura(***figura dos leds soldados***)). (***confirmar especificações do led, montar diagrama***)Os LEDs são diodos com potência XXw máxima, tendo a sua tensão máxima XXV e corrente XXA. Como é utilizada uma fonte de 12V, eles foram soldados de acordo com o diagrama da Figura(***figura do diagrama***), com séries de 8 LEDs e um resistor para regular a corrente, todas essas séries em paralelo. Assim, obtêm-se a melhor iluminação possível de forma que seja fácil detectar toques com pouca pressão sobre o acrílico.
 
 \begin{figure}[h!]
 \centering
@@ -38,12 +38,10 @@ Para um bom reconhecimento de toques e de marcadores fiduciais, foi utilizado il
 \label{furosacrilico}
 \end{figure}
 
-Os LEDs para a iluminação DI são distribuídos em placas abaixo do acrílico e apontando diretamente para ele, Figura(***colocar figura mostrando as placas DI quando tivermos elas montadas***). Foram utilizados os mesmos LEDs da iluminação FTIR, de potência XXw, tensão XXV e corrente XXA, e eles foram dispostos de acordo com o diagrama da Figura(***diagrama da iluminação DI***).
-
 \section{Câmera}
 \label{cap4.4}
 
-Para capturar os toques feitos na superfície de acrílico foi utilizado uma câmera \textit{PlayStation Eye}, observada na Figura~[\ref{pseye}]. A escolha foi baseada no baixo custo da câmera e sua alta taxa de quadros por segundo, bem como ângulo de abertura ideal ao que necessitamos. Sua resolução pode ser configurada em 640 x 480 píxeis ou em 320 x 240 píxeis numa taxa de atualização respectiva de 60hz ou 120hz.
+Para capturar os toques feitos na superfície de acrílico foi utilizado uma câmera \textit{PlayStation Eye}, observada na Figura~[\ref{pseye}]. A escolha foi baseada no baixo custo da câmera e sua alta resolução para sua faixa de preço, bem como ângulo de abertura ideal ao que necessitamos. Sua resolução pode ser configurada em 640 x 480 píxeis ou em 320 x 240 píxeis numa taxa de atualização de 30 ou 60 FPS (Frames Por Segundo), respectivamente.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -58,7 +56,7 @@ Para capturar os movimentos sobre a mesa com maior precisão, modificou-se a câme
 \section{Projetor}
 \label{cap4.5}
 
-Nesta mesa o projetor usado é da marca \textit{BenQ} modelo \textit{MP772ST}, Figura~\ref{projetor}. É um projetor \textit{WXGA}(\textit{Wide eXtended Graphics Array}) de resolução padrão 1024x768 pixels com suporte a projeção a até 1080p. O projetor foi posicionado a uma distância de 90cm da superfície de acrílico. O projetor é fixado ao fundo da mesa e utiliza-se de um espelho para refletir a imagem dele para o topo.
+Nesta mesa o projetor usado é da marca \textit{BenQ} modelo \textit{MP772ST} (Figura~\ref{projetor}). É um projetor \textit{WXGA}(\textit{Wide eXtended Graphics Array}) de resolução padrão 1024x768 pixels com suporte a projeção a até 1080p. O projetor foi posicionado a uma distância de 90cm da superfície do acrílico. O projetor é fixado ao fundo da mesa e utiliza-se de um espelho para refletir a imagem dele para o topo.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -67,3 +65,10 @@ Nesta mesa o projetor usado é da marca \textit{BenQ} modelo \textit{MP772ST}, Fi
 	\label{projetor}
 	\end{center}
 \end{figure}
+
+\section{Filtros de Processamento de Vídeo}
+\label{cap4.6}
+
+Para detectar corretamente os toques, foi necessário processar a imagem recebida pela câmera de forma a separar os toques do fundo e de interferências. Para isso, utilizou-se uma cadeia de filtros disponíveis na biblioteca \textit{Touchlib}. Em~\ref{apendiceA}, pode-se ver todos os filtros disponíveis. Nesta seção, serão explicados os filtros utilizados, como segue.
+
+(***figuras dos filtros e explicaçao***)
