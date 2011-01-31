@@ -131,6 +131,8 @@ void ImageLoader::Render(SDL_Surface* screen){
 		glTexCoord2i( 0, 1 );
 		glVertex2i(x , y + h);
 	glEnd();
+
+	glDisable(GL_TEXTURE_2D);
 }
 
 void ImageLoader::UpdatePos(int x, int y){
