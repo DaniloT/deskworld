@@ -83,27 +83,27 @@ ImageLoader::ImageLoader(string fileName, int x, int y) {
 ImageLoader::~ImageLoader() {
 	glDeleteTextures(1,&texture);
 }
-
-void Enable2D()
-{
-glMatrixMode(GL_PROJECTION);
-glPushMatrix();
-glLoadIdentity();
-glOrtho(0, 800, 600, 0, -1, 1);
-glDisable(GL_DEPTH_TEST);
-glMatrixMode(GL_MODELVIEW);
-glPushMatrix();
-glLoadIdentity();
-}
-
-void Disable2D()
-{
-glMatrixMode(GL_PROJECTION);
-glPopMatrix();
-glMatrixMode(GL_MODELVIEW);
-glPopMatrix();
-glEnable(GL_DEPTH_TEST);
-}
+//
+//void Enable2D()
+//{
+//glMatrixMode(GL_PROJECTION);
+//glPushMatrix();
+//glLoadIdentity();
+//glOrtho(0, WIDTH, HEIGHT, 0, -1, 1);
+//glDisable(GL_DEPTH_TEST);
+//glMatrixMode(GL_MODELVIEW);
+//glPushMatrix();
+//glLoadIdentity();
+//}
+//
+//void Disable2D()
+//{
+//glMatrixMode(GL_PROJECTION);
+//glPopMatrix();
+//glMatrixMode(GL_MODELVIEW);
+//glPopMatrix();
+//glEnable(GL_DEPTH_TEST);
+//}
 
 void ImageLoader::Render(SDL_Surface* screen){
 

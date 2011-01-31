@@ -89,6 +89,7 @@ Object Engine::CreateTriangle(Uint16 posX, Uint16 posY, vector<Sint16> vx, vecto
 		b2FixtureDef fixtureDef;
 		fixtureDef.density = 1;
 		fixtureDef.friction = 0.3;
+		fixtureDef.restitution = 0.2;
 		fixtureDef.shape = &obj.shape;
 
 		obj.body->CreateFixture(&fixtureDef);
@@ -118,6 +119,7 @@ Object Engine::CreateRectangle(Uint16 posX, Uint16 posY, Uint16 w, Uint16 h, boo
 		b2FixtureDef fixtureDef;
 		fixtureDef.density = 1;
 		fixtureDef.friction = 0.3;
+		fixtureDef.restitution = 0.2;
 		fixtureDef.shape = &obj.shape;
 
 		obj.body->CreateFixture(&fixtureDef);
@@ -144,6 +146,7 @@ Object Engine::CreateCircle(Uint16 posX, Uint16 posY, float32 radius, bool dynam
 		b2FixtureDef fixtureDef;
 		fixtureDef.density = 1;
 		fixtureDef.friction = 0.3;
+		fixtureDef.restitution = 0.2;
 		fixtureDef.shape = &shape;
 
 		obj.body->CreateFixture(&fixtureDef);
@@ -160,7 +163,7 @@ Object Engine::CreateFreeform(vector<Sint16> vx, vector<Sint16> vy, float32 radi
 
 
 	if(dynamic)
-			bodyDef.type = b2_dynamicBody;
+		bodyDef.type = b2_dynamicBody;
 
 	bodyDef.position.Set(CONVERT(vx.at(0)),CONVERT(vy.at(0)));
 	obj.body = world->CreateBody(&bodyDef);
@@ -170,7 +173,7 @@ Object Engine::CreateFreeform(vector<Sint16> vx, vector<Sint16> vy, float32 radi
 
 		fixtureDef.density = 1;
 		fixtureDef.friction = 0.3;
-		fixtureDef.restitution = 0.5;
+		fixtureDef.restitution = 0.2;
 
 		//creating multiple shapes
 		for(Uint32 i = 0 ; i < vx.size() ; i++){

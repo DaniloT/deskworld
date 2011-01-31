@@ -29,7 +29,7 @@ GameManager::GameManager() {
     SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
     //SDL_GL_SetAttribute( SDL_GL_SWAP_CONTROL, 0);
 
-	if((screen = SDL_SetVideoMode(800, 600, 32, SDL_OPENGL | SDL_HWSURFACE)) == NULL){
+	if((screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_OPENGL | SDL_HWSURFACE)) == NULL){
 		printf("Couldn't set video mode! Quitting...");
 		SDL_Quit();
 		return;
@@ -39,13 +39,13 @@ GameManager::GameManager() {
 	glEnable (GL_BLEND);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, WIDTH, HEIGHT);
 
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
 
-	gluOrtho2D(0, 800, 600, 0);
+	gluOrtho2D(0, WIDTH, HEIGHT, 0);
 
 	glDisable(GL_DEPTH_TEST);
 

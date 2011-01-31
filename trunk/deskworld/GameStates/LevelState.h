@@ -51,6 +51,7 @@ class LevelState: public State {
 	ImageLoader* retangulo;
 	ImageLoader* triangulo;
 	ImageLoader* borracha;
+	ImageLoader* formalivre;
 	ImageLoader* fechar;
 	ImageLoader* musica;
 	ImageLoader* vermelho;
