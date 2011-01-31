@@ -374,9 +374,10 @@ int LevelState::Update(){
 													preto = new ImageLoader("black.png",37,637);
 													delete branco;
 													branco = new ImageLoader("white.png",74,637);
-													toolColor.r = 255;
-													toolColor.g = 0;
-													toolColor.b = 0;
+													toolColor.r = 235;
+													toolColor.g = 39;
+													toolColor.b = 37;
+													toolColor.a = 245;
 												}else if(inputManager->isTouchInside(azul, id)){
 													delete vermelho;
 													vermelho = new ImageLoader("red.png",0,600);
@@ -390,9 +391,10 @@ int LevelState::Update(){
 													preto = new ImageLoader("black.png",37,637);
 													delete branco;
 													branco = new ImageLoader("white.png",74,637);
-													toolColor.r = 0;
-													toolColor.g = 0;
+													toolColor.r = 34;
+													toolColor.g = 34;
 													toolColor.b = 255;
+													toolColor.a = 245;
 												}else if(inputManager->isTouchInside(verde, id)){
 													delete vermelho;
 													vermelho = new ImageLoader("red.png",0,600);
@@ -406,9 +408,10 @@ int LevelState::Update(){
 													preto = new ImageLoader("black.png",37,637);
 													delete branco;
 													branco = new ImageLoader("white.png",74,637);
-													toolColor.r = 0;
+													toolColor.r = 34;
 													toolColor.g = 255;
-													toolColor.b = 0;
+													toolColor.b = 34;
+													toolColor.a = 245;
 												}else if(inputManager->isTouchInside(amarelo, id)){
 													delete vermelho;
 													vermelho = new ImageLoader("red.png",0,600);
@@ -422,9 +425,10 @@ int LevelState::Update(){
 													preto = new ImageLoader("black.png",37,637);
 													delete branco;
 													branco = new ImageLoader("white.png",74,637);
-													toolColor.r = 200;
-													toolColor.g = 200;
-													toolColor.b = 0;
+													toolColor.r = 255;
+													toolColor.g = 236;
+													toolColor.b = 139;
+													toolColor.a = 245;
 												}else if(inputManager->isTouchInside(preto, id)){
 													delete vermelho;
 													vermelho = new ImageLoader("red.png",0,600);
@@ -438,9 +442,10 @@ int LevelState::Update(){
 													preto = new ImageLoader("black2.png",37,637);
 													delete branco;
 													branco = new ImageLoader("white.png",74,637);
-													toolColor.r = 0;
-													toolColor.g = 0;
-													toolColor.b = 0;
+													toolColor.r = 15;
+													toolColor.g = 15;
+													toolColor.b = 15;
+													toolColor.a = 245;
 												}else if(inputManager->isTouchInside(branco, id)){
 													delete vermelho;
 													vermelho = new ImageLoader("red.png",0,600);
@@ -454,9 +459,10 @@ int LevelState::Update(){
 													preto = new ImageLoader("black.png",37,637);
 													delete branco;
 													branco = new ImageLoader("white2.png",74,637);
-													toolColor.r = 255;
-													toolColor.g = 255;
-													toolColor.b = 255;
+													toolColor.r = 250;
+													toolColor.g = 240;
+													toolColor.b = 230;
+													toolColor.a = 245;
 												}else if(inputManager->isTouchInside(musica, id)){
 													delete musica;
 													if(bgMusic->Tocando()){
