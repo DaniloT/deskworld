@@ -15,6 +15,27 @@
 #include "Graphics.h"
 
 Graphics::Graphics() {
+	//Enable Color Transparency
+	glEnable (GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_POLYGON_SMOOTH);
+
+	glViewport(0, 0, WIDTH, HEIGHT);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+
+	gluOrtho2D(0, WIDTH, HEIGHT, 0);
+
+	glDisable(GL_DEPTH_TEST);
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	glLoadIdentity();
 }
 
 Graphics::~Graphics() {

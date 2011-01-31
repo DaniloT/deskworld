@@ -19,15 +19,12 @@ GameManager::GameManager() {
 	engine = engine->getInstace();
 	engine->Initialize();
 
-	graphics = graphics->getInstace();
-
 	/* Audio and video initialization */
 	SDL_Init(SDL_INIT_AUDIO|SDL_INIT_VIDEO|SDL_INIT_TIMER);
 	//TTF_Init();
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT,1,4096);
 
     SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-    //SDL_GL_SetAttribute( SDL_GL_SWAP_CONTROL, 0);
 
 	if((screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_OPENGL | SDL_HWSURFACE)) == NULL){
 		printf("Couldn't set video mode! Quitting...");
@@ -35,26 +32,8 @@ GameManager::GameManager() {
 		return;
 	}
 
-	//Enable Color Transparency
-	glEnable (GL_BLEND);
-	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glViewport(0, 0, WIDTH, HEIGHT);
-
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-
-	gluOrtho2D(0, WIDTH, HEIGHT, 0);
-
-	glDisable(GL_DEPTH_TEST);
-
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-
-	glClear(GL_COLOR_BUFFER_BIT);
-	glLoadIdentity();
+	// Graphics initialization
+	graphics = graphics->getInstace();
 
 	/* FPSManager initialization */
 	manex = (FPSmanager*)malloc(sizeof(FPSmanager));
@@ -80,31 +59,15 @@ void GameManager::run(){
 		SDL_PumpEvents();
 		/* Poll between the inputs */
 		inputManager->pollEvents();
-
-		/*switch(currentState->Update(dt)){
-			case 0:
-				// Fazer nada
-				break;
-			case 1:
-				currentState->Unload();
-				currentState = new LevelState();
-				currentState->Load();
-				break;
-			case 2:
-				currentState->Unload();
-				currentState = new ControlsState();
-				currentState->Load();
-				break;
-			case 3:
-				currentState->Unload();
-				currentState = new MainMenuState();
-				currentState->Load();
-				break;
-		}*/
+		//Update
 		currentState->Update();
 		/* Render */
 		currentState->Render(screen);
-		//SDL_Flip(screen);
+		//motion blur
+		glAccum(GL_MULT, 0.50);
+		glAccum(GL_ACCUM, 1-0.50);
+		glAccum(GL_RETURN, 1.0);
+		//Blit
 		SDL_GL_SwapBuffers();
 		SDL_framerateDelay(manex);
 	}
