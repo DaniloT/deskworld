@@ -28,24 +28,27 @@ Conforme mencionado no capítulo anterior, existem dois métodos principais de ilu
 	\label{iluminacoes}
 \end{figure}
 
-Dependendo do método de iluminação, vários filtros diferentes devem ser aplicados, como explicado em~[\citenum{muller}]. Na iluminação híbrida, deve-se aplicar todos os filtros correspondentes as duas iluminações para obter a melhor imagem possível. Assim, os filtros a serem aplicados são apresentados na Figura~[\ref{filtros}]. São eles:
+Dependendo do método de iluminação, vários filtros diferentes devem ser aplicados, como explicado em~[\citenum{muller}]. A biblioteca \textit{Touchlib}, utilizada neste trabalho, possui vários filtros, que estão detalhados, bem como sua utilização, em~[\ref{apendiceA}].
 
 
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.7]{filtros.jpg}
-	\caption{Imagem capturada e suas filtragens~[\citenum{pedrosaulo}].}
-	\label{filtros}
-	\end{center}
-\end{figure} 
-
-\begin{enumerate}
-	\item Imagem capturada do dispositivo (Figura~[\ref{filtros}](a)). Devido a limitações da biblioteca \textit{Touchlib}, utilizada neste trabalho, ela deve ser composta de um canal de 8-bits, sendo convertida se necessário.
-	\item Filtro de \textit{Background} (Figura~[\ref{filtros}](b)), que remove o fundo da imagem, ou seja, aquilo que foi captado e que não é o toque do usuário ou marcador fiducial e está a mais na imagem. Para tal, é armazenado um \textit{frame} na mesa sem nada em cima, que ela usa para subtrair dos próximos \textit{frames} esse \textit{frame}, anulando tudo que não for modificado da imagem.
-	\item Filtro de \textit{Highpass} (Figura~[\ref{filtros}](c)), que aumenta o brilho de pontos a uma certa altura da mesa. Esse valor é ajustado manualmente pois depende da mesa utilizada, com o propósito de atenuar os toques e marcadores fiduciais.
-	\item Filtro \textit{Scaler} (Figura~[\ref{filtros}](d)), que aumenta o brilho da imagem total que restou, clareando mais os toques.
-	\item Filtro \textit{Rectify} (Figura~[\ref{filtros}](e)), que reduz os ruídos da imagem, deixando os \textit{blobs} mais bem definidos e de fácil detecção.
-\end{enumerate}
+% Na iluminação híbrida, deve-se aplicar todos os filtros correspondentes as duas iluminações para obter a melhor imagem possível. Assim, os filtros a serem aplicados são apresentados na Figura~[\ref{filtros}]. São eles:
+%
+%
+%\begin{figure}[h!]
+%	\begin{center}
+%	\includegraphics[scale=0.7]{filtros.jpg}
+%	\caption{Imagem capturada e suas filtragens~[\citenum{pedrosaulo}].}
+%	\label{filtros}
+%	\end{center}
+%\end{figure} 
+%
+%\begin{enumerate}
+%	\item Imagem capturada do dispositivo (Figura~[\ref{filtros}](a)). Devido a limitações da biblioteca \textit{Touchlib}, utilizada neste trabalho, ela deve ser composta de um canal de 8-bits, sendo convertida se necessário.
+%	\item Filtro de \textit{Background} (Figura~[\ref{filtros}](b)), que remove o fundo da imagem, ou seja, aquilo que foi captado e que não é o toque do usuário ou marcador fiducial e está a mais na imagem. Para tal, é armazenado um \textit{frame} na mesa sem nada em cima, que ela usa para subtrair dos próximos \textit{frames} esse \textit{frame}, anulando tudo que não for modificado da imagem.
+%	\item Filtro de \textit{Highpass} (Figura~[\ref{filtros}](c)), que aumenta o brilho de pontos a uma certa altura da mesa. Esse valor é ajustado manualmente pois depende da mesa utilizada, com o propósito de atenuar os toques e marcadores fiduciais.
+%	\item Filtro \textit{Scaler} (Figura~[\ref{filtros}](d)), que aumenta o brilho da imagem total que restou, clareando mais os toques.
+%	\item Filtro \textit{Rectify} (Figura~[\ref{filtros}](e)), que reduz os ruídos da imagem, deixando os \textit{blobs} mais bem definidos e de fácil detecção.
+%\end{enumerate}
 
 \subsection{Detecção de \textit{Blobs}}
 \label{cap3.1.2}
