@@ -24,9 +24,9 @@ using namespace std;
 
 class Audio {
 	string fileName;
-	Mix_Chunk *som;
-	Mix_Music *musica;
-	int tipo;
+	Mix_Chunk *noise;
+	Mix_Music *music;
+	int type;
 public:
 	// Loads the audio file.
 	Audio(string fileName, int tipo);
@@ -34,7 +34,7 @@ public:
 	void Play(int n);
 	void Stop();
 	// Checks if audio is playing.
-	bool Tocando();
+	bool isPlaying();
 	void Pause();
 	void Resume();
 };

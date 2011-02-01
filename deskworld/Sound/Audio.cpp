@@ -15,40 +15,40 @@
 #include "Audio.h"
 
 // Loads the audio file
-Audio::Audio(string fileName, int tipo) {
-	this->tipo = tipo;
-	musica = NULL;
-	som = NULL;
-	switch(tipo){
+Audio::Audio(string fileName, int type) {
+	this->type = type;
+	music = NULL;
+	noise = NULL;
+	switch(type){
 		case 0:
-			som = Mix_LoadWAV(fileName.c_str());
+			noise = Mix_LoadWAV(fileName.c_str());
 		break;
 		case 1:
-			musica = Mix_LoadMUS(fileName.c_str());
+			music = Mix_LoadMUS(fileName.c_str());
 		break;
 	}
 
 }
 
 Audio::~Audio() {
-	Mix_FreeChunk(som);
-	Mix_FreeMusic(musica);
+	Mix_FreeChunk(noise);
+	Mix_FreeMusic(music);
 }
 
 void Audio::Play(int n){
-	switch(tipo){
+	switch(type){
 		case 0:
-			Mix_PlayChannel(-1, som, n);
+			Mix_PlayChannel(-1, noise, n);
 		break;
 		case 1:
 			if(!Mix_PlayingMusic())
-				Mix_PlayMusic(musica, n);
+				Mix_PlayMusic(music, n);
 		break;
 	}
 }
 
 void Audio::Stop(){
-	switch(tipo){
+	switch(type){
 		case 0:
 			if(Mix_Playing(-1))
 				Mix_HaltChannel(-1);
@@ -61,8 +61,8 @@ void Audio::Stop(){
 }
 
 // Checks if the music is playing.
-bool Audio::Tocando(){
-	switch(tipo){
+bool Audio::isPlaying(){
+	switch(type){
 		case 0:
 			if((Mix_Playing(-1))&&(Mix_Paused(-1)))
 				return true;
@@ -76,7 +76,7 @@ bool Audio::Tocando(){
 }
 
 void Audio::Pause(){
-	switch(tipo){
+	switch(type){
 		case 0:
 			Mix_Pause(-1);
 		break;
@@ -88,7 +88,7 @@ void Audio::Pause(){
 }
 
 void Audio::Resume(){
-	switch(tipo){
+	switch(type){
 		case 0:
 			if(Mix_Paused(-1))
 				Mix_Resume(-1);
