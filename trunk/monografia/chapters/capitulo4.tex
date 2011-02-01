@@ -15,7 +15,26 @@ Sendo uma importante parte do projeto, será apresentado neste capítulo o projeto
 
 A estrutura da mesa é feita de alumínio para dar estabilidade e leveza, permitindo mobilidade sem prejudicar sua eficiência. O material foi confeccionado sob medida, pois cada elemento influi na configuração da mesa. As dimensões da mesa estão inclusas na Figura~\ref{mesa}.
 
-Outra característica importante da mesa é a possibilidade de ser desmontada para facilitar seu transporte. Apesar de possuir grandes medidas, ao ser desmontada fica fácil de carregar e guardar. Portanto, retirando seus equipamentos, sua estrutura de alumínio pesa muito pouco. Além disso, mesmo montada, a mesa possui rodas com travas para poder ser movimentada com mais facilidade e podendo ser travada para o devido uso. A mesa completa pode ser observada na Figura(***foto da mesa terminada.***)
+Outra característica importante da mesa é a possibilidade de ser desmontada para facilitar seu transporte. Apesar de possuir grandes medidas, ao ser desmontada fica fácil de carregar e guardar. Portanto, retirando seus equipamentos, sua estrutura de alumínio pesa muito pouco. Além disso, mesmo montada, a mesa possui rodas com travas para poder ser movimentada com mais facilidade e podendo ser travada para o devido uso. A mesa completa pode ser observada por fora Figura~[\ref{mesaporfora}] e por dentro na Figura~[\ref{}].
+
+\begin{figure}[h!]
+	\centering
+	\mbox{\subfigure{\includegraphics[scale=0.18]{mesapaisagem.jpg}}}
+	\mbox{\subfigure{\includegraphics[scale=0.1]{mesaretrato.jpg}}
+	\quad
+	\subfigure{\includegraphics[scale=0.05]{mesaporfora.jpg}}}
+	\caption{Mesa multi-toque utilizada no projeto.}
+	\label{mesaporfora}
+\end{figure}
+
+%\begin{figure}[h!]
+%	\begin{center}
+%	\includegraphics[scale=0.20]{mesapordentro.jpg}
+%	\caption{Visão interna da mesa, ilustrando seus componentes projetor}
+%	\label{mesa}
+%	\end{center}
+%\end{figure}
+
 
 \section{Superfície}
 \label{cap4.2}
@@ -27,7 +46,7 @@ O acrílico tem dimensões de 120 x 90 cm e 1cm de espessura. Para reter a projeçã
 \section{Iluminação Infravermelha}
 \label{cap4.3}
 
-Para um bom reconhecimento de toques, foi utilizado iluminação \textit{FTIR}. Os \textit{LED}s para a iluminação \textit{FTIR} foram posicionados em furos no acrílico ao seu redor apontados paralelamente a sua superfície (Figura~[\ref{furosacrilico}]). Aproveitando a resistência do acrílico, furou-se a lateral do acrílico a aproximadamente cada 1cm utilizando uma furadeira profissional para o posicionamento e fixação dos \textit{LED}s. Foram realizados 200 furos no total, 115 em um dos lados da mesa com 120cm e 85 em um dos lados com 90cm. Os \textit{LED}s foram então inseridos nos furos e soldados (Figura(***figura dos leds soldados***)). Os \textit{LED}s são diodos de 5mm de diâmetro com potência 1,1w máxima, tendo a sua tensão máxima 5V e corrente 220mA. Como é utilizada uma fonte de 12,2V, eles foram soldados de acordo com o diagrama da Figura~[\ref{diagftir}], com séries de 8 \textit{LED}s e um resistor para regular a corrente, todas essas séries em paralelo entre si e em série a um diodo de 6A, que proporciona uma queda de 0,7V, somente para regulagem da tensão. Desta forma, não se utiliza a potência total dos \textit{LED}s para se extender a vida útil deles, e ainda se obtêm brilho suficiente para iluminar claramente os toques.
+Para um bom reconhecimento de toques, foi utilizado iluminação \textit{FTIR}. Os \textit{LED}s para a iluminação \textit{FTIR} foram posicionados em furos no acrílico ao seu redor apontados paralelamente a sua superfície (Figura~[\ref{furosacrilico}]). Aproveitando a resistência do acrílico, furou-se a lateral do acrílico a aproximadamente cada 1cm utilizando uma furadeira profissional para o posicionamento e fixação dos \textit{LED}s. Foram realizados 200 furos no total, 115 em um dos lados da mesa com 120cm e 85 em um dos lados com 90cm. Os \textit{LED}s foram então inseridos nos furos e soldados (Figura~[\ref{ledsolda}]). Os \textit{LED}s são diodos de 5mm de diâmetro com potência 1,1w máxima, tendo a sua tensão máxima 5V e corrente 220mA. Como é utilizada uma fonte de 12,2V, eles foram soldados de acordo com o diagrama da Figura~[\ref{diagftir}], com séries de 8 \textit{LED}s e um resistor para regular a corrente, todas essas séries em paralelo entre si e em série a um diodo de 6A, que proporciona uma queda de 0,7V, somente para regulagem da tensão. Desta forma, não se utiliza a potência total dos \textit{LED}s para se extender a vida útil deles, e ainda se obtêm brilho suficiente para iluminar claramente os toques.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -39,16 +58,25 @@ Para um bom reconhecimento de toques, foi utilizado iluminação \textit{FTIR}. Os
 
 \begin{figure}[h!]
 	\begin{center}
+	\includegraphics[scale=0.08]{ledsolda.jpg}
+	\caption{\textit{LED}s soldados na borda do acrílico.}
+	\label{ledsolda}
+	\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+	\begin{center}
 	\includegraphics[scale=1]{circuito.jpg}
 	\caption{Circuito dos \textit{LED}s infravermelhos.}
 	\label{diagftir}
 	\end{center}
 \end{figure}
 
+
 \section{Câmera}
 \label{cap4.4}
 
-Para capturar os toques feitos na superfície de acrílico foi utilizado uma câmera \textit{PlayStation Eye}, observada na Figura~[\ref{pseye}]. A escolha foi baseada no baixo custo da câmera e sua alta resolução para sua faixa de preço, bem como ângulo de abertura ideal ao que necessitamos. Sua resolução pode ser configurada em 640 x 480 píxeis ou em 320 x 240 píxeis numa taxa de atualização de 30 ou 60 FPS (Frames Por Segundo), respectivamente.
+Para capturar os toques feitos na superfície de acrílico foi utilizado uma câmera \textit{PlayStation Eye}, observada na Figura~[\ref{pseye}]. A escolha foi baseada no baixo custo da câmera e sua alta resolução para sua faixa de preço, bem como ângulo de abertura ideal. Sua resolução pode ser configurada em 640 x 480 píxeis ou em 320 x 240 píxeis numa taxa de atualização de 30 ou 60 FPS (Frames Por Segundo), respectivamente.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -78,62 +106,31 @@ Nesta mesa o projetor usado é da marca \textit{BenQ} modelo \textit{MP772ST} (Fi
 
 Para detectar corretamente os toques, foi necessário processar a imagem recebida pela câmera de forma a separar os toques do fundo e de interferências. Para isso, utilizou-se uma cadeia de filtros disponíveis na biblioteca \textit{Touchlib}. Em~\ref{apendiceA}, pode-se ver todos os filtros disponíveis. Nesta seção, serão explicados os filtros utilizados.
 
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.5]{filtro1.png}
-	\caption{Captura da câmera.}
-	\label{filtro1}
-	\end{center}
-\end{figure}
-
-A Figura~\ref{filtro1} mostra a captura direta da câmera, sem nenhum filtro de processamento aplicado, somente o filtro de hardware explicado anteriormente.
 
 \begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.5]{filtro2.png}
-	\caption{Filtro \textit{Mono}.}
-	\label{filtro2}
-	\end{center}
+	\centering
+	\mbox{\subfigure[Captura sem filtro]{\includegraphics[scale=0.25]{filtro1.png}}
+	\quad
+	\subfigure[Filtro \textit{Mono}]{\includegraphics[scale=0.25]{filtro2.png}}
+	\quad
+	\subfigure[Filtro de \textit{Background}]{\includegraphics[scale=0.25]{filtro3.png}}}
+	\mbox{\subfigure[Filtro de Brilho e Contraste]{\includegraphics[scale=0.25]{filtro4.png}}
+	\quad
+	\subfigure[Filtro \textit{Scaler}]{\includegraphics[scale=0.25]{filtro5.png}}
+	\quad
+	\subfigure[Filtro \textit{Rectify}]{\includegraphics[scale=0.25]{filtro6.png}}}
+	\caption{Capturas feita pela câmera \textit{Playstation Eye}.}
+	\label{filtros}
 \end{figure}
 
-Já na Figura~\ref{filtro2}, foi aplicado o filtro \textit{Mono}, que transforma a imagem da captura para uma imagem de 8 bits em tons de cinza, necessária para a utilização com a \textit{Touchlib}.
+A Figura~[\ref{filtros}(a)] mostra a captura direta da câmera, sem nenhum filtro de processamento aplicado, somente o filtro de hardware explicado anteriormente.
 
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.5]{filtro3.png}
-	\caption{Filtro de \textit{Background}.}
-	\label{filtro3}
-	\end{center}
-\end{figure}
+Já na Figura~[\ref{filtros}(b)], foi aplicado o filtro \textit{Mono}, que transforma a imagem da captura para uma imagem de 8 bits em tons de cinza, necessária para a utilização com a \textit{Touchlib}.
 
-Na Figura~\ref{filtro3}, pode-se ver o filtro de \textit{background}, que guarda uma imagem inicial como referência e depois subtrai as imagens subsequentes dela, para assim remover toda interferência do fundo e de imperfeições no acrílico obtidas inicialmente.
+Na Figura~[\ref{filtros}(c)], pode-se ver o filtro de \textit{background}, que guarda uma imagem inicial como referência e depois subtrai as imagens subsequentes dela, para assim remover toda interferência do fundo e de imperfeições no acrílico obtidas inicialmente.
 
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.5]{filtro4.png}
-	\caption{Filtro de Brilho e Contraste.}
-	\label{filtro4}
-	\end{center}
-\end{figure}
+Na Figura~[\ref{filtros}(d)], tem-se o filtro de brilho e contraste, que permite o ajuste desses dois parâmetros de forma a se separar somente os toques de qualquer barulho que tenha restado dos últimos filtros.
 
-Na Figura~\ref{filtro4}, tem-se o filtro de brilho e contraste, que permite o ajuste desses dois parâmetros de forma a se separar somente os toques de qualquer barulho que tenha restado dos últimos filtros.
+Em seguida, na Figura~[\ref{filtros}(e)], é aplicado o filtro \textit{Scaler} para se intensificar a imagem obtida até o momento, proporcionando \textit{blobs} brilhosos e de fácil detecção.
 
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.5]{filtro5.png}
-	\caption{Filtro de \textit{Scaler}.}
-	\label{filtro5}
-	\end{center}
-\end{figure}
-
-Em seguida, na Figura~\ref{filtro5}, é aplicado o filtro \textit{Scaler} para se intensificar a imagem obtida até o momento, proporcionando \textit{blobs} brilhosos e de fácil detecção.
-
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.5]{filtro6.png}
-	\caption{Filtro de \textit{Rectify}.}
-	\label{filtro6}
-	\end{center}
-\end{figure}
-
-Finalmente, na Figura~\ref{filtro6}, é aplicado o filtro \textit{Rectify}, exigido pela \textit{Touchlib}, que destaca melhor os toques. Neste, é imprecindível que somente os toques estejam visíveis, pois está é a imagem que será usada para detectá-los.
+Finalmente, na Figura~[\ref{filtros}(f)], é aplicado o filtro \textit{Rectify}, exigido pela \textit{Touchlib}, que destaca melhor os toques. Neste, é imprescindível que somente os toques estejam visíveis, pois esta é a imagem usada para detectá-los.
