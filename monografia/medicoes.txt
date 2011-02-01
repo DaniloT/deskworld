@@ -1,0 +1,17 @@
+11.5V saída da fonte + 1 diodo
+330mA corrente total
+3,8w pot total
+13,2mA por serie
+31.4mV queda de tensao no resistor
+0,7V queda de tensao em 1 diodo
+6A max diodo
+5A max fonte
+1.4V queda de tensao em 1 led
+
+5V max led
+220mA max led
+1,1W max led
+
+5mm diametro leds
+
+P=VxI
