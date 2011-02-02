@@ -124,68 +124,19 @@ O \textit{CCV} (\textit{Community Core Vision})~[\citenum{ccv}] é um aplicativo 
 Seu funcionamento consiste na aplicação de filtros de forma customizável como os mostrados na Figura~[\ref{filtros}]. Em seu arquivo de configuração, \textit{config.xml}, pode-se modificar dados da câmera, como resolução e frames por segundo, e a \textit{CCV} irá automaticamente ajustar a câmera selecionada para os dados mais próximos suportados. A execução da \textit{CCV} funciona de acordo com o paradigma cliente-servidor, sendo a mesma atuando como servidor e a aplicação como cliente. Esta comunicação cliente-servidor é feita utilizando o protocolo TUIO~[\citenum{TUIO}] \textit{(Tangible User Interface System)}, utilizando pontos normais x e y enviados via \textit{TCP}, ou em pacotes especiais para aplicativos \textit{Flash}, permitindo uma arquitetura distribuída, onde o aplicativo é executado separadamente da aplicação de processamento de imagens.
 
 \section{Arquitetura e Detalhes de Implementação}
-\label{cap6}
-
-\subsection{Arquitetura do jogo}
-\label{cap6.1}
+\label{cap5.3}
 
 A evolução da tecnologia dos hardwares dos computadores pessoais proporcionou grande desenvolvimento à indústria de jogos eletrônicos levando-a a aprimorar seu produto ao longo do tempo. Este caminho foi marcado por grandes equipes e pela extensiva codificação. Os jogos eletrônicos mais modernos podem ultrapassar um milhão de linhas de código de acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}]. Portanto, foi necessário organizar estes extensivos códigos a fim de obter melhor performace no desenvolvimento de novos jogos. Esta organização pode ser realizada por meio da adoção de uma arquitetura bem definida.
 
-Para este jogo escolhemos uma arquitetura de desenvolvimento baseada em um sistema de componentes.
+\subsection{Arquitetura do \textit{Deskworld}}
+\label{cap5.3.1}
 
-\subsubsection{Sistema de Componentes}
-\label{cap6.1.1}
+Apesar de não se encaixar na definição de jogo eletrônico, \textit{Deskworld} possui muitas características semelhantes, pois é um \textit{Software} interativo onde o usuário se relaciona com objetos em um mundo virtual. Portanto, recebe muitos benefícios em utilizar uma arquitetura bem definida. Para este \textit{Software} foi escolhida uma arquitetura modular orientada à objetos. A próxima sessão expõe as vantagens desta arquitetura, explicando os motivos que resultaram nesta escolha.
 
-Um sistema de componentes é caracterizado pela sua estrutura não-hierárquica. O jogo que se baseia em componentes terá somente uma classe pai que representará todas as entidades do jogo, enquanto quaisquer outras classes serão irmãs entre si, pois todas serão filhas da entidade do jogo. Cada classe filha da entidade é um componente, ou seja, o entidade do jogo é formada por uma composição de componentes.
+\subsubsection{Vantagens da abordagem orientada à objetos}
+\label{cap5.3.1.1}
 
-É observado a independência de cada componente, onde podemos, por exemplo, ter a liberdade de transformar um elemento de uma classe jogador em veículo. Entretanto, mesmo com a mudança podemos manter a coerência lógica do jogo, pois estas classes terão a mesma estrutura que forma a entidade do jogo, como audio, corpo físico e aparência.
-
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.8]{componente.png}
-	\caption{Exemplo de uso de componentes em entidades de jogo~[\citenum{pedrosaulo}]}
-	\label{componente}
-	\end{center}
-\end{figure}
-
-\subsubsection{Vantagens em relação ao sistema hierárquico}
-\label{cap6.1.2}
-
-Um sistema baseado em componentes é uma alternativa ao forte acomplamento provocado pela hierarquia de classes. Em linguagens orientadas à objeto a hierarquia de classes pode ser de grande ajuda como pode dificultar a codificação do software. Isto porque, em sistemas onde temos tipos de objetos pré-definidos, assim como as relações entre eles, a hierarquia pode ser de grande ajuda. Isto acontece pelo fato da fácil representação do jogo como um hierarquia. Por exemplo, em jogos de esporte, geralmente, temos características fortemente consolidadas. Um jogador de basquete, dificilmente, se transformará em uma bola. A forte acoplação entre as classes favorece a implementação de uma arquitetura hierarquizada.
-
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.65]{hierarquia.png}
-	\caption{Exemplo de uso de hierarquia em entidades de jogo~[\citenum{pedrosaulo}]}
-	\label{hierarquia}
-	\end{center}
-\end{figure}
-
-No entanto, no caso do jogo \textit{DeskWorld} teremos problemas se utilizarmos este tipo de arquitetura. Isto porque, de acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}], uma arquitetura majoritariamente baseada em hierarquia de classes possui significantes limitações. Uma de suas principais é a baixa flexibilidade devido ao forte acomplamento. O fato de termos classes hierárquicas gera a dependência \textit{inter-classe}, já que, parte de suas características são herdadas de uma classe, sendo que, mudanças realizadas em características de uma classe refletiram sobre suas filhas.
-
-Outro ponto apresentado em~[\citenum{I2GMDVP}], é que, em linguagens bem difundidas no desenvolvimento de jogos, como \textit{C++} e \textit{Java}, a estrutura modelada em hierarquia é estática, não permitindo a alteração de classes em tempo de execução. Isto pode ser um grande entrave, pois certos jogos podem realizar diversas alterações drásticas no comportamento de entidades. Podemos exemplificar esse ponto tomando um jogo em que a morte de um certo inimigo possa se transformar em um item ou dinheiro.
-
-\subsubsection{Comunicação entre componentes}
-\label{cap6.1.3}
-
-Para aproveitar a flexibilidade provida pelo sistema de componentes, necessitamos realizar a comunicação entre componentes, visto que, será a responsável por engatilhar a transformação de uma entidade. É a mensagem que avisará ao objeto que seu comportamento irá ser alterado e associado a uma outra classe.
-
-Esta comunicação pode ficar a cargo da entidade do jogo, onde, por exemplo, pode realizar a transferência de um som de uma classe de áudio para uma classe veículo. Num sistema simples, essa comunicação pode ser implementada por uma simples chamada de função onde ponteiros são passados referênciando suas respectivas características.
-
-\subsection{\textit{Design Patterns}}
-\label{cap6.2}
-
-\textit{Design Patterns} são padrões de projeto de orientação a objetos que visam reconhecer padrões recorrentes de forma a aumentar a flexibilidade e permitir o reuso do código se usados de forma adequada. Isso se dá pois o seu uso aumenta a indepêndencia dos sistemas, o que também aumenta a capacidade de evolução do código em si.
-
-Como foi descrito em~[\citenum{pedrosaulo}], para cada padrão, são estabelecidos os seguintes aspectos:
-\begin{itemize}
-	\item{O \textbf{nome} usado para descrever, de maneira sucinta e precisa em no máximo duas palavras, o problema, a solução e as consequências inerentes do padrão.}
-	\item{O \textbf{problema} e o contexto adequados para a aplicação do padrão.}
-	\item{A \textbf{solução} descreve os elementos que compõem o padrão. Cada solução inclui relacionamentos entre classes e a colaboração entre estes casos existam.}
-	\item{As \textbf{consequências} de se aplicar o padrão, ou seja, os resultados e as desvantagens.}
-\end{itemize}
-
-Graças ao fato de jogos serem extremamente modulares, eles ganham um grande benefício por utilizar alguns padrões de projeto. Abaixo estão explicados os mais utilizados para este propósito.
+De acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}] a maioria dos jogos se desenvolvem em torno de objetos ou entidades em um mundo virtual, onde o usuário deve realizar ações com estes objetos. Antes de existir o paradigma de orientação à objetos, os jogos eram desenvolvidos com programação procedural e assim, a ênfase da programação baseava-se no código propriamente dito. Isto porque o jogo era observado, conceitualmente, como uma sequência de código com execução de procedimentos e funções. Na programação orientada à objetos a perspectiva é outra, pois a ênfase ocorre no conceito de objeto que é uma coleção de informações conjuntas a uma série de operações para processar estes dados. Portanto, utilizando orientação à objetos conseguimos obter \textit{Softwares} que se adequam ao formato dos jogos, pois as entidades dos jogos podem ser expressas pelas classes, os objetos por instâncias da classe e ações entre eles geram métodos.
 
 \subsubsection{\textit{Singleton}}
 \label{cap6.2.1}
