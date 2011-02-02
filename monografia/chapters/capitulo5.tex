@@ -108,9 +108,17 @@ Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o
 \subsubsection{\textit{Community Core Vision}}
 \label{cap5.2.3}
 
-O \textit{CCV} (\textit{Community Core Vision})~[\citenum{ccv}] é uma biblioteca para auxiliar o processamento de imagens capturadas pela câmera em interações com superfícies multi-toque. Ela lida com o acompanhamento de \textit{blobs} de luz infravermelha, e envia para seus programas esses eventos multi-toques, como o encostar do dedo, deslocamento do dedo e o retirar do dedo. Interage com a maioria dos tipos de dispositivos de captura de vídeo sendo muito útil para um projeto de \textit{software} para mesa multi-toque. Atualmente, possui suporte para plataformas \textit{Windows} e \textit{Linux}, 32 ou 64 \textit{bits}, e \textit{MacOS}.
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.4]{ccv.jpg}
+	\caption{Aplicativo de captura de toques \textit{Community Core Vision}~[\citenum{ccv}]}
+	\label{ccv}
+	\end{center}
+\end{figure}
 
-Seu funcionamento consiste na aplicação de filtros de forma customizável como os mostrados na Figura~[\ref{filtros}]. Em seu arquivo de configuração, \textit{config.xml}, pode-se modificar dados da câmera, como resolução e frames por segundo, e a \textit{CCV} irá automaticamente ajustar a câmera selecionada para os dados mais próximos suportados. A execução da \textit{CCV} funciona de acordo com o paradigma cliente-servidor, sendo a mesma atuando como servidor e a aplicação como cliente. Esta comunicação cliente-servidor é feita utilizando o protocolo TUIO~[\citenum{TUIO}] \textit{(Tangible User Interface System)}, permitindo uma arquitetura distribuída, onde o aplicativo é executado separadamente da aplicação de processamento de imagens.
+O \textit{CCV} (\textit{Community Core Vision})~[\citenum{ccv}] é um aplicativo para auxiliar o processamento de imagens capturadas pela câmera em interações com superfícies multi-toque, e pode ser observado na Figura~[\ref{ccv}]. Ela lida com o acompanhamento de \textit{blobs} de luz infravermelha, e envia para seus programas esses eventos multi-toques, como o encostar do dedo, deslocamento do dedo e o retirar do dedo. Interage com a maioria dos tipos de dispositivos de captura de vídeo sendo muito útil para um projeto de \textit{software} para mesa multi-toque. Atualmente, possui suporte para plataformas \textit{Windows} e \textit{Linux}, 32 ou 64 \textit{bits}, e \textit{MacOS}.
+
+Seu funcionamento consiste na aplicação de filtros de forma customizável como os mostrados na Figura~[\ref{filtros}]. Em seu arquivo de configuração, \textit{config.xml}, pode-se modificar dados da câmera, como resolução e frames por segundo, e a \textit{CCV} irá automaticamente ajustar a câmera selecionada para os dados mais próximos suportados. A execução da \textit{CCV} funciona de acordo com o paradigma cliente-servidor, sendo a mesma atuando como servidor e a aplicação como cliente. Esta comunicação cliente-servidor é feita utilizando o protocolo TUIO~[\citenum{TUIO}] \textit{(Tangible User Interface System)}, utilizando pontos normais x e y enviados via \textit{TCP}, ou em pacotes especiais para aplicativos \textit{Flash}, permitindo uma arquitetura distribuída, onde o aplicativo é executado separadamente da aplicação de processamento de imagens.
 
 \section{Arquitetura e Detalhes de Implementação}
 \label{cap6}
