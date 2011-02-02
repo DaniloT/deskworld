@@ -35,10 +35,7 @@ typedef struct DrawObject{
 
 class LevelState: public State {
 	vector<int> ff_vx[10001], ff_vy[10001]; // Coordinates of free form objects
-	map<int,TUIOData*>::iterator itTouch;
-	//map<int,DrawObject*>::iterator it;
 	DrawObject* drawObjects[10001];
-
 	vector<GameObject*> objects;
 	InputManager* inputManager;
 	Graphics* graphics;
