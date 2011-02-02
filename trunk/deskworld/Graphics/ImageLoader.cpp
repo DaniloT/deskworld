@@ -19,16 +19,6 @@ ImageLoader::ImageLoader(string fileName, int x, int y) {
 		w = surface->w;
 		h = surface->h;
 
-		// Check that the image's width is a power of 2
-		if ( (surface->w & (surface->w - 1)) != 0 ) {
-			printf("warning: image.bmp's width is not a power of 2\n");
-		}
-
-		// Also check if the height is a power of 2
-		if ( (surface->h & (surface->h - 1)) != 0 ) {
-			printf("warning: image.bmp's height is not a power of 2\n");
-		}
-
 		// get the number of channels in the SDL surface
 		nOfColors = surface->format->BytesPerPixel;
 		if (nOfColors == 4)     // contains an alpha channel
@@ -44,8 +34,7 @@ ImageLoader::ImageLoader(string fileName, int x, int y) {
 				else
 						texture_format = GL_BGR;
 		} else {
-				printf("warning: the image is not truecolor..  this will probably break\n");
-				// this error should not go unhandled
+				printf("Warning: the image is not truecolor.\n");
 		}
 
 		// Have OpenGL generate a texture object handle for us
@@ -83,27 +72,6 @@ ImageLoader::ImageLoader(string fileName, int x, int y) {
 ImageLoader::~ImageLoader() {
 	glDeleteTextures(1,&texture);
 }
-//
-//void Enable2D()
-//{
-//glMatrixMode(GL_PROJECTION);
-//glPushMatrix();
-//glLoadIdentity();
-//glOrtho(0, WIDTH, HEIGHT, 0, -1, 1);
-//glDisable(GL_DEPTH_TEST);
-//glMatrixMode(GL_MODELVIEW);
-//glPushMatrix();
-//glLoadIdentity();
-//}
-//
-//void Disable2D()
-//{
-//glMatrixMode(GL_PROJECTION);
-//glPopMatrix();
-//glMatrixMode(GL_MODELVIEW);
-//glPopMatrix();
-//glEnable(GL_DEPTH_TEST);
-//}
 
 void ImageLoader::Render(SDL_Surface* screen){
 
@@ -136,7 +104,8 @@ void ImageLoader::Render(SDL_Surface* screen){
 }
 
 void ImageLoader::UpdatePos(int x, int y){
-
+	this->x = x;
+	this->y = y;
 }
 
 SDL_Rect ImageLoader::GetRect(){

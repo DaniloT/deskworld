@@ -21,7 +21,7 @@ struct Object{
 };
 
 class Engine {
-	map<Sint16,b2MouseJoint*>::iterator it;
+	map<int,b2MouseJoint*>::iterator it;
 	b2Vec2 gravity;
 	b2World* world;
 	bool doSleep;
@@ -31,19 +31,19 @@ class Engine {
 	b2Vec2 mouseWorld;
 	b2Body* groundBody;
 public:
-	map<Sint16,b2MouseJoint*> mouseJoint;
+	map<int,b2MouseJoint*> mouseJoint;
 	virtual ~Engine();
 	void Initialize();
-	Engine* getInstace();
-	Object CreateLine(Uint16 posX, Uint16 posY, Uint16 distance, float32 angle, bool dynamic);
-	Object CreateTriangle(Uint16 posX, Uint16 posY, vector<Sint16> vx, vector<Sint16> vy, bool dynamic);
-	Object CreateRectangle(Uint16 posX, Uint16 posY, Uint16 w, Uint16 h, bool dynamic);
-	Object CreateCircle(Uint16 posX, Uint16 posY, float32 radius, bool dynamic);
-	Object CreateFreeform(vector<Sint16> vx, vector<Sint16> vy, float32 radius, bool dynamic);
-	void MouseDown(Uint16 xOrig, Uint16 yOrig, Sint16 id);
-	void DestroyMouseJoint(Sint16 id);
+	Engine* getInstance();
+	Object CreateLine(int posX, int posY, int distance, float32 angle, bool dynamic);
+	Object CreateTriangle(int posX, int posY, vector<int> vx, vector<int> vy, bool dynamic);
+	Object CreateRectangle(int posX, int posY, int w, int h, bool dynamic);
+	Object CreateCircle(int posX, int posY, float32 radius, bool dynamic);
+	Object CreateFreeform(vector<int> vx, vector<int> vy, float32 radius, bool dynamic);
+	void MouseDown(int xOrig, int yOrig, int id);
+	void DestroyMouseJoint(int id);
 	void DestroyObject(Object object);
-	Object* EraseObject(Uint16 x, Uint16 y);
+	Object* EraseObject(int x, int y);
 	void Update();
 };
 

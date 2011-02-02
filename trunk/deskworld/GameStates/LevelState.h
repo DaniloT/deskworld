@@ -3,11 +3,9 @@
  * Instituto de Ciencias Exatas
  * Departamento de Ciencia da Computacao
  *
- * Introducao ao Desenvolvimento de Jogos - 01/2010
  *
  * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
  * 			Victor Sampaio Zucca 		  - 06/25566
- * Turma: A
  *
  * Descricao: State in game do jogo.
  */
@@ -31,16 +29,16 @@
 #include <vector>
 
 typedef struct DrawObject{
-	Sint16 xOrig, yOrig, xMouse, yMouse; // Origin Coordinates of draw
-	vector<Sint16> ff_vx, ff_vy; // Coordinates of free form objects
+	int xOrig, yOrig, xMouse, yMouse; // Origin Coordinates of draw
+	vector<int> ff_vx, ff_vy; // Coordinates of free form objects
 	bool drawing;	//indicates if user is drawing
 } DrawObject;
 
 class LevelState: public State {
-	vector<Sint16> ff_vx[10001], ff_vy[10001];
-	map<Sint16,TUIOData*>::iterator itTouch;
-	map<Sint16,DrawObject*>::iterator it;
-	map<Sint16,DrawObject*> drawObjects;
+	vector<int> ff_vx[10001], ff_vy[10001];
+	map<int,TUIOData*>::iterator itTouch;
+	map<int,DrawObject*>::iterator it;
+	map<int,DrawObject*> drawObjects;
 	vector<GameObject*> objects;
 	InputManager* inputManager;
 	Graphics* graphics;

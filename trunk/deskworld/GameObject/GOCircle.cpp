@@ -7,8 +7,8 @@
 
 #include "GOCircle.h"
 
-GOCircle::GOCircle(vector<Sint16> vx, vector<Sint16> vy, RGBAColor color, bool dynamic) {
-	engine = engine->getInstace();
+GOCircle::GOCircle(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic) {
+	engine = engine->getInstance();
 	this->vx = vx;
 	this->vy = vy;
 	this->color = color;
@@ -26,13 +26,13 @@ GOCircle::~GOCircle() {
 
 float32 GOCircle::Update(){
 	if(dynamic){
-		vx.at(0) = (Sint16)(object.body->GetPosition().x*PIXELS_PER_METRE);
-		vy.at(0) = (Sint16)(object.body->GetPosition().y*PIXELS_PER_METRE);
+		vx.at(0) = (int)(object.body->GetPosition().x*PIXELS_PER_METRE);
+		vy.at(0) = (int)(object.body->GetPosition().y*PIXELS_PER_METRE);
 	}
 	//Return value of y axis for deleting bodys out of screen
 	return object.body->GetPosition().y*PIXELS_PER_METRE;
 }
 
 void GOCircle::Render(SDL_Surface* screen){
-	graphics->DrawCircle(screen, (Uint16)vx.at(0), (Uint16)vy.at(0), (Sint16)radius, color);
+	graphics->DrawCircle(screen, (int)vx.at(0), (int)vy.at(0), (int)radius, color);
 }

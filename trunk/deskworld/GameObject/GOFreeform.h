@@ -13,7 +13,7 @@
 class GOFreeform : public GameObject{
 	float32 thickness;
 public:
-	GOFreeform(vector<Sint16> vx, vector<Sint16> vy, RGBAColor color, bool dynamic, float32 thickness);
+	GOFreeform(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic, float32 thickness);
 	virtual ~GOFreeform();
 	// Updates the objects.
 	float32 Update();

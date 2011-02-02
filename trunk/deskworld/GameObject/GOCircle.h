@@ -13,7 +13,7 @@
 class GOCircle : public GameObject{
 	float32 radius;
 public:
-	GOCircle(vector<Sint16> vx, vector<Sint16> vy, RGBAColor color, bool dynamic);
+	GOCircle(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic);
 	virtual ~GOCircle();
 	// Updates the objects.
 	float32 Update();

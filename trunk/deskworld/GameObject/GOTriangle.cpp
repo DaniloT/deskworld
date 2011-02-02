@@ -7,11 +7,11 @@
 
 #include "GOTriangle.h"
 
-GOTriangle::GOTriangle(vector<Sint16> vx, vector<Sint16> vy, RGBAColor color, bool dynamic) {
-	Uint16 posX, posY;
+GOTriangle::GOTriangle(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic) {
+	int posX, posY;
 	float32 distance;
 
-	engine = engine->getInstace();
+	engine = engine->getInstance();
 	this->color = color;
 	this->dynamic = dynamic;
 	this->vx = vx;
@@ -39,12 +39,12 @@ GOTriangle::GOTriangle(vector<Sint16> vx, vector<Sint16> vy, RGBAColor color, bo
 	object = engine->CreateTriangle(posX, posY, vx, vy, dynamic);
 
 	//Getting positions for the triangle in the world
-	this->vx.at(0) = (Sint16)((object.body->GetWorldPoint(object.shape.GetVertex(0)).x)*PIXELS_PER_METRE);
-	this->vy.at(0) = (Sint16)((object.body->GetWorldPoint(object.shape.GetVertex(0)).y)*PIXELS_PER_METRE);
-	this->vx.at(1) = (Sint16)((object.body->GetWorldPoint(object.shape.GetVertex(1)).x)*PIXELS_PER_METRE);
-	this->vy.at(1) = (Sint16)((object.body->GetWorldPoint(object.shape.GetVertex(1)).y)*PIXELS_PER_METRE);
-	this->vx.at(2) = (Sint16)((object.body->GetWorldPoint(object.shape.GetVertex(2)).x)*PIXELS_PER_METRE);
-	this->vy.at(2) = (Sint16)((object.body->GetWorldPoint(object.shape.GetVertex(2)).y)*PIXELS_PER_METRE);
+	this->vx.at(0) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(0)).x)*PIXELS_PER_METRE);
+	this->vy.at(0) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(0)).y)*PIXELS_PER_METRE);
+	this->vx.at(1) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(1)).x)*PIXELS_PER_METRE);
+	this->vy.at(1) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(1)).y)*PIXELS_PER_METRE);
+	this->vx.at(2) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(2)).x)*PIXELS_PER_METRE);
+	this->vy.at(2) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(2)).y)*PIXELS_PER_METRE);
 }
 
 GOTriangle::~GOTriangle() {
@@ -54,8 +54,8 @@ GOTriangle::~GOTriangle() {
 float32 GOTriangle::Update(){
 	if(dynamic){
 		for(Uint32 i = 0 ; i < vx.size() ; i++){
-			vx.at(i) = (Sint16)((object.body->GetWorldPoint(object.shape.GetVertex(i)).x)*PIXELS_PER_METRE);
-			vy.at(i) = (Sint16)((object.body->GetWorldPoint(object.shape.GetVertex(i)).y)*PIXELS_PER_METRE);
+			vx.at(i) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(i)).x)*PIXELS_PER_METRE);
+			vy.at(i) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(i)).y)*PIXELS_PER_METRE);
 		}
 	}
 	return object.body->GetPosition().y*PIXELS_PER_METRE;

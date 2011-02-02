@@ -7,8 +7,8 @@
 
 #include "GOFreeform.h"
 
-GOFreeform::GOFreeform(vector<Sint16> vx, vector<Sint16> vy, RGBAColor color, bool dynamic, float32 thickness) {
-	engine = engine->getInstace();
+GOFreeform::GOFreeform(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic, float32 thickness) {
+	engine = engine->getInstance();
 	this->vx = vx;
 	this->vy = vy;
 	this->color = color;
@@ -28,8 +28,8 @@ float32 GOFreeform::Update(){
 		b2CircleShape* shape;
 		for(Uint32 i = 0 ; fixList != NULL ; i++){
 			shape = (b2CircleShape*) fixList->GetShape();
-			vx.at(i) = (Sint16)((object.body->GetWorldPoint(shape->GetVertex(0)).x)*PIXELS_PER_METRE);
-			vy.at(i) = (Sint16)((object.body->GetWorldPoint(shape->GetVertex(0)).y)*PIXELS_PER_METRE);
+			vx.at(i) = (int)((object.body->GetWorldPoint(shape->GetVertex(0)).x)*PIXELS_PER_METRE);
+			vy.at(i) = (int)((object.body->GetWorldPoint(shape->GetVertex(0)).y)*PIXELS_PER_METRE);
 			fixList = fixList->GetNext();
 		}
 	}
@@ -40,6 +40,6 @@ float32 GOFreeform::Update(){
 
 void GOFreeform::Render(SDL_Surface* screen){
 	for(Uint32 i = 0 ; i < vx.size() ; i++){
-		graphics->DrawCircle(screen, (Uint16)vx.at(i), (Uint16)vy.at(i), (Sint16)thickness, color);
+		graphics->DrawCircle(screen, (int)vx.at(i), (int)vy.at(i), (int)thickness, color);
 	}
 }

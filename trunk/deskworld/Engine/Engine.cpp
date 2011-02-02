@@ -27,7 +27,7 @@ void Engine::Initialize(){
 	groundBody = world->CreateBody(&bodyDef);
 }
 
-Engine* Engine::getInstace(){
+Engine* Engine::getInstance(){
 	static Engine *instance = NULL;
 	if (instance == NULL) {
 		instance = new Engine();
@@ -35,7 +35,7 @@ Engine* Engine::getInstace(){
 	return(instance);
 }
 
-Object Engine::CreateLine(Uint16 posX, Uint16 posY, Uint16 distance, float32 angle, bool dynamic){
+Object Engine::CreateLine(int posX, int posY, int distance, float32 angle, bool dynamic){
 	Object obj;
 	b2BodyDef bodyDef;
 
@@ -62,7 +62,7 @@ Object Engine::CreateLine(Uint16 posX, Uint16 posY, Uint16 distance, float32 ang
 	return obj;
 }
 
-Object Engine::CreateTriangle(Uint16 posX, Uint16 posY, vector<Sint16> vx, vector<Sint16> vy, bool dynamic){
+Object Engine::CreateTriangle(int posX, int posY, vector<int> vx, vector<int> vy, bool dynamic){
 	Object obj;
 	b2BodyDef bodyDef;
 	b2Vec2 vertices[3];
@@ -98,7 +98,7 @@ Object Engine::CreateTriangle(Uint16 posX, Uint16 posY, vector<Sint16> vx, vecto
 	return obj;
 }
 
-Object Engine::CreateRectangle(Uint16 posX, Uint16 posY, Uint16 w, Uint16 h, bool dynamic){
+Object Engine::CreateRectangle(int posX, int posY, int w, int h, bool dynamic){
 	Object obj;
 	b2BodyDef bodyDef;
 
@@ -128,7 +128,7 @@ Object Engine::CreateRectangle(Uint16 posX, Uint16 posY, Uint16 w, Uint16 h, boo
 	return obj;
 }
 
-Object Engine::CreateCircle(Uint16 posX, Uint16 posY, float32 radius, bool dynamic){
+Object Engine::CreateCircle(int posX, int posY, float32 radius, bool dynamic){
 	Object obj;
 	b2BodyDef bodyDef;
 	b2CircleShape shape;
@@ -155,7 +155,7 @@ Object Engine::CreateCircle(Uint16 posX, Uint16 posY, float32 radius, bool dynam
 	return obj;
 }
 
-Object Engine::CreateFreeform(vector<Sint16> vx, vector<Sint16> vy, float32 radius, bool dynamic){
+Object Engine::CreateFreeform(vector<int> vx, vector<int> vy, float32 radius, bool dynamic){
 	Object obj;
 	b2BodyDef bodyDef;
 	b2CircleShape shape;
@@ -230,7 +230,7 @@ public:
 	b2Fixture* m_fixture;
 };
 
-void Engine::MouseDown(Uint16 xOrig, Uint16 yOrig, Sint16 id)
+void Engine::MouseDown(int xOrig, int yOrig, int id)
 {
 	b2Vec2 p(CONVERT(xOrig), CONVERT(yOrig));
 	mouseWorld = p;
@@ -258,12 +258,12 @@ void Engine::MouseDown(Uint16 xOrig, Uint16 yOrig, Sint16 id)
 		md.bodyB = body;
 		md.target = p;
 		md.maxForce = 1000.0f * body->GetMass();
-		mouseJoint.insert(pair<Sint16,b2MouseJoint*>(id, (b2MouseJoint*)world->CreateJoint(&md)));
+		mouseJoint.insert(pair<int,b2MouseJoint*>(id, (b2MouseJoint*)world->CreateJoint(&md)));
 		body->SetAwake(true);
 	}
 }
 
-void Engine::DestroyMouseJoint(Sint16 id)
+void Engine::DestroyMouseJoint(int id)
 {
 	world->DestroyJoint(mouseJoint[id]);
 	mouseJoint.erase(id);
@@ -273,7 +273,7 @@ void Engine::DestroyObject(Object object){
 	world->DestroyBody(object.body);
 }
 
-Object* Engine::EraseObject(Uint16 x, Uint16 y){
+Object* Engine::EraseObject(int x, int y){
 	b2Vec2 p(CONVERT(x), CONVERT(y));
 	Object* obj = new Object();
 
