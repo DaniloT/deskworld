@@ -45,6 +45,7 @@ void LevelState::Load(){
 	currentTool = freeform;
 	dynamic = false;
 	thickness = 5;
+	//memset(drawObjects, NULL, sizeof(drawObjects));
 }
 
 void LevelState::Unload(){
@@ -68,18 +69,18 @@ void LevelState::Unload(){
 
 int LevelState::Update(){
 	int id;
-	DrawObject* drawTemp = (DrawObject*) malloc(sizeof(DrawObject));
-
-	drawTemp->drawing = false;
-	drawTemp->xMouse = 0;
-	drawTemp->xOrig = 0;
-	drawTemp->yMouse = 0;
-	drawTemp->yOrig = 0;
 
 	for(itTouch = inputManager->getTouchBegin(); itTouch != inputManager->getTouchEnd(); itTouch++){
 		id = itTouch->second->id;
-		if(drawObjects.find(id) == drawObjects.end()){
-			drawObjects.insert(pair<int,DrawObject*>(id, drawTemp));
+//	for(int i = 0; i < inputManager->getNumIds(); i++){
+//		id = inputManager->getId(i);
+		if(drawObjects[id] == NULL){
+			drawObjects[id] = (DrawObject*) malloc(sizeof(DrawObject));
+			drawObjects[id]->drawing = false;
+			drawObjects[id]->xMouse = 0;
+			drawObjects[id]->xOrig = 0;
+			drawObjects[id]->yMouse = 0;
+			drawObjects[id]->yOrig = 0;
 		}
 		if(drawObjects[id]->drawing){
 			if(inputManager->isKeyDown(SDLK_ESCAPE)){
@@ -467,7 +468,7 @@ int LevelState::Update(){
 													toolColor.a = 245;
 												}else if(inputManager->isTouchInside(musica, id)){
 													delete musica;
-													if(bgMusic->Tocando()){
+													if(bgMusic->isPlaying()){
 														bgMusic->Pause();
 														musica = new ImageLoader("musicoff.png",0,525);
 													}else{
@@ -490,7 +491,7 @@ int LevelState::Update(){
 													//Drawing or Mousejoint
 													} else {
 														engine->MouseDown(drawObjects[id]->xOrig, drawObjects[id]->yOrig, id);
-														if (engine->mouseJoint.find(id) == engine->mouseJoint.end()){//engine->mouseJoint[id] == NULL) {
+														if (engine->mouseJoint[id] == NULL) {
 															drawObjects[id]->drawing = true;
 															if(currentTool == freeform){
 																ff_vx[id].push_back(drawObjects[id]->xOrig);
@@ -511,12 +512,12 @@ int LevelState::Update(){
 			} else {
 				//Mouse up to destroy joint
 				if(inputManager->isTouchUp(id)){
-					if(engine->mouseJoint.find(id) != engine->mouseJoint.end()){//engine->mouseJoint[id] != NULL)
+					if(engine->mouseJoint[id] != NULL){
 						engine->DestroyMouseJoint(id);
 						inputManager->xy.clear();
 					}
 				//Update grabbed object with mouse position
-				}else if(engine->mouseJoint.find(id) != engine->mouseJoint.end()){//engine->mouseJoint[id]){
+				}else if(engine->mouseJoint[id] != NULL){
 					b2Vec2 p(CONVERT(inputManager->touchPosX(id)), CONVERT(inputManager->touchPosY(id)));
 					engine->mouseJoint[id]->SetTarget(p);
 				}
@@ -539,8 +540,11 @@ void LevelState::Render(SDL_Surface * screen){
 	int id;
 
 	background->Render(screen);
-	for(it = drawObjects.begin(); it != drawObjects.end(); it++){
-		id = it->first;
+
+	for(itTouch = inputManager->getTouchBegin(); itTouch != inputManager->getTouchEnd(); itTouch++){
+		id = itTouch->second->id;
+//	for(int i = 0; i < inputManager->getNumIds(); i++){
+//		id = inputManager->getId(i);
 		if(drawObjects[id]->drawing){
 
 			drawObjects[id]->xMouse = inputManager->touchPosX(id);

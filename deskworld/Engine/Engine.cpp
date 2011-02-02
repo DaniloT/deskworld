@@ -25,6 +25,7 @@ void Engine::Initialize(){
 
 	b2BodyDef bodyDef;
 	groundBody = world->CreateBody(&bodyDef);
+//	memset(mouseJoint, NULL, sizeof(mouseJoint));
 }
 
 Engine* Engine::getInstance(){
@@ -235,8 +236,7 @@ void Engine::MouseDown(int xOrig, int yOrig, int id)
 	b2Vec2 p(CONVERT(xOrig), CONVERT(yOrig));
 	mouseWorld = p;
 
-	it = mouseJoint.find(id);
-	if (it != mouseJoint.end())
+	if (mouseJoint[id] != NULL)
 	{
 		return;
 	}
@@ -258,7 +258,7 @@ void Engine::MouseDown(int xOrig, int yOrig, int id)
 		md.bodyB = body;
 		md.target = p;
 		md.maxForce = 1000.0f * body->GetMass();
-		mouseJoint.insert(pair<int,b2MouseJoint*>(id, (b2MouseJoint*)world->CreateJoint(&md)));
+		mouseJoint[id] = (b2MouseJoint*)world->CreateJoint(&md);
 		body->SetAwake(true);
 	}
 }
@@ -266,7 +266,7 @@ void Engine::MouseDown(int xOrig, int yOrig, int id)
 void Engine::DestroyMouseJoint(int id)
 {
 	world->DestroyJoint(mouseJoint[id]);
-	mouseJoint.erase(id);
+	mouseJoint[id] = NULL;
 }
 
 void Engine::DestroyObject(Object object){

@@ -30,15 +30,15 @@
 
 typedef struct DrawObject{
 	int xOrig, yOrig, xMouse, yMouse; // Origin Coordinates of draw
-	vector<int> ff_vx, ff_vy; // Coordinates of free form objects
 	bool drawing;	//indicates if user is drawing
 } DrawObject;
 
 class LevelState: public State {
-	vector<int> ff_vx[10001], ff_vy[10001];
+	vector<int> ff_vx[10001], ff_vy[10001]; // Coordinates of free form objects
 	map<int,TUIOData*>::iterator itTouch;
-	map<int,DrawObject*>::iterator it;
-	map<int,DrawObject*> drawObjects;
+	//map<int,DrawObject*>::iterator it;
+	DrawObject* drawObjects[10001];
+
 	vector<GameObject*> objects;
 	InputManager* inputManager;
 	Graphics* graphics;

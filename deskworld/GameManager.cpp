@@ -61,9 +61,9 @@ void GameManager::run(){
 		/* Render */
 		currentState->Render(screen);
 		//motion blur
-		glAccum(GL_MULT, 0.50);
-		glAccum(GL_ACCUM, 1-0.50);
-		glAccum(GL_RETURN, 1.0);
+//		glAccum(GL_MULT, 0.50);
+//		glAccum(GL_ACCUM, 1-0.50);
+//		glAccum(GL_RETURN, 1.0);
 		//Blit
 		SDL_GL_SwapBuffers();
 		SDL_framerateDelay(manex);
