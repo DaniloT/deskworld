@@ -12,7 +12,6 @@
 #include "../Common.h"
 
 #include <vector>
-#include <map>
 #include "../Graphics/Sprite.h"
 
 struct Object{
@@ -21,7 +20,6 @@ struct Object{
 };
 
 class Engine {
-	map<int,b2MouseJoint*>::iterator it;
 	b2Vec2 gravity;
 	b2World* world;
 	bool doSleep;
@@ -31,7 +29,7 @@ class Engine {
 	b2Vec2 mouseWorld;
 	b2Body* groundBody;
 public:
-	map<int,b2MouseJoint*> mouseJoint;
+	b2MouseJoint* mouseJoint[10001];
 	virtual ~Engine();
 	void Initialize();
 	Engine* getInstance();
