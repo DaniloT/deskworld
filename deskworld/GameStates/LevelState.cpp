@@ -5,7 +5,7 @@
  *
  *
  * Autores:  Danilo Gaby Andersen Trindade - 06/82039
- * 			Victor Sampaio Zucca 		  - 06/25566
+ * 			 Victor Sampaio Zucca 		  - 06/25566
  *
  * Descricao: State in game do jogo.
  */
@@ -45,7 +45,6 @@ void LevelState::Load(){
 	currentTool = freeform;
 	dynamic = false;
 	thickness = 5;
-	//memset(drawObjects, NULL, sizeof(drawObjects));
 }
 
 void LevelState::Unload(){
@@ -70,10 +69,8 @@ void LevelState::Unload(){
 int LevelState::Update(){
 	int id;
 
-	for(itTouch = inputManager->getTouchBegin(); itTouch != inputManager->getTouchEnd(); itTouch++){
-		id = itTouch->second->id;
-//	for(int i = 0; i < inputManager->getNumIds(); i++){
-//		id = inputManager->getId(i);
+	for(int i = 0; i < inputManager->getNumIds(); i++){
+		id = inputManager->getId(i);
 		if(drawObjects[id] == NULL){
 			drawObjects[id] = (DrawObject*) malloc(sizeof(DrawObject));
 			drawObjects[id]->drawing = false;
@@ -541,10 +538,8 @@ void LevelState::Render(SDL_Surface * screen){
 
 	background->Render(screen);
 
-	for(itTouch = inputManager->getTouchBegin(); itTouch != inputManager->getTouchEnd(); itTouch++){
-		id = itTouch->second->id;
-//	for(int i = 0; i < inputManager->getNumIds(); i++){
-//		id = inputManager->getId(i);
+	for(int i = 0; i < inputManager->getNumIds(); i++){
+		id = inputManager->getId(i);
 		if(drawObjects[id]->drawing){
 
 			drawObjects[id]->xMouse = inputManager->touchPosX(id);

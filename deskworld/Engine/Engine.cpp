@@ -25,7 +25,6 @@ void Engine::Initialize(){
 
 	b2BodyDef bodyDef;
 	groundBody = world->CreateBody(&bodyDef);
-//	memset(mouseJoint, NULL, sizeof(mouseJoint));
 }
 
 Engine* Engine::getInstance(){

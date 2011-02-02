@@ -28,7 +28,6 @@ using namespace TUIO;
 using namespace std;
 
 typedef struct TUIOData{
-	int id;
 	int x;
 	int y;
 	bool remove, tocou, destocou, tocando;
@@ -40,9 +39,11 @@ typedef struct Point{
 }point;
 
 class InputManager : public TuioListener {
-	map<int,TUIOData*> touch;
+	TUIOData* touch[10001];
 	Uint8* keyState;
 	Uint8 buttomState;
+	int numIds;
+	int id[10001];
 	TuioClient* tuio_client;
 	// Vectors that save state of mouse and keyboard input.
 	bool keyDownState[400], keyUpState[400], buttomUpState[4], buttomDownState[4];
@@ -84,8 +85,7 @@ public:
 	void refresh(TuioTime ftime);
 
 	int getNumIds();
-	map<int,TUIOData*>::iterator getTouchBegin();
-	map<int,TUIOData*>::iterator getTouchEnd();
+	int getId(int pos);
 };
 
 #endif /* INPUTMANAGER_H_ */

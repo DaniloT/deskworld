@@ -15,6 +15,9 @@
 InputManager::InputManager() {
 	keyState = SDL_GetKeyState(NULL);
 
+	memset(id, -1, sizeof(id));
+	numIds = 0;
+
 	memset(keyDownState, false, sizeof(keyDownState));
 	memset(keyUpState, false, sizeof(keyUpState));
 	memset(buttomDownState, false, sizeof(buttomDownState));
@@ -41,12 +44,18 @@ void InputManager::pollEvents() {
 	memset(keyUpState, false, sizeof(keyUpState));
 	memset(buttomDownState, false, sizeof(buttomDownState));
 	memset(buttomUpState, false, sizeof(buttomUpState));
-	for(it = touch.begin(); it != touch.end(); it++){
-		if (it->second->remove){
-			touch.erase(it);
+	for (int i = 0; i < numIds; i++){
+		if (touch[id[i]]->remove){
+			int g;
+			for (g = i; g < numIds; g++){
+				id[g] = id[g+1];
+			}
+			id[g] = -1;
+			numIds--;
+			i--;
 		} else {
-			it->second->tocou = false;
-			it->second->destocou = false;
+			touch[id[i]]->tocou = false;
+			touch[id[i]]->destocou = false;
 		}
 	}
 	motion_event = false;
@@ -56,25 +65,26 @@ void InputManager::pollEvents() {
 		}else if(event.type == SDL_KEYUP){
 			keyUpState[event.key.keysym.sym] = 1;
 		}else if(event.type == CURSOR_ADDEVENT){
-			data = (TUIOData*)event.user.data1;
-			data->tocou = true;
-			data->tocando = true;
-			touch.insert(pair<int,TUIOData*>(data->id,data));
+			id[numIds] = event.user.code;
+			numIds++;
+			touch[event.user.code] = (TUIOData*)event.user.data1;
+			touch[event.user.code]->tocou = true;
+			touch[event.user.code]->tocando = true;
 		}else if(event.type == CURSOR_REMOVEEVENT){
 			data = (TUIOData*)event.user.data1;
-			touch[data->id]->destocou = true;
-			touch[data->id]->tocando = false;
-			touch[data->id]->x = data->x;
-			touch[data->id]->y = data->y;
-			touch[data->id]->remove = true;
+			touch[event.user.code]->remove = true;
+			touch[event.user.code]->destocou = true;
+			touch[event.user.code]->tocando = false;
+			touch[event.user.code]->x = data->x;
+			touch[event.user.code]->y = data->y;
 		}else if(event.type == CURSOR_MOVEEVENT){
 			data = (TUIOData*)event.user.data1;
 			point temp;
 			temp.x = data->x;
 			temp.y = data->y;
-			xy.insert(pair<int, point >(data->id, temp ));
-			touch[data->id]->x = data->x;
-			touch[data->id]->y = data->y;
+			xy.insert(pair<int, point >(event.user.code, temp));
+			touch[event.user.code]->x = data->x;
+			touch[event.user.code]->y = data->y;
 			motion_event = true;
 		}else if(event.type == SDL_MOUSEBUTTONDOWN){
 			buttomDownState[event.button.button] = 1;
@@ -85,8 +95,9 @@ void InputManager::pollEvents() {
 			data->remove = false;
 			data->x = event.button.x;
 			data->y = event.button.y;
-			data->id = 10000;
-			touch.insert(pair<int,TUIOData*>(data->id,data));
+			id[numIds] = 10000;
+			numIds++;
+			touch[10000] = data;
 		}else if(event.type == SDL_MOUSEBUTTONUP){
 			buttomUpState[event.button.button] = 1;
 			touch[10000]->tocando = false;
@@ -95,8 +106,7 @@ void InputManager::pollEvents() {
 			touch[10000]->y = event.button.y;
 			touch[10000]->remove = true;
 		}else if(event.type == SDL_MOUSEMOTION){
-			it = touch.find(10000);
-			if(it != touch.end()){
+			if (touch[10000] != NULL) {
 				touch[10000]->x = event.button.x;
 				touch[10000]->y = event.button.y;
 				motion_event = true;
@@ -228,7 +238,7 @@ void InputManager::addTuioCursor(TuioCursor *tcur){
 	TUIOData* data = (TUIOData*) malloc(sizeof(TUIOData));
 
 	event.type = CURSOR_ADDEVENT;
-	data->id = tcur->getCursorID();
+	event.user.code = tcur->getCursorID();
 	data->x = (int)tcur->getScreenX(WIDTH);
 	data->y = (int)tcur->getScreenY(HEIGHT);
 	data->remove = false;
@@ -252,7 +262,7 @@ void InputManager::updateTuioCursor(TuioCursor *tcur){
 		penultimoY = (*rit).getScreenY(HEIGHT);
 
 	event->type = CURSOR_MOVEEVENT;
-	data->id = tcur->getCursorID();
+	event->user.code = tcur->getCursorID();
 
 	dist = tcur->getScreenDistance((*rit), WIDTH, HEIGHT);
 
@@ -278,7 +288,7 @@ void InputManager::updateTuioCursor(TuioCursor *tcur){
 		data = (TUIOData*) malloc(sizeof(TUIOData));
 		event = (SDL_Event*) malloc(sizeof(SDL_Event));
 		event->type = CURSOR_MOVEEVENT;
-		data->id = tcur->getCursorID();
+		event->user.code = tcur->getCursorID();
 	}
 
 	data->x = (int)(tcur->getScreenX(WIDTH));
@@ -297,7 +307,7 @@ void InputManager::removeTuioCursor(TuioCursor *tcur){
 	TUIOData* data = (TUIOData*) malloc(sizeof(TUIOData));
 
 	event.type = CURSOR_REMOVEEVENT;
-	data->id = tcur->getCursorID();
+	event.user.code = tcur->getCursorID();
 	data->x = (int)tcur->getScreenX(WIDTH);
 	data->y = (int)tcur->getScreenY(HEIGHT);
 	data->remove = false;
@@ -314,13 +324,9 @@ void InputManager::refresh(TuioTime ftime){
 }
 
 int InputManager::getNumIds(){
-	return(touch.size());
+	return(numIds);
 }
 
-map<int,TUIOData*>::iterator InputManager::getTouchBegin(){
-	return(touch.begin());
-}
-
-map<int,TUIOData*>::iterator InputManager::getTouchEnd(){
-	return(touch.end());
+int InputManager::getId(int pos){
+	return(id[pos]);
 }
