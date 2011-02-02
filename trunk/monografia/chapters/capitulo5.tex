@@ -13,13 +13,13 @@ Nesta seção, apresenta-se o \textit{Design} do \textit{Software}, isto é, o proj
 
 \begin{itemize}
 	\item Sua mecânica deve permitir a participação de diversos jogadores simultaneamente.
-	\item Suportar e processar multi-toque simultaneamente.
-	\item Capacidade de captar gestos.
+	\item Suportar e processar toques simultaneamente.
+	\item Capacidade de aproximar formas.
 \end{itemize}
 
 \subsection{Conceito}
 \label{cap5.1.2}
-O simulador de física \textit{Deskworld} tem como principal proposta deixar a encargo da criatividade do(s) usuário(s) a construções de cenários, objetos e seus objetivos no respectivo mundo. O principal objetivo é prover ferramentas aos usuários para auxiliá-los na construção. Assim sendo, objetos e elementos físicos são representados em um plano bidimensional e regidos pelas leis da física. É possível desenhar um objeto e associá-lo a algum tipo de elemento de acordo com suas propriedades como massa, coeficiente de atrito e elasticidade. O usuário pode aplicar uma força a este objeto como a gravidade, fixá-lo no plano, entre outras opções. Os usuários têm a maior liberadade possível para criar diferentes mundos, fazer desenhos ou a simulação de objetos.
+O simulador de física \textit{Deskworld} tem como principal proposta deixar a encargo da criatividade do(s) usuário(s) a construções de cenários, objetos e seus objetivos no respectivo mundo. O principal objetivo é prover ferramentas aos usuários para auxiliá-los nessa construção. Assim sendo, objetos e elementos físicos são representados em um plano bidimensional e regidos pelas leis da física. É possível desenhar um objeto e associá-lo a algum tipo de elemento de acordo com suas propriedades como massa, coeficiente de atrito e elasticidade. O usuário pode aplicar uma força a este objeto como a gravidade, fixá-lo no plano, entre outras opções. Os usuários têm a maior liberdade possível para criar diferentes mundos, fazer desenhos ou a simulação de objetos.
 
 \subsection{Regras e Objetos}
 \label{cap5.1.3}
@@ -35,13 +35,13 @@ Cada objeto pode ter as seguintes características:
 	\item Velocidade
 \end{itemize}
 
-%Além dessas propriedades, os objetos podem interagir entre si por meio de juntas, colisões ou como motores de outro objeto.
+Além dessas propriedades, os objetos podem interagir entre si por meio de juntas, colisões ou com motores adicionados aos objetos.
 
 Neste simulador não existe uma regra pré-definida, ela pode ser definida pontualmente por um usuário ao criar um cenário e objetos.
 
 \subsection{Interface}
 \label{cap5.1.4}
-Interface utilizada para testes é a mesa descrita no capítulo~\ref{cap4}. Porém, o jogo é portável para qualquer interface multi-toque.
+A interface utilizada para testes é a mesa descrita no capítulo~\ref{cap4}. Porém, o jogo é portável para qualquer interface multi-toque que suporte o protocolo \textit{TUIO}.
 
 \section{Ferramentas de suporte do simulador}
 \label{cap5.2}
@@ -105,12 +105,12 @@ Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o
   \label{tab:tabela1_param_TUIO}%
 \end{table}%
 
-\subsubsection{\textit{Touchlib}}
+\subsubsection{\textit{Community Core Vision}}
 \label{cap5.2.3}
 
-\textit{Touchlib}~[\citenum{Touchlib}] é uma biblioteca para auxiliar o processamento de imagens capturadas pela câmera em interações com superfícies multi-toque. Ela lida com o acompanhamento de \textit{blobs} de luz infravermelha, e envia para seus programas esses eventos multi-toques, como o encostar do dedo, deslocamento do dedo e o retirar do dedo. Inclui um aplicativo de configuração e algumas demos para exemplificar seu uso. Interage com a maioria dos tipos de dispositivos de captura de vídeo sendo muito útil para um projeto de \textit{software} para mesa multi-toque. Em contrapartida só tem suporte para o sistema operacional \textit{Windows}.
+O \textit{CCV} (\textit{Community Core Vision})~[\citenum{ccv}] é uma biblioteca para auxiliar o processamento de imagens capturadas pela câmera em interações com superfícies multi-toque. Ela lida com o acompanhamento de \textit{blobs} de luz infravermelha, e envia para seus programas esses eventos multi-toques, como o encostar do dedo, deslocamento do dedo e o retirar do dedo. Interage com a maioria dos tipos de dispositivos de captura de vídeo sendo muito útil para um projeto de \textit{software} para mesa multi-toque. Atualmente, possui suporte para plataformas \textit{Windows} e \textit{Linux}, 32 ou 64 \textit{bits}, e \textit{MacOS}.
 
-Seu funcionamento consiste na aplicação de filtros de forma customizável como os mostrados nesta figura~[\ref{filtros}]. A execução destes filtros são realizadas pela \textit{Touchlib} com o uso da \textit{OpenCV (Open Source Computer Vision Library)}, uma biblioteca para o desenvolvimento de aplicativos de processamento de imagens. A execução da \textit{Touchlib} funciona de acordo com o paradigma cliente-servidor, sendo a mesma atuando como servidor e a aplicação como cliente. Esta comunicação cliente-servidor é feita utilizando o protocolo TUIO~[\citenum{TUIO}] \textit{(Tangible User Interface System)}, permitindo uma arquitetura distribuída, onde o aplicativo é executado separadamente da aplicação do processamento de imagens.
+Seu funcionamento consiste na aplicação de filtros de forma customizável como os mostrados na Figura~[\ref{filtros}]. Em seu arquivo de configuração, \textit{config.xml}, pode-se modificar dados da câmera, como resolução e frames por segundo, e a \textit{CCV} irá automaticamente ajustar a câmera selecionada para os dados mais próximos suportados. A execução da \textit{CCV} funciona de acordo com o paradigma cliente-servidor, sendo a mesma atuando como servidor e a aplicação como cliente. Esta comunicação cliente-servidor é feita utilizando o protocolo TUIO~[\citenum{TUIO}] \textit{(Tangible User Interface System)}, permitindo uma arquitetura distribuída, onde o aplicativo é executado separadamente da aplicação de processamento de imagens.
 
 \section{Arquitetura e Detalhes de Implementação}
 \label{cap6}
