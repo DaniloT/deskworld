@@ -42,20 +42,20 @@ Graphics::~Graphics() {
 	// TODO Auto-generated destructor stub
 }
 
-void Graphics::DrawPixel(SDL_Surface* screen, Uint16 x, Uint16 y, RGBAColor color){
-	if(pixelRGBA(screen, (Sint16)x,(Sint16)y, color.r, color.g, color.b, color.a)==-1){
+void Graphics::DrawPixel(SDL_Surface* screen, int x, int y, RGBAColor color){
+	if(pixelRGBA(screen, (int)x,(int)y, color.r, color.g, color.b, color.a)==-1){
 		printf("Error at DrawPixel\n");
 	}
 
 }
 
-void Graphics::DrawLine(SDL_Surface* screen, Uint16 xOrigin, Uint16 yOrigin, Uint16 x, Uint16 y, RGBAColor color){
-	if(lineRGBA(screen, (Sint16)xOrigin,(Sint16)yOrigin, (Sint16)x, (Sint16)y, color.r, color.g, color.b, color.a)==-1){
+void Graphics::DrawLine(SDL_Surface* screen, int xOrigin, int yOrigin, int x, int y, RGBAColor color){
+	if(lineRGBA(screen, (int)xOrigin,(int)yOrigin, (int)x, (int)y, color.r, color.g, color.b, color.a)==-1){
 		printf("Error at DrawLine\n");
 	}
 }
 
-void Graphics::DrawTriangle(SDL_Surface* screen, Uint16 x1, Uint16 y1, Uint16 x2, Uint16 y2, Uint16 x3, Uint16 y3, RGBAColor color){
+void Graphics::DrawTriangle(SDL_Surface* screen, int x1, int y1, int x2, int y2, int x3, int y3, RGBAColor color){
 	glColor4ub(color.r,color.g,color.b,color.a);
 	glBegin(GL_TRIANGLES);
 		//Draw our four points, clockwise.
@@ -65,7 +65,7 @@ void Graphics::DrawTriangle(SDL_Surface* screen, Uint16 x1, Uint16 y1, Uint16 x2
 	glEnd();
 }
 
-void Graphics::DrawRectangle(SDL_Surface* screen, vector<Sint16> vx, vector<Sint16> vy, RGBAColor color){
+void Graphics::DrawRectangle(SDL_Surface* screen, vector<int> vx, vector<int> vy, RGBAColor color){
 	//Define the color
 	glColor4ub(color.r,color.g,color.b,color.a);
 	glBegin(GL_QUADS);
@@ -77,7 +77,7 @@ void Graphics::DrawRectangle(SDL_Surface* screen, vector<Sint16> vx, vector<Sint
 	glEnd();
 }
 
-void Graphics::DrawCircle(SDL_Surface* screen, Uint16 x, Uint16 y, Uint16 radius, RGBAColor color){
+void Graphics::DrawCircle(SDL_Surface* screen, int x, int y, int radius, RGBAColor color){
 	GLUquadricObj *circle = gluNewQuadric ();
 
 	glTranslatef((GLfloat) x, (GLfloat)y, 0);
@@ -91,7 +91,7 @@ void Graphics::DrawCircle(SDL_Surface* screen, Uint16 x, Uint16 y, Uint16 radius
 	glLoadIdentity();
 }
 
-void Graphics::DrawPolygon(SDL_Surface* screen, vector<Sint16> vx, vector<Sint16> vy, int n, RGBAColor color){
+void Graphics::DrawPolygon(SDL_Surface* screen, vector<int> vx, vector<int> vy, int n, RGBAColor color){
 	glColor4ub(color.r,color.g,color.b,color.a);
 	glBegin(GL_POLYGON);
 		for(int i = 0 ; i < n ; i++){
@@ -100,7 +100,7 @@ void Graphics::DrawPolygon(SDL_Surface* screen, vector<Sint16> vx, vector<Sint16
 	glEnd();
 }
 
-Graphics* Graphics::getInstace(){
+Graphics* Graphics::getInstance(){
 	static Graphics *instance = NULL;
 	if (instance == NULL) {
 		instance = new Graphics();

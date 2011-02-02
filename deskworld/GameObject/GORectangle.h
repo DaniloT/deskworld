@@ -12,7 +12,7 @@
 
 class GORectangle : public GameObject{
 public:
-	GORectangle(vector<Sint16> vx, vector<Sint16> vy, RGBAColor color, bool dynamic);
+	GORectangle(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic);
 	virtual ~GORectangle();
 	// Updates the objects.
 	float32 Update();

@@ -12,7 +12,7 @@
 
 class GOTriangle : public GameObject{
 public:
-	GOTriangle(vector<Sint16> vx, vector<Sint16> vy, RGBAColor color, bool dynamic);
+	GOTriangle(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic);
 	virtual ~GOTriangle();
 	// Updates triangle position.
 	float32 Update();

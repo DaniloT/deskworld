@@ -3,11 +3,9 @@
  * Instituto de Ciencias Exatas
  * Departamento de Ciencia da Computacao
  *
- * Introducao ao Desenvolvimento de Jogos - 01/2010
  *
- * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
+ * Autores:  Danilo Gaby Andersen Trindade - 06/82039
  * 			Victor Sampaio Zucca 		  - 06/25566
- * Turma: A
  *
  * Descricao: State in game do jogo.
  */
@@ -20,8 +18,8 @@ LevelState::~LevelState() {
 
 void LevelState::Load(){
 	inputManager = inputManager->getInstance();
-	engine = engine->getInstace();
-	graphics = graphics->getInstace();
+	engine = engine->getInstance();
+	graphics = graphics->getInstance();
 	background = new ImageLoader("paper.jpg",0,0);
 	dinamico = new ImageLoader("D.png",0,0);
 	estatico = new ImageLoader("E2.png",0,75);
@@ -69,7 +67,7 @@ void LevelState::Unload(){
 }
 
 int LevelState::Update(){
-	Sint16 id;
+	int id;
 	DrawObject* drawTemp = (DrawObject*) malloc(sizeof(DrawObject));
 
 	drawTemp->drawing = false;
@@ -81,13 +79,17 @@ int LevelState::Update(){
 	for(itTouch = inputManager->getTouchBegin(); itTouch != inputManager->getTouchEnd(); itTouch++){
 		id = itTouch->second->id;
 		if(drawObjects.find(id) == drawObjects.end()){
-			drawObjects.insert(pair<Sint16,DrawObject*>(id, drawTemp));
+			drawObjects.insert(pair<int,DrawObject*>(id, drawTemp));
 		}
 		if(drawObjects[id]->drawing){
 			if(inputManager->isKeyDown(SDLK_ESCAPE)){
 				drawObjects[id]->drawing = false;
 			}else if(inputManager->isTouchUp(id)){
-				vector<Sint16> vx, vy;
+				vector<int> vx, vy;
+				GOTriangle* t;
+				GORectangle* r;
+				GOFreeform* ff;
+				GOCircle* c;
 				switch(currentTool){
 				case triangle:
 					// Mouse point above from origin
@@ -130,7 +132,7 @@ int LevelState::Update(){
 							vy.push_back(drawObjects[id]->yMouse);
 						}else{break;}
 					}else{break;}
-					GOTriangle* t = new GOTriangle(vx, vy, toolColor, dynamic);
+					t = new GOTriangle(vx, vy, toolColor, dynamic);
 					objects.push_back(t);
 					break;
 				case rectangle:
@@ -138,7 +140,7 @@ int LevelState::Update(){
 					vy.push_back(drawObjects[id]->yOrig);
 					vx.push_back(drawObjects[id]->xMouse);
 					vy.push_back(drawObjects[id]->yMouse);
-					GORectangle* r = new GORectangle(vx, vy, toolColor, dynamic);
+					r = new GORectangle(vx, vy, toolColor, dynamic);
 					objects.push_back(r);
 					break;
 				case circle:
@@ -146,13 +148,13 @@ int LevelState::Update(){
 					vy.push_back(drawObjects[id]->yOrig);
 					vx.push_back(drawObjects[id]->xMouse);
 					vy.push_back(drawObjects[id]->yMouse);
-					GOCircle* c = new GOCircle(vx, vy, toolColor, dynamic);
+					c = new GOCircle(vx, vy, toolColor, dynamic);
 					objects.push_back(c);
 					break;
 				case freeform:
 					vx = ff_vx[id];
 					vy = ff_vy[id];
-					GOFreeform* ff = new GOFreeform(vx, vy, toolColor, dynamic, thickness);
+					ff = new GOFreeform(vx, vy, toolColor, dynamic, thickness);
 					ff_vx[id].clear();
 					ff_vy[id].clear();
 					inputManager->xy.clear();
@@ -182,7 +184,7 @@ int LevelState::Update(){
 				}
 			}
 		}else{
-			//Test mouse down
+			//Test mouse or touch down
 			if(inputManager->isTouched(id)){
 				drawObjects[id]->xOrig = inputManager->touchPosX(id);
 				drawObjects[id]->yOrig = inputManager->touchPosY(id);
@@ -534,7 +536,7 @@ int LevelState::Update(){
 }
 
 void LevelState::Render(SDL_Surface * screen){
-	Sint16 id;
+	int id;
 
 	background->Render(screen);
 	for(it = drawObjects.begin(); it != drawObjects.end(); it++){
@@ -545,7 +547,7 @@ void LevelState::Render(SDL_Surface * screen){
 			drawObjects[id]->yMouse = inputManager->touchPosY(id);
 
 			if(inputManager->isTouching(id)){
-				vector<Sint16> vx, vy;
+				vector<int> vx, vy;
 				switch(currentTool){
 				case triangle:
 					// Mouse point above from origin
@@ -616,7 +618,7 @@ void LevelState::Render(SDL_Surface * screen){
 					break;
 				case freeform:
 						for(Uint32 i = 0 ; i < ff_vx[id].size() ; i++){
-							graphics->DrawCircle(screen, ff_vx[id].at(i), ff_vy[id].at(i), (Uint16)thickness, toolColor);
+							graphics->DrawCircle(screen, ff_vx[id].at(i), ff_vy[id].at(i), (int)thickness, toolColor);
 						}
 					break;
 				}

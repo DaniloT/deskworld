@@ -19,8 +19,8 @@
 using namespace std;
 
 class ImageLoader {
-	int w, h;
-	GLuint texture; //this is a handle to our texture object
+	int w, h;		//width and height of image
+	GLuint texture; //this handle our texture object
 public:
 	int x,y;
 	ImageLoader(string fileName, int x, int y);

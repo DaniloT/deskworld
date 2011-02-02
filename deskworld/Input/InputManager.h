@@ -16,12 +16,11 @@
 #define CURSOR_MOVEEVENT 26
 #define CURSOR_REMOVEEVENT 27
 
-#include "../Graphics/Sprite.h"
+#include "../Common.h"
 #include "Tuio/TuioClient.h"
 #include "Tuio/TuioListener.h"
 #include "Tuio/TuioObject.h"
 #include "../Graphics/ImageLoader.h"
-#include "../Common.h"
 #include <iostream>
 #include <map>
 
@@ -29,20 +28,19 @@ using namespace TUIO;
 using namespace std;
 
 typedef struct TUIOData{
-	Sint16 id;
-	Sint16 x;
-	Sint16 y;
+	int id;
+	int x;
+	int y;
 	bool remove, tocou, destocou, tocando;
 } TUIOData;
 
-typedef struct point{
-	Sint16 x;
-	Sint16 y;
-};
+typedef struct Point{
+	int x;
+	int y;
+}point;
 
 class InputManager : public TuioListener {
-	map<Sint16,TUIOData*> touch;
-	map<Sint16,TUIOData*>::iterator it;
+	map<int,TUIOData*> touch;
 	Uint8* keyState;
 	Uint8 buttomState;
 	TuioClient* tuio_client;
@@ -64,14 +62,14 @@ public:
 	bool isMouseUp(int buttom);
 	bool isMousePressed(int buttom);
 	bool isMouseInside(ImageLoader* img);
-	Sint16 mousePosX();
-	Sint16 mousePosY();
+	int mousePosX();
+	int mousePosY();
 	bool isTouched(int code);
 	bool isTouching(int code);
 	bool isTouchUp(int code);
 	bool isTouchInside(ImageLoader* img, int code);
-	Sint16 touchPosX(int code);
-	Sint16 touchPosY(int code);
+	int touchPosX(int code);
+	int touchPosY(int code);
 	InputManager* getInstance();
 
 	// TuioListener methods
@@ -85,9 +83,9 @@ public:
 
 	void refresh(TuioTime ftime);
 
-	Uint16 getNumIds();
-	map<Sint16,TUIOData*>::iterator getTouchBegin();
-	map<Sint16,TUIOData*>::iterator getTouchEnd();
+	int getNumIds();
+	map<int,TUIOData*>::iterator getTouchBegin();
+	map<int,TUIOData*>::iterator getTouchEnd();
 };
 
 #endif /* INPUTMANAGER_H_ */

@@ -3,11 +3,8 @@
  * Instituto de Ciencias Exatas
  * Departamento de Ciencia da Computacao
  *
- * Introducao ao Desenvolvimento de Jogos - 01/2010
- *
  * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
  * 			Victor Sampaio Zucca 		  - 06/25566
- * Turma: A
  *
  * Descricao: Jogo livre onde o jogador pode criar o que desejar na tela. Os botoes
  * a esquerda permitem a selecao da ferramenta desejada para construcao, podendo alterar

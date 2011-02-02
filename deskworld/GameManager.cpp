@@ -3,11 +3,9 @@
  * Instituto de Ciencias Exatas
  * Departamento de Ciencia da Computacao
  *
- * Introducao ao Desenvolvimento de Jogos - 01/2010
  *
  * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
  * 			Victor Sampaio Zucca 		  - 06/25566
- * Turma: A
  *
  * Descricao: Classe que manuseia o jogo em si, trata da iniciacao e chamada do level.
  */
@@ -16,12 +14,11 @@
 
 GameManager::GameManager() {
 	/* Engine initialization */
-	engine = engine->getInstace();
+	engine = engine->getInstance();
 	engine->Initialize();
 
 	/* Audio and video initialization */
 	SDL_Init(SDL_INIT_AUDIO|SDL_INIT_VIDEO|SDL_INIT_TIMER);
-	//TTF_Init();
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT,1,4096);
 
     SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
@@ -33,7 +30,7 @@ GameManager::GameManager() {
 	}
 
 	// Graphics initialization
-	graphics = graphics->getInstace();
+	graphics = graphics->getInstance();
 
 	/* FPSManager initialization */
 	manex = (FPSmanager*)malloc(sizeof(FPSmanager));
