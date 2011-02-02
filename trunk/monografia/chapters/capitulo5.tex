@@ -19,7 +19,7 @@ Nesta seção, apresenta-se o \textit{Design} do \textit{Software}, isto é, o proj
 
 \subsection{Conceito}
 \label{cap5.1.2}
-O simulador de física \textit{Deskworld} tem como principal proposta deixar a encargo da criatividade do(s) usuário(s) a construções de cenários, objetos e seus objetivos no respectivo mundo. O principal objetivo é prover ferramentas aos usuários para auxiliá-los nessa construção. Assim sendo, objetos e elementos físicos são representados em um plano bidimensional e regidos pelas leis da física. É possível desenhar um objeto e associá-lo a algum tipo de elemento de acordo com suas propriedades como massa, coeficiente de atrito e elasticidade. O usuário pode aplicar uma força a este objeto como a gravidade, fixá-lo no plano, entre outras opções. Os usuários têm a maior liberdade possível para criar diferentes mundos, fazer desenhos ou a simulação de objetos.
+O simulador de física \textit{Deskworld} tem como principal proposta deixar a encargo da criatividade do(s) usuário(s) a construções de cenários, objetos e seus objetivos no respectivo mundo. O principal objetivo é prover ferramentas aos usuários para auxiliá-los nessa construção. Assim sendo, objetos e elementos físicos são representados em um plano bidimensional e regidos pelas leis da física. É possível desenhar um objeto e associá-lo a algum tipo de elemento de acordo com suas propriedades como massa, coeficiente de atrito e elasticidade. O usuário pode aplicar uma força a este objeto como a gravidade, fixá-lo no plano, entre outras opções. Ainda, para poder mudar propriedades do mundo em que se encontra e poder utilizar o \textit{software} sem ser interrompido, um usuário pode dividir o mundo, criando um novo sub-mundo para seu uso separado. Os usuários têm a maior liberdade possível para criar diferentes mundos, fazer desenhos ou a simulação de objetos.
 
 \subsection{Regras e Objetos}
 \label{cap5.1.3}
@@ -28,14 +28,17 @@ Basicamente, pode-se criar qualquer tipo de objeto 2D com ou sem auxílio das fer
 Cada objeto pode ter as seguintes características:
 \begin{itemize}
 	\item Densidade
-	\item Coeficiente de Atritro
-	\item Força Normal
+	\item Coeficiente de atrito
+	\item Coeficiente de restituição de força
+	\item Força normal
 	\item Massa
 	\item Volume
 	\item Velocidade
 \end{itemize}
 
-Além dessas propriedades, os objetos podem interagir entre si por meio de juntas, colisões ou com motores adicionados aos objetos.
+Dessas, densidade, coeficiente de atrito, coeficiente de restituição de força e massa podem ser alterados pelo usuário a qualquer momento.
+
+Além dessas propriedades, os objetos podem interagir entre si por meio de juntas, colisões ou com motores adicionados aos objetos. Também é possível a separação de mundos com gravidades diferentes e cores de pincél diferentes dos outros mundos.
 
 Neste simulador não existe uma regra pré-definida, ela pode ser definida pontualmente por um usuário ao criar um cenário e objetos.
 
