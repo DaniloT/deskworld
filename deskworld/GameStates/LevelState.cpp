@@ -73,7 +73,7 @@ int LevelState::Update(){
 		if((inputManager->click[i].updated) && (!inputManager->click[i].remove)){
 			for (Uint32 j = i+1; j < inputManager->click.size(); j++) {
 				if((inputManager->click[j].updated) && (!inputManager->click[j].remove)){
-					if((inputManager->click[j].time - inputManager->click[i].time) < 50000){
+					if((inputManager->click[j].time - inputManager->click[i].time) < 500){
 						if ((inputManager->click[j].x > (inputManager->click[i].x - MENUPROX)) &&
 								(inputManager->click[j].x < (inputManager->click[i].x + MENUPROX)) &&
 								(inputManager->click[j].y > (inputManager->click[i].y - MENUPROX)) &&

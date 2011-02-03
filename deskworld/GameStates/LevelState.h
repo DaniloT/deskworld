@@ -13,7 +13,7 @@
 #ifndef LEVELSTATE_H_
 #define LEVELSTATE_H_
 
-#define MENUPROX 50
+#define MENUPROX 5
 
 #include "State.h"
 #include "../Input/InputManager.h"
