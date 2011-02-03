@@ -138,37 +138,35 @@ Apesar de não se encaixar na definição de jogo eletrônico, \textit{Deskworld} po
 
 De acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}] a maioria dos jogos se desenvolvem em torno de objetos ou entidades em um mundo virtual, onde o usuário deve realizar ações com estes objetos. Antes de existir o paradigma de orientação à objetos, os jogos eram desenvolvidos com programação procedural e assim, a ênfase da programação baseava-se no código propriamente dito. Isto porque o jogo era observado, conceitualmente, como uma sequência de código com execução de procedimentos e funções. Na programação orientada à objetos a perspectiva é outra, pois a ênfase ocorre no conceito de objeto que é uma coleção de informações conjuntas a uma série de operações para processar estes dados. Portanto, utilizando orientação à objetos conseguimos obter \textit{Softwares} que se adequam ao formato dos jogos, pois as entidades dos jogos podem ser expressas pelas classes, os objetos por instâncias da classe e ações entre eles geram métodos.
 
-\subsubsection{\textit{Singleton}}
-\label{cap6.2.1}
+Outra vantagem encontrada nesta abordagem é a herança de classes que permite a reutilização de código em múltiplas classes que possuam parentesco. Com herança é possível extender características das superclasses para as subclasses. No \textit{Deskworld} utilizamos herança para, principalmente, padronizar e reutilizar parte do código dos \textit{Game Objects}. Também importante, o suporte a polimorfismo é crucial no desenvolvimento de jogos já que podemos dar \textit{update} e renderizar diversos componentes do \textit{Software} sem precisar separar em chamadas de execuções diferentes, pois todos serão reconhecidos pelo seu tipo e terão seus respectivos métodos executados corretamente.
 
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=1]{singleton.png}
-	\caption{Padrão \textit{Singleton}~[\citenum{pedrosaulo}]}
-	\label{singleton}
-	\end{center}
-\end{figure}
+A arquitetura do programa foi modularizada para especificar claramente os subsistemas de jogo, facilitando a manutenção e o entendimento do código. No diagrama~[\ref{(** DIAGRAMA **)}] é observado a composição de módulos e suas classes principais do \textit{Deskworld}. A decomposição em módulos facilita a visualização da implementação, já que o \textit{Software} possui subsistemas bem claramente definidos como os de áudio, vídeo, \textit{engine} e de \textit{input}.
 
-O padrão \textit{Singleton} trata de um padrão aonde uma classe necessita necessariamente ser única durante todo o programa, mesmo ela podendo ser utilizada em várias situações.
+\subsection{Detalhes de implementação}
+\label{cap5.3.2}
 
-Através desse padrão, a classe \textit{Singleton} cuida para que ela seja instanciada somente uma vez. Podemos verificar a implementação desse padrão na figura~[\ref{singleton}], onde temos uma operação de classe, 'Instance()', que retorna a única instância, e é salvo como ponteiro estático dessa classe. Caso seja a primeira vez que é chamado, a classe é instaciada, caso contrário, retorna a instância já existente. O construtor é privado para que a classe não possa ser criada por fora dela.
+Esta seção esclare a lógica utilizada na implementação do \textit{Software}. Primeiramente, é exposto uma visão geral do funcionamento do sistema. Em seguida, os subsistemas são detalhados e seus papéis traçados.
 
-Em jogos, o padrão \textit{Singleton} é muito usado para controlar eventos e gerenciar mensagens, bem como controlar recursos. Em todos esses casos, apensa uma instância pode existir e ela deve permitir acesso global a ela.
+\subsubsection{Visão Geral do \textit{Software}}
+\label{cap5.3.2.1}
 
-\subsubsection{\textit{Observer}}
-\label{cap6.2.2}
+Como observado na Figura~[\ref{(** DIAGRAMA **)}], existe um \textit{Game Manager} responsável pelo gerenciamento da execução do programa. Suas principais ações são inicializar os subsistemas de áudio, vídeo, carregar o cenário e inicializar a \textit{Engine} física do \textit{Software}. A classe áudio é responsável por carregar arquivos de áudio bem como manipulá-los, podendo tocar, parar ou resumir um arquivo carregado. A \textit{Graphics} implementa soluções para renderizar os objetos na tela e gerencia a memória de vídeo. \textit{InputManager} trata as mensagens de entrada recebidas, explorados na seção~[\ref{cap5.2.2.2}], e gera eventos relativo aos toques. A \textit{Engine} tem como objetivo criar e alterar, posicionar objetos no mundo, além de se comunicar com estas informações a \textit{Box2D}. A classe \textit{LevelState} é onde se concentra o maior fluxo de informações, pois todas as instacias de classe de objetos do mundo são criada nela, os métodos de \textit{Update}, muito importante em simulações físicas, e \textit{Render} tem suas chamadas realizadas pelo \textit{LevelState}. \textit{Game Object} guarda a informação sobre os objetos como sua dimensão, posição e estado.
 
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=1]{observer.png}
-	\caption{Padrão \textit{Observer}~[\citenum{pedrosaulo}]}
-	\label{observer}
-	\end{center}
-\end{figure}
+\subsubsection{Subsistemas de Áudio e Vídeo}
+\label{cap5.3.2.2}
 
-O padrão \textit{Observer}, visto na figura~[\ref{observer}], define um padrão onde um objeto, chamado de \textit{subject}, mantêm uma lista de observadores e os notifica de mudanças de estados. Quando a informação é passada, os observadores consultam o \textit{subject} para sincronizar os dados. O \textit{subject} não precisa conhecer detalhes do observador.
+Possui atributos para identificar o nome do arquivo de áudio, tipo de arquivo e um ponteiro para seu endeçamento na memória. Seu construtor carrega o arquivo de áudio para memória e retorna esse endereço ao ponteiro da classe. Utiliza-se esta classe para tocar e pausar a música de fundo. 
 
-Utilizando a classe \textit{subject}, podemos adicionar ou remover observadores O observador, no entanto, define uma interface para objetos que notificam sobre sua alteração para o subject. Essa é a única ligação entre o observador e o \textit{subject}.
+Quanto a classe \textit{Graphics}, gerencia a memória de vídeo com a \textit{OpenGL} e a utilizara para desenhar polígonos na tela e círculos. A classe \textit{ImageLoader} carrega imagens e texturas e renderiza-as. As texturas presentes no \textit{Software} são o fundo, menu e seus componentes.
 
-Este padrão também é reconhecido na indústria de jogo. Como a arquitetura de jogos é marcada pela interação entre entidades distintas, o \textit{observer} deve ser usado. Assim as entidades se conhecem e aguardam receber atualizações de outras entidades que compõem o seu meio ambiente.
+\Large\textbf{\textit{Singleton}} 
 
+A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriamente, apenas uma instância durante todo o programa. \textit{Singleton} é um \textit{Design Pattern} muito utilizado em situações que necessitam de grande controle sobre uma classe para que seja instaciada somente uma vez. Esta técnica consiste em declarar um construtor privado que será executado uma única vez. Constrói-se um método que retorna a instância única através de um ponteiro estático. Caso seja a primeira vez que é chamado, a classe é instaciada, caso contrário, retorna a instância já existente. Além destas, o \textit{InputManager} e a \textit{Engine} são singletons. Isto acontece porque todas essas classes só devem possuir somente uma instância, pois não queremos várias instâncias controlando a saída de vídeo, a entrada de dados ou a simulação de objetos.
+
+\subsubsection{Subsistema de \textit{Input}}
+\label{cap5.3.2.3}
+
+Neste subsistema, para dar suporte ao protocolo TUIO, tem-se a classe \textit{InputManager}, derivada da classe \textit{TuioListener}, que implementa métodos para escutar mensagens relativas à detecção de toques, gerando eventos.
+
+\subsubsection{Subsistemas de \textit{InputManager}}
+\label{cap5.3.2.4}
