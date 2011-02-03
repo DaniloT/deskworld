@@ -131,7 +131,7 @@ A evolução da tecnologia dos hardwares dos computadores pessoais proporcionou gr
 \subsection{Arquitetura do \textit{Deskworld}}
 \label{cap5.3.1}
 
-Apesar de não se encaixar na definição de jogo eletrônico, \textit{Deskworld} possui muitas características semelhantes, pois é um \textit{Software} interativo onde o usuário se relaciona com objetos em um mundo virtual. Portanto, recebe muitos benefícios em utilizar uma arquitetura bem definida. Para este \textit{Software} foi escolhida uma arquitetura modular orientada à objetos. A próxima sessão expõe as vantagens desta arquitetura, explicando os motivos que resultaram nesta escolha.
+Apesar de não se encaixar na definição de jogo eletrônico, \textit{Deskworld} possui muitas características semelhantes, pois é um \textit{software} interativo onde o usuário se relaciona com objetos em um mundo virtual. Portanto, este \textit{software} foi desenvolvido utilizando um padrão de desenvolvimento voltado a jogos. Para este \textit{software} foi escolhida uma arquitetura modular orientada à objetos. A próxima sessão expõe as vantagens desta arquitetura, explicando os motivos que resultaram nesta escolha.
 
 \subsubsection{Vantagens da abordagem orientada à objetos}
 \label{cap5.3.1.1}
@@ -161,12 +161,14 @@ Quanto a classe \textit{Graphics}, gerencia a memória de vídeo com a \textit{Ope
 
 \Large\textbf{\textit{Singleton}} 
 
-A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriamente, apenas uma instância durante todo o programa. \textit{Singleton} é um \textit{Design Pattern} muito utilizado em situações que necessitam de grande controle sobre uma classe para que seja instaciada somente uma vez. Esta técnica consiste em declarar um construtor privado que será executado uma única vez. Constrói-se um método que retorna a instância única através de um ponteiro estático. Caso seja a primeira vez que é chamado, a classe é instaciada, caso contrário, retorna a instância já existente. Além destas, o \textit{InputManager} e a \textit{Engine} são singletons. Isto acontece porque todas essas classes só devem possuir somente uma instância, pois não queremos várias instâncias controlando a saída de vídeo, a entrada de dados ou a simulação de objetos.
+A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriamente, apenas uma instância durante todo o programa. \textit{Singleton} é um \textit{Design Pattern} muito utilizado em situações que necessitam de grande controle sobre uma classe para que seja instaciada somente uma vez. Esta técnica consiste em declarar um construtor privado que será executado uma única vez. Constrói-se um método que retorna a instância única através de um ponteiro estático. Caso seja a primeira vez que é chamado, a classe é instanciada, caso contrário, retorna a instância já existente. Além desta, o \textit{InputManager} e a \textit{Engine} são singletons. Isto acontece porque todas essas classes só devem possuir somente uma instância, pois não queremos várias instâncias controlando a saída de vídeo, a entrada de dados ou a simulação de objetos.
 
 \subsubsection{Subsistema de \textit{Input}}
 \label{cap5.3.2.3}
 
 Neste subsistema, para dar suporte ao protocolo TUIO, tem-se a classe \textit{InputManager}, derivada da classe \textit{TuioListener}, que implementa métodos para escutar mensagens relativas à detecção de toques, gerando eventos.
 
-\subsubsection{Subsistemas de \textit{InputManager}}
+\subsubsection{Subsistemas de \textit{LevelState}}
 \label{cap5.3.2.4}
+
+A classe \textit{LevelState} é responsável pelo único estado do \textit{software}. Estar no estado de \textit{LevelState} significa que o \textit{software} está rodando e o usuário pode interagir como desejar, criando objetos ou mudando propriedades. Nesta classe, todas as imagens que aparecem dentro do jogo são carregadas e renderizadas na tela. Seu método de \textit{Update}, chamado uma vez por \textit{Game Loop}, verifica todos os toques existentes ou removidos e decide o que cada um irá fazer, criar um objeto novo, arrastar um objeto existente, abrir o menu ou mudar opções. Seu outro método, \textit{Render}, é responsável por montar a tela do jogo, renderizando na tela todas as imagens na sequência delas, deixando pronto para se mostrar na tela uma vez que tudo estiver em posição.
