@@ -22,6 +22,7 @@
 #include "Tuio/TuioObject.h"
 #include "../Graphics/ImageLoader.h"
 #include <iostream>
+#include <vector>
 #include <map>
 
 using namespace TUIO;
@@ -38,18 +39,27 @@ typedef struct Point{
 	int y;
 }point;
 
+typedef struct Click{
+	int id;
+	int x;
+	int y;
+	bool updated, remove;
+	int time;
+} Click;
+
 class InputManager : public TuioListener {
 	TUIOData* touch[10001];
 	Uint8* keyState;
 	Uint8 buttomState;
-	int numIds;
-	int id[10001];
+	int numIds, numIdsRem;
+	int id[10001], idRem[10001];
 	TuioClient* tuio_client;
 	// Vectors that save state of mouse and keyboard input.
 	bool keyDownState[400], keyUpState[400], buttomUpState[4], buttomDownState[4];
 	InputManager* instance;
 	InputManager();
 public:
+	vector<Click> click;
 	multimap<int, point > xy;
 	bool quit;
 	bool motion_event;

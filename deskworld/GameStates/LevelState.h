@@ -13,6 +13,8 @@
 #ifndef LEVELSTATE_H_
 #define LEVELSTATE_H_
 
+#define MENUPROX 50
+
 #include "State.h"
 #include "../Input/InputManager.h"
 #include "../Engine/Engine.h"
@@ -29,12 +31,13 @@
 #include <vector>
 
 typedef struct DrawObject{
-	int xOrig, yOrig, xMouse, yMouse; // Origin Coordinates of draw
-	bool drawing;	//indicates if user is drawing
+	int xOrig, yOrig, xMouse, yMouse; // Origin Coordinates of draw.
+	bool drawing;	//indicates if user is drawing.
+	bool menu; //indicates if the click opens the menu.
 } DrawObject;
 
 class LevelState: public State {
-	vector<int> ff_vx[10001], ff_vy[10001]; // Coordinates of free form objects
+	vector<int> ff_vx[10001], ff_vy[10001]; // Coordinates of free form objects.
 	DrawObject* drawObjects[10001];
 	vector<GameObject*> objects;
 	InputManager* inputManager;
