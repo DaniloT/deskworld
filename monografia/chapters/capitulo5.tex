@@ -166,7 +166,7 @@ A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriam
 \subsubsection{Subsistema de \textit{Input}}
 \label{cap5.3.2.3}
 
-Neste subsistema, para dar suporte ao protocolo TUIO, tem-se a classe \textit{InputManager}, derivada da classe \textit{TuioListener}, que implementa métodos para escutar mensagens relativas à detecção de toques, gerando eventos.
+Neste subsistema, para dar suporte ao protocolo TUIO, tem-se a classe \textit{InputManager}, derivada da classe \textit{TuioListener}, que implementa métodos para escutar mensagens relativas à detecção de toques, gerando eventos. Estes eventos podem ser para adicionar toques, remover toques ou atualizar posições de toques, ou ainda para detecção de eventos de input via mouse ou teclado. O método principal da classe é o \textit{Update}, onde são percorridos todos os eventos enviados durante um \textit{Game Loop}, cada um sendo analisado e seus dados separados para utilização das outras classes. Por exemplo, caso seja adicionado um toque, é salvo o número identificador deste toque e o fato de que está tocando a superfície, para que outra classe possa utilizar o método \textit{IsTouching} para descobrir se o toque com o identificador desejado está tocando ou não a superfície.
 
 \subsubsection{Subsistemas de \textit{LevelState}}
 \label{cap5.3.2.4}
