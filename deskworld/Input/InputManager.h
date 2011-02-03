@@ -15,6 +15,7 @@
 #define CURSOR_ADDEVENT 25
 #define CURSOR_MOVEEVENT 26
 #define CURSOR_REMOVEEVENT 27
+#define TIMELIMIT 500
 
 #include "../Common.h"
 #include "Tuio/TuioClient.h"

@@ -62,7 +62,7 @@ void InputManager::pollEvents() {
 	motion_event = false;
 	time = SDL_GetTicks();
 	for(Uint32 i = 0; i < click.size(); i++){
-		if ((click[i].remove) || ((time - click[i].time) > 1000)) {
+		if ((click[i].remove) || ((time - click[i].time) > TIMELIMIT)) {
 			click.erase(click.begin() + i);
 		}
 	}
