@@ -140,7 +140,7 @@ De acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}] a maioria dos jogos se d
 
 Outra vantagem encontrada nesta abordagem é a herança de classes que permite a reutilização de código em múltiplas classes que possuam parentesco. Com herança é possível extender características das superclasses para as subclasses. No \textit{Deskworld} utilizamos herança para, principalmente, padronizar e reutilizar parte do código dos \textit{Game Objects}. Também importante, o suporte a polimorfismo é crucial no desenvolvimento de jogos já que podemos dar \textit{update} e renderizar diversos componentes do \textit{Software} sem precisar separar em chamadas de execuções diferentes, pois todos serão reconhecidos pelo seu tipo e terão seus respectivos métodos executados corretamente.
 
-A arquitetura do programa foi modularizada para especificar claramente os subsistemas de jogo, facilitando a manutenção e o entendimento do código. No diagrama~[\ref{(** DIAGRAMA **)}] é observado a composição de módulos e suas classes principais do \textit{Deskworld}. A decomposição em módulos facilita a visualização da implementação, já que o \textit{Software} possui subsistemas bem claramente definidos como os de áudio, vídeo, \textit{engine} e de \textit{input}.
+A arquitetura do programa foi modularizada para especificar claramente os subsistemas de jogo, facilitando a manutenção e o entendimento do código. No diagrama~[\ref{diag-deskworld}] é observado a composição de módulos e suas classes principais do \textit{Deskworld}. A decomposição em módulos facilita a visualização da implementação, já que o \textit{Software} possui subsistemas bem claramente definidos como os de áudio, vídeo, \textit{engine} e de \textit{input}.
 
 \subsection{Detalhes de implementação}
 \label{cap5.3.2}
@@ -150,7 +150,15 @@ Esta seção esclare a lógica utilizada na implementação do \textit{Software}. Pri
 \subsubsection{Visão Geral do \textit{Software}}
 \label{cap5.3.2.1}
 
-Como observado na Figura~[\ref{(** DIAGRAMA **)}], existe um \textit{Game Manager} responsável pelo gerenciamento da execução do programa. Suas principais ações são inicializar os subsistemas de áudio, vídeo, carregar o cenário e inicializar a \textit{Engine} física do \textit{Software}. A classe áudio é responsável por carregar arquivos de áudio bem como manipulá-los, podendo tocar, parar ou resumir um arquivo carregado. A \textit{Graphics} implementa soluções para renderizar os objetos na tela e gerencia a memória de vídeo. \textit{InputManager} trata as mensagens de entrada recebidas, explorados na seção~[\ref{cap5.2.2.2}], e gera eventos relativo aos toques. A \textit{Engine} tem como objetivo criar e alterar, posicionar objetos no mundo, além de se comunicar com estas informações a \textit{Box2D}. A classe \textit{LevelState} é onde se concentra o maior fluxo de informações, pois todas as instacias de classe de objetos do mundo são criada nela, os métodos de \textit{Update}, muito importante em simulações físicas, e \textit{Render} tem suas chamadas realizadas pelo \textit{LevelState}. \textit{Game Object} guarda a informação sobre os objetos como sua dimensão, posição e estado.
+Como observado na Figura~[\ref{diag-deskworld}], existe um \textit{Game Manager} responsável pelo gerenciamento da execução do programa. Suas principais ações são inicializar os subsistemas de áudio, vídeo, carregar o cenário e inicializar a \textit{Engine} física do \textit{Software}. A classe áudio é responsável por carregar arquivos de áudio bem como manipulá-los, podendo tocar, parar ou resumir um arquivo carregado. A \textit{Graphics} implementa soluções para renderizar os objetos na tela e gerencia a memória de vídeo. \textit{InputManager} trata as mensagens de entrada recebidas, explorados na seção~[\ref{cap5.2.2.2}], e gera eventos relativo aos toques. A \textit{Engine} tem como objetivo criar e alterar, posicionar objetos no mundo, além de se comunicar com estas informações a \textit{Box2D}. A classe \textit{LevelState} é onde se concentra o maior fluxo de informações, pois todas as instacias de classe de objetos do mundo são criada nela, os métodos de \textit{Update}, muito importante em simulações físicas, e \textit{Render} tem suas chamadas realizadas pelo \textit{LevelState}. \textit{Game Object} guarda a informação sobre os objetos como sua dimensão, posição e estado.
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.35]{DeskworldDiagram.png}
+	\caption{Diagrama de classes do \textit{Deskworld}}
+	\label{diag-deskworld}
+	\end{center}
+\end{figure}
 
 \subsubsection{Subsistemas de Áudio e Vídeo}
 \label{cap5.3.2.2}
@@ -159,7 +167,7 @@ Possui atributos para identificar o nome do arquivo de áudio, tipo de arquivo e 
 
 Quanto a classe \textit{Graphics}, gerencia a memória de vídeo com a \textit{OpenGL} e a utilizara para desenhar polígonos na tela e círculos. A classe \textit{ImageLoader} carrega imagens e texturas e renderiza-as. As texturas presentes no \textit{Software} são o fundo, menu e seus componentes.
 
-\Large\textbf{\textit{Singleton}} 
+\textbf{\textit{Singleton}}
 
 A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriamente, apenas uma instância durante todo o programa. \textit{Singleton} é um \textit{Design Pattern} muito utilizado em situações que necessitam de grande controle sobre uma classe para que seja instaciada somente uma vez. Esta técnica consiste em declarar um construtor privado que será executado uma única vez. Constrói-se um método que retorna a instância única através de um ponteiro estático. Caso seja a primeira vez que é chamado, a classe é instanciada, caso contrário, retorna a instância já existente. Além desta, o \textit{InputManager} e a \textit{Engine} são singletons. Isto acontece porque todas essas classes só devem possuir somente uma instância, pois não queremos várias instâncias controlando a saída de vídeo, a entrada de dados ou a simulação de objetos.
 
@@ -168,7 +176,14 @@ A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriam
 
 Neste subsistema, para dar suporte ao protocolo TUIO, tem-se a classe \textit{InputManager}, derivada da classe \textit{TuioListener}, que implementa métodos para escutar mensagens relativas à detecção de toques, gerando eventos. Estes eventos podem ser para adicionar toques, remover toques ou atualizar posições de toques, ou ainda para detecção de eventos de input via mouse ou teclado. O método principal da classe é o \textit{Update}, onde são percorridos todos os eventos enviados durante um \textit{Game Loop}, cada um sendo analisado e seus dados separados para utilização das outras classes. Por exemplo, caso seja adicionado um toque, é salvo o número identificador deste toque e o fato de que está tocando a superfície, para que outra classe possa utilizar o método \textit{IsTouching} para descobrir se o toque com o identificador desejado está tocando ou não a superfície.
 
-\subsubsection{Subsistemas de \textit{LevelState}}
+\subsubsection{Subsistema da \textit{Engine}}
 \label{cap5.3.2.4}
 
-A classe \textit{LevelState} é responsável pelo único estado do \textit{software}. Estar no estado de \textit{LevelState} significa que o \textit{software} está rodando e o usuário pode interagir como desejar, criando objetos ou mudando propriedades. Nesta classe, todas as imagens que aparecem dentro do jogo são carregadas e renderizadas na tela. Seu método de \textit{Update}, chamado uma vez por \textit{Game Loop}, verifica todos os toques existentes ou removidos e decide o que cada um irá fazer, criar um objeto novo, arrastar um objeto existente, abrir o menu ou mudar opções. Seu outro método, \textit{Render}, é responsável por montar a tela do jogo, renderizando na tela todas as imagens na sequência delas, deixando pronto para se mostrar na tela uma vez que tudo estiver em posição.
+A \textit{Engine} é composta pela classe \textit{Engine}, além do pacotes de classes da biblioteca \textit{Box2D}. Através destas classes ocorrem a criação dos objetos fisicamente no mundo virtual. A simulação de gravidade, força de atrito, forças de ação e reação, são calculadas pela \textit{Engine}. Um importante recurso para uma boa simulação é a detecção de colisão, tratada por esse subsistema. Também são realizadas operações de destruição de objetos, além da localização dos objetos ser atualizada e repassada aos outros módulos pela \textit{Engine}
+
+\subsubsection{Subsistema de gerência de objetos}
+\label{cap5.3.2.5}
+
+A classe \textit{LevelState} é responsável pelo único estado do \textit{software}. Estar no estado de \textit{LevelState} significa que o \textit{software} está executando e o usuário pode interagir como desejar, criando objetos ou mudando propriedades. Nesta classe, todas as imagens que aparecem dentro do jogo são carregadas e renderizadas na tela. Seu método de \textit{Update}, chamado uma vez pelo \textit{Game Loop}, verifica todos os toques existentes ou removidos e decide o que cada um irá fazer, criar um objeto novo, arrastar um objeto existente, abrir o menu ou mudar opções. Seu outro método, \textit{Render}, é responsável por montar a tela do jogo, renderizando na tela todas as imagens na sequência delas, deixando pronto para se mostrar na tela uma vez que tudo estiver em posição.
+
+A \textit{GameObject} é uma superclasse que agrega subclasses referentes a todos objetos presentes software. Estas classes representam os objetos desenhados no programa que podem ser polígonos, círculos ou terem forma livre. Além disso, objetos podem ser motores e juntas e até mesmo menus. O próprio mundo é um objeto, pois podem ser criados vários e as barreiras usadas para dividir entre vários mundos também. Todos objetos possuem vértices que idicam suas posições e área. Todos \textit{GameObject}s possuem métodos de \textit{Update} e \textit{Render}.
