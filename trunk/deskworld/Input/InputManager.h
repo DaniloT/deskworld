@@ -46,6 +46,7 @@ typedef struct Click{
 	int y;
 	bool updated, remove;
 	int time;
+	TUIOData* touch;
 } Click;
 
 class InputManager : public TuioListener {
