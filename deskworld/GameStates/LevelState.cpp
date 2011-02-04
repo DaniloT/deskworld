@@ -93,6 +93,7 @@ int LevelState::Update(){
 								drawObjects[inputManager->click[j].id]->yOrig = 0;
 							}
 							drawObjects[inputManager->click[j].id]->menu = true;
+							drawObjects[inputManager->click[j].id]->drawing = false;
 							inputManager->click[j].remove = true;
 							inputManager->click[i].remove = true;
 							break;
@@ -217,449 +218,450 @@ int LevelState::Update(){
 			}
 		}else{
 			//Test mouse or touch down
-			if(inputManager->isTouched(id)){
-				drawObjects[id]->xOrig = inputManager->touchPosX(id);
-				drawObjects[id]->yOrig = inputManager->touchPosY(id);
-				//Test overlap to erase objects
-				if (inputManager->isTouchInside(fechar, id)){
-					SDL_Event* event = new SDL_Event();
-					event->type = SDL_QUIT;
-					SDL_PushEvent(event);
+			if(drawObjects[id]->menu){
+				if (menu != NULL) {
+					delete menu;
+				}
+				menu = new ImageLoader("menutemp.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig);
+				if (dynamic) {
+					menuSelect[0] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 29);
 				} else {
-					if(drawObjects[id]->menu){
-						if (menu != NULL) {
-							delete menu;
-						}
-						menu = new ImageLoader("menutemp.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig);
-						if (dynamic) {
-							menuSelect[0] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 29);
-						} else {
-							menuSelect[0] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 9);
-						}
-						if (currentTool == freeform){
-							menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 51);
-						} else if (currentTool == circle){
-							menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 71);
-						} else if (currentTool == rectangle){
-							menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 89);
-						} else if (currentTool == triangle){
-							menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 110);
-						} else {
-							menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 127);
-						}
-						if (!bgMusic->isPlaying()){
-							menuSelect[2] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 146);
-						} else {
-							if (menuSelect[2] != NULL){
-								delete menuSelect[2];
-							}
-						}
-						if (toolColor.g == 15){
-							menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 166);
-						} else if (toolColor.g == 39){
-							menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 183);
-						} else if (toolColor.g == 255){
-							menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 200);
-						} else if (toolColor.g == 34){
-							menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 217);
-						} else if (toolColor.g == 236){
-							menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 234);
-						} else {
-							menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 251);
-						}
-						drawObjects[id]->menu = false;
-					} else {
-						if (menu != NULL) {
-							if (inputManager->isTouchInside(menu, id)) {
-								rect = menu->GetRect();
-								if ((drawObjects[id]->xOrig >= rect.x) && (drawObjects[id]->xOrig <= rect.x + rect.w)
-										&& (drawObjects[id]->yOrig >= rect.y) && (drawObjects[id]->yOrig <= rect.y + rect.h)){
-									if (drawObjects[id]->yOrig < rect.y + 29){
-										dynamic = false;
-									} else if (drawObjects[id]->yOrig < rect.y + 51){
-										dynamic = true;
-									} else if (drawObjects[id]->yOrig < rect.y + 71){
-										currentTool = freeform;
-									} else if (drawObjects[id]->yOrig < rect.y + 89){
-										currentTool = circle;
-									} else if (drawObjects[id]->yOrig < rect.y + 110){
-										currentTool = rectangle;
-									} else if (drawObjects[id]->yOrig < rect.y + 127){
-										currentTool = triangle;
-									} else if (drawObjects[id]->yOrig < rect.y + 146){
-										currentTool = erase;
-									} else if (drawObjects[id]->yOrig < rect.y + 166){
-										if(bgMusic->isPlaying()){
-											bgMusic->Pause();
-										}else{
-											bgMusic->Resume();
-										}
-									} else if (drawObjects[id]->yOrig < rect.y + 183){
-										toolColor.r = 15;
-										toolColor.g = 15;
-										toolColor.b = 15;
-										toolColor.a = 245;
-									} else if (drawObjects[id]->yOrig < rect.y + 200){
-										toolColor.r = 235;
-										toolColor.g = 39;
-										toolColor.b = 37;
-										toolColor.a = 245;
-									} else if (drawObjects[id]->yOrig < rect.y + 217){
-										toolColor.r = 34;
-										toolColor.g = 255;
-										toolColor.b = 34;
-										toolColor.a = 245;
-									} else if (drawObjects[id]->yOrig < rect.y + 234){
-										toolColor.r = 34;
-										toolColor.g = 34;
-										toolColor.b = 255;
-										toolColor.a = 245;
-									} else if (drawObjects[id]->yOrig < rect.y + 251){
-										toolColor.r = 255;
-										toolColor.g = 236;
-										toolColor.b = 139;
-										toolColor.a = 245;
-									} else {
-										toolColor.r = 250;
-										toolColor.g = 240;
-										toolColor.b = 230;
-										toolColor.a = 245;
-									}
-									menu->UpdatePos(20000, 20000);
-									for (int g = 0; g < 4; g++){
-										if (menuSelect[g] != NULL){
-											menuSelect[g]->UpdatePos(20000, 20000);
-										}
-									}
-								}
-							}
-						}
-						//						if (inputManager->isTouchInside(dinamico, id)){
-						//							if (!dynamic) {
-						//								delete dinamico;
-						//								dinamico = new ImageLoader("D2.png",0,0);
-						//								delete estatico;
-						//								estatico = new ImageLoader("E.png",0,75);
-						//							}
-						//							dynamic = true;
-						//						} else {
-						//							if (inputManager->isTouchInside(estatico, id)){
-						//								if (dynamic) {
-						//									delete dinamico;
-						//									dinamico = new ImageLoader("D.png",0,0);
-						//									delete estatico;
-						//									estatico = new ImageLoader("E2.png",0,75);
-						//								}
-						//								dynamic = false;
-						//							} else {
-						//								if (inputManager->isTouchInside(circulo, id)){
-						//									if (currentTool == freeform){
-						//										delete circulo;
-						//										circulo = new ImageLoader("BOLA2.png",0,225);
-						//										delete formalivre;
-						//										formalivre = new ImageLoader("freeform.png",0,150);
-						//									}else{
-						//										if (currentTool == rectangle) {
-						//											delete circulo;
-						//											circulo = new ImageLoader("BOLA2.png",0,225);
-						//											delete retangulo;
-						//											retangulo = new ImageLoader("retangulo.png",0,300);
-						//										} else {
-						//											if (currentTool == triangle) {
-						//												delete circulo;
-						//												circulo = new ImageLoader("BOLA2.png",0,225);
-						//												delete triangulo;
-						//												triangulo = new ImageLoader("triangulo.png",0,375);
-						//											} else {
-						//												if (currentTool == erase) {
-						//													delete circulo;
-						//													circulo = new ImageLoader("BOLA2.png",0,225);
-						//													delete borracha;
-						//													borracha = new ImageLoader("B1.png",0,450);
-						//												}
-						//											}
-						//										}
-						//									}
-						//									currentTool = circle;
-						//								} else {
-						//									if(inputManager->isTouchInside(formalivre, id)){
-						//										if (currentTool == circle){
-						//											delete formalivre;
-						//											formalivre = new ImageLoader("freeform2.png",0,150);
-						//											delete circulo;
-						//											circulo = new ImageLoader("BOLA.png",0,225);
-						//										}else{
-						//											if (currentTool == rectangle) {
-						//												delete formalivre;
-						//												formalivre = new ImageLoader("freeform2.png",0,150);
-						//												delete retangulo;
-						//												retangulo = new ImageLoader("retangulo.png",0,300);
-						//											} else {
-						//												if (currentTool == triangle) {
-						//													delete formalivre;
-						//													formalivre = new ImageLoader("freeform2.png",0,150);
-						//													delete triangulo;
-						//													triangulo = new ImageLoader("triangulo.png",0,375);
-						//												} else {
-						//													if (currentTool == erase) {
-						//														delete formalivre;
-						//														formalivre = new ImageLoader("freeform2.png",0,150);
-						//														delete borracha;
-						//														borracha = new ImageLoader("B1.png",0,450);
-						//													}
-						//												}
-						//											}
-						//										}
-						//										currentTool = freeform;
-						//									}else{
-						//										if (inputManager->isTouchInside(retangulo, id)){
-						//											if (currentTool == freeform){
-						//												delete retangulo;
-						//												retangulo = new ImageLoader("retangulo2.png",0,300);
-						//												delete formalivre;
-						//												formalivre = new ImageLoader("freeform.png",0,150);
-						//											}else{
-						//												if (currentTool == circle) {
-						//													delete circulo;
-						//													circulo = new ImageLoader("BOLA.png",0,225);
-						//													delete retangulo;
-						//													retangulo = new ImageLoader("retangulo2.png",0,300);
-						//												} else {
-						//													if (currentTool == triangle) {
-						//														delete retangulo;
-						//														retangulo = new ImageLoader("retangulo2.png",0,300);
-						//														delete triangulo;
-						//														triangulo = new ImageLoader("triangulo.png",0,375);
-						//													} else {
-						//														if (currentTool == erase) {
-						//															delete retangulo;
-						//															retangulo = new ImageLoader("retangulo2.png",0,300);
-						//															delete borracha;
-						//															borracha = new ImageLoader("B1.png",0,450);
-						//														}
-						//													}
-						//												}
-						//											}
-						//											currentTool = rectangle;
-						//										} else {
-						//											if (inputManager->isTouchInside(triangulo, id)){
-						//												if (currentTool == freeform){
-						//													delete triangulo;
-						//													triangulo = new ImageLoader("triangulo2.png",0,375);
-						//													delete formalivre;
-						//													formalivre = new ImageLoader("freeform.png",0,150);
-						//												}else{
-						//													if (currentTool == rectangle) {
-						//														delete triangulo;
-						//														triangulo = new ImageLoader("triangulo2.png",0,375);
-						//														delete retangulo;
-						//														retangulo = new ImageLoader("retangulo.png",0,300);
-						//													} else {
-						//														if (currentTool == circle) {
-						//															delete circulo;
-						//															circulo = new ImageLoader("BOLA.png",0,225);
-						//															delete triangulo;
-						//															triangulo = new ImageLoader("triangulo2.png",0,375);
-						//														} else {
-						//															if (currentTool == erase) {
-						//																delete triangulo;
-						//																triangulo = new ImageLoader("triangulo2.png",0,375);
-						//																delete borracha;
-						//																borracha = new ImageLoader("B1.png",0,450);
-						//															}
-						//														}
-						//													}
-						//												}
-						//												currentTool = triangle;
-						//											} else {
-						//												if (inputManager->isTouchInside(borracha, id)){
-						//													if (currentTool == freeform){
-						//														delete borracha;
-						//														borracha = new ImageLoader("B2.png",0,450);
-						//														delete formalivre;
-						//														formalivre = new ImageLoader("freeform.png",0,150);
-						//													}else{
-						//														if (currentTool == rectangle) {
-						//															delete borracha;
-						//															borracha = new ImageLoader("B2.png",0,450);
-						//															delete retangulo;
-						//															retangulo = new ImageLoader("retangulo.png",0,300);
-						//														} else {
-						//															if (currentTool == triangle) {
-						//																delete borracha;
-						//																borracha = new ImageLoader("B2.png",0,450);
-						//																delete triangulo;
-						//																triangulo = new ImageLoader("triangulo.png",0,375);
-						//															} else {
-						//																if (currentTool == circle) {
-						//																	delete circulo;
-						//																	circulo = new ImageLoader("BOLA.png",0,225);
-						//																	delete borracha;
-						//																	borracha = new ImageLoader("B2.png",0,450);
-						//																}
-						//															}
-						//														}
-						//													}
-						//													currentTool = erase;
-						//												}else{
-						//													//Changing colors
-						//													if(inputManager->isTouchInside(vermelho, id)){
-						//														delete vermelho;
-						//														vermelho = new ImageLoader("red2.png",0,600);
-						//														delete azul;
-						//														azul = new ImageLoader("blue.png",37,600);
-						//														delete verde;
-						//														verde = new ImageLoader("green.png",74,600);
-						//														delete amarelo;
-						//														amarelo = new ImageLoader("yellow.png",0,637);
-						//														delete preto;
-						//														preto = new ImageLoader("black.png",37,637);
-						//														delete branco;
-						//														branco = new ImageLoader("white.png",74,637);
-						//														toolColor.r = 235;
-						//														toolColor.g = 39;
-						//														toolColor.b = 37;
-						//														toolColor.a = 245;
-						//													}else if(inputManager->isTouchInside(azul, id)){
-						//														delete vermelho;
-						//														vermelho = new ImageLoader("red.png",0,600);
-						//														delete azul;
-						//														azul = new ImageLoader("blue2.png",37,600);
-						//														delete verde;
-						//														verde = new ImageLoader("green.png",74,600);
-						//														delete amarelo;
-						//														amarelo = new ImageLoader("yellow.png",0,637);
-						//														delete preto;
-						//														preto = new ImageLoader("black.png",37,637);
-						//														delete branco;
-						//														branco = new ImageLoader("white.png",74,637);
-						//														toolColor.r = 34;
-						//														toolColor.g = 34;
-						//														toolColor.b = 255;
-						//														toolColor.a = 245;
-						//													}else if(inputManager->isTouchInside(verde, id)){
-						//														delete vermelho;
-						//														vermelho = new ImageLoader("red.png",0,600);
-						//														delete azul;
-						//														azul = new ImageLoader("blue.png",37,600);
-						//														delete verde;
-						//														verde = new ImageLoader("green2.png",74,600);
-						//														delete amarelo;
-						//														amarelo = new ImageLoader("yellow.png",0,637);
-						//														delete preto;
-						//														preto = new ImageLoader("black.png",37,637);
-						//														delete branco;
-						//														branco = new ImageLoader("white.png",74,637);
-						//														toolColor.r = 34;
-						//														toolColor.g = 255;
-						//														toolColor.b = 34;
-						//														toolColor.a = 245;
-						//													}else if(inputManager->isTouchInside(amarelo, id)){
-						//														delete vermelho;
-						//														vermelho = new ImageLoader("red.png",0,600);
-						//														delete azul;
-						//														azul = new ImageLoader("blue.png",37,600);
-						//														delete verde;
-						//														verde = new ImageLoader("green.png",74,600);
-						//														delete amarelo;
-						//														amarelo = new ImageLoader("yellow2.png",0,637);
-						//														delete preto;
-						//														preto = new ImageLoader("black.png",37,637);
-						//														delete branco;
-						//														branco = new ImageLoader("white.png",74,637);
-						//														toolColor.r = 255;
-						//														toolColor.g = 236;
-						//														toolColor.b = 139;
-						//														toolColor.a = 245;
-						//													}else if(inputManager->isTouchInside(preto, id)){
-						//														delete vermelho;
-						//														vermelho = new ImageLoader("red.png",0,600);
-						//														delete azul;
-						//														azul = new ImageLoader("blue.png",37,600);
-						//														delete verde;
-						//														verde = new ImageLoader("green.png",74,600);
-						//														delete amarelo;
-						//														amarelo = new ImageLoader("yellow.png",0,637);
-						//														delete preto;
-						//														preto = new ImageLoader("black2.png",37,637);
-						//														delete branco;
-						//														branco = new ImageLoader("white.png",74,637);
-						//														toolColor.r = 15;
-						//														toolColor.g = 15;
-						//														toolColor.b = 15;
-						//														toolColor.a = 245;
-						//													}else if(inputManager->isTouchInside(branco, id)){
-						//														delete vermelho;
-						//														vermelho = new ImageLoader("red.png",0,600);
-						//														delete azul;
-						//														azul = new ImageLoader("blue.png",37,600);
-						//														delete verde;
-						//														verde = new ImageLoader("green.png",74,600);
-						//														delete amarelo;
-						//														amarelo = new ImageLoader("yellow.png",0,637);
-						//														delete preto;
-						//														preto = new ImageLoader("black.png",37,637);
-						//														delete branco;
-						//														branco = new ImageLoader("white2.png",74,637);
-						//														toolColor.r = 250;
-						//														toolColor.g = 240;
-						//														toolColor.b = 230;
-						//														toolColor.a = 245;
-						//													}else if(inputManager->isTouchInside(musica, id)){
-						//														delete musica;
-						//														if(bgMusic->isPlaying()){
-						//															bgMusic->Pause();
-						//															musica = new ImageLoader("musicoff.png",0,525);
-						//														}else{
-						//															bgMusic->Resume();
-						//															musica = new ImageLoader("music.png",0,525);
-						//														}
-						//													}else{
-						if(currentTool == erase){
-							Object* delObj;
-							delObj = engine->EraseObject(drawObjects[id]->xOrig, drawObjects[id]->yOrig);
-							if(delObj != NULL){
-								for(Uint32 i = 0; i < objects.size() ; i++){
-									if(objects.at(i)->GetBody() == (delObj->body)){
-										objects.erase(objects.begin()+i);
-										engine->DestroyObject(*delObj);
-										break;
-									}
-								}
-							}
-						//Drawing or Mousejoint
-						} else {
-							engine->MouseDown(drawObjects[id]->xOrig, drawObjects[id]->yOrig, id);
-							if (engine->mouseJoint[id] == NULL) {
-								drawObjects[id]->drawing = true;
-								if(currentTool == freeform){
-									ff_vx[id].push_back(drawObjects[id]->xOrig);
-									ff_vy[id].push_back(drawObjects[id]->yOrig);
-								}
-								inputManager->xy.clear();
-							}
-						}
-//													}
-//												}
-//											}
-//										}
-//									}
-//								}
-//							}
-//						}
+					menuSelect[0] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 9);
+				}
+				if (currentTool == freeform){
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 51);
+				} else if (currentTool == circle){
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 71);
+				} else if (currentTool == rectangle){
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 89);
+				} else if (currentTool == triangle){
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 110);
+				} else {
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 127);
+				}
+				if (!bgMusic->isPlaying()){
+					menuSelect[2] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 146);
+				} else {
+					if (menuSelect[2] != NULL){
+						delete menuSelect[2];
 					}
 				}
+				if (toolColor.g == 15){
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 166);
+				} else if (toolColor.g == 39){
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 183);
+				} else if (toolColor.g == 255){
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 200);
+				} else if (toolColor.g == 34){
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 217);
+				} else if (toolColor.g == 236){
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 234);
+				} else {
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id]->xOrig, drawObjects[id]->yOrig + 251);
+				}
+				drawObjects[id]->menu = false;
 			} else {
-				//Mouse up to destroy joint
-				if(inputManager->isTouchUp(id)){
-					if(engine->mouseJoint[id] != NULL){
-						engine->DestroyMouseJoint(id);
-						inputManager->xy.clear();
+				if(inputManager->isTouched(id)){
+					drawObjects[id]->xOrig = inputManager->touchPosX(id);
+					drawObjects[id]->yOrig = inputManager->touchPosY(id);
+					//Test overlap to erase objects
+					if (inputManager->isTouchInside(fechar, id)){
+						SDL_Event* event = new SDL_Event();
+						event->type = SDL_QUIT;
+						SDL_PushEvent(event);
+						} else {
+							if (menu != NULL) {
+								if (inputManager->isTouchInside(menu, id)) {
+									rect = menu->GetRect();
+									if ((drawObjects[id]->xOrig >= rect.x) && (drawObjects[id]->xOrig <= rect.x + rect.w)
+											&& (drawObjects[id]->yOrig >= rect.y) && (drawObjects[id]->yOrig <= rect.y + rect.h)){
+										if (drawObjects[id]->yOrig < rect.y + 29){
+											dynamic = false;
+										} else if (drawObjects[id]->yOrig < rect.y + 51){
+											dynamic = true;
+										} else if (drawObjects[id]->yOrig < rect.y + 71){
+											currentTool = freeform;
+										} else if (drawObjects[id]->yOrig < rect.y + 89){
+											currentTool = circle;
+										} else if (drawObjects[id]->yOrig < rect.y + 110){
+											currentTool = rectangle;
+										} else if (drawObjects[id]->yOrig < rect.y + 127){
+											currentTool = triangle;
+										} else if (drawObjects[id]->yOrig < rect.y + 146){
+											currentTool = erase;
+										} else if (drawObjects[id]->yOrig < rect.y + 166){
+											if(bgMusic->isPlaying()){
+												bgMusic->Pause();
+											}else{
+												bgMusic->Resume();
+											}
+										} else if (drawObjects[id]->yOrig < rect.y + 183){
+											toolColor.r = 15;
+											toolColor.g = 15;
+											toolColor.b = 15;
+											toolColor.a = 245;
+										} else if (drawObjects[id]->yOrig < rect.y + 200){
+											toolColor.r = 235;
+											toolColor.g = 39;
+											toolColor.b = 37;
+											toolColor.a = 245;
+										} else if (drawObjects[id]->yOrig < rect.y + 217){
+											toolColor.r = 34;
+											toolColor.g = 255;
+											toolColor.b = 34;
+											toolColor.a = 245;
+										} else if (drawObjects[id]->yOrig < rect.y + 234){
+											toolColor.r = 34;
+											toolColor.g = 34;
+											toolColor.b = 255;
+											toolColor.a = 245;
+										} else if (drawObjects[id]->yOrig < rect.y + 251){
+											toolColor.r = 255;
+											toolColor.g = 236;
+											toolColor.b = 139;
+											toolColor.a = 245;
+										} else {
+											toolColor.r = 250;
+											toolColor.g = 240;
+											toolColor.b = 230;
+											toolColor.a = 245;
+										}
+										menu->UpdatePos(20000, 20000);
+										for (int g = 0; g < 4; g++){
+											if (menuSelect[g] != NULL){
+												menuSelect[g]->UpdatePos(20000, 20000);
+											}
+										}
+									}
+								}
+							}
+							//						if (inputManager->isTouchInside(dinamico, id)){
+							//							if (!dynamic) {
+							//								delete dinamico;
+							//								dinamico = new ImageLoader("D2.png",0,0);
+							//								delete estatico;
+							//								estatico = new ImageLoader("E.png",0,75);
+							//							}
+							//							dynamic = true;
+							//						} else {
+							//							if (inputManager->isTouchInside(estatico, id)){
+							//								if (dynamic) {
+							//									delete dinamico;
+							//									dinamico = new ImageLoader("D.png",0,0);
+							//									delete estatico;
+							//									estatico = new ImageLoader("E2.png",0,75);
+							//								}
+							//								dynamic = false;
+							//							} else {
+							//								if (inputManager->isTouchInside(circulo, id)){
+							//									if (currentTool == freeform){
+							//										delete circulo;
+							//										circulo = new ImageLoader("BOLA2.png",0,225);
+							//										delete formalivre;
+							//										formalivre = new ImageLoader("freeform.png",0,150);
+							//									}else{
+							//										if (currentTool == rectangle) {
+							//											delete circulo;
+							//											circulo = new ImageLoader("BOLA2.png",0,225);
+							//											delete retangulo;
+							//											retangulo = new ImageLoader("retangulo.png",0,300);
+							//										} else {
+							//											if (currentTool == triangle) {
+							//												delete circulo;
+							//												circulo = new ImageLoader("BOLA2.png",0,225);
+							//												delete triangulo;
+							//												triangulo = new ImageLoader("triangulo.png",0,375);
+							//											} else {
+							//												if (currentTool == erase) {
+							//													delete circulo;
+							//													circulo = new ImageLoader("BOLA2.png",0,225);
+							//													delete borracha;
+							//													borracha = new ImageLoader("B1.png",0,450);
+							//												}
+							//											}
+							//										}
+							//									}
+							//									currentTool = circle;
+							//								} else {
+							//									if(inputManager->isTouchInside(formalivre, id)){
+							//										if (currentTool == circle){
+							//											delete formalivre;
+							//											formalivre = new ImageLoader("freeform2.png",0,150);
+							//											delete circulo;
+							//											circulo = new ImageLoader("BOLA.png",0,225);
+							//										}else{
+							//											if (currentTool == rectangle) {
+							//												delete formalivre;
+							//												formalivre = new ImageLoader("freeform2.png",0,150);
+							//												delete retangulo;
+							//												retangulo = new ImageLoader("retangulo.png",0,300);
+							//											} else {
+							//												if (currentTool == triangle) {
+							//													delete formalivre;
+							//													formalivre = new ImageLoader("freeform2.png",0,150);
+							//													delete triangulo;
+							//													triangulo = new ImageLoader("triangulo.png",0,375);
+							//												} else {
+							//													if (currentTool == erase) {
+							//														delete formalivre;
+							//														formalivre = new ImageLoader("freeform2.png",0,150);
+							//														delete borracha;
+							//														borracha = new ImageLoader("B1.png",0,450);
+							//													}
+							//												}
+							//											}
+							//										}
+							//										currentTool = freeform;
+							//									}else{
+							//										if (inputManager->isTouchInside(retangulo, id)){
+							//											if (currentTool == freeform){
+							//												delete retangulo;
+							//												retangulo = new ImageLoader("retangulo2.png",0,300);
+							//												delete formalivre;
+							//												formalivre = new ImageLoader("freeform.png",0,150);
+							//											}else{
+							//												if (currentTool == circle) {
+							//													delete circulo;
+							//													circulo = new ImageLoader("BOLA.png",0,225);
+							//													delete retangulo;
+							//													retangulo = new ImageLoader("retangulo2.png",0,300);
+							//												} else {
+							//													if (currentTool == triangle) {
+							//														delete retangulo;
+							//														retangulo = new ImageLoader("retangulo2.png",0,300);
+							//														delete triangulo;
+							//														triangulo = new ImageLoader("triangulo.png",0,375);
+							//													} else {
+							//														if (currentTool == erase) {
+							//															delete retangulo;
+							//															retangulo = new ImageLoader("retangulo2.png",0,300);
+							//															delete borracha;
+							//															borracha = new ImageLoader("B1.png",0,450);
+							//														}
+							//													}
+							//												}
+							//											}
+							//											currentTool = rectangle;
+							//										} else {
+							//											if (inputManager->isTouchInside(triangulo, id)){
+							//												if (currentTool == freeform){
+							//													delete triangulo;
+							//													triangulo = new ImageLoader("triangulo2.png",0,375);
+							//													delete formalivre;
+							//													formalivre = new ImageLoader("freeform.png",0,150);
+							//												}else{
+							//													if (currentTool == rectangle) {
+							//														delete triangulo;
+							//														triangulo = new ImageLoader("triangulo2.png",0,375);
+							//														delete retangulo;
+							//														retangulo = new ImageLoader("retangulo.png",0,300);
+							//													} else {
+							//														if (currentTool == circle) {
+							//															delete circulo;
+							//															circulo = new ImageLoader("BOLA.png",0,225);
+							//															delete triangulo;
+							//															triangulo = new ImageLoader("triangulo2.png",0,375);
+							//														} else {
+							//															if (currentTool == erase) {
+							//																delete triangulo;
+							//																triangulo = new ImageLoader("triangulo2.png",0,375);
+							//																delete borracha;
+							//																borracha = new ImageLoader("B1.png",0,450);
+							//															}
+							//														}
+							//													}
+							//												}
+							//												currentTool = triangle;
+							//											} else {
+							//												if (inputManager->isTouchInside(borracha, id)){
+							//													if (currentTool == freeform){
+							//														delete borracha;
+							//														borracha = new ImageLoader("B2.png",0,450);
+							//														delete formalivre;
+							//														formalivre = new ImageLoader("freeform.png",0,150);
+							//													}else{
+							//														if (currentTool == rectangle) {
+							//															delete borracha;
+							//															borracha = new ImageLoader("B2.png",0,450);
+							//															delete retangulo;
+							//															retangulo = new ImageLoader("retangulo.png",0,300);
+							//														} else {
+							//															if (currentTool == triangle) {
+							//																delete borracha;
+							//																borracha = new ImageLoader("B2.png",0,450);
+							//																delete triangulo;
+							//																triangulo = new ImageLoader("triangulo.png",0,375);
+							//															} else {
+							//																if (currentTool == circle) {
+							//																	delete circulo;
+							//																	circulo = new ImageLoader("BOLA.png",0,225);
+							//																	delete borracha;
+							//																	borracha = new ImageLoader("B2.png",0,450);
+							//																}
+							//															}
+							//														}
+							//													}
+							//													currentTool = erase;
+							//												}else{
+							//													//Changing colors
+							//													if(inputManager->isTouchInside(vermelho, id)){
+							//														delete vermelho;
+							//														vermelho = new ImageLoader("red2.png",0,600);
+							//														delete azul;
+							//														azul = new ImageLoader("blue.png",37,600);
+							//														delete verde;
+							//														verde = new ImageLoader("green.png",74,600);
+							//														delete amarelo;
+							//														amarelo = new ImageLoader("yellow.png",0,637);
+							//														delete preto;
+							//														preto = new ImageLoader("black.png",37,637);
+							//														delete branco;
+							//														branco = new ImageLoader("white.png",74,637);
+							//														toolColor.r = 235;
+							//														toolColor.g = 39;
+							//														toolColor.b = 37;
+							//														toolColor.a = 245;
+							//													}else if(inputManager->isTouchInside(azul, id)){
+							//														delete vermelho;
+							//														vermelho = new ImageLoader("red.png",0,600);
+							//														delete azul;
+							//														azul = new ImageLoader("blue2.png",37,600);
+							//														delete verde;
+							//														verde = new ImageLoader("green.png",74,600);
+							//														delete amarelo;
+							//														amarelo = new ImageLoader("yellow.png",0,637);
+							//														delete preto;
+							//														preto = new ImageLoader("black.png",37,637);
+							//														delete branco;
+							//														branco = new ImageLoader("white.png",74,637);
+							//														toolColor.r = 34;
+							//														toolColor.g = 34;
+							//														toolColor.b = 255;
+							//														toolColor.a = 245;
+							//													}else if(inputManager->isTouchInside(verde, id)){
+							//														delete vermelho;
+							//														vermelho = new ImageLoader("red.png",0,600);
+							//														delete azul;
+							//														azul = new ImageLoader("blue.png",37,600);
+							//														delete verde;
+							//														verde = new ImageLoader("green2.png",74,600);
+							//														delete amarelo;
+							//														amarelo = new ImageLoader("yellow.png",0,637);
+							//														delete preto;
+							//														preto = new ImageLoader("black.png",37,637);
+							//														delete branco;
+							//														branco = new ImageLoader("white.png",74,637);
+							//														toolColor.r = 34;
+							//														toolColor.g = 255;
+							//														toolColor.b = 34;
+							//														toolColor.a = 245;
+							//													}else if(inputManager->isTouchInside(amarelo, id)){
+							//														delete vermelho;
+							//														vermelho = new ImageLoader("red.png",0,600);
+							//														delete azul;
+							//														azul = new ImageLoader("blue.png",37,600);
+							//														delete verde;
+							//														verde = new ImageLoader("green.png",74,600);
+							//														delete amarelo;
+							//														amarelo = new ImageLoader("yellow2.png",0,637);
+							//														delete preto;
+							//														preto = new ImageLoader("black.png",37,637);
+							//														delete branco;
+							//														branco = new ImageLoader("white.png",74,637);
+							//														toolColor.r = 255;
+							//														toolColor.g = 236;
+							//														toolColor.b = 139;
+							//														toolColor.a = 245;
+							//													}else if(inputManager->isTouchInside(preto, id)){
+							//														delete vermelho;
+							//														vermelho = new ImageLoader("red.png",0,600);
+							//														delete azul;
+							//														azul = new ImageLoader("blue.png",37,600);
+							//														delete verde;
+							//														verde = new ImageLoader("green.png",74,600);
+							//														delete amarelo;
+							//														amarelo = new ImageLoader("yellow.png",0,637);
+							//														delete preto;
+							//														preto = new ImageLoader("black2.png",37,637);
+							//														delete branco;
+							//														branco = new ImageLoader("white.png",74,637);
+							//														toolColor.r = 15;
+							//														toolColor.g = 15;
+							//														toolColor.b = 15;
+							//														toolColor.a = 245;
+							//													}else if(inputManager->isTouchInside(branco, id)){
+							//														delete vermelho;
+							//														vermelho = new ImageLoader("red.png",0,600);
+							//														delete azul;
+							//														azul = new ImageLoader("blue.png",37,600);
+							//														delete verde;
+							//														verde = new ImageLoader("green.png",74,600);
+							//														delete amarelo;
+							//														amarelo = new ImageLoader("yellow.png",0,637);
+							//														delete preto;
+							//														preto = new ImageLoader("black.png",37,637);
+							//														delete branco;
+							//														branco = new ImageLoader("white2.png",74,637);
+							//														toolColor.r = 250;
+							//														toolColor.g = 240;
+							//														toolColor.b = 230;
+							//														toolColor.a = 245;
+							//													}else if(inputManager->isTouchInside(musica, id)){
+							//														delete musica;
+							//														if(bgMusic->isPlaying()){
+							//															bgMusic->Pause();
+							//															musica = new ImageLoader("musicoff.png",0,525);
+							//														}else{
+							//															bgMusic->Resume();
+							//															musica = new ImageLoader("music.png",0,525);
+							//														}
+							//													}else{
+							if(currentTool == erase){
+								Object* delObj;
+								delObj = engine->EraseObject(drawObjects[id]->xOrig, drawObjects[id]->yOrig);
+								if(delObj != NULL){
+									for(Uint32 i = 0; i < objects.size() ; i++){
+										if(objects.at(i)->GetBody() == (delObj->body)){
+											objects.erase(objects.begin()+i);
+											engine->DestroyObject(*delObj);
+											break;
+										}
+									}
+								}
+							//Drawing or Mousejoint
+							} else {
+								engine->MouseDown(drawObjects[id]->xOrig, drawObjects[id]->yOrig, id);
+								if (engine->mouseJoint[id] == NULL) {
+									drawObjects[id]->drawing = true;
+									if(currentTool == freeform){
+										ff_vx[id].push_back(drawObjects[id]->xOrig);
+										ff_vy[id].push_back(drawObjects[id]->yOrig);
+									}
+									inputManager->xy.clear();
+								}
+							}
+	//													}
+	//												}
+	//											}
+	//										}
+	//									}
+	//								}
+	//							}
+	//						}
+	//					}
 					}
-				//Update grabbed object with mouse position
-				}else if(engine->mouseJoint[id] != NULL){
-					b2Vec2 p(CONVERT(inputManager->touchPosX(id)), CONVERT(inputManager->touchPosY(id)));
-					engine->mouseJoint[id]->SetTarget(p);
+				} else {
+					//Mouse up to destroy joint
+					if(inputManager->isTouchUp(id)){
+						if(engine->mouseJoint[id] != NULL){
+							engine->DestroyMouseJoint(id);
+							inputManager->xy.clear();
+						}
+					//Update grabbed object with mouse position
+					}else if(engine->mouseJoint[id] != NULL){
+						b2Vec2 p(CONVERT(inputManager->touchPosX(id)), CONVERT(inputManager->touchPosY(id)));
+						engine->mouseJoint[id]->SetTarget(p);
+					}
 				}
 			}
 		}

@@ -107,40 +107,44 @@ void InputManager::pollEvents() {
 			touch[event.user.code]->y = data->y;
 			motion_event = true;
 			for(Uint32 i = 0; i < click.size(); i++){
-				if (click[i].id == event.user.code) {
+				if ((click[i].id == event.user.code) && (!click[i].updated)) {
 					click.erase(click.begin() + i);
 				}
 			}
 		}else if(event.type == SDL_MOUSEBUTTONDOWN){
-			buttomDownState[event.button.button] = 1;
-			data = (TUIOData*) malloc(sizeof(TUIOData));
-			data->tocou = true;
-			data->tocando = true;
-			data->destocou = false;
-			data->remove = false;
-			data->x = event.button.x;
-			data->y = event.button.y;
-			id[numIds] = 10000;
-			numIds++;
-			touch[10000] = data;
-			clickTemp.id = 10000;
-			clickTemp.x = touch[10000]->x;
-			clickTemp.y = touch[10000]->y;
-			clickTemp.updated = false;
-			clickTemp.remove = false;
-			clickTemp.time = SDL_GetTicks();
-			click.push_back(clickTemp);
+			if (event.button.button == SDL_BUTTON_LEFT){
+				buttomDownState[event.button.button] = 1;
+				data = (TUIOData*) malloc(sizeof(TUIOData));
+				data->tocou = true;
+				data->tocando = true;
+				data->destocou = false;
+				data->remove = false;
+				data->x = event.button.x;
+				data->y = event.button.y;
+				id[numIds] = 10000;
+				numIds++;
+				touch[10000] = data;
+				clickTemp.id = 10000;
+				clickTemp.x = touch[10000]->x;
+				clickTemp.y = touch[10000]->y;
+				clickTemp.updated = false;
+				clickTemp.remove = false;
+				clickTemp.time = SDL_GetTicks();
+				click.push_back(clickTemp);
+			}
 		}else if(event.type == SDL_MOUSEBUTTONUP){
-			buttomUpState[event.button.button] = 1;
-			touch[10000]->tocando = false;
-			touch[10000]->destocou = true;
-			touch[10000]->x = event.button.x;
-			touch[10000]->y = event.button.y;
-			touch[10000]->remove = true;
-			for(Uint32 i = 0; i < click.size(); i++){
-				if ((click[i].id == 10000) && (!click[i].updated)) {
-					click[i].updated = true;
-					break;
+			if (event.button.button == SDL_BUTTON_LEFT){
+				buttomUpState[event.button.button] = 1;
+				touch[10000]->tocando = false;
+				touch[10000]->destocou = true;
+				touch[10000]->x = event.button.x;
+				touch[10000]->y = event.button.y;
+				touch[10000]->remove = true;
+				for(Uint32 i = 0; i < click.size(); i++){
+					if ((click[i].id == 10000) && (!click[i].updated)) {
+						click[i].updated = true;
+						break;
+					}
 				}
 			}
 		}else if(event.type == SDL_MOUSEMOTION){
@@ -149,7 +153,7 @@ void InputManager::pollEvents() {
 				touch[10000]->y = event.button.y;
 				motion_event = true;
 				for(Uint32 i = 0; i < click.size(); i++){
-					if (click[i].id == 10000) {
+					if ((click[i].id == 10000) && (!click[i].updated)) {
 						click.erase(click.begin() + i);
 					}
 				}

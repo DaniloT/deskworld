@@ -33,7 +33,7 @@
 typedef struct DrawObject{
 	int xOrig, yOrig, xMouse, yMouse; // Origin Coordinates of draw.
 	bool drawing;	//indicates if user is drawing.
-	bool menu; //indicates if the click opens the menu.
+	bool menu; //indicates if the click opens a menu.
 } DrawObject;
 
 class LevelState: public State {
@@ -43,21 +43,21 @@ class LevelState: public State {
 	InputManager* inputManager;
 	Graphics* graphics;
 	ImageLoader* background;
-	ImageLoader* dinamico;
-	ImageLoader* estatico;
-	ImageLoader* circulo;
-	ImageLoader* retangulo;
-	ImageLoader* triangulo;
-	ImageLoader* borracha;
-	ImageLoader* formalivre;
+//	ImageLoader* dinamico;
+//	ImageLoader* estatico;
+//	ImageLoader* circulo;
+//	ImageLoader* retangulo;
+//	ImageLoader* triangulo;
+//	ImageLoader* borracha;
+//	ImageLoader* formalivre;
 	ImageLoader* fechar;
-	ImageLoader* musica;
-	ImageLoader* vermelho;
-	ImageLoader* azul;
-	ImageLoader* verde;
-	ImageLoader* amarelo;
-	ImageLoader* preto;
-	ImageLoader* branco;
+//	ImageLoader* musica;
+//	ImageLoader* vermelho;
+//	ImageLoader* azul;
+//	ImageLoader* verde;
+//	ImageLoader* amarelo;
+//	ImageLoader* preto;
+//	ImageLoader* branco;
 	ImageLoader* menu;
 	ImageLoader* menuSelect[4];
 	Audio* bgMusic;
