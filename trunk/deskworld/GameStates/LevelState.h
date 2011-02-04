@@ -58,6 +58,8 @@ class LevelState: public State {
 	ImageLoader* amarelo;
 	ImageLoader* preto;
 	ImageLoader* branco;
+	ImageLoader* menu;
+	ImageLoader* menuSelect[4];
 	Audio* bgMusic;
 	Engine* engine;
 	uint8 currentTool;
