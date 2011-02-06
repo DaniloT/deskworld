@@ -28,6 +28,17 @@ InputManager::InputManager() {
 	tuio_client = new TuioClient(3333);
 	tuio_client->addTuioListener(this);
 	tuio_client->connect();
+
+	click.clear();
+
+	for (int i = 0; i < 10001; i++) {
+		touch[i].destocou = false;
+		touch[i].tocou = false;
+		touch[i].tocando = false;
+		touch[i].remove = false;
+		touch[i].x = 0;
+		touch[i].y = 0;
+	}
 }
 
 InputManager::~InputManager() {
@@ -39,15 +50,24 @@ void InputManager::pollEvents() {
 	SDL_Event event;
 	TUIOData* data;
 	Click clickTemp;
-	int time;
+	bool achou;
 
 	memset(keyDownState, false, sizeof(keyDownState));
 	memset(keyUpState, false, sizeof(keyUpState));
 	memset(buttomDownState, false, sizeof(buttomDownState));
 	memset(buttomUpState, false, sizeof(buttomUpState));
 	for (int i = 0; i < numIds; i++){
-		if (touch[id[i]]->remove){
+		cout << "vetor id, pos : " << i << ", id: " << id[i] << endl;
+		if (touch[id[i]].remove){
 			int g;
+			cout << "id removido, pos : " << i << ", id: " << id[i] << endl;
+			touch[id[i]].destocou = false;
+			touch[id[i]].tocou = false;
+			touch[id[i]].tocando = false;
+			touch[id[i]].remove = false;
+			touch[id[i]].x = 0;
+			touch[id[i]].y = 0;
+
 			for (g = i; g < numIds; g++){
 				id[g] = id[g+1];
 			}
@@ -55,15 +75,34 @@ void InputManager::pollEvents() {
 			numIds--;
 			i--;
 		} else {
-			touch[id[i]]->tocou = false;
-			touch[id[i]]->destocou = false;
+			touch[id[i]].tocou = false;
+			touch[id[i]].destocou = false;
 		}
 	}
 	motion_event = false;
-	time = SDL_GetTicks();
+	achou = false;
 	for(Uint32 i = 0; i < click.size(); i++){
-		if ((click[i].remove) || ((time - click[i].time) > TIMELIMIT)) {
+		if (click[i].remove) {
 			click.erase(click.begin() + i);
+		} else {
+			if (click[i].release) {
+				cout << "release, pos: " << i << ", id: " << click[i].id << endl;
+//				touch[click[i].id].x = click[i].x;
+//				touch[click[i].id].y = click[i].y;
+//				touch[click[i].id].tocou = true;
+//				if (click[i].updated) {
+//					touch[click[i].id].remove = true;
+//					touch[click[i].id].destocou = true;
+//					touch[click[i].id].tocando = false;
+//				} else {
+//					touch[click[i].id].remove = false;
+//					touch[click[i].id].destocou = false;
+//					touch[click[i].id].tocando = true;
+//				}
+				id[numIds] = click[i].id;
+				numIds++;
+				click.erase(click.begin() + i);
+			}
 		}
 	}
 	while(SDL_PollEvent(&event)){
@@ -72,92 +111,148 @@ void InputManager::pollEvents() {
 		}else if(event.type == SDL_KEYUP){
 			keyUpState[event.key.keysym.sym] = 1;
 		}else if(event.type == CURSOR_ADDEVENT){
-			id[numIds] = event.user.code;
-			numIds++;
-			touch[event.user.code] = (TUIOData*)event.user.data1;
-			touch[event.user.code]->tocou = true;
-			touch[event.user.code]->tocando = true;
+			data = (TUIOData*)event.user.data1;
 			clickTemp.id = event.user.code;
-			clickTemp.x = touch[event.user.code]->x;
-			clickTemp.y = touch[event.user.code]->y;
+			clickTemp.x = data->x;
+			clickTemp.y = data->y;
 			clickTemp.updated = false;
 			clickTemp.remove = false;
+			clickTemp.release = false;
 			clickTemp.time = SDL_GetTicks();
 			click.push_back(clickTemp);
+			touch[event.user.code].tocou = true;
+			touch[event.user.code].tocando = true;
+			touch[event.user.code].x = data->x;
+			touch[event.user.code].y = data->y;
 		}else if(event.type == CURSOR_REMOVEEVENT){
-			data = (TUIOData*)event.user.data1;
-			touch[event.user.code]->remove = true;
-			touch[event.user.code]->destocou = true;
-			touch[event.user.code]->tocando = false;
-			touch[event.user.code]->x = data->x;
-			touch[event.user.code]->y = data->y;
 			for(Uint32 i = 0; i < click.size(); i++){
 				if ((click[i].id == event.user.code) && (!click[i].updated)) {
 					click[i].updated = true;
+//					achou = true;
 					break;
 				}
 			}
+//			if (!achou) {
+				data = (TUIOData*)event.user.data1;
+				touch[event.user.code].remove = true;
+				touch[event.user.code].destocou = true;
+				touch[event.user.code].tocando = false;
+				touch[event.user.code].x = data->x;
+				touch[event.user.code].y = data->y;
+//			}
+//			achou = false;
 		}else if(event.type == CURSOR_MOVEEVENT){
 			data = (TUIOData*)event.user.data1;
-			point temp;
-			temp.x = data->x;
-			temp.y = data->y;
-			xy.insert(pair<int, point >(event.user.code, temp));
-			touch[event.user.code]->x = data->x;
-			touch[event.user.code]->y = data->y;
-			motion_event = true;
 			for(Uint32 i = 0; i < click.size(); i++){
 				if ((click[i].id == event.user.code) && (!click[i].updated)) {
-					click.erase(click.begin() + i);
-				}
-			}
-		}else if(event.type == SDL_MOUSEBUTTONDOWN){
-			if (event.button.button == SDL_BUTTON_LEFT){
-				buttomDownState[event.button.button] = 1;
-				data = (TUIOData*) malloc(sizeof(TUIOData));
-				data->tocou = true;
-				data->tocando = true;
-				data->destocou = false;
-				data->remove = false;
-				data->x = event.button.x;
-				data->y = event.button.y;
-				id[numIds] = 10000;
-				numIds++;
-				touch[10000] = data;
-				clickTemp.id = 10000;
-				clickTemp.x = touch[10000]->x;
-				clickTemp.y = touch[10000]->y;
-				clickTemp.updated = false;
-				clickTemp.remove = false;
-				clickTemp.time = SDL_GetTicks();
-				click.push_back(clickTemp);
-			}
-		}else if(event.type == SDL_MOUSEBUTTONUP){
-			if (event.button.button == SDL_BUTTON_LEFT){
-				buttomUpState[event.button.button] = 1;
-				touch[10000]->tocando = false;
-				touch[10000]->destocou = true;
-				touch[10000]->x = event.button.x;
-				touch[10000]->y = event.button.y;
-				touch[10000]->remove = true;
-				for(Uint32 i = 0; i < click.size(); i++){
-					if ((click[i].id == 10000) && (!click[i].updated)) {
-						click[i].updated = true;
+					achou = true;
+					if (!((data->x > (click[i].x - MOVEFILTER)) &&
+							(data->x < (click[i].x + MOVEFILTER)) &&
+							(data->y > (click[i].y - MOVEFILTER)) &&
+							(data->y < (click[i].y + MOVEFILTER)))){
+						point temp;
+						temp.x = data->x;
+						temp.y = data->y;
+						xy.insert(pair<int, point >(event.user.code, temp));
+						touch[event.user.code].destocou = data->destocou;
+						touch[event.user.code].remove = data->remove;
+						touch[event.user.code].x = data->x;
+						touch[event.user.code].y = data->y;
+						touch[event.user.code].tocou = true;
+						touch[event.user.code].tocando = true;
+						id[numIds] = event.user.code;
+						numIds++;
+						motion_event = true;
+						click[i].time = 0;
+//						click.erase(click.begin() + i);
 						break;
 					}
 				}
 			}
-		}else if(event.type == SDL_MOUSEMOTION){
-			if (touch[10000] != NULL) {
-				touch[10000]->x = event.button.x;
-				touch[10000]->y = event.button.y;
-				motion_event = true;
+			if (!achou) {
+				if (!(((data->x > (touch[event.user.code].x - MOVEFILTER)) &&
+						(data->x < (touch[event.user.code].x + MOVEFILTER))) &&
+						((data->y > (touch[event.user.code].y - MOVEFILTER)) &&
+						(data->y < (touch[event.user.code].y + MOVEFILTER))))){
+					point temp;
+					temp.x = data->x;
+					temp.y = data->y;
+					xy.insert(pair<int, point >(event.user.code, temp));
+					touch[event.user.code].x = data->x;
+					touch[event.user.code].y = data->y;
+					motion_event = true;
+				}
+			}
+			achou = false;
+		}else if(event.type == SDL_MOUSEBUTTONDOWN){
+			if (event.button.button == SDL_BUTTON_LEFT){
+				buttomDownState[event.button.button] = 1;
+				clickTemp.id = 10000;
+				clickTemp.x = event.button.x;
+				clickTemp.y = event.button.y;
+				clickTemp.updated = false;
+				clickTemp.remove = false;
+				clickTemp.release = false;
+				clickTemp.time = SDL_GetTicks();
+				click.push_back(clickTemp);
+				touch[10000].tocou = true;
+				touch[10000].tocando = true;
+				touch[10000].x = event.button.x;
+				touch[10000].y = event.button.y;
+			}
+		}else if(event.type == SDL_MOUSEBUTTONUP){
+			if (event.button.button == SDL_BUTTON_LEFT){
 				for(Uint32 i = 0; i < click.size(); i++){
 					if ((click[i].id == 10000) && (!click[i].updated)) {
-						click.erase(click.begin() + i);
+						click[i].updated = true;
+//						achou = true;
+						break;
+					}
+				}
+//				if (!achou) {
+					buttomUpState[event.button.button] = 1;
+					touch[10000].tocando = false;
+					touch[10000].destocou = true;
+					touch[10000].x = event.button.x;
+					touch[10000].y = event.button.y;
+					touch[10000].remove = true;
+//				}
+//				achou = false;
+			}
+		}else if(event.type == SDL_MOUSEMOTION){
+			for(Uint32 i = 0; i < click.size(); i++){
+				if ((click[i].id == 10000) && (!click[i].updated)) {
+					achou = true;
+					if (!((event.button.x > (click[i].x - MOVEFILTER)) &&
+							(event.button.x < (click[i].x + MOVEFILTER)) &&
+							(event.button.y > (click[i].y - MOVEFILTER)) &&
+							(event.button.y < (click[i].y + MOVEFILTER)))){
+						touch[10000].destocou = false;
+						touch[10000].remove = false;
+						touch[10000].x = event.button.x;
+						touch[10000].y = event.button.y;
+						touch[10000].tocou = true;
+						touch[10000].tocando = true;
+						id[numIds] = 10000;
+						numIds++;
+						motion_event = true;
+						click[i].time = 0;
+//						click.erase(click.begin() + i);
+						break;
 					}
 				}
 			}
+			if (!achou) {
+				if (!(((event.button.x > (touch[10000].x - MOVEFILTER)) &&
+						(event.button.x < (touch[10000].x + MOVEFILTER))) &&
+						((event.button.y > (touch[10000].y - MOVEFILTER)) &&
+						(event.button.y < (touch[10000].y + MOVEFILTER))))){
+					touch[10000].x = event.button.x;
+					touch[10000].y = event.button.y;
+					motion_event = true;
+				}
+			}
+			achou = false;
 		}else if(event.type == SDL_QUIT){
 			quit = true;
 		}
@@ -213,20 +308,20 @@ bool InputManager::isMousePressed(int buttom){
 }
 
 bool InputManager::isMouseInside(ImageLoader* img){
-	if((touch[10000]->x < img->x)||(touch[10000]->x > (img->x+img->GetRect().w)))
+	if((touch[10000].x < img->x)||(touch[10000].x > (img->x+img->GetRect().w)))
 		return false;
-	else if((touch[10000]->y < img->y)||(touch[10000]->y > (img->y+img->GetRect().h)))
+	else if((touch[10000].y < img->y)||(touch[10000].y > (img->y+img->GetRect().h)))
 		return false;
 	else
 		return true;
 }
 
 int InputManager::mousePosX(){
-	return touch[10000]->x;
+	return touch[10000].x;
 }
 
 int InputManager::mousePosY(){
-	return touch[10000]->y;
+	return touch[10000].y;
 }
 
 // Singleton that guarantees there is only one Instance of Input Manager
@@ -239,32 +334,32 @@ InputManager* InputManager::getInstance(){
 }
 
 bool InputManager::isTouched(int code){
-	return touch[code]->tocou;
+	return touch[code].tocou;
 }
 
 bool InputManager::isTouching(int code){
-	return touch[code]->tocando;
+	return touch[code].tocando;
 }
 
 bool InputManager::isTouchUp(int code){
-	return touch[code]->destocou;
+	return touch[code].destocou;
 }
 
 bool InputManager::isTouchInside(ImageLoader* img, int code){
-	if((touch[code]->x < img->x)||(touch[code]->x > (img->x+img->GetRect().w)))
+	if((touch[code].x < img->x)||(touch[code].x > (img->x+img->GetRect().w)))
 		return false;
-	else if((touch[code]->y < img->y)||(touch[code]->y > (img->y+img->GetRect().h)))
+	else if((touch[code].y < img->y)||(touch[code].y > (img->y+img->GetRect().h)))
 		return false;
 	else
 		return true;
 }
 
 int InputManager::touchPosX(int code){
-	return touch[code]->x;
+	return touch[code].x;
 }
 
 int InputManager::touchPosY(int code){
-	return touch[code]->y;
+	return touch[code].y;
 }
 
 // TuioListener methods

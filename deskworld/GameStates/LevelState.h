@@ -13,7 +13,7 @@
 #ifndef LEVELSTATE_H_
 #define LEVELSTATE_H_
 
-#define MENUPROX 5
+#define MENUPROX 20
 
 #include "State.h"
 #include "../Input/InputManager.h"
@@ -38,7 +38,7 @@ typedef struct DrawObject{
 
 class LevelState: public State {
 	vector<int> ff_vx[10001], ff_vy[10001]; // Coordinates of free form objects.
-	DrawObject* drawObjects[10001];
+	DrawObject drawObjects[10001];
 	vector<GameObject*> objects;
 	InputManager* inputManager;
 	Graphics* graphics;

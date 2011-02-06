@@ -16,6 +16,7 @@
 #define CURSOR_MOVEEVENT 26
 #define CURSOR_REMOVEEVENT 27
 #define TIMELIMIT 500
+#define MOVEFILTER 10
 
 #include "../Common.h"
 #include "Tuio/TuioClient.h"
@@ -44,13 +45,12 @@ typedef struct Click{
 	int id;
 	int x;
 	int y;
-	bool updated, remove;
+	bool updated, remove, release;
 	int time;
-	TUIOData* touch;
 } Click;
 
 class InputManager : public TuioListener {
-	TUIOData* touch[10001];
+	TUIOData touch[10001];
 	Uint8* keyState;
 	Uint8 buttomState;
 	int numIds, numIdsRem;
