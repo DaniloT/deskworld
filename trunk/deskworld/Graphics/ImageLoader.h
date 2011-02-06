@@ -21,6 +21,7 @@ using namespace std;
 class ImageLoader {
 	int w, h;		//width and height of image
 	GLuint texture; //this handle our texture object
+	GLUquadricObj *quadratic; // quad
 public:
 	int x,y;
 	ImageLoader(string fileName, int x, int y);
