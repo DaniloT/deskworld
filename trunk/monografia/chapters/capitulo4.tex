@@ -1,6 +1,6 @@
 \chapter{Construção da Mesa Multi-toque}
 \label{cap4}
-Este capítulo apresenta o projeto, a construção e a montagem de uma mesa multitoque de médio custo, construída de modo a dar suporte ao software desenvolvido.
+Este capítulo apresenta o projeto, a construção e a montagem da mesa multi-toque concebida como plataforma de execução do \textit{software Deskworld} proposto neste trabalho. Para iluminação da superfície da mesa e reconhecimento dos toques utilizou-se o método \textit{FTIR}.
 
 \section{Estrutura da Mesa}
 \label{cap4.1}
@@ -13,9 +13,9 @@ Este capítulo apresenta o projeto, a construção e a montagem de uma mesa multito
 	\end{center}
 \end{figure}
 
-A estrutura da mesa é feita de alumínio como material principal, de modo a prover estabilidade, leveza e mobilidade, sem prejudicar sua eficiência. Sua confecção foi sob medida, pois cada elemento influi na sua configuração. As dimensões da mesa estão inclusas na Figura~[\ref{mesa}].
+A estrutura da mesa é feita de alumínio como material principal, de modo a prover estabilidade, leveza e mobilidade, sem prejudicar sua eficiência. Sua confecção foi sob medida, pois cada elemento influi na sua configuração. As dimensões da mesa estão inclusas na Figura~\ref{mesa} que apresenta o projeto da mesa.
 
-Outra característica importante da mesa é a possibilidade de ser desmontada, o que facilita seu transporte. Apesar de possuir grandes medidas, ao ser desmontada fica fácil de carregar e armazenar. Portanto, retirando seus equipamentos, sua estrutura de alumínio pesa muito pouco. Além disso, mesmo montada, a mesa possui rodas com travas para ser movimentada, podendo ser travada no local de uso. A mesa completa pode ser observada, externa e internamente, nas Figuras~[\ref{mesaporfora}] e~[\ref{mesadentro}], respectivamente.
+Outra característica importante da mesa é a possibilidade de ser desmontada, o que facilita seu transporte. Apesar de possuir grandes medidas, uma vez desmontada pode ser facilmente carregada e armazenada, pois sua estrutura de alumínio é leve. Além disso, mesmo montada, a mesa possui rodas com travas para facilitar a movimentação, podendo ser travada no local de uso. A mesa completa pode ser observada, externa e internamente, nas Figuras~\ref{mesaporfora} e~\ref{mesadentro}, respectivamente.
 
 \begin{figure}[h!]
 	\centering
@@ -23,7 +23,7 @@ Outra característica importante da mesa é a possibilidade de ser desmontada, o q
 	\mbox{\subfigure{\includegraphics[scale=0.1]{mesaretrato.jpg}}
 	\quad
 	\subfigure{\includegraphics[scale=0.05]{mesaporfora.jpg}}}
-	\caption{Mesa com superfície multi-toque utilizada no projeto.}
+	\caption{Fotos da mesa multi-toque construída neste projeto.}
 	\label{mesaporfora}
 \end{figure}
 
@@ -46,14 +46,12 @@ Outra característica importante da mesa é a possibilidade de ser desmontada, o q
 \section{Superfície}
 \label{cap4.2}
 
-A superfície da mesa é feita de uma chapa de acrílico translúcido extrudado, que oferece uma alta resistência e transparência a um custo acessível. Seu coeficiente de refração é ideal e permite a iluminação de toda superfície. Sua transparência permite a captação dos toques com clareza pela câmera.
-
-O acrílico tem dimensões de 120 x 90 cm e uma espessura de 1cm. Para reter a projeção é aplicado um papel vegetal sob a face do acrílico interna à mesa. Este papel fica na face interna com objetivo de impedir que a luz do canhão do projetor multimídia reflita no acrílico causando uma interferência detectável pela câmera. Além disso, ele ajuda a destacar a iluminação dos dedos, quando comparadas a da mão, facilitando a detecção de toques.
+A superfície da mesa é feita de uma chapa de acrílico translúcido extrudado, que oferece uma alta resistência e transparência a um custo acessível. Seu coeficiente de refração é ideal e permite a iluminação de toda superfície. Sua transparência permite a captação dos toques com clareza pela câmera. O acrílico tem dimensões de 120 x 90 cm e espessura de 1cm. Para reter a projeção é aplicado um papel vegetal sob a face interna do acrílico. O objetivo desta aplicação é impedir que a luz do canhão do projetor multimídia reflita no acrílico causando uma interferência detectável pela câmera. Além disso, ele ajuda a destacar a iluminação dos dedos, quando comparadas a da mão, facilitando a detecção de toques.
 
 \section{Iluminação Infravermelha}
 \label{cap4.3}
 
-Para um bom reconhecimento dos toques, foi utilizado iluminação \textit{FTIR}. Os \textit{LED}s para foram posicionados em furos no acrílico ao seu redor apontados paralelamente a sua superfície (Figura~[\ref{furosacrilico}]). Aproveitando a resistência do acrílico, furou-se a lateral do acrílico a aproximadamente cada 1cm utilizando uma furadeira de bancada para o posicionamento e fixação dos \textit{LED}s. Foram realizados 200 furos no total, 115 em um dos lados da mesa com 120cm e 85 em um dos lados com 90cm. Os \textit{LED}s foram então inseridos nos furos e soldados (Figura~[\ref{ledsolda}]). Os \textit{LED}s são diodos de 5mm de diâmetro com potência 1,1w máxima, tendo a sua tensão máxima 5V e corrente 220mA. Como é utilizada uma fonte de 12,2V, eles foram soldados de acordo com o diagrama da Figura~[\ref{diagftir}], com séries de 8 \textit{LED}s e um resistor para regular a corrente, todas essas séries em paralelo entre si e em série a um diodo de 6A, que proporciona uma queda de 0,7V, somente para regulagem da tensão. Desta forma, não se utiliza a potência total dos \textit{LED}s, estendendo sua vida útil, e ainda obtêm-se brilho suficiente para iluminar claramente os toques.
+Para um reconhecimento satisfatório dos toques, foi utilizado o método de iluminação \textit{FTIR}, introduzido no capítulo anterior. Os \textit{LED}s foram posicionados em furos ao redor do acrílico apontados paralelamente a sua superfície (Figura~\ref{furosacrilico}). Aproveitando a resistência do acrílico, furou-se a lateral do acrílico a, aproximadamente, cada 1cm utilizando uma furadeira de bancada para o posicionamento e fixação dos \textit{LED}s. Foram realizados 200 furos no total, 115 em um dos lados da mesa com 120cm e 85 em um dos lados com 90cm. Os \textit{LED}s foram então inseridos nos furos e soldados (Figura~\ref{ledsolda}). Os \textit{LED}s são diodos de 5mm de diâmetro com potência 1,1w máxima, tendo a sua tensão máxima 5V e corrente 220mA. Como é utilizada uma fonte de 12,2V, eles foram soldados de acordo com o diagrama da Figura~\ref{diagftir}, com séries de 8 \textit{LED}s e um resistor para regular a corrente, todas essas séries em paralelo entre si e em série a um diodo de 6A, que proporciona uma queda de 0,7V, somente para regulagem da tensão. Desta forma, não se utiliza a potência total dos \textit{LED}s, estendendo sua vida útil, e ainda obtêm-se brilho suficiente para iluminar claramente os toques.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -83,14 +81,14 @@ Para um bom reconhecimento dos toques, foi utilizado iluminação \textit{FTIR}. O
 \section{Câmera}
 \label{cap4.4}
 
-Para capturar os toques feitos na superfície de acrílico, foi utilizada uma câmera \textit{PlayStation Eye}, observada na Figura~[\ref{ps3eyenosuporte}]. A escolha foi baseada no baixo custo da câmera e sua alta resolução para sua faixa de preço, bem como ângulo de abertura ideal e a alta taxa de frames por segundo. Sua resolução pode ser configurada em 640 x 480 \textit{pixels}, ou em 320 x 240 \textit{pixels} numa taxa de atualização de 60 ou 120 frames por segundo, respectivamente.
+Para capturar a imagem a ser processada de modo a identificar os toques sobre a superfície, foi utilizada uma câmera \textit{PlayStation Eye}, que pode ser observada na Figura~\ref{ps3eyenosuporte}. A escolha foi baseada no baixo custo da câmera e sua alta resolução para sua faixa de preço, bem como ângulo de abertura ideal e a alta taxa de frames por segundo. Sua resolução pode ser configurada em 640 x 480 \textit{pixels}, ou em 320 x 240 \textit{pixels} numa taxa de atualização de 75 ou 120 frames por segundo, respectivamente.
 
-Para capturar os movimentos sobre a mesa com maior precisão, modificou-se a câmera de modo a permitir a filtragem do espectro de luz visível e captar apenas luz infravermelha. Isto foi feito aplicando-se um filme fotográfico sobre a lente da câmera.
+Para capturar os movimentos sobre a mesa com maior precisão, modificou-se a câmera de modo a permitir a filtragem do espectro de luz visível e captar apenas luz infravermelha. Isto foi feito primeiro removendo o filtro nativo que a câmera possui, que bloqueava a iluminação infravermelha, e depois aplicando-se um filme fotográfico sobre a lente da câmera.
 
 \section{Projetor}
 \label{cap4.5}
 
-Nesta mesa, o projetor utilizado é da marca \textit{BenQ} modelo \textit{MP772ST} (Figura~\ref{projetor}). Trata-se de um projetor \textit{WXGA}(\textit{Wide eXtended Graphics Array}) de resolução padrão 1024x768 pixels com suporte a projeção a até 1080i. O projetor foi posicionado a uma distância de 90cm da superfície do acrílico. O projetor é fixado ao fundo da mesa e utiliza-se de um espelho para refletir a imagem dele até o topo, sobre o papel vegetal que se encontra sob a chapa de acrílico.
+Nesta mesa, o projetor utilizado é da marca \textit{BenQ} modelo \textit{MP772ST} (Figura~\ref{projetor}). Trata-se de um projetor \textit{WXGA}(\textit{Wide eXtended Graphics Array}) de resolução padrão 1024x768 pixels com suporte a projeção até 1080i. O projetor foi posicionado a uma distância de 90cm da superfície do acrílico. O projetor é fixado ao fundo da mesa e utiliza-se de um espelho para refletir a imagem dele até o topo, sobre o papel vegetal que se encontra diretamente abaixo da chapa de acrílico.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -103,7 +101,7 @@ Nesta mesa, o projetor utilizado é da marca \textit{BenQ} modelo \textit{MP772ST
 \section{Filtros de Processamento de Vídeo}
 \label{cap4.6}
 
-Para detectar corretamente os toques, é necessário processar cada imagem recebida pela câmera de forma a separar os toques das interferências das imagens de fundo. Para isso, utilizou-se uma cadeia de filtros disponíveis na biblioteca \textit{Community Core Vision}.
+Para detectar corretamente os toques, é necessário processar cada imagem recebida pela câmera de forma a separar os toques das interferências das imagens de fundo. Para isso, utilizou-se uma cadeia de filtros disponíveis na biblioteca \textit{Community Core Vision} (\textit{CCV})~[\citenum{ccv}].
 
 \begin{figure}[h!]
 	\centering
@@ -119,12 +117,4 @@ Para detectar corretamente os toques, é necessário processar cada imagem recebid
 	\label{filtros}
 \end{figure}
 
-A Figura~[\ref{filtros}(a)] mostra a captura direta da câmera, sem nenhum filtro de processamento aplicado, apenas o filtro de hardware apresentado na seção~[\ref{cap4.4}].
-
-Já na Figura~[\ref{filtros}(b)], foi aplicado o filtro \textit{Mono}, que transforma a imagem de captura em uma imagem de 8 bits com tons de cinza, necessária a utilização com a \textit{CCV}.
-
-Na Figura~[\ref{filtros}(c)], pode-se ver o filtro de \textit{background}, que guarda uma imagem inicial como referência e depois subtrai as imagens subsequentes, de modo a remover toda interferência do fundo e de imperfeições do acrílico.
-
-Em seguida, na Figura~[\ref{filtros}(d)], é aplicado o filtro \textit{Amplify}, que intensifica a imagem obtida até o momento, proporcionando \textit{blobs} brilhosos e de fácil detecção.
-
-Finalmente, na Figura~[\ref{filtros}(e)], é aplicado o filtro \textit{Rectify}, que destaca melhor o toque, eliminando as interferências restantes. Neste caso, é imprescindível que somente os toques estejam visíveis, pois esta é a imagem usada para detectá-los.
+A Figura~\ref{filtros}(a) mostra a captura direta da câmera, sem nenhum filtro de processamento aplicado, apenas o filtro de hardware apresentado na seção~\ref{cap4.4}. Já na Figura~\ref{filtros}(b), foi aplicado o filtro \textit{Mono}, que transforma a imagem de captura em uma imagem de 8 bits com tons de cinza, necessária a utilização com a \textit{CCV}. Na Figura~\ref{filtros}(c), pode-se ver o filtro de \textit{Background}, que guarda uma imagem inicial como referência e depois subtrai as imagens subsequentes, de modo a remover toda interferência do fundo e de imperfeições do acrílico. Em seguida, na Figura~\ref{filtros}(d), é aplicado o filtro \textit{Amplify}, que intensifica a imagem obtida até o momento, proporcionando \textit{blobs} brilhosos e de fácil detecção. Finalmente, na Figura~\ref{filtros}(e), é aplicado o filtro \textit{Rectify}, que destaca melhor o toque, eliminando as interferências restantes. Neste caso, é imprescindível que somente os toques estejam visíveis, pois esta é a imagem usada para detectá-los.
