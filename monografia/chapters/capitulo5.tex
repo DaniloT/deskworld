@@ -1,30 +1,32 @@
 \chapter{\textit{Software Deskworld}}
 \label{cap5}
 
-Neste capítulo é apresentado o \textit{Design} do \textit{Software Deskworld}, seus detalhes de implementação, sua arquitetura e a estrutura utilizada para implementar o simulador.
+Neste capítulo é apresentado o \textit{design} do \textit{Software Deskworld} e seus detalhes de implementação, tais como arquitetura e a estrutura empregada.
 
 \section{\textit{Design} do \textit{Deskworld}}
 \label{cap5.1}
 
-Nesta seção, apresenta-se o \textit{Design} do \textit{Software}, isto é, o projeto de sua aplicação com as características expressas em uma visão computacional de alto nível, ou seja, a nível de usuário.
+Nesta seção, apresenta-se o \textit{design} do \textit{Software}, isto é, o projeto de sua aplicação com as características expressas em uma visão computacional de alto nível, ou seja, a nível de usuário.
 
 \subsection{Requisitos de interface}
 \label{cap5.1.1}
 
-De maneira simplificada, esses requisitos podem ser expressos da seguinte forma:
+De maneira simplificada, os requisitos de interface do \textit{Deskworld} podem ser expressos da seguinte forma:
 \begin{itemize}
-	\item Sua mecânica deve permitir a participação de diversos jogadores simultaneamente.
-	\item Suportar e processar toques simultâneos.
-	\item Capacidade de aproximar formas.
+	\item sua mecânica deve permitir a participação de diversos jogadores simultaneamente;
+	\item deve suportar e processar toques simultâneos;
+	\item deve possuir capacidade de aproximar linhas.
 \end{itemize}
 
 \subsection{Conceito}
 \label{cap5.1.2}
-O simulador de física \textit{Deskworld} tem como principal proposta deixar a cargo da criatividade do(s) usuário(s) a construções de cenários, objetos e seus respectivos objetivos neste mundo virtual. O principal objetivo é prover ferramentas aos usuários, auxiliando-os nessa construção. Assim, objetos e elementos físicos são representados em um plano bidimensional, regidos pelas leis da física. É possível desenhar um objeto e associá-lo a algum tipo de elemento, de acordo com suas propriedades tais como massa, coeficiente de atrito e elasticidade. O usuário pode aplicar uma força a este objeto como a gravidade, fixá-lo no plano, entre outras opções. Pode, ainda, mudar as propriedades do mundo em que se encontra e, sem interrupções, dividi-lo, criando novos submundos para usá-los separadamente.
+O simulador de física \textit{Deskworld} tem como principal proposta deixar a cargo da criatividade do(s) usuário(s) a construções de cenários, objetos e seus respectivos objetivos em seu mundo virtual. A meta principal é prover ferramentas aos usuários, auxiliando-os nessa construção. Assim, objetos e elementos físicos são representados em um plano bidimensional, regidos pelas leis da física. É possível desenhar um objeto e modificar suas propriedades tais como massa, coeficiente de atrito e elasticidade. O usuário pode aplicar uma força a este objeto como a gravidade, fixá-lo no plano, entre outras opções. Pode-se ainda, alterar as propriedades do mundo em que se encontra e, sem interrupções, dividí-lo, criando novos submundos para interagir separadamente.
 
 \subsection{Regras e Objetos}
 \label{cap5.1.3}
-Basicamente, pode-se criar qualquer tipo de objeto 2D, com ou sem o auxílio das ferramentas fornecidas. A construção funciona similarmente ao desenho virtual, onde o dedo representa o lápis e a superfície da mesa, o papel.
+Basicamente, pode-se criar qualquer tipo de objeto 2D, com ou sem o auxílio das ferramentas fornecidas. A construção funciona similarmente ao desenho virtual, onde o dedo representa o lápis e a superfície da mesa o papel. Os objetos podem ser criados de forma livre, ou com auxílio do software que tenta aproximar os desenhos do usuário a linhas retas, facilitando a construção de polígonos.
+
+Para a alteração de regras do mundo, ferramentas utilizadas ou propriedades dos objetos, o usuário possui um menu, que pode ser acessado através de dois toques subsequentes em um local da tela. Os itens do menu podem ser selecionados com um único toque neles.
 
 Cada objeto pode ter as seguintes características:
 \begin{itemize}
@@ -37,25 +39,25 @@ Cada objeto pode ter as seguintes características:
 	\item Velocidade
 \end{itemize}
 
-Dessas características, a densidade, o coeficiente de atrito, o coeficiente de restituição de força e a massa podem ser alterados pelo usuário a qualquer momento.
+Dentre as características acima, a densidade, o coeficiente de atrito, o coeficiente de restituição de força e a massa podem ser alterados pelo usuário a qualquer momento, utilizando o menu.
 
-Além dessas propriedades, os objetos podem interagir entre si por meio de juntas, colisões ou motores adicionados aos objetos. Também é possível a separação de mundos com gravidades diferentes e cores de pincéis diferentes entre si. As juntas são entidades que permite fixar um objeto a outro. Funciona, analogamente, a colocar um prego para juntar dois pedaços de madeira.
+Além dessas propriedades, os objetos podem interagir entre si por meio de juntas, colisões ou motores adicionados aos objetos, que aplicam uma força constante sobre um objeto. As juntas são entidades que permite fixar um objeto a outro. Funciona, analogamente, a colocar um prego para juntar dois pedaços de madeira. Também é possível a separação de mundos com gravidades diferentes e cores de pincéis diferentes entre si.
 
-Neste simulador não existe uma regra pré-definida, pois pode ser definida pontualmente por um usuário, ao criar um cenário e objetos.
+Neste \textit{software} interativo, não existem regras pré-definidas. Fica a critério do usuário definir suas regras enquanto interage com o \textit{software} criando cenários e objetos.
 
 \subsection{Interface}
 \label{cap5.1.4}
-A interface utilizada para testes é a mesa descrita no capítulo~\ref{cap4}. Porém, o jogo é portável para qualquer interface multi-toque que suporte o protocolo \textit{TUIO}.
+A interface utilizada para testes é a mesa cuja construção foi descrita no Capítulo~\ref{cap4}. Entretanto, salienta-se que o \textit{software Deskworld} é portável para qualquer interface multi-toque que suporte o protocolo \textit{TUIO}.
 
-\section{Ferramentas de suporte do simulador}
+\section{Ferramentas de suporte}
 \label{cap5.2}
 
-Nesta seção, serão descritas as ferramentas de suporte utilizadas na construção do simulador.
+Nesta seção, serão descritas as ferramentas de suporte utilizadas na construção do simulador \textit{Deskworld}, tais como game engine e bibliotecas.
 
 \subsection{\textit{Game Engine}}
 \label{cap5.2.1}
 
-A \textit{engine} utilizada neste \textit{software} foi a \textit{Box2D}. Seu manual pode ser encontrado em~[\citenum{Box2Dmanual}]. A principal funcionalidade da \textit{Box2D} no contexto desse \textit{software} foi auxiliar na criação dos objetos e no tratamento de eventos relacionados à simulação das leis da física. Estes eventos estão apresentados a seguir.
+A \textit{engine} utilizada no desenvolvimento deste software foi a Box2D~[\citenum{Box2Dmanual}]. A principal funcionalidade da \textit{Box2D}, no contexto desse \textit{software}, foi auxiliar na criação dos objetos e no tratamento de eventos relacionados à simulação das leis da física. Tais eventos são:
 
 \begin{itemize}
 	\item Gravidade
@@ -69,12 +71,12 @@ Além dessas funcionalidades, a \textit{Box2D} é responsável pela gerência de mem
 \subsection{\textit{Bibliotecas de apoio}}
 \label{cap5.2.2}
 
-Para facilitar a implementação do \textit{software}, foram utilizadas diversas bibliotecas. Uma das bibliotecas padrão do C++, a \textit{STL} \textit{(Standart Template Library)}, possui algumas estruturas complexas de dados já implementadas, sendo amplamente utilizada neste simulador. Para a parte gráfica do jogo foi utilizada a biblioteca \textit{SDL} \textit{(Simple Direct Layer)} conjuntamente com a \textit{OpenGL} (\textit{Open Graphics Library}). Com relação ao áudio, utilizou-se a biblitoca \textit{SDL\_mixer}. Para tratamento de \textit{input} foi utilizada a biblioteca do protocolo \textit{TUIO} (\textit{Tangible User Interface System}).
+Para facilitar a implementação do \textit{software}, foram utilizadas diversas bibliotecas. Uma das bibliotecas padrão do C++, a \textit{STL} \textit{(Standart Template Library)}, possui algumas estruturas complexas de dados já implementadas, sendo amplamente utilizada neste simulador. Para a parte gráfica do jogo foi utilizada a biblioteca \textit{SDL}~[\citenum{sdl}]  \textit{(Simple Direct Layer)} em conjunto com a \textit{OpenGL}~[\citenum{opengl}]  (\textit{Open Graphics Library}). Com relação ao áudio, utilizou-se a biblitoca \textit{SDL\_mixer}~[\citenum{sdlmixer}] . Para tratamento de \textit{input} foi utilizada a biblioteca do protocolo \textit{TUIO}~[\citenum{TUIO}] (\textit{Tangible User Interface System}).
 
 \subsubsection{\textit{SDL} e \textit{OpenGL}}
 \label{cap5.2.2.1}
 
-Por oferecer uma boa abstração de \textit{hardware}, ser bem difundida no mercado de jogos e possuir ampla documentação, utilizou-se a \textit{SDL} para disponibilizar o acesso ao ambiente. Conjuntamente com a \textit{SDL}, na parte gráfica, foi utilizada a \textit{OpenGL} (\textit{Open Graphics Library}), que realiza a renderização das imagens.
+Por oferecer uma boa abstração de \textit{hardware}, ser bem difundida no mercado de jogos e possuir ampla documentação, utilizou-se a \textit{SDL} para disponibilizar o acesso ao ambiente. Em conjunto com a \textit{SDL}, na parte gráfica, foi utilizada a \textit{OpenGL} (\textit{Open Graphics Library}), que realiza a renderização das imagens.
 
 A \textit{SDL\_mixer} é utilizada para permitir a reprodução de diversas faixas de áudio simultaneamente.
 
@@ -90,9 +92,7 @@ A comunicação entre o usuário da mesa e o aplicativo é realizada de acordo com o
 	\item Mensagens \textit{fseq} associam um ID a um conjunto de mensagens \textit{set} e \textit{alive} do quadro.
 \end{itemize}
 
-Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o TUIO implementa redundância de informação para se precaver contra a perda de dados na transmissão. Além disso, o estado de um objeto, mesmo inalterado, é enviado periodicamente em uma mensagem \textit{set}. Portanto, o protocolo é ideal para ser utilizado em aplicativos controlados por interfaces multitoque, otimizando a interação e confiabilidade da comunicação.
-
-\textbf{\large{Parâmetros das mensagens TUIO}}
+Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o TUIO implementa redundância de informação para se precaver contra a perda de dados na transmissão. Além disso, o estado de um objeto, mesmo inalterado, é enviado periodicamente em uma mensagem \textit{set}. Portanto, o protocolo é ideal para ser utilizado em aplicativos controlados por interfaces multitoque, otimizando a interação e confiabilidade da comunicação. Na Tabela~\ref{tab:tabela1_param_TUIO}, pode-se observar todos os parâmetros que são enviados a cada mensagem do protocolo \textit{TUIO}.
 
 \begin{table}[htbp]
   \centering
@@ -119,38 +119,38 @@ Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o
 	\end{center}
 \end{figure}
 
-O \textit{CCV} (\textit{Community Core Vision})~[\citenum{ccv}] é um aplicativo para auxiliar o processamento de imagens capturadas pela câmera em interações com superfícies multitoque, e pode ser observado na Figura~[\ref{ccv}]. Ele lida com o acompanhamento dos \textit{blobs} de luz infravermelha, enviando mensagens para o \textit{Deskworld}, tais como o encostar do dedo, o deslocamento do dedo e o retirar do dedo. Interage com a maioria dos dispositivos de captura de vídeo, sendo muito útil para um projeto de software que utilize uma mesa multitoque.  Atualmente, possui suporte para plataformas \textit{Windows} e \textit{Linux}, 32 ou 64 \textit{bits}, e \textit{MacOS}.
+O \textit{CCV} (\textit{Community Core Vision})~[\citenum{ccv}] é um aplicativo para auxiliar no processamento de imagens capturadas pela câmera em interações com superfícies multi-toque. A Figura~\ref{ccv} apresenta um \textit{screenshot} do aplicativo. Ele lida com o acompanhamento dos \textit{blobs} de luz infravermelha, enviando mensagens para o \textit{Deskworld}, tais como o encostar do dedo, o deslocar do dedo e o retirar do dedo. Interage com a maioria dos dispositivos de captura de vídeo, sendo muito útil para um projeto de software que utilize uma mesa multitoque.  Atualmente, possui suporte para plataformas \textit{Windows} e \textit{Linux}, 32 ou 64 \textit{bits}, e \textit{MacOS}.
 
-Seu funcionamento consiste na aplicação de filtros configuráveis, como os mostrados na Figura~[\ref{filtros}]. Em seu arquivo de configuração, \textit{config.xml}, pode-se modificar os dados da câmera, tais como resolução e frames por segundo, e o \textit{CCV} irá automaticamente ajustar a câmera selecionada para os dados mais próximos suportados. A execução do \textit{CCV} funciona de acordo com o paradigma cliente-servidor, onde o mesmo atua como servidor e a aplicação como cliente. Esta comunicação cliente-servidor é feita utilizando o protocolo TUIO~[\citenum{TUIO}] \textit{(Tangible User Interface System)}, utilizando pontos normais x e y enviados via \textit{TCP}, ou em pacotes especiais para aplicativos \textit{Flash}, permitindo uma arquitetura distribuída, onde o aplicativo é executado separadamente da aplicação de processamento de imagens.
+Seu funcionamento consiste na aplicação de filtros configuráveis, como os mostrados na Figura~\ref{filtros} no capítulo anterior. Em seu arquivo de configuração, \textit{config.xml}, pode-se modificar os dados da câmera, tais como resolução e frames por segundo; o \textit{CCV} irá automaticamente ajustar a câmera selecionada para os dados mais próximos suportados. A execução do \textit{CCV} funciona de acordo com o paradigma cliente-servidor, onde o mesmo atua como servidor e a aplicação como cliente. Esta comunicação cliente-servidor é feita utilizando o protocolo TUIO~[\citenum{TUIO}] \textit{(Tangible User Interface System)}, utilizando pontos normais x e y enviados via \textit{TCP}, ou em pacotes especiais para aplicativos \textit{Flash}, permitindo uma arquitetura distribuída, onde o aplicativo é executado separadamente da aplicação de processamento de imagens.
 
 \section{Arquitetura e Detalhes de Implementação}
 \label{cap5.3}
 
-A evolução da tecnologia dos hardwares para computadores pessoais proporcionou grande desenvolvimento à indústria de jogos eletrônicos, levando-a a aprimorar seu produto ao longo do tempo. Este caminho foi marcado pela formação de grandes equipes e pela extensiva carga de codificação. Os jogos eletrônicos mais modernos podem ultrapassar um milhão de linhas de código de acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}]. Portanto, foi necessário organizar estes extensivos códigos a fim de obter uma melhor performace no desenvolvimento de novos jogos. Esta organização pode ser realizada por meio da adoção de uma arquitetura bem definida.
+A evolução da tecnologia dos \textit{hardwares} para computadores pessoais proporcionou grande desenvolvimento à indústria de jogos eletrônicos, levando-a a aprimorar seu produto ao longo do tempo. Este caminho foi marcado pela formação de grandes equipes e pela extensiva carga de codificação. Os jogos eletrônicos mais modernos podem ultrapassar um milhão de linhas de código de acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}]. Portanto, foi necessário organizar estes extensivos códigos a fim de obter uma melhor performace no desenvolvimento de novos jogos. Esta organização pode ser realizada por meio da adoção de uma arquitetura bem definida.
 
 \subsection{Arquitetura do \textit{Deskworld}}
 \label{cap5.3.1}
 
-Apesar de não se encaixar na definição de jogo eletrônico, o \textit{Deskworld} possui muitas características semelhantes, pois é um \textit{software} interativo, onde o usuário se relaciona com objetos em um mundo virtual. Dessa maneira, este \textit{software} foi desenvolvido a partir da utilização de um padrão de desenvolvimento voltado a jogos. Para este \textit{software} foi escolhida uma arquitetura modular orientada à objetos. A próxima sessão expõe as vantagens desta arquitetura, explicando os motivos que resultaram nesta escolha.
+Apesar de não se encaixar na definição de jogo eletrônico, o \textit{Deskworld} possui muitas características semelhantes, pois é um \textit{software} interativo, onde o usuário se relaciona com objetos em um mundo virtual. Dessa maneira, este \textit{software} foi desenvolvido a partir da utilização de um padrão de desenvolvimento voltado a jogos. Para este \textit{software} foi escolhida uma arquitetura modular orientada à objetos.
 
 \subsubsection{Vantagens da abordagem orientada à objetos}
 \label{cap5.3.1.1}
 
-De acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}] a maioria dos jogos se desenvolvem em torno de objetos ou entidades em um mundo virtual, onde o usuário deve realizar ações com estes objetos. Antes da existência do paradigma da orientação à objetos, os jogos eram desenvolvidos com programação procedural e assim, a ênfase da programação baseava-se no código propriamente dito. Isto porque o jogo era observado, conceitualmente, como uma sequência de código com execução de procedimentos e funções. Na programação orientada à objetos, a perspectiva é outra, pois a ênfase ocorre no conceito de objeto que é uma coleção de informações conjuntas a uma série de operações para processar estes dados. Portanto, utilizando orientação à objetos conseguimos obter \textit{softwares} que se adequam ao formato dos jogos, pois as entidades desses jogos podem ser expressas pelas classes, os objetos por instâncias da classe e ações entre eles, pelos métodos.
+De acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}] a maioria dos jogos se desenvolvem em torno de objetos ou entidades em um mundo virtual, nos quais o usuário deve realizar ações. Antes da existência do paradigma da orientação a objetos, os jogos eram desenvolvidos com programação procedural e assim, a ênfase da programação baseava-se no código propriamente dito. Isto porque o jogo era observado, conceitualmente, como uma sequência de código com execução de procedimentos e funções. Na programação orientada à objetos, a perspectiva é outra, pois a ênfase ocorre no conceito de objeto que é uma coleção de informações conjuntas a uma série de operações para processar estes dados. Portanto, utilizando orientação à objetos é possível obter \textit{softwares} que se adequam ao formato dos jogos, pois as entidades desses jogos podem ser expressas pelas classes, os objetos por instâncias da classe e ações entre eles pelos métodos.
 
-Outra vantagem encontrada nesta abordagem é a herança de classes, que permite a reutilização de código em múltiplas classes que possuam parentesco. Com herança, é possível estender características das superclasses para as subclasses. No \textit{Deskworld}, utilizou-se herança para, principalmente, padronizar e reutilizar parte do código dos \textit{Game Objects}. Também importante, o suporte ao polimorfismo é crucial no desenvolvimento de jogos já que permiter a realização de \textit{update} e \textit{render} de diversos componentes do \textit{software} sem precisar separá-los em chamadas de execuções diferentes, pois todos serão reconhecidos pelo seu tipo e terão seus respectivos métodos executados corretamente.
+Outra vantagem encontrada nesta abordagem é a herança de classes, que permite a reutilização de código em múltiplas classes que possuam parentesco. Com herança, é possível estender características das superclasses para as subclasses. No \textit{Deskworld}, utilizou-se herança para, principalmente, padronizar e reutilizar parte do código dos \textit{Game Objects}. Também importante, o suporte ao polimorfismo é crucial no desenvolvimento de jogos já que permite a realização de \textit{update} e \textit{render} de diversos componentes do \textit{software} sem precisar separá-los em chamadas de execuções diferentes, pois todos serão reconhecidos pelo seu tipo e terão seus respectivos métodos executados corretamente.
 
-A arquitetura do programa foi modularizada para especificar claramente os  seus subsistemas, facilitando a manutenção e o entendimento do código. No diagrama~[\ref{diag-deskworld}] é observada a composição de módulos do \textit{Deskworld} e suas principais classes. A decomposição em módulos facilita a visualização da implementação, já que o \textit{Software} possui subsistemas bem claramente definidos como os de áudio, vídeo, \textit{engine} e de \textit{input}.
+A arquitetura do programa foi modularizada para especificar claramente os  seus subsistemas, facilitando a manutenção e o entendimento do código. No diagrama apresentado na Figura~\ref{diag-deskworld} pode ser observada a composição de módulos do \textit{Deskworld} e suas principais classes. A decomposição em módulos facilita a visualização da implementação, já que o \textit{software} possui subsistemas bem claramente definidos como os de áudio, vídeo, \textit{engine} e de \textit{input}.
 
 \subsection{Detalhes de implementação}
 \label{cap5.3.2}
 
-Esta seção apresenta a lógica utilizada na implementação do \textit{software}. Primeiramente, é exposto uma visão geral do funcionamento do sistema. Em seguida, os subsistemas são detalhados e seus papéis traçados.
+Esta seção apresenta a lógica de implementação do \textit{software}. Primeiramente, é exposto uma visão geral do funcionamento do sistema. Em seguida, os subsistemas são detalhados e seus papéis traçados.
 
 \subsubsection{Visão Geral do \textit{Software}}
 \label{cap5.3.2.1}
 
-Como observado no diagrama da Figura~[\ref{diag-deskworld}], existe um \textit{Game Manager} responsável pelo gerenciamento da execução do programa. Suas principais ações são inicializar os subsistemas de áudio, vídeo, carregar o cenário e inicializar a \textit{Engine} física do \textit{Deskworld}. A classe áudio é responsável por carregar arquivos de áudio, bem como manipulá-los, podendo tocar, parar ou resumir um arquivo carregado. A \textit{Graphics} implementa soluções para renderizar os objetos na tela e gerenciar a memória de vídeo. O \textit{InputManager} trata as mensagens de entrada recebidas, explorados na seção~[\ref{cap5.2.2.2}], e gera eventos relativos aos toques. A \textit{Engine} tem como objetivo criar, alterar e posicionar objetos no mundo, além de se comunicar de posse destas informações  com a \textit{Box2D}. A classe \textit{LevelState} concentra o maior fluxo de informações, pois todas as instâncias de classe de objetos do mundo são criada nela. Os métodos de \textit{Update}, muito importante em simulações físicas, e \textit{Render} têm suas chamadas realizadas pelo \textit{LevelState}. O \textit{Game Object} armazena informações sobre os objetos como sua dimensão, posição e estado.
+Como observado no diagrama da Figura~\ref{diag-deskworld}, existe uma classe \textit{Game Manager} responsável pelo gerenciamento da execução do programa. Suas principais ações são inicializar os subsistemas de áudio, vídeo, carregar o cenário e inicializar a \textit{Engine} do \textit{Deskworld}. A classe áudio é responsável por carregar arquivos de áudio, bem como manipulá-los, podendo tocar, parar ou resumir um arquivo carregado. A \textit{Graphics} implementa soluções para renderizar os objetos na tela e gerenciar a memória de vídeo. O \textit{InputManager} trata as mensagens de entrada recebidas, explorados na Seção~\ref{cap5.2.2.2}, e gera eventos relativos aos toques. A \textit{Engine} tem como objetivo criar, alterar e posicionar objetos no mundo, além de se comunicar de posse destas informações  com a \textit{Box2D}. A classe \textit{LevelState} concentra o maior fluxo de informações, pois todas as instâncias de classe de objetos do mundo são criada nela. Os métodos de \textit{Update}, muito importante em simulações físicas, e \textit{Render} têm suas chamadas realizadas pelo \textit{LevelState}. O \textit{Game Object} armazena informações sobre os objetos como sua dimensão, posição e estado.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -169,7 +169,7 @@ A classe \textit{Graphics} gerencia a memória de vídeo com a \textit{OpenGL}, e 
 
 \textbf{\textit{Singleton}}
 
-A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriamente, apenas uma instância durante todo o programa. \textit{Singleton} é um \textit{Design Pattern} muito utilizado em situações que necessitam de grande controle sobre uma classe para que seja instaciada somente uma vez. Esta técnica consiste em declarar um construtor privado que será executado uma única vez. Constrói-se um método que retorna a instância única por meio de um ponteiro estático. Caso seja a primeira vez que é chamado, a classe é instanciada, caso contrário, retorna a instância já existente. Além desta, o \textit{InputManager} e a \textit{Engine} são singletons. Isto acontece porque todas essas classes só devem possuir somente uma instância, pois não se deseja várias instâncias controlando a saída de vídeo, a entrada de dados ou a simulação de objetos.
+A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriamente, apenas uma instância durante todo o programa. \textit{Singleton} é um \textit{design pattern} muito utilizado em situações que necessitam de grande controle sobre uma classe para que seja instaciada somente uma vez. Esta técnica consiste em declarar um construtor privado que será executado uma única vez. Constrói-se um método que retorna a instância única por meio de um ponteiro estático. Caso seja a primeira vez que é chamado, a classe é instanciada, caso contrário, retorna a instância já existente. Além desta, o \textit{InputManager} e a \textit{Engine} são singletons. Isto acontece porque todas essas classes só devem possuir somente uma instância, pois não se deseja várias instâncias controlando a saída de vídeo, a entrada de dados ou a simulação de objetos.
 
 \subsubsection{Subsistema de \textit{Input}}
 \label{cap5.3.2.3}
