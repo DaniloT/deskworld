@@ -1,10 +1,10 @@
 \chapter{Trabalhos Correlatos}
 \label{cap2}
-Neste capítulo, primeiro são expostas mesas com superfície multitoque similares à utilizada neste trabalho. Em seguida são apresentados exemplos de \textit{softwares} interativos, tais como jogos desenvolvidos para mesas com superfície multi-toque. Ao final são mostrados alguns \textit{softwares} simuladores de física em geral, para diversos sistemas, incluindo mesas com superfície multitoque.
+Neste capítulo, primeiramente são expostos os principais trabalhos relativos a implementações de mesas com superfícies multi-toque. Em seguida, no intuito de demonstrar o potencial deste tipo de interface, são apresentados uma série de \textit{softwares} interativos, incluindo jogos, desenvolvidos para mesas multi-toque. Ao final são mostrados alguns \textit{softwares} simuladores de física em geral, para diversos sistemas, incluindo mesas com superfície multitoque.
 
 \section{Mesas com superfície multi-toque}
 \label{cap2.1}
-As mesas com superfície multitoque são relativamente recentes no mercado, e muitas pesquisas vêm sendo desenvolvidas para viabilizá-las ao público. Uma alternativa criativa foi proposta por~[\citenum{mtmini}], onde demonstra-se a viabilidade da montagem de uma pequena mesa com superfície multitoque com menos de US\$50,00. Com materiais de baixo custo como papelão, papel e vidro construiram uma mesa utilizando um computador pessoal e uma \textit{webcam}.
+As mesas com superfície multi-toque são relativamente recentes no mercado, porém seu alto custo fez com que não fossem muito proliferadas. Devido a isto, alternativas foram feitas para construção de mesas de baixo custo. Uma alternativa criativa foi proposta por~[\citenum{mtmini}], onde demonstra-se a viabilidade da montagem de uma pequena mesa com superfície multitoque com menos de US\$50,00. Com materiais de baixo custo como papelão, papel e vidro, construiram uma mesa utilizando um computador pessoal e uma \textit{webcam}. Outras alternativas artesanais incluem, por exemplo, a construída para o jogo \textit{Eco-Defense}~[\citenum{pedrosaulo}], a elaborada para o jogo \textit{IRTaktiks}~[\citenum{IRTaktiks}], bem como a \textit{Virttable}~[\citenum{virttable}].
 
 Diversas utilidades são propostas para essas mesas. Tem-se por exemplo a \textit{Reactable}~[\citenum{react}] (Figura~\ref{react}), disponível desde 2008, que, apesar de não possibilitar o toque do usuário, utiliza marcadores fiduciais para habilitar a interação de seus usuários com a música, fornecendo um instrumento musical diferente. Ela é utilizada em concertos e eventos.
 
@@ -26,7 +26,7 @@ Outro exemplo é a \textit{Microsoft Surface}~[\citenum{microsoftsurface}] (Figur
 	\end{center}
 \end{figure}
 
-Essas duas mesas são as mais populares, apesar de existirem outros projetos comerciais e desenvolvidos para exibições, como a \textit{Touch Magix}~[\citenum{Touchmagix}] ou aquela desenvolvida pela companhia \textit{Ideum}, visto em~[\citenum{ideum}]. Devido ao seu custo elevado, muitas alternativas de construções artesanais de mesas foram propostas. Por exemplo, uma foi construída para o jogo \textit{Eco-Defense}~[\citenum{pedrosaulo}], outra elaborada para o jogo \textit{IRTaktiks}~[\citenum{IRTaktiks}], bem como a \textit{Virttable}~[\citenum{virttable}].
+Essas duas mesas são as mais populares, apesar de existirem outros projetos comerciais e desenvolvidos para exibições, como a \textit{Touch Magix}~[\citenum{Touchmagix}] ou a desenvolvida pela companhia \textit{Ideum}, visto em~[\citenum{ideum}].
 
 A idéia presente em todas é a mesma, ou seja, utilizar um projetor multimídia para projetar a imagem na superfície da mesa, na qual o usuário pode tocar para interagir com o \textit{software}. A superfície é iluminada com a utilização de \textit{LED}s (\textit{Light-emitting diode}) e os toques são detectados por uma câmera sem filtro infravermelho que os interpreta em relação à posição na mesa. Existem várias maneiras de iluminar uma mesa. As principais são DI (\textit{Diffuse Ilumination}) e FTIR (\textit{Frustrated Total Internal Reflection}).
 
@@ -38,7 +38,7 @@ A idéia presente em todas é a mesma, ou seja, utilizar um projetor multimídia pa
 	\end{center}
 \end{figure}
 
-A iluminação por DI, observado na Figura~\ref{touchtable}, refere-se aos \textit{LED}s que iluminam a mesa por baixo do acrílico. Esse método é utilizado, por exemplo, na \textit{Microsoft Surface}~[\citenum{microsoftsurface}] e na mesa construída para o jogo \textit{Eco-Defense}~[\citenum{pedrosaulo}].
+A iluminação por DI, ilustrada na Figura~\ref{touchtable}, refere-se aos \textit{LED}s que iluminam a mesa por baixo do acrílico. Esse método é utilizado, por exemplo, na \textit{Microsoft Surface}~[\citenum{microsoftsurface}] e na mesa construída para o jogo \textit{Eco-Defense}~[\citenum{pedrosaulo}].
 
 O outro método de iluminação é o FTIR, acompanhado na Figura~\ref{FTIR}. Nesta técnica, os LEDS são embutidos no acrílico da superfície da mesa. Assim, a luz proveniente dos LEDs sofre de um fenômeno denominado reflexão interna total frustada. Isso significa que a iluminação fica retida dentro do acrílico sem conseguir sair. Ao momento que um dedo toca na superfície, a capacidade de refração da superfície muda, o que permite que a luz saia e ilumine o toque, onde uma câmera infravermelho consegue captar essa luz, detectando o local do toque. Esse tipo de detecção é normalmente mais precisa que a detecção por DI, pois sofre menos interferência do fundo. Entretanto, ela é inadequada no reconhecimento de marcadores fiduciais, pois dependendo do material desses marcadores, não há nitidez na iluminação FTIR para poder identificar e distinguir as marcas se a superfície não tiver seu coeficiente de refração alterado.
 
@@ -50,7 +50,7 @@ O outro método de iluminação é o FTIR, acompanhado na Figura~\ref{FTIR}. Nesta t
 	\end{center}
 \end{figure}
 
-Outra abordagem trata da combinação entre duas abordagens anteriores, exemplificado pela \textit{Virttable}~[\citenum{virttable}] (Figura~\ref{virttable}), que utiliza ambos métodos, DI e FTIR, procurando proporcionar a melhor detecção possível de toques e marcadores fiduciais. O problema desta abordagem é que ela recebe os pontos fracos da iluminação DI, onde se faz necessário diminuir a interferência do fundo na detecção e controlar o ambiente da mesa. No entanto, em relação a uma mesa com iluminação exclusivamente DI, os toques são mais bem iluminados, facilitando as suas detecções.
+Outra abordagem trata da combinação entre as duas abordagens anteriores, exemplificado pela \textit{Virttable}~[\citenum{virttable}] (Figura~\ref{virttable}), que utiliza este método procurando proporcionar a melhor detecção possível de toques e marcadores fiduciais simultaneamente. Um problema desta abordagem é a interferência do fundo para a detecção de toques, fazendo com que o ambiente no qual a mesa se encontra tenha que ser controlado para sua correta iluminação. No entanto, em relação a uma mesa com iluminação exclusivamente DI, os toques são mais bem iluminados, facilitando as detecções.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -111,7 +111,7 @@ Outros \textit{softwares} para mesas s\~ao mais completos, possuindo graus de di
 
 \section{\textit{Softwares} simuladores de física}
 \label{cap2.3}
-Um \textit{software}simulador de física consiste de um programa que possui um mundo aberto onde o usuário pode criar o que desejar. Estas criações recebem propriedades de um objeto tradicional e interagem com o mundo de acordo com as leis da física.
+Um \textit{software} simulador de física consiste de um programa que possui um mundo aberto onde o usuário pode criar o que desejar. Estas criações recebem propriedades de um objeto tradicional e interagem com o mundo de acordo com as leis da física.
 
 Um jogo que abriu as portas para a popularização desse tipo de \textit{software}é o \textit{Little Big Planet}~[\citenum{lbp}] (Figura~\ref{lbp}). Nesse jogo, inicialmente desenvolvido para \textit{Playstation 3}~[\citenum{ps3}] e depois para \textit{Playstation Portable}~[\citenum{psp}], o jogador controla um boneco chamado \textit{Sack Boy}, que pode mudar sua aparência como quiser, e deve seguir por uma fase no estilo de jogo de plataforma até chegar ao seu final. A diferença está no tipo do jogo, que os criadores chamaram de \textit{Play, Create, Share}, onde os jogadores são livres para criar suas próprias fases como quiserem, compartilhando-as com todos os outros jogadores do mundo. Neste modo, o \textit{Sack Boy} pode colocar objetos em jogo para construir a fase, e os objetos interagem de acordo com as leis da física, podendo possuir movimento e atrapalhar ou ajudar uns aos outros, podendo ser perigosos ou não para o \textit{Sack Boy}. Com esta ferramenta, os jogadores construíram inúmeras fases inovadoras ao redor do mundo, inventando coisas que até os criadores nunca haviam imaginado. O sucesso foi tanto que os criadores do \textit{Little Big Planet} lançaram recentemente a sua continuação, \textit{Little Big Planet 2}~[\citenum{lbp2}], onde a criação de fases vai além de jogos de plataforma como na primeira versão, com a possibilidade do jogador criar regras no jogo que permitam a criação de vários tipos de jogos diferentes, como por exemplo, jogos do tipo \textit{shooter} ou de estratégia.
 
@@ -123,7 +123,7 @@ Um jogo que abriu as portas para a popularização desse tipo de \textit{software}
 	\end{center}
 \end{figure}
 
-Ainda dentro da categoria de \textit{Play, Create, Share}, a mesma empresa criadora do \textit{Little Big Planet} lançou o jogo \textit{Modnation Racer}~[\citenum{mdr}] (Figura~\ref{modnation}), que é um jogo de corrida onde os jogadores podem criar as suas próprias pistas de corridas e compartilhar com todos os demais. Lançado em maio de 2010, já possui milhares de pistas criadas por usuários. Esses jogos demonstram a popularidade do estilo onde o usuário é quem cria seu próprio jogo.
+Ainda dentro da categoria de \textit{Play, Create, Share}, a mesma empresa criadora do \textit{Little Big Planet} lançou o jogo \textit{Modnation Racer}~[\citenum{mdr}] (Figura~\ref{modnation}), um jogo de corrida onde os jogadores podem criar as suas próprias pistas de corridas e compartilhar com todos os demais. Lançado em maio de 2010, já possui milhares de pistas criadas por usuários. Esses jogos demonstram a popularidade do estilo onde o usuário é quem cria seu próprio jogo.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -133,7 +133,7 @@ Ainda dentro da categoria de \textit{Play, Create, Share}, a mesma empresa criad
 	\end{center}
 \end{figure}
 
-No cenário de \textit{softwares} simuladores de física 2D, existe um \textit{software}chamado \textit{Phun}~[\citenum{phun}] (Figura~[\ref{phun}]), que não possui objetivo. Ele é uma ferramenta simuladora de física 2D que permite ao usuário construir o ambiente que desejar e fazer o que quiser com ele, podendo desenhar formas geométricas tradicionais ou livres, modificar a taxa de gravidade e a fricção dos objetos, transformar objetos para forma líquida e controlar densidade dos elementos, entre outros.
+No cenário de \textit{softwares} simuladores de física 2D, existe um \textit{software} chamado \textit{Phun}~[\citenum{phun}] (Figura~[\ref{phun}]), que não possui objetivo. Ele é uma ferramenta simuladora de física 2D que permite ao usuário construir o ambiente que desejar, podendo desenhar formas geométricas tradicionais ou livres, modificar a taxa de gravidade e a fricção dos objetos, transformar objetos para forma líquida e controlar densidade dos elementos, entre outros.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -143,7 +143,7 @@ No cenário de \textit{softwares} simuladores de física 2D, existe um \textit{sof
 	\end{center}
 \end{figure}
 
-Um jogo muito popular neste estilo é o \textit{Crayon Physics}~[\citenum{crayonphysics}]. Neste jogo, o jogador é apresentado com um cenário que possui uma bola e pelo menos uma estrela, e ele deve guiar a bola até coletar todas as estrelas para completar a fase. Para isso, o jogador possui um giz de cera virtual e deve-se com ele modificar livremente o cenário, podendo desenhar a forma que quiser, adicionando-a ao mundo assim que ele acabar de desenhá-la. Uma vez no mundo, o objeto obedece a gravidade e adquire um momento, obtendo assim um movimento. O jogador ainda pode utilizar pontos de fixação para prender objetos juntos e correntes para fazer dispositivos improvisados como elevadores. Tudo isso é feito levando-se em conta as leis da física, como as três leis de \textit{Newton} aplicadas a um mundo bidimensional. Este jogo foi adaptado para mesas com superfície multitoque utilizando \textit{Action Script} por um grupo chamado \textit{Multitouch Barcelona}~[\citenum{barcelonamultcrayon}]. Contrário a sua inspiração original, ele possui somente o modo de criação do \textit{Crayon Physics}, não tendo objetivo e por isso não pode ser chamado de jogo.
+Um jogo muito popular neste estilo é o \textit{Crayon Physics}~[\citenum{crayonphysics}]. Neste jogo, é apresentado ao jogador um cenário que possui uma bola e inicialmente uma estrela. O jogador deve guiar a bola de modo a coletar todas as estrelas que lhe são apresentadas para completar a fase. Para isso, o jogador possui um giz de cera virtual e deve-se com ele modificar livremente o cenário, podendo desenhar a forma que quiser, adicionando-a ao mundo assim que ele acabar de desenhá-la. Uma vez no mundo, o objeto obedece a gravidade e adquire um momento, obtendo assim um movimento. O jogador ainda pode utilizar pontos de fixação para prender objetos juntos e correntes para fazer dispositivos improvisados como elevadores. Tudo isso é feito levando-se em conta as leis da física, como as três leis de \textit{Newton} aplicadas a um mundo bidimensional. Este jogo foi adaptado para mesas com superfície multitoque utilizando \textit{Action Script} por um grupo chamado \textit{Multitouch Barcelona}~[\citenum{barcelonamultcrayon}]. Contrário a sua inspiração original, ele possui somente o modo de criação do \textit{Crayon Physics}, não tendo objetivo e por isso não pode ser chamado de jogo.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -153,7 +153,7 @@ Um jogo muito popular neste estilo é o \textit{Crayon Physics}~[\citenum{crayonp
 	\end{center}
 \end{figure}
 
-Inspirado no \textit{Crayon Physics}, foi desenvolvido o \textit{Numpty Physics}~[\citenum{numptyphysics}] cujo objetivo e ferramentas são os mesmos do seu precursor, com a vantagem de possuir código aberto. Este jogo foi adaptado para funcionar em mesas com superfícies multitoque, a partir de um trabalho de graduação da Universidade Técnica de Viena~[\citenum{multnump}]. Nesta adaptação, além das fases existentes no \textit{Numpty Physics}, foram incluídas seis novas fases com uma bola adicicional, permitindo a participação de um segundo jogador, como pode ser observado na Figura~[\ref{numpty}]. No entanto, este jogo apresentou-se instável, pois é suscetível a erros de execução.
+Inspirado no \textit{Crayon Physics}, foi desenvolvido o \textit{Numpty Physics}~[\citenum{numptyphysics}] cujos objetivo e ferramentas são os mesmos do seu precursor, com a vantagem de possuir código aberto. Este jogo foi adaptado para funcionar em mesas com superfícies multitoque, a partir de um trabalho de graduação da Universidade Técnica de Viena~[\citenum{multnump}]. Nesta adaptação, além das fases existentes no \textit{Numpty Physics}, foram incluídas seis novas fases com uma bola adicional, permitindo a participação de um segundo jogador, como pode ser observado na Figura~[\ref{numpty}]. No entanto, este jogo apresentou-se instável, pois é suscetível a erros de execução.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -163,4 +163,4 @@ Inspirado no \textit{Crayon Physics}, foi desenvolvido o \textit{Numpty Physics}
 	\end{center}
 \end{figure}
 
-Devido à capacidade de criação livre e independente de jogos simuladores de física, observa-se o quanto estes \textit{softwares} são intuitivos e de fácil interação ao usar uma interface de toque. Além disso, em um ambiente que utilize uma mesa multitoque com um número indeterminado de usuários, estes \textit{softwares} seriam ideais por proporcionar uma usabilidade em que vários usuários podem cooperar para desenvolver um mundo único ou podem competir entre si. No entanto, as opções atualmente disponíveis para mesas com superfície multitoque são poucas, limitadas e instáveis.
+Neste capítulo foi possível observar o potêncial de criação livre e independente que os \textit{softwares} simuladores de física apresentam. Além disso, são intuitivos e podem ter sua interação fortemente melhorada se implementados para uma interface sensível ao toque. Em termos de usabilidade, neste tipo de interface, \textit{softwares} simuladores física podem ser implementados para múltiplos usuários interagindo simultaneamente. Contudo, dentre os trabalhos desenvolvidos e analisados, não existem \textit{softwares} simuladores de física desenvolvidos para mesas com superfície multi-toque que apresentem implementações robustas e satisfatórias.
