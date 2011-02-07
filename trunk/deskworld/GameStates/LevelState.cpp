@@ -144,10 +144,13 @@ int LevelState::Update(){
 									}
 								}
 							}
+							drawObjects[inputManager->click[i].id].drawing = false;
+							inputManager->click[i].release = true;
 						//Drawing or Mousejoint
 						} else {
 							engine->MouseDown(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig, inputManager->click[i].id);
 							if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
+								drawObjects[inputManager->click[i].id].drawing = false;
 								inputManager->click[i].release = true;
 							}
 	//						if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
@@ -175,10 +178,13 @@ int LevelState::Update(){
 								}
 							}
 						}
+						drawObjects[inputManager->click[i].id].drawing = false;
+						inputManager->click[i].release = true;
 					//Drawing or Mousejoint
 					} else {
 						engine->MouseDown(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig, inputManager->click[i].id);
 						if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
+							drawObjects[inputManager->click[i].id].drawing = false;
 							inputManager->click[i].release = true;
 						}
 	//					if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
@@ -199,12 +205,16 @@ int LevelState::Update(){
 				if(engine->mouseJoint[inputManager->click[i].id] != NULL){
 					engine->DestroyMouseJoint(inputManager->click[i].id);
 					inputManager->xy.clear();
+					drawObjects[inputManager->click[i].id].drawing = false;
+					inputManager->click[i].release = true;
 				}
 			//Update grabbed object with mouse position
 			} else if(engine->mouseJoint[inputManager->click[i].id] != NULL){
 //				b2Vec2 p(CONVERT(inputManager->touchPosX(inputManager->click[i].id)), CONVERT(inputManager->touchPosY(inputManager->click[i].id)));
 				b2Vec2 p(CONVERT(inputManager->click[i].x), CONVERT(inputManager->click[i].y));
 				engine->mouseJoint[inputManager->click[i].id]->SetTarget(p);
+				drawObjects[inputManager->click[i].id].drawing = false;
+				inputManager->click[i].release = true;
 			}
 //		}
 		if ((time - inputManager->click[i].time) > TIMELIMIT) {
@@ -351,41 +361,50 @@ int LevelState::Update(){
 					delete menu;
 				}
 				menu = new ImageLoader("menutemp.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig);
+				rect = menu->GetRect();
+				if ((rect.x + rect.w) > WIDTH){
+					menu->UpdatePos(rect.x-rect.w, rect.y);
+					rect = menu->GetRect();
+				}
+				if ((rect.y + rect.h) > HEIGHT){
+					menu->UpdatePos(rect.x, rect.y-rect.h);
+					rect = menu->GetRect();
+				}
 				if (dynamic) {
-					menuSelect[0] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 29);
+					menuSelect[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 29);
 				} else {
-					menuSelect[0] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 9);
+					menuSelect[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 9);
 				}
 				if (currentTool == freeform){
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 51);
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 51);
 				} else if (currentTool == circle){
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 71);
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 71);
 				} else if (currentTool == rectangle){
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 89);
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 89);
 				} else if (currentTool == triangle){
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 110);
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 110);
 				} else {
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 127);
+					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 127);
 				}
 				if (!bgMusic->isPlaying()){
-					menuSelect[2] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 146);
+					menuSelect[2] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 146);
 				} else {
 					if (menuSelect[2] != NULL){
 						delete menuSelect[2];
 					}
 				}
 				if (toolColor.g == 15){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 166);
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 166);
 				} else if (toolColor.g == 39){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 183);
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 183);
 				} else if (toolColor.g == 255){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 200);
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 200);
 				} else if (toolColor.g == 34){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 217);
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 217);
 				} else if (toolColor.g == 236){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 234);
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 234);
 				} else {
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig + 251);
+					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 251);
 				}
 				drawObjects[id].menu = false;
 			} else {
