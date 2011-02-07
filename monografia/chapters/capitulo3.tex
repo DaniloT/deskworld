@@ -1,22 +1,22 @@
 \chapter{Fundamentação Teórica}
 \label{cap3}
 
-Tradicionalmente, existe a prática de se desenvolver jogos direcionados a um único usuário, algumas vezes pensando em dois ou mais, cada um participando com seu \textit{input} via teclado, \textit{joystick} ou \textit{mouse}. Contudo, jogos desenvolvidos para superfícies multitoque têm um paradigma diferente, portanto, é fundamental desenvolver suporte para um número não determinado de usuários que podem participar simultaneamente com seu \textit{input} compartilhado por meio de uma única superfície multitoque. Por isso são utilizadas técnicas diferentes para reconhecimento de cada toque e para o processamento das imagens que traduzem cada \textit{input}.
+Tradicionalmente, existe a prática de implementar jogos e outros \textit{softwares} direcionados a um único usuário. Algumas iniciativas até consideram dois ou mais usuários, porém, cada um realizando seu \textit{input} via teclado, \textit{joystick} ou \textit{mouse}. \textit{Softwares} desenvolvidos para superfícies multitoque, no entanto,  possuem um paradigma diferente, sendo fundamental o desenvolvimento de suporte a um número indeterminado de usuários, que podem compartilhar uma única superfície multitoque por meio da qual é realizado \textit{input} simultâneo. Por isso são utilizadas técnicas diferentes para reconhecimento de cada toque e para o processamento das imagens que traduzem cada \textit{input}.
 
-Neste capítulo, são apresentadas as técnicas para detecção de toques. Ou seja, é detalhado como as imagens obtidas pela câmera são processadas para detecção da formação e movimentação de \textit{blobs} que correspondem aos toques e gestos sobre a mesa. Este processamento envolve a aplicação de filtros, além da correção da imagem para eliminar a distorção. Também são discutidos aspectos gerais das mesas multitoque, tais como seu tamanho e a interface com o usuário. Por fim, analisa-se como trabalhar com um número indeterminado de usuários e como ocorrerá a detecção de múltiplos gestos sobre a mesa.
+Neste capítulo são apresentadas as técnicas para detecção de toques. Ou seja, é detalhado como as imagens obtidas pela câmera são processadas para detecção da formação e movimentação de \textit{blobs} que correspondem aos toques e gestos sobre a mesa. Este processamento envolve a aplicação de filtros, além da correção da imagem para eliminar a distorção. Também são discutidos aspectos gerais das mesas multitoque, tais como seu tamanho e a interface com o usuário. Por fim, analisa-se como trabalhar com um número indeterminado de usuários e como é feita a detecção de múltiplos gestos sobre a mesa.
 
 \section{Processamento de Toques}
 \label{cap3.1}
 
-Para o reconhecimento de toques é fundamental a implementação de um sistema de visão computacional. Como é explicado em~[\citenum{pedrosaulo}], a visão computacional trata da capacidade dos computadores de capturar informações sobre o ambiente e processá-las, interpretando o que foi capturado. Assim, se faz necessário um sistema capaz de interpretar o toque em uma mesa, reconhecendo o local dos toques e extraindo das imagens obtidas, informações sobre ele. Esse sistema é composto por um computador tradicional, uma \textit{webcam} sem filtro infravermelho, porém com um filtro para luz visível e um projetor multimídia. O projetor projeta imagens em uma tela de projeção sob o acrílico da mesa, a \textit{webcam} detecta o local dos toques e o programa em execução os interpreta.
+Para o reconhecimento de toques é fundamental a implementação de um sistema de visão computacional. Como é explicado em~[\citenum{pedrosaulo}], a visão computacional trata da capacidade dos computadores de capturar informações sobre o ambiente e processá-las, interpretando o que foi capturado. Assim, se faz necessário um sistema capaz de interpretar o toque em uma mesa, identificando seu local de ocorrência e extraindo, das imagens obtidas, informações sobre ele. Esse sistema é composto por um computador tradicional, uma \textit{webcam} sem filtro infravermelho, porém, com um filtro para luz visível e um projetor multimídia. O projetor, localizado sob a mesa, projeta imagens na supefície de acrílico, que funciona como uma tela de projeção. Enquanto isso, a \textit{webcam}, também localizada sob a mesa, captura imagens da superfície que serão interpretadas por um \textit{software} responsável por identificar o local dos toques.
 
 \subsection{Processamento das Imagens}
 \label{cap3.1.1}
 
-As imagens devem ser capturadas rapidamente em sequência, de modo que a detecção de movimento ocorra com isenção de erros. A captura dessas imagens se dá por intermédio de uma câmera sem filtro infravermelho e com um filtro para luz visível, como o negativo de filme fotográfico, de forma a simplificar sua forma, facilitando o seu tratamento e evitando que se confundam com as demais imagens de fundo que não são inerentes ao toque na superfície do acrílico. Após serem capturadas, as imagens são filtradas de modo a se destacar, nitidamente, os toques correspondentes. Finalmente, os conjuntos de píxeis agrupados com intensidade semelhantes, os chamados \textit{blobs}, são detectados e mapeados, demarcando a posição exata onde o toque foi realizado.
+As imagens devem ser capturadas rapidamente em sequência, de modo que a detecção de movimento ocorra isenta de erros. A captura dessas imagens se dá por intermédio de uma câmera sem filtro infravermelho com um filtro para luz visível, como o negativo de filme fotográfico, de forma a simplificar seu formato, facilitando o seu tratamento e evitando que se confundam com as demais imagens de fundo que não são inerentes ao toque na superfície do acrílico. Depois de capturadas, as imagens são filtradas de modo que os toques estejam destacados. Por fim, os conjuntos de \textit{pixels} agrupados que possuem intensidade semelhantes, os chamados \textit{blobs}, são detectados e mapeados, demarcando a posição exata onde o toque foi realizado.
 
-Conforme mencionado no capítulo anterior, existem dois principais métodos de iluminação de uma mesa multitoque, \textit{FTIR}(\textit{Frustrated Total Internal Refraction}) e \textit{DI}(\textit{Diffuse Illumination}). \textit{FTIR} trata de uma iluminação em que \textit{LEDs} são postos em paralelo a superfície de acrílico da mesa, ou dentro do acrílico, e os feixes de luz ficam presos em seu interior, sendo refletidos internamente devido a fenômenos de reflexão total.
-Cada vez que um toque é aplicado sobre o acrílico, a iluminação é refletida para fora da superfície, iluminando o ponto de toque. A \textit{DI}, por outro lado, incide a luz por baixo do acrílico, tornando imagens acima do acrílico visíveis, incluindo o fundo além do ponto do toque. Como é apresentado em~[\citenum{virttable}], a iluminação por \textit{FTIR} é mais adequada para detecção de toques, enquanto a iluminação por \textit{DI} é mais indicada para se detectar a utilização de marcadores fiduciais. A Figura~[\ref{iluminacoes}] demonstra as imagens capturadas por uma câmera localizada dentro de uma mesa multitoque para diferentes tipos de iluminação.
+Conforme mencionado no capítulo anterior, existem dois principais métodos de iluminação de uma mesa multitoque, \textit{FTIR}(\textit{Frustrated Total Internal Refraction}) e \textit{DI}(\textit{Diffuse Illumination}). \textit{FTIR} trata-se de uma iluminação em que \textit{LEDs}(textit{Light-Emitting Diode}) são postos em paralelo a superfície de acrílico da mesa, ou dentro do acrílico, de modo que os feixes de luz fiquem presos em seu interior, sendo refletidos internamente devido ao fenômeno de reflexão interna total~[\citenum{TIR}].
+Cada vez que um toque é aplicado sobre o acrílico, a iluminação é refletida para fora da superfície, iluminando o ponto de toque. Na iluminação \textit{DI}, por outro lado, os \textit{LED}s localizam-se abaixo da superfície de acrílico e sua luz incide na direção do acrílico, iluminando de baixo para cima, tornando imagens acima do acrílico visíveis, incluindo o fundo além do ponto do toque. Como é apresentado em~[\citenum{virttable}], a iluminação por \textit{FTIR} é mais adequada para detecção de toques, enquanto a iluminação por \textit{DI} é mais indicada para se detectar marcadores fiduciais sobre a mesa. A Figura~\ref{iluminacoes} demonstra as imagens capturadas por uma câmera localizada dentro de uma mesa multitoque para os diferentes tipos de iluminação.
 
 \begin{figure}[h!]
 	\centering
@@ -29,7 +29,7 @@ Cada vez que um toque é aplicado sobre o acrílico, a iluminação é refletida para
 	\label{iluminacoes}
 \end{figure}
 
-Dependendo do método de iluminação, filtros diferentes devem ser aplicados, como explicado em~[\citenum{muller}], de forma a se excluir interferências e selecionar apenas os toques. A biblioteca \textit{Community Core Vision}, utilizada neste trabalho, possui vários filtros descritos no capítulo~[\ref{cap4.6}].
+Dependendo do método de iluminação, filtros diferentes devem ser aplicados, como explicado em~[\citenum{muller}], de forma a se excluir interferências e selecionar apenas os toques. A biblioteca \textit{Community Core Vision}~[\citenum{ccv}], utilizada neste trabalho, possui diversos filtros os quais serão descritos nos capítulos seguintes.
 
 
 % Na iluminação híbrida, deve-se aplicar todos os filtros correspondentes as duas iluminações para obter a melhor imagem possível. Assim, os filtros a serem aplicados são apresentados na Figura~[\ref{filtros}]. São eles:
@@ -59,7 +59,7 @@ Utilizando essas duas análises, pode-se identificar a criação de \textit{blobs},
 
 A partir da imagem final capturada pela câmera é observado os contornos dos \textit{blobs} que aparecem e são analisados para identificar se eles correspondem ao toque de dedos ou a marcadores fiduciais. Se for um toque, uma elipse é feita sobre ele, e com base nela, pode ser identificada a posição, orientação e tamanho do \textit{blob}. Esse \textit{blob} então é adicionado a uma lista para ser processado.
 
-Com base nessa lista, o \textit{blob-tracking} tem que ser feito para identificar a movimentação e criação dos \textit{blobs}. Usando o frame anterior de referência, verifica-se se o \textit{blob} foi criado, removido ou atualizado. Para se fazer essa análise, usa-se 2 conjuntos: \textit{P} e \textit{Q}. O conjunto \textit{P} contém a lista de pontos que representam os \textit{blobs} do frame anterior. Como exemplo, apresenta-se um conjunto \textit{P} com pontos (1,1) e (4,4), ilustrado no gráfico da Figura~[\ref{grafP}].
+Com base nessa lista, o \textit{blob-tracking} tem que ser feito para identificar a movimentação e criação dos \textit{blobs}. Usando o frame anterior de referência, verifica-se se o \textit{blob} foi criado, removido ou atualizado. Para se fazer essa análise, são utilizados dois conjuntos: \textit{P} e \textit{Q}. O conjunto \textit{P} contém a lista de pontos que representam os \textit{blobs} do frame anterior. Como exemplo, apresenta-se um conjunto \textit{P} com pontos (1,1) e (4,4), ilustrado no gráfico da Figura~\ref{grafP}.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -69,7 +69,7 @@ Com base nessa lista, o \textit{blob-tracking} tem que ser feito para identifica
 	\end{center}
 \end{figure} 
 
-O segundo conjunto, \textit{Q}, contém a lista de pontos que compõe os \textit{blobs} do frame atual. Por exemplo, o conjunto \textit{Q} com pontos (1,2), (1,4) e (4,3), observado no gráfico~[\ref{grafQ}].
+O segundo conjunto, \textit{Q}, contém a lista de pontos que compõe os \textit{blobs} do frame atual. O gráfico da Figura~\ref{grafQ} apresenta um exemplo para o conjunto Q com pontos (1,2), (1,4) e (4,3).
 
 \begin{figure}[h!]
 	\begin{center}
@@ -84,7 +84,7 @@ O número de elementos de \textit{Q} é maior que o número de elementos em \textit
 \subsection{Correção da câmera}
 \label{cap3.1.3}
 
-Quando uma câmera captura uma imagem sobre uma superfície plana, essa imagem possui uma distorção, onde os pontos mais distantes do centro da imagem ganham um pequeno ângulo em relação à imagem original, pois são exibidos de forma reduzida. Ao se detectar \textit{blobs}, é necessário executar alguns algoritmos a fim de corrigir essa distorção e colocar a imagem inteira em um mesmo plano. De acordo com \textit{Muller} em~[\citenum{muller}], várias bibliotecas de processamento de imagem e detecção de multitoque já fazem isso. Na Figura~[\ref{distorcao}] é possível visualizar uma imagem antes e depois da correção.
+Quando uma câmera captura uma imagem sobre uma superfície plana, essa imagem possui uma distorção, onde os pontos mais distantes do centro da imagem ganham um pequeno ângulo em relação à imagem original, pois são exibidos de forma reduzida. Ao se detectar \textit{blobs}, é necessário executar alguns algoritmos a fim de corrigir essa distorção e colocar a imagem inteira em um mesmo plano. De acordo com \textit{Muller} em~[\citenum{muller}], várias bibliotecas de processamento de imagem e detecção de multitoque já fazem isso. Na Figura~\ref{distorcao} é possível visualizar uma imagem antes e depois da correção.
 
 \begin{figure}[h!]
 \centering
@@ -95,9 +95,9 @@ Quando uma câmera captura uma imagem sobre uma superfície plana, essa imagem pos
 \label{distorcao}
 \end{figure}
 
-Segundo \textit{Muller}, essa correção realiza um mapeamento de pontos na imagem em relação a um ponto do espaço. Para tal, é necessário considerar a distância focal, o centro da imagem, o tamanho de cada pixel, o coeficiente de distorção radial da lente, as propriedades da própria câmera, bem como o vetor de translação e a matriz de rotação que analisam o espaço em que se encontra a câmera.
+Segundo \textit{Muller}~[\citenum{muller}], essa correção realiza um mapeamento de pontos na imagem em relação a um ponto do espaço. Para tal, é necessário considerar a distância focal, o centro da imagem, o tamanho de cada pixel, o coeficiente de distorção radial da lente, as propriedades da própria câmera, bem como o vetor de translação e a matriz de rotação que analisam o espaço em que se encontra a câmera.
 
-Assim, um ponto na câmera pode ser corrigido de acordo com a fórmula \textit{m = A[Rt]M}, onde \textit{A} é a matriz que possui os fatores da câmera (Figura~[\ref{matrizA}]), \textit{M} é um ponto do espaço, \textit{R} é a matriz de rotação da câmera e \textit{t} é o vetor de translação da mesma.
+Assim, um ponto na câmera pode ser corrigido de acordo com a fórmula \textit{m = A[Rt]M}, onde \textit{A} é a matriz que possui os fatores da câmera (Figura~\ref{matrizA}), \textit{M} é um ponto do espaço, \textit{R} é a matriz de rotação da câmera e \textit{t} é o vetor de translação da mesma.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -110,7 +110,7 @@ Assim, um ponto na câmera pode ser corrigido de acordo com a fórmula \textit{m =
 \section{Aspectos de mesas com superfície multitoque}
 \label{cap3.2}
 
-As mesas com superfícies multitoque mudam a forma como o usuário interage com o computador. Devido a esse novo paradigma, é necessário repensar as capacidades que elas oferecem aos usuários. Os \textit{softwares} atuais levam em consideração que o usuário esta sentada na frente de uma tela, controlando um dispositivo apontador, o \textit{mouse}. Uma mesa multitoque, no entanto, convida várias pessoas a partilharem simultaneamente a sua utilização. Neste contexto, observa-se que a maioria dos \textit{softwares} atuais não estão aptos a serem utilizados neste tipo de estrutura de interface, pois não possuem suporte a toques múltiplos e simultâneos.
+As mesas com superfícies multitoque mudam a forma como o usuário interage com o computador. Devido a esse novo paradigma, é necessário repensar as capacidades que elas oferecem aos usuários. Os \textit{softwares} atuais levam em consideração que o usuário esta sentado na frente de uma tela, controlando um dispositivo apontador, o \textit{mouse}. Uma mesa multitoque, no entanto, convida várias pessoas a partilharem simultaneamente a sua utilização. Neste contexto, observa-se que a maioria dos \textit{softwares} atuais não estão aptos a serem utilizados neste tipo de estrutura de interface, pois não possuem suporte a toques múltiplos e simultâneos.
 
 Além disso, para que as mesas tornem-se comum no dia-a-dia das pessoas, elas devem ter um desempenho eficiente compatível com a realidade dos usuários. Nesta seção é discutido questões referentes ao número de usuários, o número de toques, os tipos de toque, a resolução e o tamanho da mesa.
 
@@ -128,12 +128,12 @@ Em geral, as mesas possuem um tamanho maior que os monitores de vídeo tradiciona
 
 Como citado por Brandão et al.~[\citenum{pedrosaulo}], interfaces sensíveis ao toque trazem ao usuário a possibilidade de interagir diretamente com os dados. Isso conduz um grande apelo ao usuário, pois além de ser natural, é de fácil aprendizado. Por não possuir partes móveis, as interface sensíveis ao toque também podem ser usadas em equipamentos acessíveis ao público, tais como caixas automáticos e pontos de acesso a serviços específicos.
 
-Como citado no início deste capítulo, os \textit{softwares} existentes são desenvolvidos para utilização por meio de teclado e \textit{mouse}. No caso do \textit{mouse}, a área apontada pelo cursor é bem pequena, logo, as interfaces possuem poucos píxeis para a seleção. No entanto, em interfaces sensíveis ao toque há uma configuração diferente, pois o dedo humano é maior que o ponteiro do um \textit{mouse}, podendo acarretar em perda de precisão na detecção do local do toque. Como explicado por Brandão et al.~[\citenum{pedrosaulo}], a qualidade da câmera é um fator determinante na precisão da interface, pois como ela captura a imagem a ser processada, diversos aspectos como luz, distância focal e resolução alteram a imagem capturada afetando a usabilidade para o usuário.
+Como mencionado no início deste capítulo, a maioria \textit{softwares} existentes são desenvolvidos para utilização por meio de teclado e \textit{mouse}. No caso do \textit{mouse}, a área apontada pelo cursor é bem pequena, logo, as interfaces possuem poucos píxeis para a seleção. No entanto, em interfaces sensíveis ao toque há uma configuração diferente, pois o dedo humano é maior que o ponteiro do um \textit{mouse}, podendo acarretar em perda de precisão na detecção do local do toque. Segundo Brandão et al.~[\citenum{pedrosaulo}], a qualidade da câmera é um fator determinante na precisão da interface, pois como ela captura a imagem a ser processada, diversos aspectos como luz, distância focal e resolução alteram a imagem capturada afetando a usabilidade para o usuário.
 Isto porque, em imagens muito claras é difícil identificar corretamente os \textit{blobs}, sendo assim, a câmera deve possuir um filtro de luz. A distância focal da câmera deve suportar a distância entre a superfície da mesa e a câmera para que a imagem não seja capturada sem foco. Além disso, a câmera deve possuir uma boa resolução para capturar imagens com melhor qualidade.
 
-Portanto, o aumento da resolução resulta em uma amostragem mais alta, o que auxilia nas dificuldades relativas à precisão da câmera. Porém, o problema na detecção do tamanho do toque tem que ser considerado durante a construção da interface, pois este pode ser maior que o botão desejado e deve-se estimar onde realmente se deseja identificar o toque. Em geral, o ponto tomado como referência da posição do toque é o seu ponto central.
+É fundamental salientar que o aumento da resolução resulta em uma amostragem mais alta, o que auxilia nas dificuldades relativas à precisão da câmera. Contudo, a questão do tamanho do toque deve ser considerada durante a construção da interface, pois este pode ser maior que o botão desejado e abranger uma região maior que a esperada. Em geral, o ponto tomado como referência da posição do toque é o seu ponto central.
 
-Além desses problemas, existe a questão do ponto de visão do usuário. Quando um usuário utiliza um computador, ele está acostumado a possuir uma interface virada para ele. No caso da mesa, há vários usuários e eles podem estar olhando a mesa de ângulos diferentes. A interface deve ser agradável para todos os usuários que forem utilizar a mesa. A diferença de ângulo de visões é melhor exemplificado na Figura~[\ref{OK}].
+Além desses problemas, existe a questão do ponto de visão do usuário. Quando um usuário utiliza um computador, ele está acostumado a possuir uma interface virada para ele. No caso da mesa, há vários usuários e eles podem estar olhando a mesa de ângulos diferentes. A interface deve ser agradável para todos os usuários que forem utilizar a mesa. A diferença de ângulo de visões é melhor exemplificado na Figura~\ref{OK}.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -148,7 +148,7 @@ Assim, ao se planejar um software para uma mesa multitoque, deve-se prever a rot
 \subsection{Número de Usuários}
 \label{cap3.2.3}
 
-A maior dificuldade em se relacionar com um número desconhecido de usuários é identificar a quem pertence determinado toque, bem como atribuir as propriedades necessárias a cada um deles. Toma-se o exemplo usado em~[\citenum{pedrosaulo}], que cita o caso de uma aplicação para desenho em que um usuário deseja trocar a cor de seu pincel, de amarelo para azul, acarretando em um problema na decisão de trocar a cor para somente o usuário desejado.
+Neste contexto de mesas multitoque, uma das principais dificuldades com relação ao número indeterminado de usuários, é identificar a quem pertence determinado toque, bem como atribuir as propriedades necessárias a cada um deles. Toma-se o exemplo usado em~[\citenum{pedrosaulo}], que cita o caso de uma aplicação para desenho em que um usuário deseja trocar a cor de seu pincel, de amarelo para azul, acarretando em um problema na decisão de trocar a cor para somente o usuário desejado.
 
 A solução, nesse caso, é trocar a cor para todos os toques, ou então implementar a divisão de áreas de trabalho, onde cada usuário possui sua respectiva área e as modificações feitas em sua área não afetam as de outros usuários.
 
@@ -158,7 +158,7 @@ A solução, nesse caso, é trocar a cor para todos os toques, ou então implementar
 A maioria dos \textit{softwares} leva em consideração que os gestos são oriundos apenas de um único \textit{input}, o \textit{mouse}. Assim, são implementados geralmente gestos com um ponto de contato. Tradicionalmente, existem o seguintes gestos:
 
 \begin{itemize}
-	\item{\textit{Click} (Figura~[\ref{ClickDrag}(a)])}: gesto mais simples e tradicional. É detectado ao se estabelecer um ponto de contato que é retirado logo em seguida.
+	\item{\textit{Click} (Figura~\ref{ClickDrag}(a))}: gesto mais simples e tradicional. É detectado ao se estabelecer um ponto de contato que é retirado logo em seguida.
 	
 	\begin{figure}[h!]
 	\centering
@@ -169,11 +169,11 @@ A maioria dos \textit{softwares} leva em consideração que os gestos são oriundos
 	\label{ClickDrag}
 	\end{figure}
 		
-	\item{\textit{Drag} (Figura~[\ref{ClickDrag}(b)])}: continuação do gesto acima (Click), identificado ao se estabelecer um ponto de contato seguido de movimentação antes da retirada do contato.
+	\item{\textit{Drag} (Figura~\ref{ClickDrag}(b))}: continuação do gesto acima (Click), identificado ao se estabelecer um ponto de contato seguido de movimentação antes da retirada do contato.
 	
 \end{itemize}
 
-Poucos \textit{softwares} implementam algunm tipo de gesto usando somente um ponto de contato compostos de desenhos, como o que ocorre no jogo \textit{Black and White} em que o jogador pode selecionar um poder diferente dependendo do movimento que faz com o mouse, observado na Figura~[\ref{blackwhite}].
+Poucos \textit{softwares} implementam algum tipo de gesto usando somente um ponto de contato compostos de desenhos, como o que ocorre no jogo \textit{Black and White}~[\citenum{blackandwhite}] em que o jogador pode selecionar um poder diferente dependendo do movimento que faz com o mouse, ilustrado na Figura~\ref{blackwhite}.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -188,7 +188,7 @@ Para identificar esse tipo de gesto é preciso identificar a forma que o usuário 
 Em uma mesa multitoque a possibilidade de identificação de vários pontos de contato habilita a implementação de outros gestos, além dos mencionado acima. Como exemplo, podemos citar:
 
 \begin{itemize}
-	\item{\textit{Rotate} (Figura~[\ref{rotateScale}(a)])}: dois pontos de contato são inseridos sobre uma superfície e são movimentados em direções opostas, enquanto se mantêm a distância entre os dois dedos constantes. O ângulo entre os dois dedos é calculado e denomina a rotação do objeto.
+	\item{\textit{Rotate} (Figura~\ref{rotateScale}(a))}: dois pontos de contato são inseridos sobre uma superfície e são movimentados em direções opostas, enquanto se mantêm a distância entre os dois dedos constantes. O ângulo entre os dois dedos é calculado e denomina a rotação do objeto.
 	
 	\begin{figure}[h!]
 	\centering
@@ -199,7 +199,7 @@ Em uma mesa multitoque a possibilidade de identificação de vários pontos de cont
 	\label{rotateScale}
 	\end{figure}
 		
-	\item{\textit{Scale} (Figura~[\ref{rotateScale}(b)])}: análogo ao \textit{Rotate}, utiliza dois pontos de contato sobre uma superfície, porém, neste caso mantêm-se o ângulo constante e varia-se a distância entre os dedos. Uma diminuição na distância significa uma diminuição na escala, enquanto um aumento de distância significa um aumento de escala.
+	\item{\textit{Scale} (Figura~\ref{rotateScale}(b))}: análogo ao \textit{Rotate}, utiliza dois pontos de contato sobre uma superfície, porém, neste caso mantêm-se o ângulo constante e varia-se a distância entre os dedos. Uma diminuição na distância significa uma diminuição na escala, enquanto um aumento de distância significa um aumento de escala.
 		
 \end{itemize}
 
