@@ -154,7 +154,7 @@ Como observado no diagrama da Figura~\ref{diag-deskworld}, existe uma classe \te
 
 \begin{figure}[h!]
 	\begin{center}
-	\includegraphics[scale=0.35]{DeskworldDiagram.png}
+	\includegraphics[scale=0.4]{DeskworldDiagram.png}
 	\caption{Diagrama de classes do \textit{Deskworld}}
 	\label{diag-deskworld}
 	\end{center}
@@ -169,7 +169,7 @@ A classe \textit{Graphics} gerencia a memória de vídeo com a \textit{OpenGL}, e 
 
 \textbf{\textit{Singleton}}
 
-A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriamente, apenas uma instância durante todo o programa. \textit{Singleton} é um \textit{design pattern} muito utilizado em situações que necessitam de grande controle sobre uma classe para que seja instaciada somente uma vez. Esta técnica consiste em declarar um construtor privado que será executado uma única vez. Constrói-se um método que retorna a instância única por meio de um ponteiro estático. Caso seja a primeira vez que é chamado, a classe é instanciada, caso contrário, retorna a instância já existente. Além desta, o \textit{InputManager} e a \textit{Engine} são singletons. Isto acontece porque todas essas classes só devem possuir somente uma instância, pois não se deseja várias instâncias controlando a saída de vídeo, a entrada de dados ou a simulação de objetos.
+A classe \textit{Graphics} é um \textit{Singleton}, isto é, possui, obrigatoriamente, apenas uma instância durante todo o programa. \textit{Singleton} é um \textit{design pattern}~[\citenum{gamma}] muito utilizado em situações que necessitam de grande controle sobre uma classe para que seja instanciada somente uma vez. Esta técnica consiste em declarar um construtor privado que será executado uma única vez. Constrói-se um método que retorna a instância única por meio de um ponteiro estático. Caso seja a primeira vez que é chamado, a classe é instanciada, caso contrário, retorna a instância já existente. Além desta, o \textit{InputManager} e a \textit{Engine} são singletons. Isto acontece porque todas essas classes só devem possuir somente uma instância, pois não se deseja várias instâncias controlando a saída de vídeo, a entrada de dados ou a simulação de objetos.
 
 \subsubsection{Subsistema de \textit{Input}}
 \label{cap5.3.2.3}
@@ -186,4 +186,4 @@ A \textit{Engine} é composta pela classe \textit{Engine}, além do pacotes de cla
 
 A classe \textit{LevelState} é responsável pelo único estado do \textit{software}. Estar no estado de \textit{LevelState} significa que o \textit{software} está em execução e o usuário pode interagir como desejar, criando objetos ou mudando propriedades. Nesta classe, todas as imagens que aparecem dentro do jogo são carregadas e renderizadas na tela. Seu método de \textit{Update}, chamado uma vez pelo \textit{Game Loop}, verifica todos os toques existentes ou removidos e decide o que cada um irá fazer, como por exemplo, criar um objeto novo, arrastar um objeto existente, abrir o menu ou alterar as opções. Seu outro método, \textit{Render}, é responsável por montar a tela do jogo, renderizando na tela todas as imagens em sua sequência, deixando-as prontas para serem mostradas na tela, assim que tudo estiver em posição.
 
-A \textit{GameObject} é uma superclasse que agrega subclasses referentes a todos objetos presentes \textit{software}. Estas classes representam os objetos desenhados no programa que podem ser polígonos, círculos ou terem forma livre. Além disso, objetos podem ser motores e juntas. O próprio mundo é um objeto, pois podem existir vários mundos, e as próprias barreiras usadas para dividir entre submundos também são consideradas objetos. Todos objetos possuem vértices que indicam suas posições e suas áreas. Todos os \textit{GameObject}s possuem métodos de \textit{Update} e \textit{Render}.
+A \textit{GameObject} é uma superclasse que agrega subclasses referentes a todos objetos presentes \textit{software}. Estas classes representam os objetos desenhados no programa que podem ser polígonos, círculos ou de forma livre. Além disso, objetos podem ser motores e juntas, explicadas no início deste capítulo. O próprio mundo do software é um objeto, pois podem existir vários mundos, e as próprias barreiras usadas para dividir os submundos também são consideradas objetos. Todos objetos possuem vértices que indicam suas posições e suas áreas. Todos os \textit{GameObject}s possuem métodos de \textit{Update} e \textit{Render}.
