@@ -258,6 +258,8 @@ int LevelState::Update(){
 	}
 	for(int i = 0; i < inputManager->getNumIds(); i++){
 		id = inputManager->getId(i);
+		drawObjects[id].xMouse = inputManager->touchPosX(id);
+		drawObjects[id].yMouse = inputManager->touchPosY(id);
 		cout << "levelstate tratando id " << id << ", drawing: " << drawObjects[id].drawing << ", menu: " << drawObjects[id].menu << endl;
 		if(drawObjects[id].drawing){
 			if(inputManager->isTouchUp(id)){
@@ -354,8 +356,6 @@ int LevelState::Update(){
 			//Free form should have all the coordinates of a series of circles
 				if(inputManager->isTouching(id)){
 					if(id == 10000){
-						drawObjects[id].xMouse = inputManager->touchPosX(id);
-						drawObjects[id].yMouse = inputManager->touchPosY(id);
 						if((ff_vx[id].back() != drawObjects[id].xMouse) || (ff_vy[id].back() != drawObjects[id].yMouse)){
 							ff_vx[id].push_back(drawObjects[id].xMouse);
 							ff_vy[id].push_back(drawObjects[id].yMouse);
