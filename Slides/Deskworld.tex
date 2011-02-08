@@ -3,7 +3,7 @@
 \usepackage[latin1]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
-\usetheme{PaloAlto}
+\usetheme{Antibes}
 
 
 \title{Deskworld: Software Simulador de F\'isica 2D para Mesas com Superf\'icie Multitoque\\}
@@ -23,15 +23,257 @@
 \section{Introdução}
 
 \frame{
-	\frametitle{Exemplo: Pong}
+  \frametitle{Introdução} 
+  \begin{itemize}
+   \item A indústria de entretenimento é uma das que mais cresce.\vfill
+   \item Brasil e China são os que mais crescem nessa indústria.\vfill
+   \item Indústria de \textit{video games} uma das mais lucrativas.\vfill
+   \item Começou por volta dos anos 50.\vfill
+  \end{itemize}
+}
+
+\frame{
+	\frametitle{Introdução}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.4]{oxo.png}
+		\caption{Jogo para \textit{EDSAC} \textit{OXO}}
+		\label{retro1}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Introdução}
 	\begin{figure}[h]
     \centering
-    \includegraphics[scale=0.5]{pong.png}
+    \includegraphics[scale=0.4]{pong.png}
+    \caption{Jogo \textit{Pong}.}
     \label{fig:pong}
   \end{figure}
 }
 
+\frame{
+	\frametitle{Introdução}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.4]{nes.jpg}
+		\caption{Console \textit{NES} da \textit{Nintendo}}
+		\label{nes}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Introdução}
+	\begin{itemize}
+   \item \textit{Sony} tenta entrar no mercado em parceria com a \textit{Nintendo}.\vfill
+   \item Parceria não deu certo. \textit{Sony} cria seu próprio console doméstico, o \textit{Playstation}.\vfill
+   \item Seu próximo console, \textit{Playstation 2}, foi campeão de vendas. Lançado em 2000, vendeu mais de 140 milhões de cópias.\vfill
+   \item \textit{Microsoft} entra no mercado de consoles domésticos em 2001 com o \textit{Xbox}.\vfill
+  \end{itemize}
+}
+
+\frame{
+	\frametitle{Introdução}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=1.4]{wii-ps3-xbox360.jpg}
+		\caption{Consoles de última geração. Da esquerda pra direita: \textit{Wii}, \textit{Playstation 3} e \textit{Xbox 360}}
+		\label{consoles}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Introdução}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.2]{wiimote.jpg}
+		\caption{Controle para \textit{Nintendo Wii} \textit{Wiimote}}
+		\label{wiimote}
+		\end{center}
+	\end{figure}
+	
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.2]{move.jpg}
+		\caption{Controle para \textit{Playstation 3} \textit{Playstation Move}}
+		\label{move}
+		\end{center}
+	\end{figure}
+	
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.2]{kinect.jpg}
+		\caption{Câmera para \textit{Xbox 360} \textit{Kinect}}
+		\label{kinect}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Introdução}
+	\begin{itemize}
+   \item \textit{Video games} atuais competem com outros dispositivos.\vfill
+   \item Plataforma pouco explorada nesse contexto: mesas multi-toque como \textit{Reactable} e \textit{Microsoft Surface}.\vfill
+  \end{itemize}
+}
+
 \section{Trabalhos Correlatos}
+\frame{
+	\frametitle{Mesas com superfície multi-toque}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.4]{reactable.jpg}
+		\caption{\textit{Reactable} - Mesa com marcadores fiduciais}
+		\label{react}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Mesas com superfície multi-toque}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.4]{microsoft_surface_main.jpg}
+		\caption{\textit{Microsoft Surface}}
+		\label{msurface}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Mesas com superfície multi-toque}
+	\begin{itemize}
+   \item Custo muito alto.\vfill
+   \item Alternativas de baixo custo artesanais.\vfill
+  \end{itemize}
+}
+
+\frame{
+	\frametitle{Mesas com superfície multi-toque}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.1]{virttable.jpg}
+		\caption{Projeto da mesa \textit{Virttable}}
+		\label{virttable}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Mesas com superfície multi-toque}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.2]{touch_table.jpg}
+		\caption{Projeto de mesa multi-toque com DI}
+		\label{touchtable}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Mesas com superfície multi-toque}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.4]{touch_FTIR_port.jpg}
+		\caption{Esquema de detecção de toque FTIR}
+		\label{FTIR}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Softwares interativos para mesas com superfície multi-toque}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.6]{irtaktiks.png}
+		\caption{Jogo para mesas com superfície multitoque \textit{IRTaktiks}}
+		\label{irtaktiks}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Softwares interativos para mesas com superfície multi-toque}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.4]{ecodefense.jpg}
+		\caption{\textit{Ecodefense} - Jogo para mesas com superfície multitoque}
+		\label{ecodefense}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Softwares interativos para mesas com superfície multi-toque}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.7]{gameoflife.png}
+		\caption{\textit{Game of Life} - \textit{Software} para mesas com superfície multitoque}
+		\label{life}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Softwares simuladores de física}
+	\begin{itemize}
+   \item Um \textit{software} simulador de física consiste de um programa que possui um mundo aberto onde o usuário pode criar o que desejar. Estas criações recebem propriedades de um objeto tradicional e interagem com o mundo de acordo com as leis da física.\vfill
+  \end{itemize}
+}
+
+\frame{
+	\frametitle{Softwares simuladores de física}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.2]{lbp.jpg}
+		\caption{\textit{Little Big Planet} - Jogo para \textit{PS3}}
+		\label{lbp}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Softwares simuladores de física}
+	\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.2]{Phun.jpg}
+    \caption{Jogo para \textit{PC} \textit{Phun}}
+    \label{fig:Phun}
+  \end{figure}
+}
+
+\frame{
+	\frametitle{Softwares simuladores de física}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.2]{crayon.jpg}
+		\caption{\textit{Crayon Physics}- Jogo para PC}
+		\label{crayon}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Softwares simuladores de física}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.4]{numpty.png}
+		\caption{Seis fases adicionais da adaptação do \textit{Numpty Physics} para mesas multitoque.}
+		\label{numpty}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Diferenciais do Deskworld}
+	\begin{itemize}
+   \item Deskworld é desenvolvido para input multi-toque.\vfill
+   \item Focado na interação entre um número indeterminado de usuários.\vfill
+  \end{itemize}
+}
 
 \section{Fundamentação Teórica}
 
@@ -45,7 +287,6 @@
     \caption{Projeto de Mesa multi-toque: \textit{Virttable} (imagem retirada de~\cite{virttable})}
     \label{fig:virttable}
   \end{figure}
-
 }
 
 \frame{

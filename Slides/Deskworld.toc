@@ -1,8 +1,10 @@
 \beamer@endinputifotherversion {3.07pt}
 \select@language {brazil}
 \beamer@sectionintoc {1}{Introdu\c c\~ao}{2}{0}{1}
-\beamer@sectionintoc {2}{Mesa Multi-toque}{5}{0}{2}
-\beamer@sectionintoc {3}{Deskworld}{7}{0}{3}
-\beamer@sectionintoc {4}{Conclus\~ao}{11}{0}{4}
-\beamer@sectionintoc {5}{Refer\^encias}{12}{0}{5}
-\beamer@sectionintoc {6}{D\'uvidas}{15}{0}{6}
+\beamer@sectionintoc {2}{Trabalhos Correlatos}{10}{0}{2}
+\beamer@sectionintoc {3}{Fundamenta\c c\~ao Te\'orica}{25}{0}{3}
+\beamer@sectionintoc {4}{Mesa Multi-toque}{25}{0}{4}
+\beamer@sectionintoc {5}{Software Deskworld}{27}{0}{5}
+\beamer@sectionintoc {6}{Conclus\~ao}{30}{0}{6}
+\beamer@sectionintoc {7}{Refer\^encias}{31}{0}{7}
+\beamer@sectionintoc {8}{D\'uvidas}{34}{0}{8}
