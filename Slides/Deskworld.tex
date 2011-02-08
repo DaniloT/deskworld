@@ -12,7 +12,7 @@
 \makeatother
 
 \title{Deskworld: Software Simulador de F\'isica 2D para Mesas com Superf\'icie Multitoque\\}
-\author{Danilo Gaby Andersen Trindade\\ Victor Sampaio Zucca\\ Orientadora: Prof.\nobreak\kern-.05em\textordfeminine\ Dr.\nobreak\kern-.05em\textordfeminine\ Carla Denise Castanho\\ Coorientador: Prof. Dr. Marcus Vinicius Lamar}
+\author{Danilo Gaby Andersen Trindade\\ Victor Sampaio Zucca,\\ \small{Orientadora: Prof.\nobreak\kern-.05em\textordfeminine\ Dr.\nobreak\kern-.05em\textordfeminine\ Carla Denise Castanho\\ Coorientador: Prof. Dr. Marcus Vinicius Lamar}}
 \institute[UnB]{Instituto de Ciências Exatas\\Departamento de Ciência da Computação\\Universidade de Brasília}
 
 \newtheorem{email}{Contatos}
@@ -25,6 +25,18 @@
 \centerline{Bacharelado em Ciência da Computação}
 }
 
+\frame{
+  \frametitle{Roteiro} 
+  \begin{itemize}
+   \item Introdução\vfill
+   \item Trabalhos Correlatos\vfill
+   \item Fundamentação Teórica\vfill
+   \item Construção da mesa multi-toque\vfill
+   \item Software Deskworld\vfill
+   \item Conclusão\vfill
+  \end{itemize}
+}
+
 \section{Introdução}
 
 \frame{
@@ -32,8 +44,7 @@
   \begin{itemize}
    \item A indústria de entretenimento é uma das que mais cresce.\vfill
    \item Brasil e China são os que mais crescem nessa indústria.\vfill
-   \item Indústria de \textit{video games} uma das mais lucrativas.\vfill
-   \item Começou por volta dos anos 50.\vfill
+   \item Indústria de jogos eletrônicos, que começou por volta dos anos 50, é uma das mais lucrativas.\vfill
   \end{itemize}
 }
 
@@ -41,42 +52,9 @@
 	\frametitle{Introdução}
 	\begin{figure}[h!]
 		\begin{center}
-		\includegraphics[scale=0.4]{oxo.png}
-		\caption{Jogo para \textit{EDSAC} \textit{OXO}}
-		\label{retro1}
+		\includegraphics[scale=0.22]{consolesmont.png}
 		\end{center}
 	\end{figure}
-}
-
-\frame{
-	\frametitle{Introdução}
-	\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.4]{pong.png}
-    \caption{Jogo \textit{Pong}.}
-    \label{fig:pong}
-  \end{figure}
-}
-
-\frame{
-	\frametitle{Introdução}
-	\begin{figure}[h!]
-		\begin{center}
-		\includegraphics[scale=0.4]{nes.jpg}
-		\caption{Console \textit{NES} da \textit{Nintendo}}
-		\label{nes}
-		\end{center}
-	\end{figure}
-}
-
-\frame{
-	\frametitle{Introdução}
-	\begin{itemize}
-   \item \textit{Sony} tenta entrar no mercado em parceria com a \textit{Nintendo}.\vfill
-   \item Parceria não deu certo. \textit{Sony} cria seu próprio console doméstico, o \textit{Playstation}.\vfill
-   \item Seu próximo console, \textit{Playstation 2}, foi campeão de vendas. Lançado em 2000, vendeu mais de 140 milhões de cópias.\vfill
-   \item \textit{Microsoft} entra no mercado de consoles domésticos em 2001 com o \textit{Xbox}.\vfill
-  \end{itemize}
 }
 
 \frame{
