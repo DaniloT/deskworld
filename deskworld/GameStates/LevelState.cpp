@@ -56,6 +56,12 @@ int LevelState::Update(){
 	int id, time;
 	SDL_Rect rect;
 
+	if(inputManager->isKeyDown(SDLK_ESCAPE)){
+		SDL_Event* event = new SDL_Event();
+		event->type = SDL_QUIT;
+		SDL_PushEvent(event);
+	}
+
 	time = SDL_GetTicks();
 	for(Uint32 i = 0; i < inputManager->click.size(); i++){
 //		if(inputManager->isTouched(inputManager->click[i].id)){
@@ -152,16 +158,16 @@ int LevelState::Update(){
 							if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
 								drawObjects[inputManager->click[i].id].drawing = false;
 								inputManager->click[i].release = true;
-							}
+							} //else {
 	//						if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
 	//							cout << "drawing vira true " << endl;
 	//							drawObjects[inputManager->click[i].id].drawing = true;
-	//							if(currentTool == freeform){
-	//								ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
-	//								ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
-	//							}
-	//							inputManager->xy.clear();
-	//						}
+//								if(currentTool == freeform){
+//									ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
+//									ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
+//								}
+//								inputManager->xy.clear();
+//							}
 						}
 					}
 				} else {
@@ -186,16 +192,16 @@ int LevelState::Update(){
 						if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
 							drawObjects[inputManager->click[i].id].drawing = false;
 							inputManager->click[i].release = true;
-						}
+						} //else {
 	//					if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
 	//						cout << "drawing vira true " << endl;
 	//						drawObjects[inputManager->click[i].id].drawing = true;
-	//						if(currentTool == freeform){
-	//							ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
-	//							ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
-	//						}
-	//						inputManager->xy.clear();
-	//					}
+//							if(currentTool == freeform){
+//								ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
+//								ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
+//							}
+//							inputManager->xy.clear();
+//						}
 					}
 				}
 			}
@@ -236,13 +242,13 @@ int LevelState::Update(){
 								(inputManager->click[j].x < (inputManager->click[i].x + MENUPROX)) &&
 								(inputManager->click[j].y > (inputManager->click[i].y - MENUPROX)) &&
 								(inputManager->click[j].y < (inputManager->click[i].y + MENUPROX))){
+							inputManager->click[j].release = true;
 							drawObjects[inputManager->click[j].id].xOrig = inputManager->click[j].x;
 							drawObjects[inputManager->click[j].id].yOrig = inputManager->click[j].y;
 							drawObjects[inputManager->click[j].id].menu = true;
 							drawObjects[inputManager->click[j].id].drawing = false;
 							inputManager->click[i].remove = true;
 							inputManager->click[i].release = false;
-							inputManager->click[j].release = true;
 							break;
 						}
 					}
@@ -254,9 +260,7 @@ int LevelState::Update(){
 		id = inputManager->getId(i);
 		cout << "levelstate tratando id " << id << ", drawing: " << drawObjects[id].drawing << ", menu: " << drawObjects[id].menu << endl;
 		if(drawObjects[id].drawing){
-			if(inputManager->isKeyDown(SDLK_ESCAPE)){
-				drawObjects[id].drawing = false;
-			}else if(inputManager->isTouchUp(id)){
+			if(inputManager->isTouchUp(id)){
 				vector<int> vx, vy;
 				GOTriangle* t;
 				GORectangle* r;
@@ -326,6 +330,11 @@ int LevelState::Update(){
 				case freeform:
 					vx = ff_vx[id];
 					vy = ff_vy[id];
+					cout << "ff_vx todo: ";
+					for(Uint32 i = 0; i < ff_vx[id].size(); i++){
+						cout << ff_vx[id].at(i) << ", ";
+					}
+					cout << endl;
 					ff = new GOFreeform(vx, vy, toolColor, dynamic, thickness);
 					ff_vx[id].clear();
 					ff_vy[id].clear();
@@ -335,12 +344,19 @@ int LevelState::Update(){
 				}
 
 				drawObjects[id].drawing = false;
+				drawObjects[id].menu = false;
+				drawObjects[id].xMouse = 0;
+				drawObjects[id].xOrig = 0;
+				drawObjects[id].yMouse = 0;
+				drawObjects[id].yOrig = 0;
 
 			}else if(currentTool == freeform){
 			//Free form should have all the coordinates of a series of circles
 				if(inputManager->isTouching(id)){
 					if(id == 10000){
-						if((ff_vx[id].back() != drawObjects[id].xMouse)|| (ff_vy[id].back() != drawObjects[id].yMouse)){
+						drawObjects[id].xMouse = inputManager->touchPosX(id);
+						drawObjects[id].yMouse = inputManager->touchPosY(id);
+						if((ff_vx[id].back() != drawObjects[id].xMouse) || (ff_vy[id].back() != drawObjects[id].yMouse)){
 							ff_vx[id].push_back(drawObjects[id].xMouse);
 							ff_vy[id].push_back(drawObjects[id].yMouse);
 						}
@@ -414,6 +430,12 @@ int LevelState::Update(){
 						engine->DestroyMouseJoint(id);
 						inputManager->xy.clear();
 					}
+					drawObjects[id].drawing = false;
+					drawObjects[id].menu = false;
+					drawObjects[id].xMouse = 0;
+					drawObjects[id].xOrig = 0;
+					drawObjects[id].yMouse = 0;
+					drawObjects[id].yOrig = 0;
 				//Update grabbed object with mouse position
 				} else if(engine->mouseJoint[id] != NULL){
 					b2Vec2 p(CONVERT(inputManager->touchPosX(id)), CONVERT(inputManager->touchPosY(id)));
