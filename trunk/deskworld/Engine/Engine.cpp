@@ -25,6 +25,10 @@ void Engine::Initialize(){
 
 	b2BodyDef bodyDef;
 	groundBody = world->CreateBody(&bodyDef);
+	for(int i = 0 ; i < 10001 ; i++){
+		mouseJoint[i] = NULL;
+	}
+
 }
 
 Engine* Engine::getInstance(){
@@ -190,6 +194,47 @@ Object Engine::CreateFreeform(vector<int> vx, vector<int> vy, float32 radius, bo
 			obj.body->CreateFixture(&shape, 0.0);
 		}
 	}
+	return obj;
+}
+
+
+Object Engine::CreateBarrier(vector<Point> vertices){
+	Object obj;
+	b2BodyDef bodyDef;
+	b2FixtureDef fixtureDef;
+	b2Vec2 vertex[2];
+	vertex[0].x = CONVERT(vertices[0].x);
+	vertex[0].y = CONVERT(vertices[0].y);
+	vertex[1].x = CONVERT(vertices[1].x);
+	vertex[1].y = CONVERT(vertices[1].y);
+//	fixtureDef.userData = barrier;
+
+	obj.body = world->CreateBody(&bodyDef);
+	obj.shape.SetAsEdge(vertex[0], vertex[1]);
+	fixtureDef.shape = &obj.shape;
+	obj.body->CreateFixture(&fixtureDef);
+
+	return obj;
+}
+
+Object Engine::CreateWorld(vector<Point> vertices){
+	Object obj;
+	b2BodyDef bodyDef;
+	b2FixtureDef fixtureDef;
+	b2Vec2* b2vertices = (b2Vec2*)malloc(sizeof(b2Vec2)*vertices.size());
+
+	obj.body = world->CreateBody(&bodyDef);
+
+	fixtureDef.isSensor = true;
+
+	for(Uint32 i = 0 ; i < vertices.size() ; i++){
+		b2vertices[i].x = CONVERT(vertices[i].x);
+		b2vertices[i].y = CONVERT(vertices[i].y);
+	}
+	obj.shape.Set(b2vertices, vertices.size());
+	fixtureDef.shape = &obj.shape;
+	obj.body->CreateFixture(&fixtureDef);
+
 	return obj;
 }
 

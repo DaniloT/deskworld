@@ -36,11 +36,6 @@ typedef struct TUIOData{
 	bool remove, tocou, destocou, tocando;
 } TUIOData;
 
-typedef struct Point{
-	int x;
-	int y;
-}point;
-
 typedef struct Click{
 	int id;
 	int x;
