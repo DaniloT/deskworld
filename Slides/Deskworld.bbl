@@ -47,6 +47,12 @@ LYL Muller.
 \newblock {Multi-touch displays: design, applications and performance
   evaluation}.
 
+\bibitem{NTNU}
+E.~S. Nyg\aa{}rd.
+\newblock Multi-touch interaction with gesture recognition.
+\newblock Master's thesis, Norwegian University of Science and Technology,
+  Department of Computer and Information Science, 2010.
+
 \bibitem{multnump}
 Thomas Perl and Stefan Kögl.
 \newblock Adaptation and evaluation of numpty physics for multi-touch
