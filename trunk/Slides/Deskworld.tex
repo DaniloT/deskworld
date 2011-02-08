@@ -84,8 +84,6 @@
 	\begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.4]{reactable.jpg}
-		\caption{\textit{Reactable} - Mesa com marcadores fiduciais}
-		\label{react}
 		\end{center}
 	\end{figure}
 }
@@ -95,8 +93,6 @@
 	\begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.4]{microsoft_surface_main.jpg}
-		\caption{\textit{Microsoft Surface}}
-		\label{msurface}
 		\end{center}
 	\end{figure}
 }
@@ -104,43 +100,18 @@
 \frame{
 	\frametitle{Mesas com superfície multi-toque}
 	\begin{itemize}
-   \item Custo muito alto.\vfill
-   \item Alternativas de baixo custo artesanais.\vfill
+   \item Alternativa de baixo custo:\vfill
+   \begin{itemize}
+	   \item Virttable\vfill
+	  \end{itemize}
   \end{itemize}
-}
-
-\frame{
-	\frametitle{Mesas com superfície multi-toque}
-	\begin{figure}[h!]
+  \begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.1]{virttable.jpg}
-		\caption{Projeto da mesa \textit{Virttable}}
-		\label{virttable}
 		\end{center}
 	\end{figure}
 }
 
-\frame{
-	\frametitle{Mesas com superfície multi-toque}
-	\begin{figure}[h!]
-		\begin{center}
-		\includegraphics[scale=0.2]{touch_table.jpg}
-		\caption{Projeto de mesa multi-toque com DI}
-		\label{touchtable}
-		\end{center}
-	\end{figure}
-}
-
-\frame{
-	\frametitle{Mesas com superfície multi-toque}
-	\begin{figure}[h!]
-		\begin{center}
-		\includegraphics[scale=0.4]{touch_FTIR_port.jpg}
-		\caption{Esquema de detecção de toque FTIR}
-		\label{FTIR}
-		\end{center}
-	\end{figure}
-}
 
 \frame{
 	\frametitle{Softwares interativos para mesas com superfície multi-toque}
@@ -187,8 +158,6 @@
 	\begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.2]{lbp.jpg}
-		\caption{\textit{Little Big Planet} - Jogo para \textit{PS3}}
-		\label{lbp}
 		\end{center}
 	\end{figure}
 }
@@ -198,8 +167,6 @@
 	\begin{figure}[h]
     \centering
     \includegraphics[scale=0.2]{Phun.jpg}
-    \caption{Jogo para \textit{PC} \textit{Phun}}
-    \label{fig:Phun}
   \end{figure}
 }
 
@@ -208,8 +175,6 @@
 	\begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.2]{crayon.jpg}
-		\caption{\textit{Crayon Physics}- Jogo para PC}
-		\label{crayon}
 		\end{center}
 	\end{figure}
 }
@@ -219,17 +184,26 @@
 	\begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.4]{numpty.png}
-		\caption{Seis fases adicionais da adaptação do \textit{Numpty Physics} para mesas multitoque.}
-		\label{numpty}
 		\end{center}
 	\end{figure}
 }
 
 \frame{
-	\frametitle{Diferenciais do Deskworld}
+	\frametitle{Softwares simuladores de física}
 	\begin{itemize}
-   \item Deskworld é desenvolvido para input multi-toque.\vfill
-   \item Focado na interação entre um número indeterminado de usuários.\vfill
+   \item Softwares simuladores de física permitem criação livre e independente.\vfill
+   \item Intuitivos quando em interface sensível ao toque.\vfill
+   \item Com algumas modificações, podem ser implementados para número indeterminado de usuários.\vfill
+   \item Nenhum dos trabalhos analisados fornece implementação robusta e satisfatória.\vfill
+  \end{itemize}
+}
+
+\frame{
+	\frametitle{Objetivos}
+	\begin{itemize}
+   \item Construção de uma mesa com superfície multi-toque.\vfill
+   \item Desenvolvimento de um software interativo em um gênero pouco explorado focado em um input diferente.\vfill
+   \item Demonstração de toda a capacidade desse input utilizando o software desenvolvido.\vfill
   \end{itemize}
 }
 
@@ -250,15 +224,32 @@
 }
 
 \frame{
+	\frametitle{Métodos de iluminação}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.2]{touch_table.jpg}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Métodos de iluminação}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.4]{touch_FTIR_port.jpg}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
 	\frametitle{Processamento das imagens}
 	\begin{figure}[h!]
 		\centering
-		\mbox{\subfigure[Sem iluminação]{\includegraphics[scale=0.2]{virttableillumination-noillumination.png}}
+		\mbox{\subfigure{\includegraphics[scale=0.2]{virttableillumination-noillumination.png}}
 		\quad
-		\subfigure[FTIR]{\includegraphics[scale=0.2]{virttableillumination-FTIRonly.png}}
-		\subfigure[DI]{\includegraphics[scale=0.2]{virttableillumination-DIonly.png}}
-		\subfigure[FTIR e DI]{\includegraphics[scale=0.2]{virttableillumination-FTIRandDI.png}}}
-		\label{iluminacoes}
+		\subfigure{\includegraphics[scale=0.2]{virttableillumination-FTIRonly.png}}
+		\subfigure{\includegraphics[scale=0.2]{virttableillumination-DIonly.png}}
+		\subfigure{\includegraphics[scale=0.2]{virttableillumination-FTIRandDI.png}}}
 	\end{figure}
 }
 
@@ -266,10 +257,9 @@
 	\frametitle{Detecção de \textit{blobs}}
 	\begin{figure}
 		\centering
-		\mbox{\subfigure[Gráfico de P]{\includegraphics[scale=0.5]{GraficoP.jpg}}
+		\mbox{\subfigure{\includegraphics[scale=0.5]{GraficoP.jpg}}
 		\quad
-		\subfigure[Gráfico de Q]{\includegraphics[scale=0.5]{GraficoQ.jpg}}}
-		\label{iluminacoes}
+		\subfigure{\includegraphics[scale=0.5]{GraficoQ.jpg}}}
 	\end{figure}
 }
 
@@ -277,10 +267,9 @@
 	\frametitle{Correção da Câmera}
 	\begin{figure}[h!]
 	\centering
-	\mbox{\subfigure[Imagem da câmera com distorção.]{\includegraphics[scale=0.4]{distorcao(a).jpg}}
+	\mbox{\subfigure{\includegraphics[scale=0.4]{distorcao(a).jpg}}
 	\quad
-	\subfigure[Imagem da câmera corrigida.]{\includegraphics[scale=0.4]{distorcao(b).jpg}}}
-	\label{distorcao}
+	\subfigure{\includegraphics[scale=0.4]{distorcao(b).jpg}}}
 	\end{figure}
 }
 
@@ -321,25 +310,22 @@
 	\frametitle{Detecção de Gestos}
 	\begin{figure}[h!]
 		\centering
-		\mbox{\subfigure[Click]{\includegraphics[scale=0.2]{click.png}}
+		\mbox{\subfigure{\includegraphics[scale=0.2]{click.png}}
 		\quad
-		\subfigure[Drag]{\includegraphics[scale=0.2]{drag.png}}}
-		\mbox{\subfigure[Rotate]{\includegraphics[scale=0.2]{rotate.png}}
+		\subfigure{\includegraphics[scale=0.2]{drag.png}}}
+		\mbox{\subfigure{\includegraphics[scale=0.2]{rotate.png}}
 		\quad
-		\subfigure[Scale]{\includegraphics[scale=0.2]{scale.png}}}
-		\label{gestos}
+		\subfigure{\includegraphics[scale=0.2]{scale.png}}}
 	\end{figure}
 }
 
-\section{Mesa Multi-toque}
+\section{Construção da Mesa Multi-toque}
 
 \frame{
   \frametitle{Projeto da Mesa}
   \begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.25]{projetomesa.png}
-		\caption{Projeto da mesa com superfície multi-toque construída neste trabalho.}
-		\label{mesa}
 		\end{center}
 	\end{figure}
 }
@@ -349,80 +335,84 @@
   \begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.2]{mesalateral.png}
-		\caption{Visão lateral do projeto da mesa com superfície multi-toque construída neste trabalho.}
-		\label{mesalateral}
 		\end{center}
 	\end{figure}
 }
 
 \frame{
-  \frametitle{Fotos da Mesa}
+  \frametitle{Mesa Construída}
   \begin{figure}[h!]
 		\centering
 		\includegraphics[scale=0.05]{mesapaisagem.jpg}
 		\includegraphics[scale=0.05]{mesaretrato.jpg}
 		\includegraphics[scale=0.03]{mesaporfora.jpg}
-		\caption{Fotos da mesa multi-toque construída neste projeto.}
-		\label{mesaporfora}
 	\end{figure}
 }
 
 \frame{
-  \frametitle{Fotos da Mesa}
+  \frametitle{Mesa Construída}
   \begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.07]{mesapordentro.jpg}
-		\caption{Visão interna da mesa, ilustrando seus componentes.}
-		\label{mesadentro}
 		\end{center}
 	\end{figure}
 }
 
 \frame{
   \frametitle{Filtros}
+  \begin{itemize}
+		\item Captura:\vfill
+	\end{itemize}
   \begin{figure}[h!]
 		\centering
 		\includegraphics[scale=0.25]{filtro1.png}
-		\caption{Captura sem filtro}
 	\end{figure}
 }
 
 \frame{
   \frametitle{Filtros}
+  \begin{itemize}
+		\item Background:\vfill
+	\end{itemize}
   \begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.25]{filtro3.png}
-		\caption{Filtro de \textit{Background}}
 		\end{center}
 	\end{figure}
 }
 
 \frame{
   \frametitle{Filtros}
+  \begin{itemize}
+		\item Highpass:\vfill
+	\end{itemize}
   \begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.25]{filtro4.png}
-		\caption{Filtro de \textit{Highpass}}
 		\end{center}
 	\end{figure}
 }
 
 \frame{
   \frametitle{Filtros}
+  \begin{itemize}
+		\item Amplify:\vfill
+	\end{itemize}
   \begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.25]{filtro5.png}
-		\caption{Filtro \textit{Amplify}}
 		\end{center}
 	\end{figure}
 }
 
 \frame{
   \frametitle{Filtros}
+  \begin{itemize}
+		\item Rectify:\vfill
+	\end{itemize}
   \begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.25]{filtro6.png}
-		\caption{Filtro \textit{Rectify}}
 		\end{center}
 	\end{figure}
 }
@@ -433,8 +423,6 @@
   \begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.06]{fotodeskworldmesa.JPG}
-		\caption{\textit{Deskworld} sendo utilizado na mesa.}
-		\label{deskworldmesa}
 		\end{center}
 	\end{figure}
 }
@@ -483,6 +471,8 @@
 \frame{
 	\frametitle{Arquitetura do Deskworld}
 	\begin{itemize}
+		\item Não possui objetivo, logo não é jogo.\vfill
+		\item Software interativo.\vfill
 		\item Desenvolvimento similar ao desenvolvimento de um jogo.\vfill
 		\item Arquitetura Orientada a Objeto.\vfill
 	\end{itemize}
@@ -493,8 +483,6 @@
 	\begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.21]{DeskworldDiagram.png}
-		\caption{Diagrama de classes do \textit{Deskworld}}
-		\label{diag-deskworld}
 		\end{center}
 	\end{figure}
 }
