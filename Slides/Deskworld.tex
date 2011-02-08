@@ -380,71 +380,168 @@
 
 \frame{
   \frametitle{Projeto da Mesa}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.10]{virttable.jpg}
-    \caption{Projeto de Mesa multi-toque: \textit{Virttable} (imagem retirada de~\cite{virttable})}
-    \label{fig:virttable}
-  \end{figure}
+  \begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.25]{projetomesa.png}
+		\caption{Projeto da mesa com superfície multi-toque construída neste trabalho.}
+		\label{mesa}
+		\end{center}
+	\end{figure}
 }
 
 \frame{
-  \frametitle{Detecção de gestos} 
-  \begin{itemize}
-   \item \textit{Webcam} captura imagem projetada na superfície da mesa\vfill
-   \item São utilizados filtros para captar somete o espectro de luz infravermelha\vfill
-   \item Imagem é processada e geram-se eventos de \textit{input}\vfill
-   \item Eventos são tratado e interpretados como gestos de acordo com software\vfill
-  \end{itemize}
+  \frametitle{Projeto da Mesa}
+  \begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.2]{mesalateral.png}
+		\caption{Visão lateral do projeto da mesa com superfície multi-toque construída neste trabalho.}
+		\label{mesalateral}
+		\end{center}
+	\end{figure}
+}
 
+\frame{
+  \frametitle{Fotos da Mesa}
+  \begin{figure}[h!]
+		\centering
+		\includegraphics[scale=0.05]{mesapaisagem.jpg}
+		\includegraphics[scale=0.05]{mesaretrato.jpg}
+		\includegraphics[scale=0.03]{mesaporfora.jpg}
+		\caption{Fotos da mesa multi-toque construída neste projeto.}
+		\label{mesaporfora}
+	\end{figure}
+}
+
+\frame{
+  \frametitle{Fotos da Mesa}
+  \begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.07]{mesapordentro.jpg}
+		\caption{Visão interna da mesa, ilustrando seus componentes.}
+		\label{mesadentro}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+  \frametitle{Filtros}
+  \begin{figure}[h!]
+		\centering
+		\includegraphics[scale=0.25]{filtro1.png}
+		\caption{Captura sem filtro}
+	\end{figure}
+}
+
+\frame{
+  \frametitle{Filtros}
+  \begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.25]{filtro3.png}
+		\caption{Filtro de \textit{Background}}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+  \frametitle{Filtros}
+  \begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.25]{filtro4.png}
+		\caption{Filtro de \textit{Highpass}}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+  \frametitle{Filtros}
+  \begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.25]{filtro5.png}
+		\caption{Filtro \textit{Amplify}}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+  \frametitle{Filtros}
+  \begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.25]{filtro6.png}
+		\caption{Filtro \textit{Rectify}}
+		\end{center}
+	\end{figure}
 }
 
 \section{Software Deskworld}
 \frame{
-	\frametitle{Jogo Simulador de Física}
+  \frametitle{Deskworld}
+  \begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.06]{fotodeskworldmesa.JPG}
+		\caption{\textit{Deskworld} sendo utilizado na mesa.}
+		\label{deskworldmesa}
+		\end{center}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Requisitos de interface}
 	\begin{itemize}
-	\item{O que são jogos simuladores de física?}
-	\vfill
-		\begin{itemize}
-		\item{Jogo sem objetivo inicial}
-		\vfill
-		\item{Permite a criação de um mundo do jeito que o jogador quiser}
-		\vfill
-		\item{Objetos no mundo interagem de acordo com as leis da física}
-		\vfill
-		\item{Propriedades dos objetos editáveis}
-		\vfill
-		\end{itemize}
+		\item sua mecânica deve permitir a participação de diversos jogadores simultaneamente;\vfill
+		\item deve suportar e processar toques simultâneos;\vfill
+		\item deve possuir capacidade de aproximar retas.\vfill
 	\end{itemize}
 }
 
 \frame{
-  \frametitle{Jogo Similar \textit{Phun}}
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.25]{Phun.jpg}
-    \caption{Jogo para \textit{PC} \textit{Phun}~\cite{phun}}
-    \label{fig:Phun}
-  \end{figure}
+	\frametitle{Conceito}
+	\begin{itemize}
+		\item Deixar o usuário criar o mundo que desejar.\vfill
+		\item Fornecer ferramentas facilitando sua criação.\vfill
+		\item Fornecer maneiras de se modificar o mundo.\vfill
+		\item Permitir a criação de vários mundos simultâneos.\vfill
+	\end{itemize}
 }
 
 \frame{
-	\frametitle{Diferenciais}
+	\frametitle{Regras e Objetos}
 	\begin{itemize}
-	\item{Gênero pouco aprofundado.}
-	\vfill
-	\item{Desenvolvimento para um \textit{input} diferenciado.}
-	\vfill
-	\item{Personalização de seu mundo.}
-	\vfill
-	\item{Interatividade entre \textit{N} jogadores.}
-	\vfill
-	\item{Divisão de mundos.}
-	\vfill
-	\item{Aproximação de retas.}
-	\vfill
+		\item Pode-se criar qualquer forma, com ou sem auxílio do software.\vfill
+		\item Pode-se alterar regras do mundo e dos objetos.\vfill
+		\item Pode-se dividir o mundo em sub-mundos.\vfill
 	\end{itemize}
+}
+
+\frame{
+	\frametitle{Ferramentas de Suporte}
+	\begin{itemize}
+		\item \textit{Box2D}\vfill
+		\item \textit{STL}\vfill
+		\item \textit{SDL}\vfill
+		\item \textit{SDL\_mixer}\vfill
+		\item \textit{OpenGL}\vfill
+		\item \textit{TUIO}\vfill
+		\item \textit{Community Core Vision} (\textit{CCV})\vfill
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Arquitetura do Deskworld}
+	\begin{itemize}
+		\item Desenvolvimento similar ao desenvolvimento de um jogo.\vfill
+		\item Arquitetura Orientada a Objeto.\vfill
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Detalhes de implementação}
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[scale=0.21]{DeskworldDiagram.png}
+		\caption{Diagrama de classes do \textit{Deskworld}}
+		\label{diag-deskworld}
+		\end{center}
+	\end{figure}
 }
 
 \section{Conclusão}
@@ -562,3 +659,56 @@
 %		\end{itemize}   
 %  \end{itemize}
 %}
+%\frame{
+%  \frametitle{Detecção de gestos} 
+%  \begin{itemize}
+%   \item Câmera \textit{Playstation Eye} captura imagem da superfície da mesa\vfill
+%   \item São utilizados filtros para captar somete o espectro de luz infravermelha\vfill
+%   \item Imagem é processada e geram-se eventos de \textit{input}\vfill
+%   \item Eventos são tratado e interpretados como gestos de acordo com software\vfill
+%  \end{itemize}
+%
+%}
+%\frame{
+%	\frametitle{Jogo Simulador de Física}
+%	\begin{itemize}
+%	\item{O que são jogos simuladores de física?}
+%	\vfill
+%		\begin{itemize}
+%		\item{Jogo sem objetivo inicial}
+%		\vfill
+%		\item{Permite a criação de um mundo do jeito que o jogador quiser}
+%		\vfill
+%		\item{Objetos no mundo interagem de acordo com as leis da física}
+%		\vfill
+%		\item{Propriedades dos objetos editáveis}
+%		\vfill
+%		\end{itemize}
+%	\end{itemize}
+%}
+%
+%\frame{
+%  \frametitle{Jogo Similar \textit{Phun}}
+%  \begin{figure}[h]
+%    \centering
+%    \includegraphics[scale=0.25]{Phun.jpg}
+%    \caption{Jogo para \textit{PC} \textit{Phun}~\cite{phun}}
+%    \label{fig:Phun}
+%  \end{figure}
+%}
+%\frame{
+%	\frametitle{Diferenciais}
+%	\begin{itemize}
+%	\item{Gênero pouco aprofundado.}
+%	\vfill
+%	\item{Desenvolvimento para um \textit{input} diferenciado.}
+%	\vfill
+%	\item{Personalização de seu mundo.}
+%	\vfill
+%	\item{Interatividade entre \textit{N} jogadores.}
+%	\vfill
+%	\item{Divisão de mundos.}
+%	\vfill
+%	\item{Aproximação de retas.}
+%	\vfill
+%	\end{itemize}}	
