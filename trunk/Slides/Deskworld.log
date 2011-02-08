@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.6.11)  8 FEB 2011 11:35
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.6.11)  8 FEB 2011 13:36
 entering extended mode
 **C:/Users/Officer*Dick/UnB/Trabalho*de*Graduacao/Deskworld/trunk/Slides/Deskwo
 rld.tex
@@ -712,27 +712,25 @@ Package: inputenc 2008/03/30 v1.1d Input encoding file
 ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\latin1.def"
 File: latin1.def 2008/03/30 v1.1d Input encoding file
 ))
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\beamer\themes\theme\beamerthemePa
-loAlto.sty"
-Package: beamerthemePaloAlto 2007/01/28  (rcs-revision 1.11)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\beamer\themes\theme\beamerthemeAn
+tibes.sty"
+Package: beamerthemeAntibes 2007/01/28  (rcs-revision 1.10)
 
 ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\beamer\themes\outer\beamerouterth
-emesidebar.sty"
-Package: beamerouterthemesidebar 2007/01/28  (rcs-revision 1.9)
-\beamer@sidebarwidth=\dimen183
-\beamer@headheight=\dimen184
+emetree.sty"
+Package: beamerouterthemetree 2007/01/28  (rcs-revision 1.5)
 )
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\beamer\themes\inner\beamerinnerth
-emerounded.sty"
-Package: beamerinnerthemerounded 2007/01/28  (rcs-revision 1.5)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\beamer\themes\color\beamercolorth
+emewhale.sty"
+Package: beamercolorthemewhale 2007/01/28  (rcs-revision 1.4)
 )
 ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\beamer\themes\color\beamercolorth
 emeorchid.sty"
 Package: beamercolorthemeorchid 2007/01/28  (rcs-revision 1.3)
 )
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\beamer\themes\color\beamercolorth
-emewhale.sty"
-Package: beamercolorthemewhale 2007/01/28  (rcs-revision 1.4)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\beamer\themes\inner\beamerinnerth
+emerectangles.sty"
+Package: beamerinnerthemerectangles 2007/01/28  (rcs-revision 1.4)
 ))
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -744,12 +742,12 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                \kern -0.54753pt
+(hyperref)                \kern -0.46252pt
 (hyperref)                removed on input line 10.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                \kern -0.54753pt
+(hyperref)                \kern -0.46252pt
 (hyperref)                removed on input line 10.
 
 
@@ -761,7 +759,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 ("C:\Users\Officer Dick\UnB\Trabalho de Graduacao\Deskworld\trunk\Slides\Deskwo
 rld.aux"
 
-LaTeX Warning: Label `fig:pong' multiply defined.
+LaTeX Warning: Label `fig:Phun' multiply defined.
 
 )
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
@@ -781,13 +779,13 @@ LaTeX Font Info:    ... okay on input line 15.
  ("C:\Program Files (x86)\MiKTeX 2.8\tex\context\base\supp-pdf.tex"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count153
-\scratchdimen=\dimen185
+\scratchdimen=\dimen183
 \scratchbox=\box52
 \nofMPsegments=\count154
 \nofMParguments=\count155
 \everyMPshowfont=\toks40
 \MPscratchCnt=\count156
-\MPscratchDim=\dimen186
+\MPscratchDim=\dimen184
 \MPnumerator=\count157
 \everyMPtoPDFconversion=\toks41
 )
@@ -798,14 +796,14 @@ LaTeX Font Info:    ... okay on input line 15.
 * paper: 364.19536pt, 273.14662pt (class default)
 * layout: 364.19536pt, 273.14662pt
 * switch(es): includehead includefoot 
-* h-part:(L,W,R)=(46.72636pt, 303.24263pt, 14.22636pt)
+* h-part:(L,W,R)=(28.45274pt, 307.28987pt, 28.45274pt)
 * v-part:(T,H,B)=(0.0pt, 273.14662pt, 0.0pt)
 * \paperwidth=364.19536pt
 * \paperheight=273.14662pt
-* \textwidth=303.24263pt
+* \textwidth=307.28987pt
 * \textheight=244.6939pt
-* \oddsidemargin=-25.54362pt
-* \evensidemargin=-25.54362pt
+* \oddsidemargin=-43.81725pt
+* \evensidemargin=-43.81725pt
 * \topmargin=-72.26999pt
 * \headheight=14.22636pt
 * \headsep=0.0pt
@@ -907,219 +905,185 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 (Font)              size <5> substituted on input line 21.
 
-
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
-
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
 [1{C:/ProgramData/MiKTeX/2.8/pdftex/config/pdftex.map}
 
-]
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
-
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
-[2
+] [2
 
 ]
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
+<oxo.png, id=104, 500.87125pt x 333.245pt>
+File: oxo.png Graphic file (type png)
+ <use oxo.png> [3
 
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/oxo.pn
+g (PNG copy)>]
+<pong.png, id=133, 447.17062pt x 342.5297pt>
+File: pong.png Graphic file (type png)
+ <use pong.png> [4
 
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/pong.p
+ng (PNG copy)>]
+<nes.jpg, id=161, 335.75438pt x 243.15843pt>
+File: nes.jpg Graphic file (type jpg)
+ <use nes.jpg> [5
 
-[3
-
-]
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
-
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
-[4
-
-] <virttable.jpg, id=182, 1993.4475pt x 1700.3525pt>
-File: virttable.jpg Graphic file (type jpg)
- <use virttable.jpg>
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
-
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
-[5
-
- <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/virtta
-ble.jpg>]
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
-
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
-[6
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/nes.jp
+g>] [6
 
 ]
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
-
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
+<wii-ps3-xbox360.jpg, id=215, 171.64125pt x 72.27pt>
+File: wii-ps3-xbox360.jpg Graphic file (type jpg)
+ <use wii-ps3-xbox360.jpg>
 [7
 
-] <Phun.jpg, id=284, 1027.84pt x 770.88pt>
-File: Phun.jpg Graphic file (type jpg)
- <use Phun.jpg>
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/wii-ps
+3-xbox360.jpg>] <wiimote.jpg, id=244, 642.4pt x 165.61874pt>
+File: wiimote.jpg Graphic file (type jpg)
 
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
+<use wiimote.jpg> <move.jpg, id=245, 642.4pt x 181.67876pt>
+File: move.jpg Graphic file (type jpg)
+ <use move.jpg>
+<kinect.jpg, id=246, 642.4pt x 223.83624pt>
+File: kinect.jpg Graphic file (type jpg)
+ <use kinect.jpg>
+Overfull \vbox (2.3123pt too high) detected at line 113
  []
 
 [8
 
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/wiimot
+e.jpg> <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/
+move.jpg> <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slid
+es/kinect.jpg>] [9
+
+] <reactable.jpg, id=300, 616.704pt x 412.84238pt>
+File: reactable.jpg Graphic file (type jpg)
+
+<use reactable.jpg> [10
+
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/reacta
+ble.jpg>]
+<microsoft_surface_main.jpg, id=330, 552.0625pt x 412.54124pt>
+File: microsoft_surface_main.jpg Graphic file (type jpg)
+
+<use microsoft_surface_main.jpg> [11
+
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/micros
+oft_surface_main.jpg>] [12
+
+]
+<virttable.jpg, id=384, 1993.4475pt x 1700.3525pt>
+File: virttable.jpg Graphic file (type jpg)
+ <use virttable.jpg> [13
+
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/virtta
+ble.jpg>] <touch_table.jpg, id=413, 602.25pt x 788.9475pt>
+File: touch_table.jpg Graphic file (type jpg)
+ <use touch_table.jpg>
+[14
+
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/touch_
+table.jpg>] <touch_FTIR_port.jpg, id=441, 451.6875pt x 399.74344pt>
+File: touch_FTIR_port.jpg Graphic file (type jpg)
+
+<use touch_FTIR_port.jpg> [15
+
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/touch_
+FTIR_port.jpg>]
+<irtaktiks.png, id=469, 381.67593pt x 249.18094pt>
+File: irtaktiks.png Graphic file (type png)
+ <use irtaktiks.png> [16
+
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/irtakt
+iks.png (PNG copy)>] <ecodefense.jpg, id=497, 483.30562pt x 379.4175pt>
+File: ecodefense.jpg Graphic file (type jpg)
+
+<use ecodefense.jpg> [17
+
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/ecodef
+ense.jpg>]
+<gameoflife.png, id=525, 299.61937pt x 225.09094pt>
+File: gameoflife.png Graphic file (type png)
+ <use gameoflife.png>
+[18
+
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/gameof
+life.png (PNG copy)>] [19
+
+] <lbp.jpg, id=580, 1284.8pt x 722.7pt>
+File: lbp.jpg Graphic file (type jpg)
+
+<use lbp.jpg> [20
+
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/lbp.jp
+g>] <Phun.jpg, id=608, 1027.84pt x 770.88pt>
+File: Phun.jpg Graphic file (type jpg)
+ <use Phun.jpg>
+[21
+
  <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/Phun.j
-pg>]
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
+pg>] <crayon.jpg, id=638, 1027.84pt x 770.88pt>
+File: crayon.jpg Graphic file (type jpg)
+ <use crayon.jpg> [22
 
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/crayon
+.jpg>]
+<numpty.png, id=665, 677.53125pt x 271.76532pt>
+File: numpty.png Graphic file (type png)
+ <use numpty.png> [23
 
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
+ <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/numpty
+.png (PNG copy)>] [24
 
-[9
+]
+File: virttable.jpg Graphic file (type jpg)
+ <use virttable.jpg> [25
 
-] <pong.png, id=354, 447.17062pt x 342.5297pt>
-File: pong.png Graphic file (type png)
- <use pong.png>
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
+] [26
 
+] [27
 
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
-[10
-
- <C:/Users/Officer Dick/UnB/Trabalho de Graduacao/Deskworld/trunk/Slides/pong.p
-ng (PNG copy)>]
-File: pong.png Graphic file (type png)
- <use pong.png>pdfTeX warning (ext4): destination with the same identifier (nam
-e{fig:pong}) has been already used, duplicate ignored
+]
+File: Phun.jpg Graphic file (type jpg)
+ <use Phun.jpg>pdfTeX warning (ext4): destination with the same identifier (nam
+e{fig:Phun}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.152 }
+l.330 }
        
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
+Overfull \vbox (10.24046pt too high) detected at line 330
  []
 
+[28
 
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
+] [29
 
-[11
+] [30
 
 ]
 ("C:\Users\Officer Dick\UnB\Trabalho de Graduacao\Deskworld\trunk\Slides\Deskwo
-rld.bbl")
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
-
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
-[12
+rld.bbl") [31
 
  <C:/Program Files (x86)/MiKTeX 2.8/tex/latex/beamer/base/art/beamericonarticle
-.pdf>]
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
+.pdf>] [32
 
 
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
-[13
+] [33
 
 
-]
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
-
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
-[14
-
-
-]
-Overfull \hbox (1.1739pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Orientadora: 
- []
-
-
-Overfull \hbox (3.40482pt too wide) has occurred while \output is active
- []\OT1/cmss/m/n/5 Coorientador: 
- []
-
-[15
+] [34
 
 ]
 \tf@nav=\write5
 \tf@toc=\write6
 \tf@snm=\write7
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 186.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 186.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 388.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 388.
 
 ("C:\Users\Officer Dick\UnB\Trabalho de Graduacao\Deskworld\trunk\Slides\Deskwo
 rld.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 186.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 388.
 Package rerunfilecheck Info: File `Deskworld.out' has not changed.
-(rerunfilecheck)             Checksum: C26708E217A0B6BD14E9C77579A1E229;293.
+(rerunfilecheck)             Checksum: 3513666C0A20EF7DAAF4E7E6266897CA;424.
 
 
 LaTeX Font Warning: Size substitutions with differences
@@ -1130,13 +1094,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13738 strings out of 495285
- 249091 string characters out of 3179806
- 335155 words of memory out of 3000000
- 16500 multiletter control sequences out of 15000+200000
- 10830 words of font info for 40 fonts, out of 3000000 for 9000
+ 13867 strings out of 495285
+ 249245 string characters out of 3179806
+ 335261 words of memory out of 3000000
+ 16556 multiletter control sequences out of 15000+200000
+ 10530 words of font info for 39 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 41i,16n,57p,414b,576s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,15n,54p,414b,539s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmss10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:
 /Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Pr
@@ -1144,9 +1108,9 @@ ogram Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Pro
 gram Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Progr
 am Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/Program
  Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Deskworld.pdf (15 pages, 705813 bytes).
+Output written on Deskworld.pdf (34 pages, 3372728 bytes).
 PDF statistics:
- 607 PDF objects out of 1000 (max. 8388607)
- 51 named destinations out of 1000 (max. 500000)
- 132 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1054 PDF objects out of 1200 (max. 8388607)
+ 108 named destinations out of 1000 (max. 500000)
+ 192 words of extra memory for PDF output out of 10000 (max. 10000000)
 
