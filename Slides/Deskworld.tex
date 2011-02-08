@@ -3,8 +3,13 @@
 \usepackage[latin1]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\usepackage{listings}
+\usepackage{subfigure}
 \usetheme{Antibes}
 
+\makeatletter
+\@addtoreset{subfigure}{figure}
+\makeatother
 
 \title{Deskworld: Software Simulador de F\'isica 2D para Mesas com Superf\'icie Multitoque\\}
 \author{Danilo Gaby Andersen Trindade\\ Victor Sampaio Zucca\\ Orientadora: Prof.\nobreak\kern-.05em\textordfeminine\ Dr.\nobreak\kern-.05em\textordfeminine\ Carla Denise Castanho\\ Coorientador: Prof. Dr. Marcus Vinicius Lamar}
@@ -94,7 +99,6 @@
 		\label{wiimote}
 		\end{center}
 	\end{figure}
-	
 	\begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.2]{move.jpg}
@@ -102,7 +106,6 @@
 		\label{move}
 		\end{center}
 	\end{figure}
-	
 	\begin{figure}[h!]
 		\begin{center}
 		\includegraphics[scale=0.2]{kinect.jpg}
@@ -277,10 +280,107 @@
 
 \section{Fundamentação Teórica}
 
+
+\frame{
+	\frametitle{Fundamentação Teórica}
+	\begin{itemize}
+	\item{Processamento de toques.}
+	\begin{itemize}
+	\item{Processamento das Imagens.}
+	\item{Detecção de Blobs.}	
+	\end{itemize}
+	\item{Aspectos das mesas multitoques.}
+	\vfill
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Processamento das imagens}
+	\begin{figure}[h!]
+		\centering
+		\mbox{\subfigure[Sem iluminação]{\includegraphics[scale=0.2]{virttableillumination-noillumination.png}}
+		\quad
+		\subfigure[FTIR]{\includegraphics[scale=0.2]{virttableillumination-FTIRonly.png}}
+		\subfigure[DI]{\includegraphics[scale=0.2]{virttableillumination-DIonly.png}}
+		\subfigure[FTIR e DI]{\includegraphics[scale=0.2]{virttableillumination-FTIRandDI.png}}}
+		\label{iluminacoes}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Detecção de \textit{blobs}}
+	\begin{figure}
+		\centering
+		\mbox{\subfigure[Gráfico de P]{\includegraphics[scale=0.5]{GraficoP.jpg}}
+		\quad
+		\subfigure[Gráfico de Q]{\includegraphics[scale=0.5]{GraficoQ.jpg}}}
+		\label{iluminacoes}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Correção da Câmera}
+	\begin{figure}[h!]
+	\centering
+	\mbox{\subfigure[Imagem da câmera com distorção.]{\includegraphics[scale=0.4]{distorcao(a).jpg}}
+	\quad
+	\subfigure[Imagem da câmera corrigida.]{\includegraphics[scale=0.4]{distorcao(b).jpg}}}
+	\label{distorcao}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{Aspectos da mesa - Tamanho e Resolção}
+	Tamanho
+	\begin{itemize}
+	\item{Proporcional ao projeto de sua utilização.}
+	\vfill
+	\item{Limitado pelo projetor e pela câmera.}
+	\vfill
+	\end{itemize}
+	Resolução
+	\begin{itemize}
+	\item{Equivalente a escolhida para o projetor.}
+	\vfill
+	\item{Para mesas grandes, convém utilizar projetores \textit{short-throw} de alta resolução.}
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Aspectos da mesa - Interfaces e número de usuários}
+	Aspectos da Interface
+	\begin{itemize}
+	\item{Interfaces sensíveis ao toque x \textit{Softwares} em geral}
+	\vfill
+	\item{Ponto de visão do usuário}
+	\vfill
+	\end{itemize}
+	Número de usuários
+	\begin{itemize}
+	\item{Detecção de toques para múltiplos usuários}
+	\vfill
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{Detecção de Gestos}
+	\begin{figure}[h!]
+		\centering
+		\mbox{\subfigure[Click]{\includegraphics[scale=0.2]{click.png}}
+		\quad
+		\subfigure[Drag]{\includegraphics[scale=0.2]{drag.png}}}
+		\mbox{\subfigure[Rotate]{\includegraphics[scale=0.2]{rotate.png}}
+		\quad
+		\subfigure[Scale]{\includegraphics[scale=0.2]{scale.png}}}
+		\label{gestos}
+	\end{figure}
+}
+
 \section{Mesa Multi-toque}
 
 \frame{
   \frametitle{Projeto da Mesa}
+
   \begin{figure}[h]
     \centering
     \includegraphics[scale=0.10]{virttable.jpg}
@@ -350,9 +450,42 @@
 \section{Conclusão}
 \frame{
 	\frametitle{Conclusão}
-	
+	\begin{itemize}
+		\item{\textit{Software Deskworld}}
+		\begin{itemize}
+			\item{Pontos positivos}
+			\begin{itemize}
+				\item{Utilização dos recursos}
+			\end{itemize}
+			\item{Pontos negativos}
+			\begin{itemize}
+				\item{Problema de desempenho}
+			\end{itemize}
+		\end{itemize}
+		\item{\textit{Construção da Mesa Multitoque}}
+		\begin{itemize}
+			\item{Pontos positivos}
+			\begin{itemize}
+				\item{Tamanho}
+				\item{Estrutura ajustável}
+				\item{Projetor}
+			\end{itemize}
+			\item{Pontos negativos}
+			\begin{itemize}
+				\item{Estrutura danificada}
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
 }
 
+\frame{
+	\frametitle{Trabalhos Futuros}
+	\begin{itemize}
+	\item{Inclusão da iluminação DI}
+	\item{Inclusão de novas ferramentas no \textit{Deskworld}}
+	\item{Otimização do código do \textit{Deskworld}}
+	\end{itemize}
+}
 
 \nocite{scient}
 \nocite{virttable}
