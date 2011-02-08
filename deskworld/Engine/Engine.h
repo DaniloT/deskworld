@@ -38,6 +38,8 @@ public:
 	Object CreateRectangle(int posX, int posY, int w, int h, bool dynamic);
 	Object CreateCircle(int posX, int posY, float32 radius, bool dynamic);
 	Object CreateFreeform(vector<int> vx, vector<int> vy, float32 radius, bool dynamic);
+	Object CreateWorld(vector<Point> vertices);
+	Object CreateBarrier(vector<Point> vertices);
 	void MouseDown(int xOrig, int yOrig, int id);
 	void DestroyMouseJoint(int id);
 	void DestroyObject(Object object);

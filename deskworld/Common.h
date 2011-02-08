@@ -36,8 +36,17 @@ enum GO_types{
 	rectangle,
 	circle,
 	erase,
-	freeform
+	freeform,
+	worlds,
+	barrier,
+	joint,
+	motor
 };
+
+typedef struct Point{
+	int x;
+	int y;
+}point;
 
 
 #endif /* COMMON_H_ */
