@@ -98,13 +98,13 @@ void LevelState::Load(){
 	worlds.push_back(w1);
 	worldvertices.clear();
 
-	p.x = WIDTH/2+1; p.y = 0;
+	p.x = WIDTH/2; p.y = 0;
 	worldvertices.push_back(p);
 	p.x = WIDTH; p.y = 0;
 	worldvertices.push_back(p);
 	p.x = WIDTH; p.y = HEIGHT;
 	worldvertices.push_back(p);
-	p.x = WIDTH/2+1; p.y = HEIGHT;
+	p.x = WIDTH/2; p.y = HEIGHT;
 	worldvertices.push_back(p);
 	GOWorld* w2 = new GOWorld(worldvertices);
 	w2->SetObjects(&objects);
