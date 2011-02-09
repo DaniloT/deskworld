@@ -207,7 +207,8 @@ Object Engine::CreateBarrier(vector<Point> vertices){
 	vertex[0].y = CONVERT(vertices[0].y);
 	vertex[1].x = CONVERT(vertices[1].x);
 	vertex[1].y = CONVERT(vertices[1].y);
-//	fixtureDef.userData = barrier;
+	string b = "barrier";
+	fixtureDef.userData = &b;
 
 	obj.body = world->CreateBody(&bodyDef);
 	obj.shape.SetAsEdge(vertex[0], vertex[1]);

@@ -21,7 +21,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL/SDL_opengl.h>
-
 #include "GameStates/State.h"
 #include "GameStates/LevelState.h"
 #include "Input/InputManager.h"
@@ -31,7 +30,6 @@
 #define TAXA_FPS 60
 
 class GameManager {
-	SDL_Surface* screen;
 	FPSmanager* manex;
 	State* currentState;
 	int dt, lastTime;

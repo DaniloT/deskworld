@@ -24,7 +24,6 @@
 #include "../GameObject/GOCircle.h"
 #include "../GameObject/GOFreeform.h"
 #include "../GameObject/GOWorld.h"
-#include "../Graphics/Sprite.h"
 #include "../Graphics/Graphics.h"
 #include "../Sound/Audio.h"
 #include "../Graphics/ImageLoader.h"
@@ -75,7 +74,7 @@ public:
 	// Updates the state
 	int Update();
 	// Renders the state
-	void Render(SDL_Surface* screen);
+	void Render();
 };
 
 #endif /* LEVELSTATE_H_ */

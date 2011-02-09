@@ -28,7 +28,7 @@ public:
 	// Updates the state.
 	virtual int Update() = 0;
 	// Renders the state.
-	virtual void Render(SDL_Surface* screen) = 0;
+	virtual void Render() = 0;
 };
 
 #endif /* STATE_H_ */

@@ -42,20 +42,16 @@ Graphics::~Graphics() {
 	// TODO Auto-generated destructor stub
 }
 
-void Graphics::DrawPixel(SDL_Surface* screen, int x, int y, RGBAColor color){
-	if(pixelRGBA(screen, (int)x,(int)y, color.r, color.g, color.b, color.a)==-1){
-		printf("Error at DrawPixel\n");
-	}
 
+void Graphics::DrawLine(int xOrigin, int yOrigin, int x, int y, RGBAColor color){
+	glColor4ub(color.r,color.g,color.b,color.a);
+	glBegin(GL_LINE);
+		glVertex2i(xOrigin,yOrigin);
+		glVertex2i(x,y);
+	glEnd();
 }
 
-void Graphics::DrawLine(SDL_Surface* screen, int xOrigin, int yOrigin, int x, int y, RGBAColor color){
-	if(lineRGBA(screen, (int)xOrigin,(int)yOrigin, (int)x, (int)y, color.r, color.g, color.b, color.a)==-1){
-		printf("Error at DrawLine\n");
-	}
-}
-
-void Graphics::DrawTriangle(SDL_Surface* screen, int x1, int y1, int x2, int y2, int x3, int y3, RGBAColor color){
+void Graphics::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, RGBAColor color){
 	glColor4ub(color.r,color.g,color.b,color.a);
 	glBegin(GL_TRIANGLES);
 		//Draw our four points, clockwise.
@@ -65,7 +61,7 @@ void Graphics::DrawTriangle(SDL_Surface* screen, int x1, int y1, int x2, int y2,
 	glEnd();
 }
 
-void Graphics::DrawRectangle(SDL_Surface* screen, vector<int> vx, vector<int> vy, RGBAColor color){
+void Graphics::DrawRectangle(vector<int> vx, vector<int> vy, RGBAColor color){
 	//Define the color
 	glColor4ub(color.r,color.g,color.b,color.a);
 	glBegin(GL_QUADS);
@@ -77,7 +73,7 @@ void Graphics::DrawRectangle(SDL_Surface* screen, vector<int> vx, vector<int> vy
 	glEnd();
 }
 
-void Graphics::DrawCircle(SDL_Surface* screen, int x, int y, int radius, RGBAColor color){
+void Graphics::DrawCircle(int x, int y, int radius, RGBAColor color){
 	GLUquadricObj *circle = gluNewQuadric ();
 
 	glTranslatef((GLfloat) x, (GLfloat)y, 0);
@@ -91,7 +87,7 @@ void Graphics::DrawCircle(SDL_Surface* screen, int x, int y, int radius, RGBACol
 	glLoadIdentity();
 }
 
-void Graphics::DrawPolygon(SDL_Surface* screen, vector<int> vx, vector<int> vy, int n, RGBAColor color){
+void Graphics::DrawPolygon(vector<int> vx, vector<int> vy, int n, RGBAColor color){
 	glColor4ub(color.r,color.g,color.b,color.a);
 	glBegin(GL_POLYGON);
 		for(int i = 0 ; i < n ; i++){

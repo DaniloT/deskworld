@@ -13,11 +13,11 @@
 
 class GOBarrier : GameObject{
 	vector<Point> interpoints;
-	vector<Point> vertices;
 public:
-	GOBarrier(vector<Point> vertices);
+	GOBarrier(vector<Point> vertices, RGBAColor color, bool passable);
 	virtual ~GOBarrier();
 	void SetInterpoints(Point p);
+	void Render();
 };
 
 #endif /* GOBARRIER_H_ */

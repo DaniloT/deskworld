@@ -17,7 +17,7 @@ public:
 	// Updates the objects.
 	float32 Update();
 	// Render the object.
-	void Render(SDL_Surface* screen);
+	void Render();
 };
 
 #endif /* RECTANGLE_H_ */

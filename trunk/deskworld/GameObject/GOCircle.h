@@ -18,7 +18,7 @@ public:
 	// Updates the objects.
 	float32 Update();
 	// Render the object.
-	void Render(SDL_Surface* screen);
+	void Render();
 };
 
 #endif /* CIRCLE_H_ */

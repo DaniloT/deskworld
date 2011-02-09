@@ -11,8 +11,10 @@
 #include "Box2D/Box2D.h"
 #include "../Common.h"
 
+#include <string>
 #include <vector>
-#include "../Graphics/Sprite.h"
+
+using namespace std;
 
 struct Object{
 	b2Body* body;

@@ -75,6 +75,9 @@ void LevelState::Load(){
 //	worldvertices.push_back(p);
 //	GOWorld* w = new GOWorld(worldvertices);
 //	w->SetObjects(&objects);
+//	b2Vec2 grav;
+//	grav.Set(0.0, 9.8);
+//	w->SetGravity(grav);
 //	worlds.push_back(w);
 
 	point p;
@@ -90,7 +93,7 @@ void LevelState::Load(){
 	worldvertices.push_back(p);
 	GOWorld* w1 = new GOWorld(worldvertices);
 	w1->SetObjects(&objects);
-	grav.Set(-5.5, -9.8);
+	grav.Set(5.5, 0.0);
 	w1->SetGravity(grav);
 	worlds.push_back(w1);
 	worldvertices.clear();
@@ -105,7 +108,7 @@ void LevelState::Load(){
 	worldvertices.push_back(p);
 	GOWorld* w2 = new GOWorld(worldvertices);
 	w2->SetObjects(&objects);
-	grav.Set(5.5, 9.8);
+	grav.Set(-5.5, 0.0);
 	w2->SetGravity(grav);
 	worlds.push_back(w2);
 }
@@ -275,7 +278,7 @@ int LevelState::Update(){
 				p.x = drawObjects[id].xMouse;
 				p.y = drawObjects[id].yMouse;
 				//Getting world info
-				for(int j = 0 ; j < worlds.size(); j++){
+				for(Uint32 j = 0 ; j < worlds.size(); j++){
 					if(worlds[j]->isInside(p)){
 						worldTool = worlds[j]->GetCurrentTool();
 						break;
@@ -348,7 +351,7 @@ int LevelState::Update(){
 			p.x = drawObjects[id].xMouse;
 			p.y = drawObjects[id].yMouse;
 			//Getting world info
-			for(int j = 0 ; j < worlds.size(); j++){
+			for(Uint32 j = 0 ; j < worlds.size(); j++){
 				if(worlds[j]->isInside(p)){
 					worldTool = worlds[j]->GetCurrentTool();
 					break;
@@ -401,7 +404,7 @@ int LevelState::Update(){
 			p.x = drawObjects[id].xOrig;
 			p.y = drawObjects[id].yOrig;
 			//Getting world info
-			for(int j = 0 ; j < worlds.size(); j++){
+			for(Uint32 j = 0 ; j < worlds.size(); j++){
 				if(worlds[j]->isInside(p)){
 					worldColor = worlds[j]->GetWorldColor();
 					worldTool = worlds[j]->GetCurrentTool();
@@ -617,13 +620,13 @@ int LevelState::Update(){
 	return 0;
 }
 
-void LevelState::Render(SDL_Surface * screen){
+void LevelState::Render(){
 	int id;
 	RGBAColor worldColor;
 	uint8 worldTool;
 	Point p;
 
-	background->Render(screen);
+	background->Render();
 
 	for(int i = 0; i < inputManager->getNumIds(); i++){
 		id = inputManager->getId(i);
@@ -651,19 +654,19 @@ void LevelState::Render(SDL_Surface * screen){
 					if(drawObjects[id].yMouse < drawObjects[id].yOrig){
 						if(drawObjects[id].xMouse < drawObjects[id].xOrig){
 							// Mouse point at left from origin
-							graphics->DrawTriangle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, ((drawObjects[id].xOrig-drawObjects[id].xMouse)/2)+drawObjects[id].xMouse, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yOrig, worldColor);
+							graphics->DrawTriangle( drawObjects[id].xOrig, drawObjects[id].yOrig, ((drawObjects[id].xOrig-drawObjects[id].xMouse)/2)+drawObjects[id].xMouse, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yOrig, worldColor);
 						}else if(drawObjects[id].xMouse > drawObjects[id].xOrig){
 							// Mouse point at right from origin
-							graphics->DrawTriangle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, ((drawObjects[id].xMouse-drawObjects[id].xOrig)/2)+drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yOrig, worldColor);
+							graphics->DrawTriangle( drawObjects[id].xOrig, drawObjects[id].yOrig, ((drawObjects[id].xMouse-drawObjects[id].xOrig)/2)+drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yOrig, worldColor);
 						}
 					// Mouse point below from origin
 					}else if(drawObjects[id].yMouse > drawObjects[id].yOrig){
 						if(drawObjects[id].xMouse < drawObjects[id].xOrig){
 							// Mouse point at left from origin
-							graphics->DrawTriangle(screen, ((drawObjects[id].xOrig-drawObjects[id].xMouse)/2)+drawObjects[id].xMouse, drawObjects[id].yOrig, drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yMouse, worldColor);
+							graphics->DrawTriangle( ((drawObjects[id].xOrig-drawObjects[id].xMouse)/2)+drawObjects[id].xMouse, drawObjects[id].yOrig, drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yMouse, worldColor);
 						}else if(drawObjects[id].xMouse > drawObjects[id].xOrig){
 							// Mouse point at right from origin
-							graphics->DrawTriangle(screen, ((drawObjects[id].xMouse-drawObjects[id].xOrig)/2)+drawObjects[id].xOrig, drawObjects[id].yOrig, drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yMouse, worldColor);
+							graphics->DrawTriangle( ((drawObjects[id].xMouse-drawObjects[id].xOrig)/2)+drawObjects[id].xOrig, drawObjects[id].yOrig, drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yMouse, worldColor);
 						}
 					}
 					break;
@@ -676,46 +679,46 @@ void LevelState::Render(SDL_Surface * screen){
 					vy.push_back(drawObjects[id].yMouse);
 					vx.push_back(drawObjects[id].xOrig);
 					vy.push_back(drawObjects[id].yMouse);
-					graphics->DrawRectangle(screen, vx, vy, worldColor);
+					graphics->DrawRectangle( vx, vy, worldColor);
 					break;
 				case circle:
 					if(drawObjects[id].yMouse < drawObjects[id].yOrig){
 						if(drawObjects[id].xMouse < drawObjects[id].xOrig){
 							// Ponto do mouse a esquerda da origem
 							if((drawObjects[id].xOrig-drawObjects[id].xMouse)>(drawObjects[id].yOrig-drawObjects[id].yMouse)){
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xOrig-drawObjects[id].xMouse), worldColor);
+								graphics->DrawCircle( drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xOrig-drawObjects[id].xMouse), worldColor);
 							}else{
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yOrig-drawObjects[id].yMouse), worldColor);
+								graphics->DrawCircle( drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yOrig-drawObjects[id].yMouse), worldColor);
 							}
 						}else if(drawObjects[id].xMouse > drawObjects[id].xOrig){
 							// Ponto do mouse a direita da origem
 							if((drawObjects[id].xMouse-drawObjects[id].xOrig)>(drawObjects[id].yOrig-drawObjects[id].yMouse)){
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xMouse-drawObjects[id].xOrig), worldColor);
+								graphics->DrawCircle( drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xMouse-drawObjects[id].xOrig), worldColor);
 							}else{
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yOrig-drawObjects[id].yMouse), worldColor);
+								graphics->DrawCircle( drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yOrig-drawObjects[id].yMouse), worldColor);
 							}
 						}
 					}else if(drawObjects[id].yMouse > drawObjects[id].yOrig){
 						if(drawObjects[id].xMouse < drawObjects[id].xOrig){
 							// Ponto do mouse a esquerda da origem
 							if((drawObjects[id].xOrig-drawObjects[id].xMouse)>(drawObjects[id].yMouse-drawObjects[id].yOrig)){
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xOrig-drawObjects[id].xMouse), worldColor);
+								graphics->DrawCircle( drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xOrig-drawObjects[id].xMouse), worldColor);
 							}else{
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yMouse-drawObjects[id].yOrig), worldColor);
+								graphics->DrawCircle( drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yMouse-drawObjects[id].yOrig), worldColor);
 							}
 						}else if(drawObjects[id].xMouse > drawObjects[id].xOrig){
 							// Ponto do mouse a direita da origem
 							if((drawObjects[id].xMouse-drawObjects[id].xOrig)>(drawObjects[id].yMouse-drawObjects[id].yOrig)){
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xMouse-drawObjects[id].xOrig), worldColor);
+								graphics->DrawCircle( drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xMouse-drawObjects[id].xOrig), worldColor);
 							}else{
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yMouse-drawObjects[id].yOrig), worldColor);
+								graphics->DrawCircle( drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yMouse-drawObjects[id].yOrig), worldColor);
 							}
 						}
 					}
 					break;
 				case freeform:
 						for(Uint32 i = 0 ; i < ff_vx[id].size() ; i++){
-							graphics->DrawCircle(screen, ff_vx[id].at(i), ff_vy[id].at(i), (int)thickness, worldColor);
+							graphics->DrawCircle( ff_vx[id].at(i), ff_vy[id].at(i), (int)thickness, worldColor);
 						}
 					break;
 				}
@@ -723,15 +726,15 @@ void LevelState::Render(SDL_Surface * screen){
 		}
 	}
 	for(Uint32 i = 0; i < objects.size() ; i++){
-		objects.at(i)->Render(screen);
+		objects.at(i)->Render();
 	}
-	fechar->Render(screen);
+	fechar->Render();
 	if (menu != NULL) {
-		menu->Render(screen);
+		menu->Render();
 	}
 	for (int i = 0; i < 4; i++) {
 		if (menuSelect[i] != NULL) {
-			menuSelect[i]->Render(screen);
+			menuSelect[i]->Render();
 		}
 	}
 }

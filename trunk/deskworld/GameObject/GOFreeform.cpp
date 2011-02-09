@@ -38,8 +38,8 @@ float32 GOFreeform::Update(){
 }
 
 
-void GOFreeform::Render(SDL_Surface* screen){
+void GOFreeform::Render(){
 	for(Uint32 i = 0 ; i < vx.size() ; i++){
-		graphics->DrawCircle(screen, (int)vx.at(i), (int)vy.at(i), (int)thickness, color);
+		graphics->DrawCircle( (int)vx.at(i), (int)vy.at(i), (int)thickness, color);
 	}
 }
