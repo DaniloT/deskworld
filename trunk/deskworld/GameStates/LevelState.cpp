@@ -642,7 +642,7 @@ void LevelState::Render(){
 			drawObjects[id].yMouse = inputManager->touchPosY(id);
 
 			p.x = drawObjects[id].xOrig;
-			p.y = drawObjects[id].xOrig;
+			p.y = drawObjects[id].yOrig;
 			//Getting world info
 			for(Uint32 j = 0 ; j < worlds.size(); j++){
 				if(worlds[j]->isInside(p)){
