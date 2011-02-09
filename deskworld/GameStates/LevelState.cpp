@@ -25,11 +25,11 @@ void LevelState::Load(){
 	bgMusic = new Audio("Wesnothmusic.ogg",1); //Background Music
 	bgMusic->Play(-1);
 	thickness = 8;
-	menu = NULL;
-	menuSelect[0] = NULL;
-	menuSelect[1] = NULL;
-	menuSelect[2] = NULL;
-	menuSelect[3] = NULL;
+	menu.clear();
+	menuSelect[0].clear();
+	menuSelect[1].clear();
+	menuSelect[2].clear();
+	menuSelect[3].clear();
 	for (int i = 0; i < 10001; i++) {
 		drawObjects[i].drawing = false;
 		drawObjects[i].menu = false;
@@ -124,8 +124,10 @@ int LevelState::Update(){
 	SDL_Rect rect;
 	RGBAColor worldColor;
 	uint8 worldTool;
-	bool worldDynamic;
+	bool worldDynamic, menutouch;
 	Point p;
+	ImageLoader* menuTemp;
+	ImageLoader* menuSelectTemp[4];
 
 	if(inputManager->isKeyDown(SDLK_ESCAPE)){
 		SDL_Event* event = new SDL_Event();
@@ -135,6 +137,7 @@ int LevelState::Update(){
 
 	time = SDL_GetTicks();
 	for(Uint32 i = 0; i < inputManager->click.size(); i++){
+		menutouch = false;
 //		if(inputManager->isTouched(inputManager->click[i].id)){
 //		drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
 //		drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
@@ -145,21 +148,35 @@ int LevelState::Update(){
 			SDL_PushEvent(event);
 			break;
 		} else {
-			if (menu != NULL) {
-				//CHECAR ISSO TODO
-				p.x = inputManager->touchPosX(inputManager->click[i].id);
-				p.y = inputManager->touchPosY(inputManager->click[i].id);
-				GOWorld* currentWorld;
-				//Getting world info
-				for(Uint32 j = 0 ; j < worlds.size(); j++){
-					if(worlds[j]->isInside(p)){
-						currentWorld = worlds[j];
-						worldTool = worlds[j]->GetCurrentTool();
-						break;
-					}
+//			//CHECAR ISSO TODO
+//			p.x = inputManager->touchPosX(inputManager->click[i].id);
+//			p.y = inputManager->touchPosY(inputManager->click[i].id);
+//			GOWorld* currentWorld;
+//			//Getting world info
+//			for(Uint32 j = 0 ; j < worlds.size(); j++){
+//				if(worlds[j]->isInside(p)){
+//					currentWorld = worlds[j];
+//					worldTool = worlds[j]->GetCurrentTool();
+//					break;
+//				}
+//			}
+
+			//CHECAR ISSO TODO
+			p.x = inputManager->click[i].x;//drawObjects[id].xMouse;
+			p.y = inputManager->click[i].y;//drawObjects[id].yMouse;
+			GOWorld* currentWorld;
+			//Getting world info
+			for(Uint32 j = 0 ; j < worlds.size(); j++){
+				if(worlds[j]->isInside(p)){
+					currentWorld = worlds[j];
+					worldTool = worlds[j]->GetCurrentTool();
+					break;
 				}
-				if (inputManager->isTouchInside(menu, inputManager->click[i].id)) {
-					rect = menu->GetRect();
+			}
+			for(Uint32 k = 0; k < menu.size(); k++){
+				if (inputManager->isTouchInside(menu[k], inputManager->click[i].id)) {
+					menutouch = true;
+					rect = menu[k]->GetRect();
 					if (inputManager->click[i].y < rect.y + 29){
 						currentWorld->SetDynamic(false);
 					} else if (inputManager->click[i].y < rect.y + 51){
@@ -223,67 +240,19 @@ int LevelState::Update(){
 						worldColor.a = 245;
 						currentWorld->SetWorldColor(worldColor);
 					}
-					menu->UpdatePos(20000, 20000);
+					menu[k]->UpdatePos(20000, 20000);
 					for (int g = 0; g < 4; g++){
-						if (menuSelect[g] != NULL){
-							menuSelect[g]->UpdatePos(20000, 20000);
+						if (menuSelect[g][k] != NULL){
+							menuSelect[g][k]->UpdatePos(20000, 20000);
 						}
 					}
 					drawObjects[inputManager->click[i].id].drawing = false;
 					inputManager->click[i].release = true;
 //					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
 //					drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
-				} else {
-					//Test overlap to erase objects
-					if(worldTool == erase){
-						Object* delObj;
-						delObj = engine->EraseObject(inputManager->click[i].x, inputManager->click[i].y);
-						if(delObj != NULL){
-							for(Uint32 j = 0; j < objects.size() ; j++){
-								if(objects.at(j)->GetBody() == (delObj->body)){
-									objects.erase(objects.begin()+j);
-									engine->DestroyObject(*delObj);
-									drawObjects[inputManager->click[i].id].drawing = false;
-									inputManager->click[i].release = true;
-//									drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-//									drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
-									break;
-								}
-							}
-						}
-//							drawObjects[inputManager->click[i].id].drawing = false;
-//							inputManager->click[i].release = true;
-					//Drawing or Mousejoint
-					} else {
-						engine->MouseDown(inputManager->click[i].x, inputManager->click[i].y, inputManager->click[i].id);
-						if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
-							drawObjects[inputManager->click[i].id].drawing = false;
-							inputManager->click[i].release = true;
-//							drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-//							drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
-						} //else {
-//						if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
-//							cout << "drawing vira true " << endl;
-//							drawObjects[inputManager->click[i].id].drawing = true;
-//								if(worldTool == freeform){
-//									ff_vx[inputManager->click[i].id].push_back(inputManager->click[i].x);
-//									ff_vy[inputManager->click[i].id].push_back(inputManager->click[i].y);
-//								}
-//								inputManager->xy.clear();
-//							}
-					}
 				}
-			} else {
-				//CHECAR ISSO TODO
-				p.x = drawObjects[id].xMouse;
-				p.y = drawObjects[id].yMouse;
-				//Getting world info
-				for(Uint32 j = 0 ; j < worlds.size(); j++){
-					if(worlds[j]->isInside(p)){
-						worldTool = worlds[j]->GetCurrentTool();
-						break;
-					}
-				}
+			}
+			if (!menutouch){
 				//Test overlap to erase objects
 				if(worldTool == erase){
 					Object* delObj;
@@ -295,56 +264,97 @@ int LevelState::Update(){
 								engine->DestroyObject(*delObj);
 								drawObjects[inputManager->click[i].id].drawing = false;
 								inputManager->click[i].release = true;
-//								drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-//								drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//									drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//									drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 								break;
 							}
 						}
 					}
-//						drawObjects[inputManager->click[i].id].drawing = false;
-//						inputManager->click[i].release = true;
+//							drawObjects[inputManager->click[i].id].drawing = false;
+//							inputManager->click[i].release = true;
 				//Drawing or Mousejoint
 				} else {
 					engine->MouseDown(inputManager->click[i].x, inputManager->click[i].y, inputManager->click[i].id);
 					if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
 						drawObjects[inputManager->click[i].id].drawing = false;
 						inputManager->click[i].release = true;
-//						drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-//						drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//							drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//							drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 					} //else {
-//					if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
-//						cout << "drawing vira true " << endl;
-//						drawObjects[inputManager->click[i].id].drawing = true;
-//							if(worldTool == freeform){
-//								ff_vx[inputManager->click[i].id].push_back(inputManager->click[i].x);
-//								ff_vy[inputManager->click[i].id].push_back(inputManager->click[i].y);
+//						if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
+//							cout << "drawing vira true " << endl;
+//							drawObjects[inputManager->click[i].id].drawing = true;
+//								if(worldTool == freeform){
+//									ff_vx[inputManager->click[i].id].push_back(inputManager->click[i].x);
+//									ff_vy[inputManager->click[i].id].push_back(inputManager->click[i].y);
+//								}
+//								inputManager->xy.clear();
 //							}
-//							inputManager->xy.clear();
-//						}
 				}
-			}
+//			}
+			}// else {
+//
+//				//Test overlap to erase objects
+//				if(worldTool == erase){
+//					Object* delObj;
+//					delObj = engine->EraseObject(inputManager->click[i].x, inputManager->click[i].y);
+//					if(delObj != NULL){
+//						for(Uint32 j = 0; j < objects.size() ; j++){
+//							if(objects.at(j)->GetBody() == (delObj->body)){
+//								objects.erase(objects.begin()+j);
+//								engine->DestroyObject(*delObj);
+//								drawObjects[inputManager->click[i].id].drawing = false;
+//								inputManager->click[i].release = true;
+////								drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+////								drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//								break;
+//							}
+//						}
+//					}
+////						drawObjects[inputManager->click[i].id].drawing = false;
+////						inputManager->click[i].release = true;
+//				//Drawing or Mousejoint
+//				} else {
+//					engine->MouseDown(inputManager->click[i].x, inputManager->click[i].y, inputManager->click[i].id);
+//					if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
+//						drawObjects[inputManager->click[i].id].drawing = false;
+//						inputManager->click[i].release = true;
+////						drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+////						drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//					} //else {
+////					if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
+////						cout << "drawing vira true " << endl;
+////						drawObjects[inputManager->click[i].id].drawing = true;
+////							if(worldTool == freeform){
+////								ff_vx[inputManager->click[i].id].push_back(inputManager->click[i].x);
+////								ff_vy[inputManager->click[i].id].push_back(inputManager->click[i].y);
+////							}
+////							inputManager->xy.clear();
+////						}
+//				}
+//			}
 		}
 //		} else {
-			//Mouse up to destroy joint
-			if(inputManager->click[i].updated){//inputManager->isTouchUp(inputManager->click[i].id)){
-				if(engine->mouseJoint[inputManager->click[i].id] != NULL){
-					engine->DestroyMouseJoint(inputManager->click[i].id);
-					inputManager->xy.clear();
-					drawObjects[inputManager->click[i].id].drawing = false;
-					inputManager->click[i].release = true;
-//					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-//					drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
-				}
-			//Update grabbed object with mouse position
-			} else if(engine->mouseJoint[inputManager->click[i].id] != NULL){
-//				b2Vec2 p(CONVERT(inputManager->touchPosX(inputManager->click[i].id)), CONVERT(inputManager->touchPosY(inputManager->click[i].id)));
-				b2Vec2 p(CONVERT(inputManager->click[i].x), CONVERT(inputManager->click[i].y));
-				engine->mouseJoint[inputManager->click[i].id]->SetTarget(p);
+		//Mouse up to destroy joint
+		if(inputManager->click[i].updated){//inputManager->isTouchUp(inputManager->click[i].id)){
+			if(engine->mouseJoint[inputManager->click[i].id] != NULL){
+				engine->DestroyMouseJoint(inputManager->click[i].id);
+				inputManager->xy.clear();
 				drawObjects[inputManager->click[i].id].drawing = false;
 				inputManager->click[i].release = true;
+//					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//					drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+			}
+		//Update grabbed object with mouse position
+		} else if(engine->mouseJoint[inputManager->click[i].id] != NULL){
+//				b2Vec2 p(CONVERT(inputManager->touchPosX(inputManager->click[i].id)), CONVERT(inputManager->touchPosY(inputManager->click[i].id)));
+			b2Vec2 p(CONVERT(inputManager->click[i].x), CONVERT(inputManager->click[i].y));
+			engine->mouseJoint[inputManager->click[i].id]->SetTarget(p);
+			drawObjects[inputManager->click[i].id].drawing = false;
+			inputManager->click[i].release = true;
 //				drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
 //				drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
-			}
+		}
 //		}
 		if ((time - inputManager->click[i].time) > TIMELIMIT) {
 			//CHECAR ISSO TODO
@@ -539,55 +549,62 @@ int LevelState::Update(){
 						break;
 					}
 				}
-				if (menu != NULL) {
-					delete menu;
+				if (menuTemp != NULL){
+//					delete menuTemp;
+					menuTemp = NULL;
 				}
-				menu = new ImageLoader("menutemp.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig);
-				rect = menu->GetRect();
+				menuTemp = new ImageLoader("menutemp.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig);
+				rect = menuTemp->GetRect();
 				if ((rect.x + rect.w) > WIDTH){
-					menu->UpdatePos(rect.x-rect.w, rect.y);
-					rect = menu->GetRect();
+					menuTemp->UpdatePos(rect.x-rect.w, rect.y);
+					rect = menuTemp->GetRect();
 				}
 				if ((rect.y + rect.h) > HEIGHT){
-					menu->UpdatePos(rect.x, rect.y-rect.h);
-					rect = menu->GetRect();
+					menuTemp->UpdatePos(rect.x, rect.y-rect.h);
+					rect = menuTemp->GetRect();
 				}
 				if (worldDynamic) {
-					menuSelect[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 29);
+					menuSelectTemp[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 29);
 				} else {
-					menuSelect[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 9);
+					menuSelectTemp[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 9);
 				}
 				if (worldTool == freeform){
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 51);
+					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 51);
 				} else if (worldTool == circle){
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 71);
+					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 71);
 				} else if (worldTool == rectangle){
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 89);
+					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 89);
 				} else if (worldTool == triangle){
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 110);
+					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 110);
 				} else {
-					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 127);
+					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 127);
 				}
 				if (!bgMusic->isPlaying()){
-					menuSelect[2] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 146);
+					menuSelectTemp[2] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 146);
 				} else {
-					if (menuSelect[2] != NULL){
-						delete menuSelect[2];
+					if (menuSelectTemp[2] != NULL){
+//						delete menuSelectTemp[2];
+						menuSelectTemp[2] = NULL;
 					}
 				}
 				if (worldColor.g == 15){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 166);
+					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 166);
 				} else if (worldColor.g == 39){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 183);
+					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 183);
 				} else if (worldColor.g == 255){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 200);
+					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 200);
 				} else if (worldColor.g == 34){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 217);
+					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 217);
 				} else if (worldColor.g == 236){
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 234);
+					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 234);
 				} else {
-					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 251);
+					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 251);
 				}
+				menu.push_back(menuTemp);
+				menuSelect[0].push_back(menuSelectTemp[0]);
+				menuSelect[1].push_back(menuSelectTemp[1]);
+				menuSelect[2].push_back(menuSelectTemp[2]);
+				menuSelect[3].push_back(menuSelectTemp[3]);
 				drawObjects[id].menu = false;
 			} else {
 				//Mouse up to destroy joint
@@ -735,12 +752,13 @@ void LevelState::Render(){
 		objects.at(i)->Render();
 	}
 	fechar->Render();
-	if (menu != NULL) {
-		menu->Render();
-	}
-	for (int i = 0; i < 4; i++) {
-		if (menuSelect[i] != NULL) {
-			menuSelect[i]->Render();
+	for(Uint32 k = 0; k < menu.size(); k++){
+		menu[k]->Render();
+		for (int i = 0; i < 4; i++) {
+			if (menuSelect[i][k] != NULL) {
+				menuSelect[i][k]->Render();
+			}
 		}
 	}
+
 }
