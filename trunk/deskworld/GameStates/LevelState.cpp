@@ -346,8 +346,10 @@ int LevelState::Update(){
 			drawObjects[inputManager->click[i].id].drawing = true;
 
 			if(worldTool == freeform){
-				ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
-				ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
+				if(ff_vx[inputManager->click[i].id].empty()){
+					ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
+					ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
+				}
 			}
 			inputManager->xy.clear();
 		}
@@ -485,7 +487,12 @@ int LevelState::Update(){
 			//Free form should have all the coordinates of a series of circles
 				if(inputManager->isTouching(id)){
 					if(id == 10000){
-						if((ff_vx[id].back() != drawObjects[id].xMouse) || (ff_vy[id].back() != drawObjects[id].yMouse)){
+						if(!(ff_vx[id].empty())){
+							if((ff_vx[id].back() != drawObjects[id].xMouse) || (ff_vy[id].back() != drawObjects[id].yMouse)){
+								ff_vx[id].push_back(drawObjects[id].xMouse);
+								ff_vy[id].push_back(drawObjects[id].yMouse);
+							}
+						}else{
 							ff_vx[id].push_back(drawObjects[id].xMouse);
 							ff_vy[id].push_back(drawObjects[id].yMouse);
 						}
@@ -505,7 +512,7 @@ int LevelState::Update(){
 				p.x = drawObjects[id].xOrig;
 				p.y = drawObjects[id].yOrig;
 				//Getting world info
-				for(int j = 0 ; j < worlds.size(); j++){
+				for(Uint32 j = 0 ; j < worlds.size(); j++){
 					if(worlds[j]->isInside(p)){
 						worldTool = worlds[j]->GetCurrentTool();
 						worldDynamic = worlds[j]->GetDynamic();
