@@ -87,18 +87,18 @@ void InputManager::pollEvents() {
 		} else {
 			if (click[i].release) {
 				cout << "release, pos: " << i << ", id: " << click[i].id << endl;
-//				touch[click[i].id].x = click[i].x;
-//				touch[click[i].id].y = click[i].y;
-//				touch[click[i].id].tocou = true;
-//				if (click[i].updated) {
-//					touch[click[i].id].remove = true;
-//					touch[click[i].id].destocou = true;
-//					touch[click[i].id].tocando = false;
-//				} else {
-//					touch[click[i].id].remove = false;
-//					touch[click[i].id].destocou = false;
-//					touch[click[i].id].tocando = true;
-//				}
+				touch[click[i].id].x = click[i].x;
+				touch[click[i].id].y = click[i].y;
+				touch[click[i].id].tocou = true;
+				if (click[i].updated) {
+					touch[click[i].id].remove = true;
+					touch[click[i].id].destocou = true;
+					touch[click[i].id].tocando = false;
+				} else {
+					touch[click[i].id].remove = false;
+					touch[click[i].id].destocou = false;
+					touch[click[i].id].tocando = true;
+				}
 				id[numIds] = click[i].id;
 				numIds++;
 				click.erase(click.begin() + i);
