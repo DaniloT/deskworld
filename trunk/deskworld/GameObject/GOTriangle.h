@@ -15,7 +15,7 @@ public:
 	GOTriangle(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic);
 	virtual ~GOTriangle();
 	// Updates triangle position.
-	float32 Update();
+	void Update();
 	// Render the triangle.
 	void Render();
 };

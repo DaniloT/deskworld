@@ -75,9 +75,7 @@ void GOWorld::Update(){
 			b2Vec2 gravbod;
 			gravbod.Set(gravity.x*objects->at(i)->GetBody()->GetMass(), gravity.y*objects->at(i)->GetBody()->GetMass());
 			objects->at(i)->GetBody()->ApplyForce(gravbod, objects->at(i)->GetBody()->GetWorldCenter());
-			if(objects->at(i)->Update() > 2000){
-				objects->erase(objects->begin()+i);
-			}
+			objects->at(i)->Update();
 		}
 	}
 }

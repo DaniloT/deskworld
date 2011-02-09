@@ -51,14 +51,13 @@ GOTriangle::~GOTriangle() {
 	engine->DestroyObject(this->object);
 }
 
-float32 GOTriangle::Update(){
+void GOTriangle::Update(){
 	if(dynamic){
 		for(Uint32 i = 0 ; i < vx.size() ; i++){
 			vx.at(i) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(i)).x)*PIXELS_PER_METRE);
 			vy.at(i) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(i)).y)*PIXELS_PER_METRE);
 		}
 	}
-	return object.body->GetPosition().y*PIXELS_PER_METRE;
 }
 
 void GOTriangle::Render(){

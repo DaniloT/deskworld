@@ -78,12 +78,12 @@ Object Engine::CreateTriangle(int posX, int posY, vector<int> vx, vector<int> vy
 	obj.body = world->CreateBody(&bodyDef);
 
 	//Getting relative position for Box2D
-	vertices[0].x = CONVERT(vx.at(0) - posX);
-	vertices[0].y = CONVERT(vy.at(0) - posY);
-	vertices[1].x = CONVERT(vx.at(1) - posX);
-	vertices[1].y = CONVERT(vy.at(1) - posY);
-	vertices[2].x = CONVERT(vx.at(2) - posX);
-	vertices[2].y = CONVERT(vy.at(2) - posY);
+	vertices[0].x = CONVERT(vx[0] - posX);
+	vertices[0].y = CONVERT(vy[0] - posY);
+	vertices[1].x = CONVERT(vx[1] - posX);
+	vertices[1].y = CONVERT(vy[1] - posY);
+	vertices[2].x = CONVERT(vx[2] - posX);
+	vertices[2].y = CONVERT(vy[2] - posY);
 
 	obj.shape.Set(vertices, 3);
 

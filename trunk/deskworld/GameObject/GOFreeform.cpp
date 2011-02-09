@@ -22,7 +22,7 @@ GOFreeform::~GOFreeform() {
 	engine->DestroyObject(this->object);
 }
 
-float32 GOFreeform::Update(){
+void GOFreeform::Update(){
 	if(dynamic){
 		b2Fixture* fixList = object.body->GetFixtureList();
 		b2CircleShape* shape;
@@ -33,8 +33,6 @@ float32 GOFreeform::Update(){
 			fixList = fixList->GetNext();
 		}
 	}
-	//Return value of y axis for deleting bodys out of screen
-	return object.body->GetPosition().y*PIXELS_PER_METRE;
 }
 
 

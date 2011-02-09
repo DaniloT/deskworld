@@ -16,7 +16,7 @@ public:
 	GOCircle(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic);
 	virtual ~GOCircle();
 	// Updates the objects.
-	float32 Update();
+	void Update();
 	// Render the object.
 	void Render();
 };
