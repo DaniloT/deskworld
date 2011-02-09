@@ -116,10 +116,10 @@ int LevelState::Update(){
 					p.y = drawObjects[id].yMouse;
 					GOWorld* currentWorld;
 					//Getting world info
-					for(int i = 0 ; i < worlds.size(); i++){
-						if(worlds[i]->isInside(p)){
-							currentWorld = worlds[i];
-							worldTool = worlds[i]->GetCurrentTool();
+					for(int j = 0 ; j < worlds.size(); j++){
+						if(worlds[j]->isInside(p)){
+							currentWorld = worlds[j];
+							worldTool = worlds[j]->GetCurrentTool();
 							break;
 						}
 					}
@@ -235,9 +235,9 @@ int LevelState::Update(){
 					p.x = drawObjects[id].xMouse;
 					p.y = drawObjects[id].yMouse;
 					//Getting world info
-					for(int i = 0 ; i < worlds.size(); i++){
-						if(worlds[i]->isInside(p)){
-							worldTool = worlds[i]->GetCurrentTool();
+					for(int j = 0 ; j < worlds.size(); j++){
+						if(worlds[j]->isInside(p)){
+							worldTool = worlds[j]->GetCurrentTool();
 							break;
 						}
 					}
@@ -298,16 +298,17 @@ int LevelState::Update(){
 			p.x = drawObjects[id].xMouse;
 			p.y = drawObjects[id].yMouse;
 			//Getting world info
-			for(int i = 0 ; i < worlds.size(); i++){
-				if(worlds[i]->isInside(p)){
-					worldTool = worlds[i]->GetCurrentTool();
+			for(int j = 0 ; j < worlds.size(); j++){
+				if(worlds[j]->isInside(p)){
+					worldTool = worlds[j]->GetCurrentTool();
 					break;
 				}
 			}
+
 			drawObjects[inputManager->click[i].id].menu = false;
 			inputManager->click[i].release = true;
-
 			drawObjects[inputManager->click[i].id].drawing = true;
+
 			if(worldTool == freeform){
 				ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
 				ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
@@ -342,14 +343,15 @@ int LevelState::Update(){
 		drawObjects[id].yMouse = inputManager->touchPosY(id);
 		cout << "levelstate tratando id " << id << ", drawing: " << drawObjects[id].drawing << ", menu: " << drawObjects[id].menu << endl;
 		if(drawObjects[id].drawing){
+			//TODO
 			p.x = drawObjects[id].xOrig;
 			p.y = drawObjects[id].yOrig;
 			//Getting world info
-			for(int i = 0 ; i < worlds.size(); i++){
-				if(worlds[i]->isInside(p)){
-					worldColor = worlds[i]->GetWorldColor();
-					worldTool = worlds[i]->GetCurrentTool();
-					worldDynamic = worlds[i]->GetDynamic();
+			for(int j = 0 ; j < worlds.size(); j++){
+				if(worlds[j]->isInside(p)){
+					worldColor = worlds[j]->GetWorldColor();
+					worldTool = worlds[j]->GetCurrentTool();
+					worldDynamic = worlds[j]->GetDynamic();
 					break;
 				}
 			}
@@ -467,11 +469,11 @@ int LevelState::Update(){
 				p.x = drawObjects[id].xOrig;
 				p.y = drawObjects[id].yOrig;
 				//Getting world info
-				for(int i = 0 ; i < worlds.size(); i++){
-					if(worlds[i]->isInside(p)){
-						worldTool = worlds[i]->GetCurrentTool();
-						worldDynamic = worlds[i]->GetDynamic();
-						worldColor = worlds[i]->GetWorldColor();
+				for(int j = 0 ; j < worlds.size(); j++){
+					if(worlds[j]->isInside(p)){
+						worldTool = worlds[j]->GetCurrentTool();
+						worldDynamic = worlds[j]->GetDynamic();
+						worldColor = worlds[j]->GetWorldColor();
 						break;
 					}
 				}
@@ -574,10 +576,10 @@ void LevelState::Render(SDL_Surface * screen){
 			p.x = drawObjects[id].xOrig;
 			p.y = drawObjects[id].yOrig;
 			//Getting world info
-			for(int i = 0 ; i < worlds.size(); i++){
-				if(worlds[i]->isInside(p)){
-					worldColor = worlds[i]->GetWorldColor();
-					worldTool = worlds[i]->GetCurrentTool();
+			for(int j = 0 ; j < worlds.size(); j++){
+				if(worlds[j]->isInside(p)){
+					worldColor = worlds[j]->GetWorldColor();
+					worldTool = worlds[j]->GetCurrentTool();
 					break;
 				}
 			}
