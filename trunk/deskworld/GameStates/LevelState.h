@@ -23,6 +23,7 @@
 #include "../GameObject/GORectangle.h"
 #include "../GameObject/GOCircle.h"
 #include "../GameObject/GOFreeform.h"
+#include "../GameObject/GOWorld.h"
 #include "../Graphics/Sprite.h"
 #include "../Graphics/Graphics.h"
 #include "../Sound/Audio.h"
@@ -40,6 +41,7 @@ class LevelState: public State {
 	vector<int> ff_vx[10001], ff_vy[10001]; // Coordinates of free form objects.
 	DrawObject drawObjects[10001];
 	vector<GameObject*> objects;
+	vector<GOWorld*> worlds;
 	InputManager* inputManager;
 	Graphics* graphics;
 	ImageLoader* background;

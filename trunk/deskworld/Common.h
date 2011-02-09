@@ -37,10 +37,10 @@ enum GO_types{
 	circle,
 	erase,
 	freeform,
-	worlds,
-	barrier,
-	joint,
-	motor
+	WORLD,
+	BARRIER,
+	JOINT,
+	MOTOR
 };
 
 typedef struct Point{
