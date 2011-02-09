@@ -228,11 +228,9 @@ int LevelState::Update(){
 						worldColor.a = 245;
 						currentWorld->SetWorldColor(worldColor);
 					}
-					menu[k]->UpdatePos(20000, 20000);
+					menu.erase(menu.begin()+k);
 					for (int g = 0; g < 4; g++){
-						if (menuSelect[g][k] != NULL){
-							menuSelect[g][k]->UpdatePos(20000, 20000);
-						}
+						menuSelect[g].erase(menuSelect[g].begin()+k);
 					}
 					drawObjects[inputManager->click[i].id].drawing = false;
 					inputManager->click[i].release = true;
