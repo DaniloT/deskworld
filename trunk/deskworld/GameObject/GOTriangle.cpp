@@ -33,8 +33,8 @@ GOTriangle::GOTriangle(vector<int> vx, vector<int> vy, RGBAColor color, bool dyn
 	}
 
 	//Position equals mass center for Box2d
-	posX = (vx.at(0) + vx.at(1) + vx.at(2))/3;
-	posY = (vy.at(0) + vy.at(1) + vx.at(2))/3;
+	posX = (vx[1]+((vx[2]-vx[1])/2));
+	posY = vy[1] + ((vy[0]-vy[1])/3);
 
 	object = engine->CreateTriangle(posX, posY, vx, vy, dynamic);
 
@@ -61,5 +61,5 @@ void GOTriangle::Update(){
 }
 
 void GOTriangle::Render(){
-	graphics->DrawPolygon( vx, vy, 3, color);
+	graphics->DrawTriangle(vx[0], vy[0], vx[1], vy[1], vx[2], vy[2], color);
 }
