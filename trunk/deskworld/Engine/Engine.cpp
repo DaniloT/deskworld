@@ -16,7 +16,7 @@ Engine::~Engine() {
 }
 
 void Engine::Initialize(){
-	gravity.Set(0.0, 9.8);
+	gravity.Set(0.0, 0.0);
 	doSleep = true;
 	world = new b2World(gravity, doSleep);
 	timestep.dt = 1.0/60.0;
@@ -222,7 +222,7 @@ Object Engine::CreateWorld(vector<Point> vertices){
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
 	b2Vec2* b2vertices = (b2Vec2*)malloc(sizeof(b2Vec2)*vertices.size());
-
+	bodyDef.active = false;
 	obj.body = world->CreateBody(&bodyDef);
 
 	fixtureDef.isSensor = true;
@@ -261,6 +261,8 @@ public:
 				return false;
 			}
 		}else{
+			if(fixture->IsSensor())
+				return true;
 			staticBody = body;
 			// We are done, terminate the query.
 			return false;
@@ -335,7 +337,7 @@ Object* Engine::EraseObject(int x, int y){
 	if (callback.m_fixture){
 		obj->body = callback.m_fixture->GetBody();
 		return obj;
-	}else if(callback.staticBody){
+	}else if((callback.staticBody)){
 		obj->body = callback.staticBody;
 		return obj;
 	}
