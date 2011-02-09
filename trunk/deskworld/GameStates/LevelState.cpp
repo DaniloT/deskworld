@@ -231,8 +231,8 @@ int LevelState::Update(){
 					}
 					drawObjects[inputManager->click[i].id].drawing = false;
 					inputManager->click[i].release = true;
-					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-					drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//					drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 				} else {
 					//Test overlap to erase objects
 					if(worldTool == erase){
@@ -245,8 +245,8 @@ int LevelState::Update(){
 									engine->DestroyObject(*delObj);
 									drawObjects[inputManager->click[i].id].drawing = false;
 									inputManager->click[i].release = true;
-									drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-									drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//									drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//									drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 									break;
 								}
 							}
@@ -259,8 +259,8 @@ int LevelState::Update(){
 						if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
 							drawObjects[inputManager->click[i].id].drawing = false;
 							inputManager->click[i].release = true;
-							drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-							drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//							drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//							drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 						} //else {
 //						if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
 //							cout << "drawing vira true " << endl;
@@ -295,8 +295,8 @@ int LevelState::Update(){
 								engine->DestroyObject(*delObj);
 								drawObjects[inputManager->click[i].id].drawing = false;
 								inputManager->click[i].release = true;
-								drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-								drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//								drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//								drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 								break;
 							}
 						}
@@ -309,8 +309,8 @@ int LevelState::Update(){
 					if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
 						drawObjects[inputManager->click[i].id].drawing = false;
 						inputManager->click[i].release = true;
-						drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-						drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//						drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//						drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 					} //else {
 //					if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
 //						cout << "drawing vira true " << endl;
@@ -332,8 +332,8 @@ int LevelState::Update(){
 					inputManager->xy.clear();
 					drawObjects[inputManager->click[i].id].drawing = false;
 					inputManager->click[i].release = true;
-					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-					drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//					drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 				}
 			//Update grabbed object with mouse position
 			} else if(engine->mouseJoint[inputManager->click[i].id] != NULL){
@@ -342,8 +342,8 @@ int LevelState::Update(){
 				engine->mouseJoint[inputManager->click[i].id]->SetTarget(p);
 				drawObjects[inputManager->click[i].id].drawing = false;
 				inputManager->click[i].release = true;
-				drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-				drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//				drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//				drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 			}
 //		}
 		if ((time - inputManager->click[i].time) > TIMELIMIT) {
@@ -361,8 +361,8 @@ int LevelState::Update(){
 			drawObjects[inputManager->click[i].id].menu = false;
 			inputManager->click[i].release = true;
 			drawObjects[inputManager->click[i].id].drawing = true;
-			drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-			drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+//			drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//			drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 
 			if(worldTool == freeform){
 				if(ff_vx[inputManager->click[i].id].empty()){
@@ -611,6 +611,12 @@ int LevelState::Update(){
 		}
 	}
 
+	for(Uint32 i = 0; i < inputManager->click.size(); i++){
+		if (inputManager->click[i].release) {
+			drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+			drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+		}
+	}
 	//Worlds update
 	for(Uint32 i = 0; i < worlds.size() ; i++){
 		worlds[i]->Update();
