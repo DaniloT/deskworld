@@ -202,9 +202,9 @@ int LevelState::Update(){
 							Object* delObj;
 							delObj = engine->EraseObject(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig);
 							if(delObj != NULL){
-								for(Uint32 i = 0; i < objects.size() ; i++){
-									if(objects.at(i)->GetBody() == (delObj->body)){
-										objects.erase(objects.begin()+i);
+								for(Uint32 j = 0; j < objects.size() ; j++){
+									if(objects.at(j)->GetBody() == (delObj->body)){
+										objects.erase(objects.begin()+j);
 										engine->DestroyObject(*delObj);
 										drawObjects[inputManager->click[i].id].drawing = false;
 										inputManager->click[i].release = true;
@@ -212,6 +212,8 @@ int LevelState::Update(){
 									}
 								}
 							}
+//							drawObjects[inputManager->click[i].id].drawing = false;
+//							inputManager->click[i].release = true;
 						//Drawing or Mousejoint
 						} else {
 							engine->MouseDown(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig, inputManager->click[i].id);
@@ -246,9 +248,9 @@ int LevelState::Update(){
 						Object* delObj;
 						delObj = engine->EraseObject(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig);
 						if(delObj != NULL){
-							for(Uint32 i = 0; i < objects.size() ; i++){
-								if(objects.at(i)->GetBody() == (delObj->body)){
-									objects.erase(objects.begin()+i);
+							for(Uint32 j = 0; j < objects.size() ; j++){
+								if(objects.at(j)->GetBody() == (delObj->body)){
+									objects.erase(objects.begin()+j);
 									engine->DestroyObject(*delObj);
 									drawObjects[inputManager->click[i].id].drawing = false;
 									inputManager->click[i].release = true;
@@ -256,6 +258,8 @@ int LevelState::Update(){
 								}
 							}
 						}
+//						drawObjects[inputManager->click[i].id].drawing = false;
+//						inputManager->click[i].release = true;
 					//Drawing or Mousejoint
 					} else {
 						engine->MouseDown(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig, inputManager->click[i].id);
