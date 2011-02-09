@@ -64,9 +64,6 @@ class LevelState: public State {
 	ImageLoader* menuSelect[4];
 	Audio* bgMusic;
 	Engine* engine;
-	uint8 currentTool;
-	RGBAColor toolColor;
-	bool dynamic;	//indicates if user is creating dynamic object
 	float32 thickness;
 public:
 	//Dummy destructor.

@@ -18,6 +18,7 @@ GOWorld::GOWorld(vector<Point> vertices) {
 	engine = engine->getInstance();
 	wObject = engine->CreateWorld(vertices);
 	fix = wObject.body->GetFixtureList();
+	dynamic = true;
 }
 
 GOWorld::~GOWorld() {
@@ -43,8 +44,24 @@ RGBAColor GOWorld::GetWorldColor(){
 	return toolColor;
 }
 
-void GOWorld::SetObjects(vector<GameObject*> objects){
-	this->objects = &objects;
+bool GOWorld::GetDynamic(){
+	return dynamic;
+}
+
+void GOWorld::SetCurrentTool(uint8 tool){
+	this->currentTool = tool;
+}
+
+void GOWorld::SetWorldColor(RGBAColor color){
+	this->toolColor = color;
+}
+
+void GOWorld::SetDynamic(bool d){
+	this->dynamic = d;
+}
+
+void GOWorld::SetObjects(vector<GameObject*>* objects){
+	this->objects = objects;
 }
 
 void GOWorld::SetGravity(b2Vec2 gravity){
@@ -55,7 +72,7 @@ void GOWorld::Update(){
 	//Objects update
 	for(Uint32 i = 0; i < objects->size() ; i++){
 		if(this->isInside(objects->at(i))){
-			objects->at(i)->GetBody()->ApplyForce(gravity, objects->at(i)->GetBody()->GetWorldCenter());
+			//objects->at(i)->GetBody()->ApplyForce(gravity, objects->at(i)->GetBody()->GetWorldCenter());
 			if(objects->at(i)->Update() > 2000){
 				objects->erase(objects->begin()+i);
 			}

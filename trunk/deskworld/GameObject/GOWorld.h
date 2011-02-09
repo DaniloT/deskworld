@@ -21,6 +21,8 @@ class GOWorld{
 	b2Vec2 gravity;
 	//Current tool of this world
 	uint8 currentTool;
+	//Dynamic objetcs tool
+	bool dynamic;
 	//Tool color of this world
 	RGBAColor toolColor;
 	//Array of objects in this world
@@ -38,7 +40,11 @@ public:
 	Object CreateObject(GameObject* object);
 	uint8 GetCurrentTool();
 	RGBAColor GetWorldColor();
-	void SetObjects(vector<GameObject*> objects);
+	bool GetDynamic();
+	void SetCurrentTool(uint8 tool);
+	void SetWorldColor(RGBAColor color);
+	void SetDynamic(bool d);
+	void SetObjects(vector<GameObject*>* objects);
 	void SetGravity(b2Vec2 gravity);
 	void Update();
 	void Resize(vector<Point> vertices);

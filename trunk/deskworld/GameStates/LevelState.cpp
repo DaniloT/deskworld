@@ -24,12 +24,6 @@ void LevelState::Load(){
 	fechar = new ImageLoader("Fechar.png",(background->GetRect().w-25),3);
 	bgMusic = new Audio("Wesnothmusic.ogg",1); //Background Music
 	bgMusic->Play(-1);
-	toolColor.r = 15;
-	toolColor.g = 15;
-	toolColor.b = 15;
-	toolColor.a = 245;
-	currentTool = freeform;
-	dynamic = false;
 	thickness = 8;
 	menu = NULL;
 	menuSelect[0] = NULL;
@@ -45,36 +39,43 @@ void LevelState::Load(){
 		drawObjects[i].yOrig = 0;
 	}
 	//World Cage
+	RGBAColor worldColor;
+	worldColor.r = 15;
+	worldColor.g = 15;
+	worldColor.b = 15;
+	worldColor.a = 245;
 	vector<int> vx, vy;
 	vx.push_back(0); vy.push_back(0);
 	vx.push_back(-2); vy.push_back(HEIGHT);
-	GORectangle* leftwall = new GORectangle(vx, vy, toolColor, false);
+	GORectangle* leftwall = new GORectangle(vx, vy, worldColor, false);
 	vx.clear(); vy.clear();
 	vx.push_back(0); vy.push_back(0);
 	vx.push_back(WIDTH); vy.push_back(-2);
-	GORectangle* topwall = new GORectangle(vx, vy, toolColor, false);
+	GORectangle* topwall = new GORectangle(vx, vy, worldColor, false);
 	vx.clear(); vy.clear();
 	vx.push_back(WIDTH); vy.push_back(0);
 	vx.push_back(WIDTH+2); vy.push_back(HEIGHT);
-	GORectangle* rightwall = new GORectangle(vx, vy, toolColor, false);
+	GORectangle* rightwall = new GORectangle(vx, vy, worldColor, false);
 	vx.clear(); vy.clear();
 	vx.push_back(0); vy.push_back(HEIGHT);
 	vx.push_back(WIDTH); vy.push_back(HEIGHT+2);
-	GORectangle* bottomwall = new GORectangle(vx, vy, toolColor, false);
+	GORectangle* bottomwall = new GORectangle(vx, vy, worldColor, false);
 	vx.clear(); vy.clear();
 
 	//Creating initial world of the size of screen
-//	point p;
-//	vector<Point> worldvertices;
-//	p.x = 0; p.y = 0;
-//	worldvertices.push_back(p);
-//	p.x = WIDTH; p.y = 0;
-//	worldvertices.push_back(p);
-//	p.x = WIDTH; p.y = HEIGHT;
-//	worldvertices.push_back(p);
-//	p.x = 0; p.y = HEIGHT;
-//	worldvertices.push_back(p);
-//	worlds = new GOWorld(worldvertices);
+	point p;
+	vector<Point> worldvertices;
+	p.x = 0; p.y = 0;
+	worldvertices.push_back(p);
+	p.x = WIDTH; p.y = 0;
+	worldvertices.push_back(p);
+	p.x = WIDTH; p.y = HEIGHT;
+	worldvertices.push_back(p);
+	p.x = 0; p.y = HEIGHT;
+	worldvertices.push_back(p);
+	GOWorld* w = new GOWorld(worldvertices);
+	w->SetObjects(&objects);
+	worlds.push_back(w);
 }
 
 void LevelState::Unload(){
@@ -86,6 +87,10 @@ void LevelState::Unload(){
 int LevelState::Update(){
 	int id, time;
 	SDL_Rect rect;
+	RGBAColor worldColor;
+	uint8 worldTool;
+	bool worldDynamic;
+	Point p;
 
 	if(inputManager->isKeyDown(SDLK_ESCAPE)){
 		SDL_Event* event = new SDL_Event();
@@ -106,22 +111,34 @@ int LevelState::Update(){
 				break;
 			} else {
 				if (menu != NULL) {
+					//CHECAR ISSO TODO
+					p.x = drawObjects[id].xMouse;
+					p.y = drawObjects[id].yMouse;
+					GOWorld* currentWorld;
+					//Getting world info
+					for(int i = 0 ; i < worlds.size(); i++){
+						if(worlds[i]->isInside(p)){
+							currentWorld = worlds[i];
+							worldTool = worlds[i]->GetCurrentTool();
+							break;
+						}
+					}
 					if (inputManager->isTouchInside(menu, inputManager->click[i].id)) {
 						rect = menu->GetRect();
 						if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 29){
-							dynamic = false;
+							currentWorld->SetDynamic(false);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 51){
-							dynamic = true;
+							currentWorld->SetDynamic(true);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 71){
-							currentTool = freeform;
+							currentWorld->SetCurrentTool(freeform);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 89){
-							currentTool = circle;
+							currentWorld->SetCurrentTool(circle);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 110){
-							currentTool = rectangle;
+							currentWorld->SetCurrentTool(rectangle);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 127){
-							currentTool = triangle;
+							currentWorld->SetCurrentTool(triangle);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 146){
-							currentTool = erase;
+							currentWorld->SetCurrentTool(erase);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 166){
 							if(bgMusic->isPlaying()){
 								bgMusic->Pause();
@@ -129,35 +146,47 @@ int LevelState::Update(){
 								bgMusic->Resume();
 							}
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 183){
-							toolColor.r = 15;
-							toolColor.g = 15;
-							toolColor.b = 15;
-							toolColor.a = 245;
+							RGBAColor worldColor;
+							worldColor.r = 15;
+							worldColor.g = 15;
+							worldColor.b = 15;
+							worldColor.a = 245;
+							currentWorld->SetWorldColor(worldColor);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 200){
-							toolColor.r = 235;
-							toolColor.g = 39;
-							toolColor.b = 37;
-							toolColor.a = 245;
+							RGBAColor worldColor;
+							worldColor.r = 235;
+							worldColor.g = 39;
+							worldColor.b = 37;
+							worldColor.a = 245;
+							currentWorld->SetWorldColor(worldColor);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 217){
-							toolColor.r = 34;
-							toolColor.g = 255;
-							toolColor.b = 34;
-							toolColor.a = 245;
+							RGBAColor worldColor;
+							worldColor.r = 34;
+							worldColor.g = 255;
+							worldColor.b = 34;
+							worldColor.a = 245;
+							currentWorld->SetWorldColor(worldColor);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 234){
-							toolColor.r = 34;
-							toolColor.g = 34;
-							toolColor.b = 255;
-							toolColor.a = 245;
+							RGBAColor worldColor;
+							worldColor.r = 34;
+							worldColor.g = 34;
+							worldColor.b = 255;
+							worldColor.a = 245;
+							currentWorld->SetWorldColor(worldColor);
 						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 251){
-							toolColor.r = 255;
-							toolColor.g = 236;
-							toolColor.b = 139;
-							toolColor.a = 245;
+							RGBAColor worldColor;
+							worldColor.r = 255;
+							worldColor.g = 236;
+							worldColor.b = 139;
+							worldColor.a = 245;
+							currentWorld->SetWorldColor(worldColor);
 						} else {
-							toolColor.r = 250;
-							toolColor.g = 240;
-							toolColor.b = 230;
-							toolColor.a = 245;
+							RGBAColor worldColor;
+							worldColor.r = 250;
+							worldColor.g = 240;
+							worldColor.b = 230;
+							worldColor.a = 245;
+							currentWorld->SetWorldColor(worldColor);
 						}
 						menu->UpdatePos(20000, 20000);
 						for (int g = 0; g < 4; g++){
@@ -169,7 +198,7 @@ int LevelState::Update(){
 						inputManager->click[i].release = true;
 					} else {
 						//Test overlap to erase objects
-						if(currentTool == erase){
+						if(worldTool == erase){
 							Object* delObj;
 							delObj = engine->EraseObject(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig);
 							if(delObj != NULL){
@@ -193,7 +222,7 @@ int LevelState::Update(){
 	//						if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
 	//							cout << "drawing vira true " << endl;
 	//							drawObjects[inputManager->click[i].id].drawing = true;
-//								if(currentTool == freeform){
+//								if(worldTool == freeform){
 //									ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
 //									ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
 //								}
@@ -202,8 +231,18 @@ int LevelState::Update(){
 						}
 					}
 				} else {
+					//CHECAR ISSO TODO
+					p.x = drawObjects[id].xMouse;
+					p.y = drawObjects[id].yMouse;
+					//Getting world info
+					for(int i = 0 ; i < worlds.size(); i++){
+						if(worlds[i]->isInside(p)){
+							worldTool = worlds[i]->GetCurrentTool();
+							break;
+						}
+					}
 					//Test overlap to erase objects
-					if(currentTool == erase){
+					if(worldTool == erase){
 						Object* delObj;
 						delObj = engine->EraseObject(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig);
 						if(delObj != NULL){
@@ -227,7 +266,7 @@ int LevelState::Update(){
 	//					if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
 	//						cout << "drawing vira true " << endl;
 	//						drawObjects[inputManager->click[i].id].drawing = true;
-//							if(currentTool == freeform){
+//							if(worldTool == freeform){
 //								ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
 //								ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
 //							}
@@ -255,11 +294,21 @@ int LevelState::Update(){
 			}
 //		}
 		if ((time - inputManager->click[i].time) > TIMELIMIT) {
+			//CHECAR ISSO TODO
+			p.x = drawObjects[id].xMouse;
+			p.y = drawObjects[id].yMouse;
+			//Getting world info
+			for(int i = 0 ; i < worlds.size(); i++){
+				if(worlds[i]->isInside(p)){
+					worldTool = worlds[i]->GetCurrentTool();
+					break;
+				}
+			}
 			drawObjects[inputManager->click[i].id].menu = false;
 			inputManager->click[i].release = true;
 
 			drawObjects[inputManager->click[i].id].drawing = true;
-			if(currentTool == freeform){
+			if(worldTool == freeform){
 				ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
 				ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
 			}
@@ -293,13 +342,24 @@ int LevelState::Update(){
 		drawObjects[id].yMouse = inputManager->touchPosY(id);
 		cout << "levelstate tratando id " << id << ", drawing: " << drawObjects[id].drawing << ", menu: " << drawObjects[id].menu << endl;
 		if(drawObjects[id].drawing){
+			p.x = drawObjects[id].xOrig;
+			p.y = drawObjects[id].yOrig;
+			//Getting world info
+			for(int i = 0 ; i < worlds.size(); i++){
+				if(worlds[i]->isInside(p)){
+					worldColor = worlds[i]->GetWorldColor();
+					worldTool = worlds[i]->GetCurrentTool();
+					worldDynamic = worlds[i]->GetDynamic();
+					break;
+				}
+			}
 			if(inputManager->isTouchUp(id)){
 				vector<int> vx, vy;
 				GOTriangle* t;
 				GORectangle* r;
 				GOFreeform* ff;
 				GOCircle* c;
-				switch(currentTool){
+				switch(worldTool){
 				case triangle:
 					// Mouse point above from origin
 					if(drawObjects[id].yMouse < drawObjects[id].yOrig){
@@ -341,7 +401,7 @@ int LevelState::Update(){
 							vy.push_back(drawObjects[id].yMouse);
 						}else{break;}
 					}else{break;}
-					t = new GOTriangle(vx, vy, toolColor, dynamic);
+					t = new GOTriangle(vx, vy, worldColor, worldDynamic);
 					objects.push_back(t);
 					break;
 				case rectangle:
@@ -349,7 +409,7 @@ int LevelState::Update(){
 					vy.push_back(drawObjects[id].yOrig);
 					vx.push_back(drawObjects[id].xMouse);
 					vy.push_back(drawObjects[id].yMouse);
-					r = new GORectangle(vx, vy, toolColor, dynamic);
+					r = new GORectangle(vx, vy, worldColor, worldDynamic);
 					objects.push_back(r);
 					break;
 				case circle:
@@ -357,7 +417,7 @@ int LevelState::Update(){
 					vy.push_back(drawObjects[id].yOrig);
 					vx.push_back(drawObjects[id].xMouse);
 					vy.push_back(drawObjects[id].yMouse);
-					c = new GOCircle(vx, vy, toolColor, dynamic);
+					c = new GOCircle(vx, vy, worldColor, worldDynamic);
 					objects.push_back(c);
 					break;
 				case freeform:
@@ -368,7 +428,7 @@ int LevelState::Update(){
 						cout << ff_vx[id].at(i) << ", ";
 					}
 					cout << endl;
-					ff = new GOFreeform(vx, vy, toolColor, dynamic, thickness);
+					ff = new GOFreeform(vx, vy, worldColor, worldDynamic, thickness);
 					ff_vx[id].clear();
 					ff_vy[id].clear();
 					inputManager->xy.clear();
@@ -383,7 +443,7 @@ int LevelState::Update(){
 				drawObjects[id].yMouse = 0;
 				drawObjects[id].yOrig = 0;
 
-			}else if(currentTool == freeform){
+			}else if(worldTool == freeform){
 			//Free form should have all the coordinates of a series of circles
 				if(inputManager->isTouching(id)){
 					if(id == 10000){
@@ -404,6 +464,17 @@ int LevelState::Update(){
 			}
 		}else{
 			if(drawObjects[id].menu){
+				p.x = drawObjects[id].xOrig;
+				p.y = drawObjects[id].yOrig;
+				//Getting world info
+				for(int i = 0 ; i < worlds.size(); i++){
+					if(worlds[i]->isInside(p)){
+						worldTool = worlds[i]->GetCurrentTool();
+						worldDynamic = worlds[i]->GetDynamic();
+						worldColor = worlds[i]->GetWorldColor();
+						break;
+					}
+				}
 				if (menu != NULL) {
 					delete menu;
 				}
@@ -417,18 +488,18 @@ int LevelState::Update(){
 					menu->UpdatePos(rect.x, rect.y-rect.h);
 					rect = menu->GetRect();
 				}
-				if (dynamic) {
+				if (worldDynamic) {
 					menuSelect[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 29);
 				} else {
 					menuSelect[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 9);
 				}
-				if (currentTool == freeform){
+				if (worldTool == freeform){
 					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 51);
-				} else if (currentTool == circle){
+				} else if (worldTool == circle){
 					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 71);
-				} else if (currentTool == rectangle){
+				} else if (worldTool == rectangle){
 					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 89);
-				} else if (currentTool == triangle){
+				} else if (worldTool == triangle){
 					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 110);
 				} else {
 					menuSelect[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 127);
@@ -440,15 +511,15 @@ int LevelState::Update(){
 						delete menuSelect[2];
 					}
 				}
-				if (toolColor.g == 15){
+				if (worldColor.g == 15){
 					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 166);
-				} else if (toolColor.g == 39){
+				} else if (worldColor.g == 39){
 					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 183);
-				} else if (toolColor.g == 255){
+				} else if (worldColor.g == 255){
 					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 200);
-				} else if (toolColor.g == 34){
+				} else if (worldColor.g == 34){
 					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 217);
-				} else if (toolColor.g == 236){
+				} else if (worldColor.g == 236){
 					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 234);
 				} else {
 					menuSelect[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 251);
@@ -476,11 +547,9 @@ int LevelState::Update(){
 		}
 	}
 
-	//Objects update
-	for(Uint32 i = 0; i < objects.size() ; i++){
-		if(objects.at(i)->Update() > 2000){
-			objects.erase(objects.begin()+i);
-		}
+	//Worlds update
+	for(Uint32 i = 0; i < worlds.size() ; i++){
+		worlds[i]->Update();
 	}
 	//World update
 	engine->Update();
@@ -489,6 +558,9 @@ int LevelState::Update(){
 
 void LevelState::Render(SDL_Surface * screen){
 	int id;
+	RGBAColor worldColor;
+	uint8 worldTool;
+	Point p;
 
 	background->Render(screen);
 
@@ -499,27 +571,38 @@ void LevelState::Render(SDL_Surface * screen){
 			drawObjects[id].xMouse = inputManager->touchPosX(id);
 			drawObjects[id].yMouse = inputManager->touchPosY(id);
 
+			p.x = drawObjects[id].xOrig;
+			p.y = drawObjects[id].yOrig;
+			//Getting world info
+			for(int i = 0 ; i < worlds.size(); i++){
+				if(worlds[i]->isInside(p)){
+					worldColor = worlds[i]->GetWorldColor();
+					worldTool = worlds[i]->GetCurrentTool();
+					break;
+				}
+			}
+
 			if(inputManager->isTouching(id)){
 				vector<int> vx, vy;
-				switch(currentTool){
+				switch(worldTool){
 				case triangle:
 					// Mouse point above from origin
 					if(drawObjects[id].yMouse < drawObjects[id].yOrig){
 						if(drawObjects[id].xMouse < drawObjects[id].xOrig){
 							// Mouse point at left from origin
-							graphics->DrawTriangle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, ((drawObjects[id].xOrig-drawObjects[id].xMouse)/2)+drawObjects[id].xMouse, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yOrig, toolColor);
+							graphics->DrawTriangle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, ((drawObjects[id].xOrig-drawObjects[id].xMouse)/2)+drawObjects[id].xMouse, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yOrig, worldColor);
 						}else if(drawObjects[id].xMouse > drawObjects[id].xOrig){
 							// Mouse point at right from origin
-							graphics->DrawTriangle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, ((drawObjects[id].xMouse-drawObjects[id].xOrig)/2)+drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yOrig, toolColor);
+							graphics->DrawTriangle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, ((drawObjects[id].xMouse-drawObjects[id].xOrig)/2)+drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yOrig, worldColor);
 						}
 					// Mouse point below from origin
 					}else if(drawObjects[id].yMouse > drawObjects[id].yOrig){
 						if(drawObjects[id].xMouse < drawObjects[id].xOrig){
 							// Mouse point at left from origin
-							graphics->DrawTriangle(screen, ((drawObjects[id].xOrig-drawObjects[id].xMouse)/2)+drawObjects[id].xMouse, drawObjects[id].yOrig, drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yMouse, toolColor);
+							graphics->DrawTriangle(screen, ((drawObjects[id].xOrig-drawObjects[id].xMouse)/2)+drawObjects[id].xMouse, drawObjects[id].yOrig, drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yMouse, worldColor);
 						}else if(drawObjects[id].xMouse > drawObjects[id].xOrig){
 							// Mouse point at right from origin
-							graphics->DrawTriangle(screen, ((drawObjects[id].xMouse-drawObjects[id].xOrig)/2)+drawObjects[id].xOrig, drawObjects[id].yOrig, drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yMouse, toolColor);
+							graphics->DrawTriangle(screen, ((drawObjects[id].xMouse-drawObjects[id].xOrig)/2)+drawObjects[id].xOrig, drawObjects[id].yOrig, drawObjects[id].xOrig, drawObjects[id].yMouse, drawObjects[id].xMouse, drawObjects[id].yMouse, worldColor);
 						}
 					}
 					break;
@@ -532,46 +615,46 @@ void LevelState::Render(SDL_Surface * screen){
 					vy.push_back(drawObjects[id].yMouse);
 					vx.push_back(drawObjects[id].xOrig);
 					vy.push_back(drawObjects[id].yMouse);
-					graphics->DrawRectangle(screen, vx, vy, toolColor);
+					graphics->DrawRectangle(screen, vx, vy, worldColor);
 					break;
 				case circle:
 					if(drawObjects[id].yMouse < drawObjects[id].yOrig){
 						if(drawObjects[id].xMouse < drawObjects[id].xOrig){
 							// Ponto do mouse a esquerda da origem
 							if((drawObjects[id].xOrig-drawObjects[id].xMouse)>(drawObjects[id].yOrig-drawObjects[id].yMouse)){
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xOrig-drawObjects[id].xMouse), toolColor);
+								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xOrig-drawObjects[id].xMouse), worldColor);
 							}else{
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yOrig-drawObjects[id].yMouse), toolColor);
+								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yOrig-drawObjects[id].yMouse), worldColor);
 							}
 						}else if(drawObjects[id].xMouse > drawObjects[id].xOrig){
 							// Ponto do mouse a direita da origem
 							if((drawObjects[id].xMouse-drawObjects[id].xOrig)>(drawObjects[id].yOrig-drawObjects[id].yMouse)){
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xMouse-drawObjects[id].xOrig), toolColor);
+								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xMouse-drawObjects[id].xOrig), worldColor);
 							}else{
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yOrig-drawObjects[id].yMouse), toolColor);
+								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yOrig-drawObjects[id].yMouse), worldColor);
 							}
 						}
 					}else if(drawObjects[id].yMouse > drawObjects[id].yOrig){
 						if(drawObjects[id].xMouse < drawObjects[id].xOrig){
 							// Ponto do mouse a esquerda da origem
 							if((drawObjects[id].xOrig-drawObjects[id].xMouse)>(drawObjects[id].yMouse-drawObjects[id].yOrig)){
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xOrig-drawObjects[id].xMouse), toolColor);
+								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xOrig-drawObjects[id].xMouse), worldColor);
 							}else{
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yMouse-drawObjects[id].yOrig), toolColor);
+								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yMouse-drawObjects[id].yOrig), worldColor);
 							}
 						}else if(drawObjects[id].xMouse > drawObjects[id].xOrig){
 							// Ponto do mouse a direita da origem
 							if((drawObjects[id].xMouse-drawObjects[id].xOrig)>(drawObjects[id].yMouse-drawObjects[id].yOrig)){
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xMouse-drawObjects[id].xOrig), toolColor);
+								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].xMouse-drawObjects[id].xOrig), worldColor);
 							}else{
-								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yMouse-drawObjects[id].yOrig), toolColor);
+								graphics->DrawCircle(screen, drawObjects[id].xOrig, drawObjects[id].yOrig, (drawObjects[id].yMouse-drawObjects[id].yOrig), worldColor);
 							}
 						}
 					}
 					break;
 				case freeform:
 						for(Uint32 i = 0 ; i < ff_vx[id].size() ; i++){
-							graphics->DrawCircle(screen, ff_vx[id].at(i), ff_vy[id].at(i), (int)thickness, toolColor);
+							graphics->DrawCircle(screen, ff_vx[id].at(i), ff_vy[id].at(i), (int)thickness, worldColor);
 						}
 					break;
 				}
