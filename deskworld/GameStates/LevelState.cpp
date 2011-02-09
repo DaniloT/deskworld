@@ -62,20 +62,52 @@ void LevelState::Load(){
 	GORectangle* bottomwall = new GORectangle(vx, vy, worldColor, false);
 	vx.clear(); vy.clear();
 
-	//Creating initial world of the size of screen
+//	//Creating initial world of the size of screen
+//	point p;
+//	vector<Point> worldvertices;
+//	p.x = 0; p.y = 0;
+//	worldvertices.push_back(p);
+//	p.x = WIDTH; p.y = 0;
+//	worldvertices.push_back(p);
+//	p.x = WIDTH; p.y = HEIGHT;
+//	worldvertices.push_back(p);
+//	p.x = 0; p.y = HEIGHT;
+//	worldvertices.push_back(p);
+//	GOWorld* w = new GOWorld(worldvertices);
+//	w->SetObjects(&objects);
+//	worlds.push_back(w);
+
 	point p;
+	b2Vec2 grav;
 	vector<Point> worldvertices;
 	p.x = 0; p.y = 0;
+	worldvertices.push_back(p);
+	p.x = WIDTH/2; p.y = 0;
+	worldvertices.push_back(p);
+	p.x = WIDTH/2; p.y = HEIGHT;
+	worldvertices.push_back(p);
+	p.x = 0; p.y = HEIGHT;
+	worldvertices.push_back(p);
+	GOWorld* w1 = new GOWorld(worldvertices);
+	w1->SetObjects(&objects);
+	grav.Set(-5.5, -9.8);
+	w1->SetGravity(grav);
+	worlds.push_back(w1);
+	worldvertices.clear();
+
+	p.x = WIDTH/2+1; p.y = 0;
 	worldvertices.push_back(p);
 	p.x = WIDTH; p.y = 0;
 	worldvertices.push_back(p);
 	p.x = WIDTH; p.y = HEIGHT;
 	worldvertices.push_back(p);
-	p.x = 0; p.y = HEIGHT;
+	p.x = WIDTH/2+1; p.y = HEIGHT;
 	worldvertices.push_back(p);
-	GOWorld* w = new GOWorld(worldvertices);
-	w->SetObjects(&objects);
-	worlds.push_back(w);
+	GOWorld* w2 = new GOWorld(worldvertices);
+	w2->SetObjects(&objects);
+	grav.Set(5.5, 9.8);
+	w2->SetGravity(grav);
+	worlds.push_back(w2);
 }
 
 void LevelState::Unload(){
@@ -112,11 +144,11 @@ int LevelState::Update(){
 			} else {
 				if (menu != NULL) {
 					//CHECAR ISSO TODO
-					p.x = drawObjects[id].xMouse;
-					p.y = drawObjects[id].yMouse;
+					p.x = inputManager->touchPosX(inputManager->click[i].id);
+					p.y = inputManager->touchPosY(inputManager->click[i].id);
 					GOWorld* currentWorld;
 					//Getting world info
-					for(int j = 0 ; j < worlds.size(); j++){
+					for(Uint32 j = 0 ; j < worlds.size(); j++){
 						if(worlds[j]->isInside(p)){
 							currentWorld = worlds[j];
 							worldTool = worlds[j]->GetCurrentTool();
@@ -578,9 +610,9 @@ void LevelState::Render(SDL_Surface * screen){
 			drawObjects[id].yMouse = inputManager->touchPosY(id);
 
 			p.x = drawObjects[id].xOrig;
-			p.y = drawObjects[id].yOrig;
+			p.y = drawObjects[id].xOrig;
 			//Getting world info
-			for(int j = 0 ; j < worlds.size(); j++){
+			for(Uint32 j = 0 ; j < worlds.size(); j++){
 				if(worlds[j]->isInside(p)){
 					worldColor = worlds[j]->GetWorldColor();
 					worldTool = worlds[j]->GetCurrentTool();

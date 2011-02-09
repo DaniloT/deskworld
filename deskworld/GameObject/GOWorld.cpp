@@ -72,7 +72,9 @@ void GOWorld::Update(){
 	//Objects update
 	for(Uint32 i = 0; i < objects->size() ; i++){
 		if(this->isInside(objects->at(i))){
-			//objects->at(i)->GetBody()->ApplyForce(gravity, objects->at(i)->GetBody()->GetWorldCenter());
+			b2Vec2 gravbod;
+			gravbod.Set(gravity.x*objects->at(i)->GetBody()->GetMass(), gravity.y*objects->at(i)->GetBody()->GetMass());
+			objects->at(i)->GetBody()->ApplyForce(gravbod, objects->at(i)->GetBody()->GetWorldCenter());
 			if(objects->at(i)->Update() > 2000){
 				objects->erase(objects->begin()+i);
 			}
