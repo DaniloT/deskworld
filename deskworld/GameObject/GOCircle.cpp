@@ -24,13 +24,11 @@ GOCircle::~GOCircle() {
 	engine->DestroyObject(this->object);
 }
 
-float32 GOCircle::Update(){
+void GOCircle::Update(){
 	if(dynamic){
 		vx.at(0) = (int)(object.body->GetPosition().x*PIXELS_PER_METRE);
 		vy.at(0) = (int)(object.body->GetPosition().y*PIXELS_PER_METRE);
 	}
-	//Return value of y axis for deleting bodys out of screen
-	return object.body->GetPosition().y*PIXELS_PER_METRE;
 }
 
 void GOCircle::Render(){

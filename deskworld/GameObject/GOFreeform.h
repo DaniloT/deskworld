@@ -16,7 +16,7 @@ public:
 	GOFreeform(vector<int> vx, vector<int> vy, RGBAColor color, bool dynamic, float32 thickness);
 	virtual ~GOFreeform();
 	// Updates the objects.
-	float32 Update();
+	void Update();
 	// Render the object.
 	void Render();
 };

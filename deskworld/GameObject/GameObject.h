@@ -34,7 +34,7 @@ public:
 		return object.body;
 	}
 	// Updates the objects.
-	virtual float32 Update() = 0;
+	virtual void Update() = 0;
 	// Render the object.
 	virtual void Render() = 0;
 };

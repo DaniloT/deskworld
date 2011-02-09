@@ -40,15 +40,13 @@ GORectangle::~GORectangle() {
 	engine->DestroyObject(this->object);
 }
 
-float32 GORectangle::Update(){
+void GORectangle::Update(){
 	if(dynamic){
 		for(Uint32 i = 0 ; i < vx.size() ; i++){
 			vx.at(i) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(i)).x)*PIXELS_PER_METRE);
 			vy.at(i) = (int)((object.body->GetWorldPoint(object.shape.GetVertex(i)).y)*PIXELS_PER_METRE);
 		}
 	}
-	//Return value of y axis for deleting bodys out of screen
-	return object.body->GetPosition().y*PIXELS_PER_METRE;
 }
 
 void GORectangle::Render(){

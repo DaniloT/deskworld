@@ -148,18 +148,6 @@ int LevelState::Update(){
 			SDL_PushEvent(event);
 			break;
 		} else {
-//			//CHECAR ISSO TODO
-//			p.x = inputManager->touchPosX(inputManager->click[i].id);
-//			p.y = inputManager->touchPosY(inputManager->click[i].id);
-//			GOWorld* currentWorld;
-//			//Getting world info
-//			for(Uint32 j = 0 ; j < worlds.size(); j++){
-//				if(worlds[j]->isInside(p)){
-//					currentWorld = worlds[j];
-//					worldTool = worlds[j]->GetCurrentTool();
-//					break;
-//				}
-//			}
 
 			//CHECAR ISSO TODO
 			p.x = inputManager->click[i].x;//drawObjects[id].xMouse;
@@ -358,8 +346,8 @@ int LevelState::Update(){
 //		}
 		if ((time - inputManager->click[i].time) > TIMELIMIT) {
 			//CHECAR ISSO TODO
-			p.x = drawObjects[id].xMouse;
-			p.y = drawObjects[id].yMouse;
+			p.x = drawObjects[inputManager->click[i].id].xMouse;
+			p.y = drawObjects[inputManager->click[i].id].yMouse;
 			//Getting world info
 			for(Uint32 j = 0 ; j < worlds.size(); j++){
 				if(worlds[j]->isInside(p)){
