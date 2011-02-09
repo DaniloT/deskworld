@@ -133,152 +133,108 @@ int LevelState::Update(){
 	time = SDL_GetTicks();
 	for(Uint32 i = 0; i < inputManager->click.size(); i++){
 //		if(inputManager->isTouched(inputManager->click[i].id)){
-			drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-			drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
-			//Test mouse or touch down
-			if (inputManager->isTouchInside(fechar, inputManager->click[i].id)){
-				SDL_Event* event = new SDL_Event();
-				event->type = SDL_QUIT;
-				SDL_PushEvent(event);
-				break;
-			} else {
-				if (menu != NULL) {
-					//CHECAR ISSO TODO
-					p.x = inputManager->touchPosX(inputManager->click[i].id);
-					p.y = inputManager->touchPosY(inputManager->click[i].id);
-					GOWorld* currentWorld;
-					//Getting world info
-					for(Uint32 j = 0 ; j < worlds.size(); j++){
-						if(worlds[j]->isInside(p)){
-							currentWorld = worlds[j];
-							worldTool = worlds[j]->GetCurrentTool();
-							break;
-						}
+//		drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+//		drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+		//Test mouse or touch down
+		if (inputManager->isTouchInside(fechar, inputManager->click[i].id)){
+			SDL_Event* event = new SDL_Event();
+			event->type = SDL_QUIT;
+			SDL_PushEvent(event);
+			break;
+		} else {
+			if (menu != NULL) {
+				//CHECAR ISSO TODO
+				p.x = inputManager->touchPosX(inputManager->click[i].id);
+				p.y = inputManager->touchPosY(inputManager->click[i].id);
+				GOWorld* currentWorld;
+				//Getting world info
+				for(Uint32 j = 0 ; j < worlds.size(); j++){
+					if(worlds[j]->isInside(p)){
+						currentWorld = worlds[j];
+						worldTool = worlds[j]->GetCurrentTool();
+						break;
 					}
-					if (inputManager->isTouchInside(menu, inputManager->click[i].id)) {
-						rect = menu->GetRect();
-						if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 29){
-							currentWorld->SetDynamic(false);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 51){
-							currentWorld->SetDynamic(true);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 71){
-							currentWorld->SetCurrentTool(freeform);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 89){
-							currentWorld->SetCurrentTool(circle);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 110){
-							currentWorld->SetCurrentTool(rectangle);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 127){
-							currentWorld->SetCurrentTool(triangle);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 146){
-							currentWorld->SetCurrentTool(erase);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 166){
-							if(bgMusic->isPlaying()){
-								bgMusic->Pause();
-							}else{
-								bgMusic->Resume();
-							}
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 183){
-							RGBAColor worldColor;
-							worldColor.r = 15;
-							worldColor.g = 15;
-							worldColor.b = 15;
-							worldColor.a = 245;
-							currentWorld->SetWorldColor(worldColor);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 200){
-							RGBAColor worldColor;
-							worldColor.r = 235;
-							worldColor.g = 39;
-							worldColor.b = 37;
-							worldColor.a = 245;
-							currentWorld->SetWorldColor(worldColor);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 217){
-							RGBAColor worldColor;
-							worldColor.r = 34;
-							worldColor.g = 255;
-							worldColor.b = 34;
-							worldColor.a = 245;
-							currentWorld->SetWorldColor(worldColor);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 234){
-							RGBAColor worldColor;
-							worldColor.r = 34;
-							worldColor.g = 34;
-							worldColor.b = 255;
-							worldColor.a = 245;
-							currentWorld->SetWorldColor(worldColor);
-						} else if (drawObjects[inputManager->click[i].id].yOrig < rect.y + 251){
-							RGBAColor worldColor;
-							worldColor.r = 255;
-							worldColor.g = 236;
-							worldColor.b = 139;
-							worldColor.a = 245;
-							currentWorld->SetWorldColor(worldColor);
-						} else {
-							RGBAColor worldColor;
-							worldColor.r = 250;
-							worldColor.g = 240;
-							worldColor.b = 230;
-							worldColor.a = 245;
-							currentWorld->SetWorldColor(worldColor);
+				}
+				if (inputManager->isTouchInside(menu, inputManager->click[i].id)) {
+					rect = menu->GetRect();
+					if (inputManager->click[i].y < rect.y + 29){
+						currentWorld->SetDynamic(false);
+					} else if (inputManager->click[i].y < rect.y + 51){
+						currentWorld->SetDynamic(true);
+					} else if (inputManager->click[i].y < rect.y + 71){
+						currentWorld->SetCurrentTool(freeform);
+					} else if (inputManager->click[i].y < rect.y + 89){
+						currentWorld->SetCurrentTool(circle);
+					} else if (inputManager->click[i].y < rect.y + 110){
+						currentWorld->SetCurrentTool(rectangle);
+					} else if (inputManager->click[i].y < rect.y + 127){
+						currentWorld->SetCurrentTool(triangle);
+					} else if (inputManager->click[i].y < rect.y + 146){
+						currentWorld->SetCurrentTool(erase);
+					} else if (inputManager->click[i].y < rect.y + 166){
+						if(bgMusic->isPlaying()){
+							bgMusic->Pause();
+						}else{
+							bgMusic->Resume();
 						}
-						menu->UpdatePos(20000, 20000);
-						for (int g = 0; g < 4; g++){
-							if (menuSelect[g] != NULL){
-								menuSelect[g]->UpdatePos(20000, 20000);
-							}
-						}
-						drawObjects[inputManager->click[i].id].drawing = false;
-						inputManager->click[i].release = true;
+					} else if (inputManager->click[i].y < rect.y + 183){
+						RGBAColor worldColor;
+						worldColor.r = 15;
+						worldColor.g = 15;
+						worldColor.b = 15;
+						worldColor.a = 245;
+						currentWorld->SetWorldColor(worldColor);
+					} else if (inputManager->click[i].y < rect.y + 200){
+						RGBAColor worldColor;
+						worldColor.r = 235;
+						worldColor.g = 39;
+						worldColor.b = 37;
+						worldColor.a = 245;
+						currentWorld->SetWorldColor(worldColor);
+					} else if (inputManager->click[i].y < rect.y + 217){
+						RGBAColor worldColor;
+						worldColor.r = 34;
+						worldColor.g = 255;
+						worldColor.b = 34;
+						worldColor.a = 245;
+						currentWorld->SetWorldColor(worldColor);
+					} else if (inputManager->click[i].y < rect.y + 234){
+						RGBAColor worldColor;
+						worldColor.r = 34;
+						worldColor.g = 34;
+						worldColor.b = 255;
+						worldColor.a = 245;
+						currentWorld->SetWorldColor(worldColor);
+					} else if (inputManager->click[i].y < rect.y + 251){
+						RGBAColor worldColor;
+						worldColor.r = 255;
+						worldColor.g = 236;
+						worldColor.b = 139;
+						worldColor.a = 245;
+						currentWorld->SetWorldColor(worldColor);
 					} else {
-						//Test overlap to erase objects
-						if(worldTool == erase){
-							Object* delObj;
-							delObj = engine->EraseObject(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig);
-							if(delObj != NULL){
-								for(Uint32 j = 0; j < objects.size() ; j++){
-									if(objects.at(j)->GetBody() == (delObj->body)){
-										objects.erase(objects.begin()+j);
-										engine->DestroyObject(*delObj);
-										drawObjects[inputManager->click[i].id].drawing = false;
-										inputManager->click[i].release = true;
-										break;
-									}
-								}
-							}
-//							drawObjects[inputManager->click[i].id].drawing = false;
-//							inputManager->click[i].release = true;
-						//Drawing or Mousejoint
-						} else {
-							engine->MouseDown(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig, inputManager->click[i].id);
-							if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
-								drawObjects[inputManager->click[i].id].drawing = false;
-								inputManager->click[i].release = true;
-							} //else {
-	//						if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
-	//							cout << "drawing vira true " << endl;
-	//							drawObjects[inputManager->click[i].id].drawing = true;
-//								if(worldTool == freeform){
-//									ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
-//									ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
-//								}
-//								inputManager->xy.clear();
-//							}
+						RGBAColor worldColor;
+						worldColor.r = 250;
+						worldColor.g = 240;
+						worldColor.b = 230;
+						worldColor.a = 245;
+						currentWorld->SetWorldColor(worldColor);
+					}
+					menu->UpdatePos(20000, 20000);
+					for (int g = 0; g < 4; g++){
+						if (menuSelect[g] != NULL){
+							menuSelect[g]->UpdatePos(20000, 20000);
 						}
 					}
+					drawObjects[inputManager->click[i].id].drawing = false;
+					inputManager->click[i].release = true;
+					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+					drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 				} else {
-					//CHECAR ISSO TODO
-					p.x = drawObjects[id].xMouse;
-					p.y = drawObjects[id].yMouse;
-					//Getting world info
-					for(int j = 0 ; j < worlds.size(); j++){
-						if(worlds[j]->isInside(p)){
-							worldTool = worlds[j]->GetCurrentTool();
-							break;
-						}
-					}
 					//Test overlap to erase objects
 					if(worldTool == erase){
 						Object* delObj;
-						delObj = engine->EraseObject(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig);
+						delObj = engine->EraseObject(inputManager->click[i].x, inputManager->click[i].y);
 						if(delObj != NULL){
 							for(Uint32 j = 0; j < objects.size() ; j++){
 								if(objects.at(j)->GetBody() == (delObj->body)){
@@ -286,31 +242,85 @@ int LevelState::Update(){
 									engine->DestroyObject(*delObj);
 									drawObjects[inputManager->click[i].id].drawing = false;
 									inputManager->click[i].release = true;
+									drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+									drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 									break;
 								}
 							}
 						}
-//						drawObjects[inputManager->click[i].id].drawing = false;
-//						inputManager->click[i].release = true;
+//							drawObjects[inputManager->click[i].id].drawing = false;
+//							inputManager->click[i].release = true;
 					//Drawing or Mousejoint
 					} else {
-						engine->MouseDown(drawObjects[inputManager->click[i].id].xOrig, drawObjects[inputManager->click[i].id].yOrig, inputManager->click[i].id);
+						engine->MouseDown(inputManager->click[i].x, inputManager->click[i].y, inputManager->click[i].id);
 						if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
 							drawObjects[inputManager->click[i].id].drawing = false;
 							inputManager->click[i].release = true;
+							drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+							drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 						} //else {
-	//					if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
-	//						cout << "drawing vira true " << endl;
-	//						drawObjects[inputManager->click[i].id].drawing = true;
+//						if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
+//							cout << "drawing vira true " << endl;
+//							drawObjects[inputManager->click[i].id].drawing = true;
+//								if(worldTool == freeform){
+//									ff_vx[inputManager->click[i].id].push_back(inputManager->click[i].x);
+//									ff_vy[inputManager->click[i].id].push_back(inputManager->click[i].y);
+//								}
+//								inputManager->xy.clear();
+//							}
+					}
+				}
+			} else {
+				//CHECAR ISSO TODO
+				p.x = drawObjects[id].xMouse;
+				p.y = drawObjects[id].yMouse;
+				//Getting world info
+				for(int j = 0 ; j < worlds.size(); j++){
+					if(worlds[j]->isInside(p)){
+						worldTool = worlds[j]->GetCurrentTool();
+						break;
+					}
+				}
+				//Test overlap to erase objects
+				if(worldTool == erase){
+					Object* delObj;
+					delObj = engine->EraseObject(inputManager->click[i].x, inputManager->click[i].y);
+					if(delObj != NULL){
+						for(Uint32 j = 0; j < objects.size() ; j++){
+							if(objects.at(j)->GetBody() == (delObj->body)){
+								objects.erase(objects.begin()+j);
+								engine->DestroyObject(*delObj);
+								drawObjects[inputManager->click[i].id].drawing = false;
+								inputManager->click[i].release = true;
+								drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+								drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+								break;
+							}
+						}
+					}
+//						drawObjects[inputManager->click[i].id].drawing = false;
+//						inputManager->click[i].release = true;
+				//Drawing or Mousejoint
+				} else {
+					engine->MouseDown(inputManager->click[i].x, inputManager->click[i].y, inputManager->click[i].id);
+					if (engine->mouseJoint[inputManager->click[i].id] != NULL) {
+						drawObjects[inputManager->click[i].id].drawing = false;
+						inputManager->click[i].release = true;
+						drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+						drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+					} //else {
+//					if (engine->mouseJoint[inputManager->click[i].id] == NULL) {
+//						cout << "drawing vira true " << endl;
+//						drawObjects[inputManager->click[i].id].drawing = true;
 //							if(worldTool == freeform){
-//								ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
-//								ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
+//								ff_vx[inputManager->click[i].id].push_back(inputManager->click[i].x);
+//								ff_vy[inputManager->click[i].id].push_back(inputManager->click[i].y);
 //							}
 //							inputManager->xy.clear();
 //						}
-					}
 				}
 			}
+		}
 //		} else {
 			//Mouse up to destroy joint
 			if(inputManager->click[i].updated){//inputManager->isTouchUp(inputManager->click[i].id)){
@@ -319,6 +329,8 @@ int LevelState::Update(){
 					inputManager->xy.clear();
 					drawObjects[inputManager->click[i].id].drawing = false;
 					inputManager->click[i].release = true;
+					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+					drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 				}
 			//Update grabbed object with mouse position
 			} else if(engine->mouseJoint[inputManager->click[i].id] != NULL){
@@ -327,6 +339,8 @@ int LevelState::Update(){
 				engine->mouseJoint[inputManager->click[i].id]->SetTarget(p);
 				drawObjects[inputManager->click[i].id].drawing = false;
 				inputManager->click[i].release = true;
+				drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+				drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 			}
 //		}
 		if ((time - inputManager->click[i].time) > TIMELIMIT) {
@@ -344,11 +358,13 @@ int LevelState::Update(){
 			drawObjects[inputManager->click[i].id].menu = false;
 			inputManager->click[i].release = true;
 			drawObjects[inputManager->click[i].id].drawing = true;
+			drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+			drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
 
 			if(worldTool == freeform){
 				if(ff_vx[inputManager->click[i].id].empty()){
-					ff_vx[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].xOrig);
-					ff_vy[inputManager->click[i].id].push_back(drawObjects[inputManager->click[i].id].yOrig);
+					ff_vx[inputManager->click[i].id].push_back(inputManager->click[i].x);
+					ff_vy[inputManager->click[i].id].push_back(inputManager->click[i].y);
 				}
 			}
 			inputManager->xy.clear();
