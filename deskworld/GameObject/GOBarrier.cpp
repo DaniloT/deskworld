@@ -17,7 +17,7 @@ GOBarrier::GOBarrier(vector<Point> vertices) {
 	  b2Fixture *fixA, *fixB;
 	  fixA = c->GetFixtureA();
 	  fixB = c->GetFixtureB();
-	  if(((int)(fixA->GetUserData()) == barrier)&&((int)(fixB->GetUserData()) == barrier)){
+	  if(((int)(fixA->GetUserData()) == BARRIER)&&((int)(fixB->GetUserData()) == BARRIER)){
 		  b2PolygonShape* shapeA = (b2PolygonShape*)fixA->GetShape();
 		  b2PolygonShape* shapeB = (b2PolygonShape*)fixB->GetShape();
 		  b2Vec2 vA0 = shapeA->GetVertex(0), vA1 = shapeA->GetVertex(1);

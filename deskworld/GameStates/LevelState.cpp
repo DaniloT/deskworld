@@ -30,7 +30,7 @@ void LevelState::Load(){
 	toolColor.a = 245;
 	currentTool = freeform;
 	dynamic = false;
-	thickness = 5;
+	thickness = 8;
 	menu = NULL;
 	menuSelect[0] = NULL;
 	menuSelect[1] = NULL;
@@ -44,6 +44,37 @@ void LevelState::Load(){
 		drawObjects[i].yMouse = 0;
 		drawObjects[i].yOrig = 0;
 	}
+	//World Cage
+	vector<int> vx, vy;
+	vx.push_back(0); vy.push_back(0);
+	vx.push_back(-2); vy.push_back(HEIGHT);
+	GORectangle* leftwall = new GORectangle(vx, vy, toolColor, false);
+	vx.clear(); vy.clear();
+	vx.push_back(0); vy.push_back(0);
+	vx.push_back(WIDTH); vy.push_back(-2);
+	GORectangle* topwall = new GORectangle(vx, vy, toolColor, false);
+	vx.clear(); vy.clear();
+	vx.push_back(WIDTH); vy.push_back(0);
+	vx.push_back(WIDTH+2); vy.push_back(HEIGHT);
+	GORectangle* rightwall = new GORectangle(vx, vy, toolColor, false);
+	vx.clear(); vy.clear();
+	vx.push_back(0); vy.push_back(HEIGHT);
+	vx.push_back(WIDTH); vy.push_back(HEIGHT+2);
+	GORectangle* bottomwall = new GORectangle(vx, vy, toolColor, false);
+	vx.clear(); vy.clear();
+
+	//Creating initial world of the size of screen
+//	point p;
+//	vector<Point> worldvertices;
+//	p.x = 0; p.y = 0;
+//	worldvertices.push_back(p);
+//	p.x = WIDTH; p.y = 0;
+//	worldvertices.push_back(p);
+//	p.x = WIDTH; p.y = HEIGHT;
+//	worldvertices.push_back(p);
+//	p.x = 0; p.y = HEIGHT;
+//	worldvertices.push_back(p);
+//	worlds = new GOWorld(worldvertices);
 }
 
 void LevelState::Unload(){
