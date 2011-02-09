@@ -33,6 +33,6 @@ float32 GOCircle::Update(){
 	return object.body->GetPosition().y*PIXELS_PER_METRE;
 }
 
-void GOCircle::Render(SDL_Surface* screen){
-	graphics->DrawCircle(screen, (int)vx.at(0), (int)vy.at(0), (int)radius, color);
+void GOCircle::Render(){
+	graphics->DrawCircle( (int)vx.at(0), (int)vy.at(0), (int)radius, color);
 }

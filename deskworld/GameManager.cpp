@@ -22,15 +22,16 @@ GameManager::GameManager() {
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT,1,4096);
 
     SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-
+    SDL_Surface* screen;
 	if((screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_OPENGL | SDL_HWSURFACE)) == NULL){
 		printf("Couldn't set video mode! Quitting...");
 		SDL_Quit();
 		return;
 	}
-
 	// Graphics initialization
 	graphics = graphics->getInstance();
+
+	SDL_FreeSurface(screen);
 
 	/* FPSManager initialization */
 	manex = (FPSmanager*)malloc(sizeof(FPSmanager));
@@ -46,7 +47,7 @@ GameManager::GameManager() {
 GameManager::~GameManager() {
 	delete currentState;
 	delete inputManager;
-	SDL_FreeSurface(screen);
+//	SDL_FreeSurface(screen);
 	Mix_CloseAudio();
 }
 
@@ -59,7 +60,7 @@ void GameManager::run(){
 		//Update
 		currentState->Update();
 		/* Render */
-		currentState->Render(screen);
+		currentState->Render();
 		//motion blur
 //		glAccum(GL_MULT, 0.50);
 //		glAccum(GL_ACCUM, 1-0.50);

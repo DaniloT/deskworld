@@ -61,6 +61,6 @@ float32 GOTriangle::Update(){
 	return object.body->GetPosition().y*PIXELS_PER_METRE;
 }
 
-void GOTriangle::Render(SDL_Surface* screen){
-	graphics->DrawPolygon(screen, vx, vy, 3, color);
+void GOTriangle::Render(){
+	graphics->DrawPolygon( vx, vy, 3, color);
 }

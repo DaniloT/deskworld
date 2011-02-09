@@ -36,7 +36,7 @@ public:
 	// Updates the objects.
 	virtual float32 Update() = 0;
 	// Render the object.
-	virtual void Render(SDL_Surface* screen) = 0;
+	virtual void Render() = 0;
 };
 
 #endif /* GAMEOBJECT_H_ */

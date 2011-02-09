@@ -73,7 +73,7 @@ ImageLoader::~ImageLoader() {
 	glDeleteTextures(1,&texture);
 }
 
-void ImageLoader::Render(SDL_Surface* screen){
+void ImageLoader::Render(){
 
 	glBindTexture( GL_TEXTURE_2D, texture );
 	glEnable( GL_TEXTURE_2D );

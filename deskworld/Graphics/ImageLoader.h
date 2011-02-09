@@ -26,7 +26,7 @@ public:
 	int x,y;
 	ImageLoader(string fileName, int x, int y);
 	virtual ~ImageLoader();
-	void Render(SDL_Surface *screen);
+	void Render();
 	// Moves the sprites position on screen.
 	void UpdatePos(int x, int y);
 	// Returns the sprites rectangle

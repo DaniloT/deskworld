@@ -17,7 +17,7 @@ public:
 	// Updates triangle position.
 	float32 Update();
 	// Render the triangle.
-	void Render(SDL_Surface* screen);
+	void Render();
 };
 
 #endif /* TRIANGLE_H_ */

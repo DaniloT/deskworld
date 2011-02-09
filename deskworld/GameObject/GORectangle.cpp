@@ -51,6 +51,6 @@ float32 GORectangle::Update(){
 	return object.body->GetPosition().y*PIXELS_PER_METRE;
 }
 
-void GORectangle::Render(SDL_Surface* screen){
-	graphics->DrawRectangle(screen, vx, vy, color);
+void GORectangle::Render(){
+	graphics->DrawRectangle(vx, vy, color);
 }
