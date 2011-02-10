@@ -30,6 +30,7 @@ InputManager::InputManager() {
 	tuio_client->connect();
 
 	click.clear();
+	clickObj.clear();
 
 	for (int i = 0; i < 10001; i++) {
 		touch[i].destocou = false;
@@ -111,6 +112,11 @@ void InputManager::pollEvents() {
 			}
 		}
 	}
+	for(Uint32 i = 0; i < clickObj.size(); i++){
+		if ((clickObj[i].remove) || ((clickObj[i].time-time) > TIMELIMIT)) {
+			clickObj.erase(clickObj.begin() + i);
+		}
+	}
 	while(SDL_PollEvent(&event)){
 		if(event.type == SDL_KEYDOWN) {
 			keyDownState[event.key.keysym.sym] = 1;
@@ -126,10 +132,10 @@ void InputManager::pollEvents() {
 			clickTemp.release = false;
 			clickTemp.time = SDL_GetTicks();
 			click.push_back(clickTemp);
-//			touch[event.user.code].tocou = true;
-//			touch[event.user.code].tocando = true;
-//			touch[event.user.code].x = data->x;
-//			touch[event.user.code].y = data->y;
+			touch[event.user.code].tocou = true;
+			touch[event.user.code].tocando = true;
+			touch[event.user.code].x = data->x;
+			touch[event.user.code].y = data->y;
 		}else if(event.type == CURSOR_REMOVEEVENT){
 			for(Uint32 i = 0; i < click.size(); i++){
 				if ((click[i].id == event.user.code) && (!click[i].updated)) {
