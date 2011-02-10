@@ -167,7 +167,6 @@ Object Engine::CreatePolygon(Point p, vector<int> vx, vector<int> vy, bool dynam
 
 	if(dynamic)
 		bodyDef.type = b2_dynamicBody;
-
 	bodyDef.position.Set(CONVERT(p.x), CONVERT(p.y));
 	obj.body = world->CreateBody(&bodyDef);
 	int32 vcount = (int32) vx.size();
@@ -176,6 +175,8 @@ Object Engine::CreatePolygon(Point p, vector<int> vx, vector<int> vy, bool dynam
 		fixtureDef.density = 1;
 		fixtureDef.friction = 0.3;
 		fixtureDef.restitution = 0.2;
+		int s = 33;
+		fixtureDef.userData = &s;
 
 		for(Uint32 i = 0 ; i < vx.size() ; i++){
 			vertices[i].x = CONVERT(vx.at(i));

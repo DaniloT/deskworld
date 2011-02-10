@@ -74,8 +74,28 @@ void GOWorld::SetGravity(b2Vec2 gravity){
 
 void GOWorld::Update(){
 	//Objects update
-	int WTF = objects->size();
 	for(Uint32 i = 0; i < objects->size() ; i++){
+//		if(objects->at(i)->object.body->GetUserData() != NULL){
+//			int* poly = (int*)objects->at(i)->object.body->GetUserData();
+//			if(*poly != 33){
+//				if(this->isInside(objects->at(i))){
+//					b2Vec2 gravbod;
+//					gravbod.Set(gravity.x*objects->at(i)->GetBody()->GetMass(), gravity.y*objects->at(i)->GetBody()->GetMass());
+//					objects->at(i)->GetBody()->ApplyForce(gravbod, objects->at(i)->GetBody()->GetWorldCenter());
+//					objects->at(i)->Update();
+//				}
+//			}else{
+//				Point p;
+//				p.x = (int)(objects->at(i)->object.shape.GetVertex(0).x*PIXELS_PER_METRE);
+//				p.y = (int)(objects->at(i)->object.shape.GetVertex(0).y*PIXELS_PER_METRE);
+//				if(this->isInside(p)){
+//					b2Vec2 gravbod;
+//					gravbod.Set(gravity.x*objects->at(i)->GetBody()->GetMass(), gravity.y*objects->at(i)->GetBody()->GetMass());
+//					objects->at(i)->GetBody()->ApplyForce(gravbod, objects->at(i)->GetBody()->GetWorldCenter());
+//					objects->at(i)->Update();
+//				}
+//			}
+//		}
 		if(this->isInside(objects->at(i))){
 			b2Vec2 gravbod;
 			gravbod.Set(gravity.x*objects->at(i)->GetBody()->GetMass(), gravity.y*objects->at(i)->GetBody()->GetMass());
