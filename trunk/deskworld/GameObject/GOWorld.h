@@ -12,6 +12,8 @@
 #include "GameObject.h"
 #include "../Engine/Engine.h"
 
+#include <string>
+
 class GOWorld{
 	//World Object
 	Object wObject;

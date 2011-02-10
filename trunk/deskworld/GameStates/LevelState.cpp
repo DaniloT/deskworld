@@ -185,6 +185,7 @@ int LevelState::Update(){
 							menuSlider[1].erase(menuSlider[1].begin()+k);
 							menuSlider[2].erase(menuSlider[2].begin()+k);
 							menuSlider[3].erase(menuSlider[3].begin()+k);
+							menuP.erase(menuP.begin()+k);
 						}
 					} else if (inputManager->click[i].y < rect.y + 42){
 						currentWorld->SetDynamic(false);
@@ -196,12 +197,18 @@ int LevelState::Update(){
 						menuSlider[1].erase(menuSlider[1].begin()+k);
 						menuSlider[2].erase(menuSlider[2].begin()+k);
 						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 62){
 						currentWorld->SetDynamic(true);
 						menu.erase(menu.begin()+k);
 						for (int g = 0; g < 3; g++){
 							menuSelect[g].erase(menuSelect[g].begin()+k);
 						}
+						menuSlider[0].erase(menuSlider[0].begin()+k);
+						menuSlider[1].erase(menuSlider[1].begin()+k);
+						menuSlider[2].erase(menuSlider[2].begin()+k);
+						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 82){
 						currentWorld->SetCurrentTool(freeform);
 						menu.erase(menu.begin()+k);
@@ -212,6 +219,7 @@ int LevelState::Update(){
 						menuSlider[1].erase(menuSlider[1].begin()+k);
 						menuSlider[2].erase(menuSlider[2].begin()+k);
 						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 102){
 						currentWorld->SetCurrentTool(circle);
 						menu.erase(menu.begin()+k);
@@ -222,6 +230,7 @@ int LevelState::Update(){
 						menuSlider[1].erase(menuSlider[1].begin()+k);
 						menuSlider[2].erase(menuSlider[2].begin()+k);
 						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 122){
 						currentWorld->SetCurrentTool(rectangle);
 						menu.erase(menu.begin()+k);
@@ -232,6 +241,7 @@ int LevelState::Update(){
 						menuSlider[1].erase(menuSlider[1].begin()+k);
 						menuSlider[2].erase(menuSlider[2].begin()+k);
 						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 142){
 						currentWorld->SetCurrentTool(triangle);
 						menu.erase(menu.begin()+k);
@@ -242,6 +252,7 @@ int LevelState::Update(){
 						menuSlider[1].erase(menuSlider[1].begin()+k);
 						menuSlider[2].erase(menuSlider[2].begin()+k);
 						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 162){
 						if(bgMusic->isPlaying()){
 							bgMusic->Pause();
@@ -256,6 +267,7 @@ int LevelState::Update(){
 						menuSlider[1].erase(menuSlider[1].begin()+k);
 						menuSlider[2].erase(menuSlider[2].begin()+k);
 						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 182){
 						currentWorld->SetCurrentTool(BARRIER);
 						menu.erase(menu.begin()+k);
@@ -266,6 +278,7 @@ int LevelState::Update(){
 						menuSlider[1].erase(menuSlider[1].begin()+k);
 						menuSlider[2].erase(menuSlider[2].begin()+k);
 						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 202){
 						currentWorld->SetCurrentTool(erase);
 						menu.erase(menu.begin()+k);
@@ -276,8 +289,10 @@ int LevelState::Update(){
 						menuSlider[1].erase(menuSlider[1].begin()+k);
 						menuSlider[2].erase(menuSlider[2].begin()+k);
 						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 222){
 						// gravity
+
 					} //else if ((inputManager->click[i].y < rect.y + 318) &&
 //							(inputManager->click[i].y > rect.y + 306) &&
 //							(inputManager->click[i].x < rect.x + 46) &&
