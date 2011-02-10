@@ -41,6 +41,7 @@ public:
 	uint8 GetCurrentTool();
 	RGBAColor GetWorldColor();
 	bool GetDynamic();
+	vector<Point> GetVertices();
 	void SetCurrentTool(uint8 tool);
 	void SetWorldColor(RGBAColor color);
 	void SetDynamic(bool d);

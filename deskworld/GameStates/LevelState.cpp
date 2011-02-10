@@ -24,7 +24,7 @@ void LevelState::Load(){
 	fechar = new ImageLoader("Fechar.png",(background->GetRect().w-25),3);
 	bgMusic = new Audio("Wesnothmusic.ogg",1); //Background Music
 	bgMusic->Play(-1);
-	thickness = 8;
+	thickness = 10;
 	menu.clear();
 	menuSelect[0].clear();
 	menuSelect[1].clear();
@@ -62,55 +62,55 @@ void LevelState::Load(){
 	GORectangle* bottomwall = new GORectangle(vx, vy, worldColor, false);
 	vx.clear(); vy.clear();
 
-//	//Creating initial world of the size of screen
-//	point p;
-//	vector<Point> worldvertices;
-//	p.x = 0; p.y = 0;
-//	worldvertices.push_back(p);
-//	p.x = WIDTH; p.y = 0;
-//	worldvertices.push_back(p);
-//	p.x = WIDTH; p.y = HEIGHT;
-//	worldvertices.push_back(p);
-//	p.x = 0; p.y = HEIGHT;
-//	worldvertices.push_back(p);
-//	GOWorld* w = new GOWorld(worldvertices);
-//	w->SetObjects(&objects);
-//	b2Vec2 grav;
-//	grav.Set(0.0, 9.8);
-//	w->SetGravity(grav);
-//	worlds.push_back(w);
-
+	//Creating initial world of the size of screen
 	point p;
-	b2Vec2 grav;
 	vector<Point> worldvertices;
 	p.x = 0; p.y = 0;
-	worldvertices.push_back(p);
-	p.x = WIDTH/2; p.y = 0;
-	worldvertices.push_back(p);
-	p.x = WIDTH/2; p.y = HEIGHT;
-	worldvertices.push_back(p);
-	p.x = 0; p.y = HEIGHT;
-	worldvertices.push_back(p);
-	GOWorld* w1 = new GOWorld(worldvertices);
-	w1->SetObjects(&objects);
-	grav.Set(5.5, 0.0);
-	w1->SetGravity(grav);
-	worlds.push_back(w1);
-	worldvertices.clear();
-
-	p.x = WIDTH/2; p.y = 0;
 	worldvertices.push_back(p);
 	p.x = WIDTH; p.y = 0;
 	worldvertices.push_back(p);
 	p.x = WIDTH; p.y = HEIGHT;
 	worldvertices.push_back(p);
-	p.x = WIDTH/2; p.y = HEIGHT;
+	p.x = 0; p.y = HEIGHT;
 	worldvertices.push_back(p);
-	GOWorld* w2 = new GOWorld(worldvertices);
-	w2->SetObjects(&objects);
-	grav.Set(-5.5, 0.0);
-	w2->SetGravity(grav);
-	worlds.push_back(w2);
+	GOWorld* w = new GOWorld(worldvertices);
+	w->SetObjects(&objects);
+	b2Vec2 grav;
+	grav.Set(0.0, 9.8);
+	w->SetGravity(grav);
+	worlds.push_back(w);
+
+//	point p;
+//	b2Vec2 grav;
+//	vector<Point> worldvertices;
+//	p.x = 0; p.y = 0;
+//	worldvertices.push_back(p);
+//	p.x = WIDTH/2; p.y = 0;
+//	worldvertices.push_back(p);
+//	p.x = WIDTH/2; p.y = HEIGHT;
+//	worldvertices.push_back(p);
+//	p.x = 0; p.y = HEIGHT;
+//	worldvertices.push_back(p);
+//	GOWorld* w1 = new GOWorld(worldvertices);
+//	w1->SetObjects(&objects);
+//	grav.Set(5.5, 0.0);
+//	w1->SetGravity(grav);
+//	worlds.push_back(w1);
+//	worldvertices.clear();
+//
+//	p.x = WIDTH/2; p.y = 0;
+//	worldvertices.push_back(p);
+//	p.x = WIDTH; p.y = 0;
+//	worldvertices.push_back(p);
+//	p.x = WIDTH; p.y = HEIGHT;
+//	worldvertices.push_back(p);
+//	p.x = WIDTH/2; p.y = HEIGHT;
+//	worldvertices.push_back(p);
+//	GOWorld* w2 = new GOWorld(worldvertices);
+//	w2->SetObjects(&objects);
+//	grav.Set(-5.5, 0.0);
+//	w2->SetGravity(grav);
+//	worlds.push_back(w2);
 }
 
 void LevelState::Unload(){
@@ -400,11 +400,13 @@ int LevelState::Update(){
 			p.x = drawObjects[id].xOrig;
 			p.y = drawObjects[id].yOrig;
 			//Getting world info
+			GOWorld* currentWorld;
 			for(Uint32 j = 0 ; j < worlds.size(); j++){
 				if(worlds[j]->isInside(p)){
 					worldColor = worlds[j]->GetWorldColor();
 					worldTool = worlds[j]->GetCurrentTool();
 					worldDynamic = worlds[j]->GetDynamic();
+					currentWorld = worlds[j];
 					break;
 				}
 			}
@@ -414,6 +416,7 @@ int LevelState::Update(){
 				GORectangle* r;
 				GOFreeform* ff;
 				GOCircle* c;
+				GOBarrier* b;
 				switch(worldTool){
 				case triangle:
 					// Mouse point above from origin
@@ -488,6 +491,110 @@ int LevelState::Update(){
 					ff_vy[id].clear();
 					inputManager->xy.clear();
 					objects.push_back(ff);
+					break;
+				case BARRIER:
+					vector<Point> p = currentWorld->GetVertices();
+					int difx = abs(drawObjects[id].xMouse - p[0].x);
+					if(difx > abs(drawObjects[id].xMouse - p[1].x)){
+						difx = abs(drawObjects[id].xMouse - p[1].x);
+					}
+					int dify = abs(drawObjects[id].yMouse - p[0].y);
+					if(dify > abs(drawObjects[id].yMouse - p[2].y)){
+						dify = abs(drawObjects[id].yMouse - p[2].y);
+					}
+					if(difx > dify){
+						vx.push_back(drawObjects[id].xMouse);
+						vy.push_back(p[0].y);
+						vx.push_back(drawObjects[id].xMouse);
+						vy.push_back(p[2].y);
+						b = new GOBarrier(vx, vy, worldColor);
+						objects.push_back(b);
+						//subdividing worlds
+						delete(currentWorld);
+						//first subworld
+						vector<Point> worldVertices;
+						Point paux;
+						paux.x = p[0].x;
+						paux.y = p[0].y;
+						worldVertices.push_back(paux);
+						paux.x = drawObjects[id].xMouse;
+						paux.y = p[0].y;
+						worldVertices.push_back(paux);
+						paux.x = drawObjects[id].xMouse;
+						paux.y = p[2].y;
+						worldVertices.push_back(paux);
+						paux.x = p[0].x;
+						paux.y = p[2].y;
+						worldVertices.push_back(paux);
+						GOWorld* w1 = new GOWorld(worldVertices);
+						w1->SetObjects(&objects);
+						worldVertices.clear();
+						//second subworld
+						paux.x = drawObjects[id].xMouse;
+						paux.y = p[0].y;
+						worldVertices.push_back(paux);
+						paux.x = p[1].x;
+						paux.y = p[1].y;
+						worldVertices.push_back(paux);
+						paux.x = p[2].x;
+						paux.y = p[2].y;
+						worldVertices.push_back(paux);
+						paux.x = drawObjects[id].xMouse;
+						paux.y = p[2].y;
+						worldVertices.push_back(paux);
+						GOWorld* w2 = new GOWorld(worldVertices);
+						w2->SetObjects(&objects);
+						worldVertices.clear();
+						//including worlds
+						worlds.push_back(w1);
+						worlds.push_back(w2);
+					}else{
+						vx.push_back(p[0].x);
+						vy.push_back(drawObjects[id].yMouse);
+						vx.push_back(p[1].x);
+						vy.push_back(drawObjects[id].yMouse);
+						b = new GOBarrier(vx, vy, worldColor);
+						objects.push_back(b);
+						//subdividing worlds
+						delete(currentWorld);
+						//first subworld
+						vector<Point> worldVertices;
+						Point paux;
+						paux.x = p[0].x;
+						paux.y = p[0].y;
+						worldVertices.push_back(paux);
+						paux.x = p[1].x;
+						paux.y = p[1].y;
+						worldVertices.push_back(paux);
+						paux.x = p[1].x;
+						paux.y = drawObjects[id].yMouse;
+						worldVertices.push_back(paux);
+						paux.x = p[0].x;
+						paux.y = drawObjects[id].yMouse;
+						worldVertices.push_back(paux);
+						GOWorld* w1 = new GOWorld(worldVertices);
+						w1->SetObjects(&objects);
+						worldVertices.clear();
+						//second subworld
+						paux.x = p[0].x;
+						paux.y = drawObjects[id].yMouse;
+						worldVertices.push_back(paux);
+						paux.x = p[1].x;
+						paux.y = drawObjects[id].yMouse;
+						worldVertices.push_back(paux);
+						paux.x = p[1].x;
+						paux.y = p[2].y;
+						worldVertices.push_back(paux);
+						paux.x = p[0].x;
+						paux.y = p[0].y;
+						worldVertices.push_back(paux);
+						GOWorld* w2 = new GOWorld(worldVertices);
+						w2->SetObjects(&objects);
+						worldVertices.clear();
+						//including worlds
+						worlds.push_back(w1);
+						worlds.push_back(w2);
+					}
 					break;
 				}
 
@@ -633,6 +740,7 @@ void LevelState::Render(){
 	int id;
 	RGBAColor worldColor;
 	uint8 worldTool;
+	GOWorld* currentWorld;
 	Point p;
 
 	background->Render();
@@ -651,6 +759,7 @@ void LevelState::Render(){
 				if(worlds[j]->isInside(p)){
 					worldColor = worlds[j]->GetWorldColor();
 					worldTool = worlds[j]->GetCurrentTool();
+					currentWorld = worlds[j];
 					break;
 				}
 			}
@@ -729,6 +838,22 @@ void LevelState::Render(){
 						for(Uint32 i = 0 ; i < ff_vx[id].size() ; i++){
 							graphics->DrawCircle( ff_vx[id].at(i), ff_vy[id].at(i), (int)thickness, worldColor);
 						}
+					break;
+				case BARRIER:
+					vector<Point> p = currentWorld->GetVertices();
+					int difx = abs(drawObjects[id].xMouse - p[0].x);
+					if(difx > abs(drawObjects[id].xMouse - p[1].x)){
+						difx = abs(drawObjects[id].xMouse - p[1].x);
+					}
+					int dify = abs(drawObjects[id].yMouse - p[0].y);
+					if(dify > abs(drawObjects[id].yMouse - p[2].y)){
+						dify = abs(drawObjects[id].yMouse - p[2].y);
+					}
+					if(difx > dify){
+						graphics->DrawLine(drawObjects[id].xMouse, p[0].y, drawObjects[id].xMouse, p[2].y, worldColor);
+					}else{
+						graphics->DrawLine(p[0].x, drawObjects[id].yMouse, p[1].x, drawObjects[id].yMouse, worldColor);
+					}
 					break;
 				}
 			}

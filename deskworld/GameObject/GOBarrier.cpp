@@ -7,59 +7,53 @@
 
 #include "GOBarrier.h"
 
-GOBarrier::GOBarrier(vector<Point> vertices, RGBAColor color, bool passable) {
-	bool validate = true;
-	for(Uint32 i = 0 ; i < vertices.size() ; i++){
-		if((vertices[i].x != 0)&&(vertices[i].x != WIDTH)){
-			if((vertices[i].y != 0)||(vertices[i].y != HEIGHT)){
-				validate = false; break;
-			}
-		}else if((vertices[i].y != 0)&&(vertices[i].y != HEIGHT)){
-			if((vertices[i].x != 0)||(vertices[i].x != WIDTH)){
-				validate = false; break;
-			}
-		}else if(((vertices[i].x != 0)&&(vertices[i].x != WIDTH))||((vertices[i].y != 0)&&(vertices[i].y != HEIGHT))){
-			validate = false; break;
-		}
-
-		vx.push_back(vertices[i].x);
-		vy.push_back(vertices[i].y);
-	}
+GOBarrier::GOBarrier(vector<int> vx, vector<int> vy, RGBAColor color) {
 	this->color = color;
-	if(validate){
-		engine = engine->getInstance();
+	this->vx = vx;
+	this->vy = vy;
+	engine = engine->getInstance();
 
-
-		if(!passable)
-		object = engine->CreateBarrier(vertices);
-
-		for (b2ContactEdge* ce = object.body->GetContactList(); ce; ce = ce->next){
-		  b2Contact* c = ce->contact;
-		  b2Fixture *fixA, *fixB;
-		  fixA = c->GetFixtureA();
-		  fixB = c->GetFixtureB();
-		  if(((int)(fixA->GetUserData()) == BARRIER)&&((int)(fixB->GetUserData()) == BARRIER)){
-			  b2PolygonShape* shapeA = (b2PolygonShape*)fixA->GetShape();
-			  b2PolygonShape* shapeB = (b2PolygonShape*)fixB->GetShape();
-			  b2Vec2 vA0 = shapeA->GetVertex(0), vA1 = shapeA->GetVertex(1);
-			  b2Vec2 vB0 = shapeB->GetVertex(0), vB1 = shapeB->GetVertex(1);
-			  int factor = (int)((((vB1.x-vB0.x)*(vA0.y-vB0.y)-(vB1.y-vB0.y)*(vA0.x-vB0.x))/((vB1.y-vB0.y)*(vA1.x-vA0.x)-(vB1.x-vB0.x)*(vA1.y-vA0.y)))*PIXELS_PER_METRE);
-			  Point p;
-			  p.x = (int)(vA0.x*PIXELS_PER_METRE)+factor*(int)((vA1.x - vA0.x)*PIXELS_PER_METRE);
-			  p.y = (int)(vA0.y*PIXELS_PER_METRE)+factor*(int)((vA1.y - vA0.y)*PIXELS_PER_METRE);
-			  interpoints.push_back(p);
-
-		  }
+	if(vx[0] == vx[1]){
+		if(vy[0] > vy[1]){
+			int dify = (vy[0] - vy[1])/2;
+			object = engine->CreateRectangle(vx[0], dify, 4, dify*2, false);
+		}else{
+			int dify = (vy[1] - vy[0])/2;
+			object = engine->CreateRectangle(vx[0], dify, 4, dify*2, false);
+		}
+	}else{
+		if(vx[0] > vx[1]){
+			int difx = (vx[0] - vx[1])/2;
+			object = engine->CreateRectangle(difx, vy[0], difx*2, 4, false);
+		}else{
+			int difx = (vx[1] - vx[0])/2;
+			object = engine->CreateRectangle(difx, vy[0], difx*2, 4, false);
 		}
 	}
+
+
 }
 
 GOBarrier::~GOBarrier() {
 	engine->DestroyObject(this->object);
 }
 
-void GOBarrier::SetInterpoints(Point p){
-	interpoints.push_back(p);
+//void GOBarrier::SetInterpoints(Point p){
+//	interpoints.push_back(p);
+//}
+//
+//bool GOBarrier::Intersects(vector<int> ivx, vector<int> ivy){
+//	int factor = (int)((((ivx[1]-ivx[0])*(vy[0]-ivy[0])-(ivy[1]-ivy[0])*(vx[0]-ivx[0]))/((ivy[1]-ivy[0])*(vx[1]-vx[0])-(ivx[1]-ivx[0])*(vy[1]-vy[0])))*PIXELS_PER_METRE);
+//	Point p;
+//	p.x = (int)(vx[0]*PIXELS_PER_METRE)+factor*(int)((vx[1] - vx[0])*PIXELS_PER_METRE);
+//	p.y = (int)(vy[0]*PIXELS_PER_METRE)+factor*(int)((vy[1] - vy[0])*PIXELS_PER_METRE);
+////	if(factor){
+////
+////	}
+//}
+
+void GOBarrier::Update(){
+
 }
 
 void GOBarrier::Render(){

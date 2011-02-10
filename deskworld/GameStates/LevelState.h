@@ -24,6 +24,7 @@
 #include "../GameObject/GOCircle.h"
 #include "../GameObject/GOFreeform.h"
 #include "../GameObject/GOWorld.h"
+#include "../GameObject/GOBarrier.h"
 #include "../Graphics/Graphics.h"
 #include "../Sound/Audio.h"
 #include "../Graphics/ImageLoader.h"
