@@ -50,6 +50,7 @@ class LevelState: public State {
 	vector<Point> menuP;
 	vector<ImageLoader*> menu;
 	vector<ImageLoader*> menuSelect[3];
+	vector<ImageLoader*> menuSlider[4];
 //	ImageLoader* menu;
 //	ImageLoader* menuSelect[4];
 	Audio* bgMusic;

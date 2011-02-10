@@ -23,7 +23,7 @@ GameManager::GameManager() {
 
     SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
     SDL_Surface* screen;
-	if((screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_OPENGL | SDL_HWSURFACE)) == NULL){
+	if((screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_OPENGL | SDL_HWSURFACE | SDL_FULLSCREEN)) == NULL){
 		printf("Couldn't set video mode! Quitting...");
 		SDL_Quit();
 		return;

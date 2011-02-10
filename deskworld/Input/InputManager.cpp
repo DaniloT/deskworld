@@ -51,16 +51,15 @@ void InputManager::pollEvents() {
 	TUIOData* data;
 	Click clickTemp;
 	bool achou;
+	int time;
 
 	memset(keyDownState, false, sizeof(keyDownState));
 	memset(keyUpState, false, sizeof(keyUpState));
 	memset(buttomDownState, false, sizeof(buttomDownState));
 	memset(buttomUpState, false, sizeof(buttomUpState));
 	for (int i = 0; i < numIds; i++){
-		cout << "vetor id, pos : " << i << ", id: " << id[i] << endl;
 		if (touch[id[i]].remove){
 			int g;
-			cout << "id removido, pos : " << i << ", id: " << id[i] << endl;
 			touch[id[i]].destocou = false;
 			touch[id[i]].tocou = false;
 			touch[id[i]].tocando = false;
@@ -81,8 +80,9 @@ void InputManager::pollEvents() {
 	}
 	motion_event = false;
 	achou = false;
+	time = SDL_GetTicks();
 	for(Uint32 i = 0; i < click.size(); i++){
-		if (click[i].remove) {
+		if ((click[i].remove) || ((click[i].time-time) > TIMELIMIT)) {
 			click.erase(click.begin() + i);
 		} else {
 			if (click[i].release) {
