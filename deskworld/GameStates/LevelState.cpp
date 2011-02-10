@@ -118,6 +118,15 @@ void LevelState::Unload(){
 	delete bgMusic;
 }
 
+float calculateCoef(int x1, int y1, int x2, int y2){
+	int div = (x2-x1);
+	if(div == 0){
+		return (float)(y2-y1)/(0.0000000001f);
+	}else{
+		return (float)(y2-y1)/(float)(x2-x1);
+	}
+}
+
 int LevelState::Update(){
 	int id, time;
 	SDL_Rect rect;
@@ -148,6 +157,7 @@ int LevelState::Update(){
 			break;
 		} else {
 			GOWorld* currentWorld;
+
 			for(Uint32 k = 0; k < menu.size(); k++){
 				//Getting world info
 				for(Uint32 j = 0 ; j < worlds.size(); j++){
@@ -339,6 +349,16 @@ int LevelState::Update(){
 					inputManager->click[i].release = true;
 				}
 			}
+			Point p;
+			p.x = inputManager->click[i].x;
+			p.y = inputManager->click[i].y;
+			for(Uint32 j = 0 ; j < worlds.size(); j++){
+				if(worlds[j]->isInside(p)){
+					currentWorld = worlds[j];
+					worldTool = worlds[j]->GetCurrentTool();
+					break;
+				}
+			}
 			if (!menutouch){
 				//Test overlap to erase objects
 				if(worldTool == erase){
@@ -501,6 +521,7 @@ int LevelState::Update(){
 				GOFreeform* ff;
 				GOCircle* c;
 				GOBarrier* b;
+				GOPolygon* p;
 				switch(worldTool){
 				case triangle:
 					// Mouse point above from origin
@@ -565,11 +586,69 @@ int LevelState::Update(){
 				case freeform:
 					vx = ff_vx[id];
 					vy = ff_vy[id];
-					ff = new GOFreeform(vx, vy, worldColor, worldDynamic, thickness);
-					ff_vx[id].clear();
-					ff_vy[id].clear();
-					inputManager->xy.clear();
-					objects.push_back(ff);
+					if(vx.size() > 2){
+					vector<int> px, py;
+					//Angular Coefficient of lines
+					float coef1, coef2;
+					//Angle between two lines
+					float angle;
+					px.push_back(vx.at(0));
+					py.push_back(vy.at(0));
+
+					for(Uint32 i = 0 ; (i+2) < vx.size() ; i++){
+
+							coef1 = calculateCoef(vx[i], vy[i], vx[i+1], vy[i+1]);
+							coef2 = calculateCoef(vx[i+1], vy[i+1], vx[i+2], vy[i+2]);
+							angle = atanf(abs((coef2 - coef1)/(1 + coef1 * coef2))) * (180/PI) ;
+
+							if((angle > 45)){
+								int offset = 0;
+								float distv = DISTANCE((float)vx[i+1], (float)vy[i+1], (float)vx[i+2+offset], (float)vy[i+2+offset]);
+								bool entrou = false;
+								while((distv < 15.0f)&&(vx[i+2+offset] != vx.back()&&(vy[i+2+offset] != vy.back()))){
+									offset++;
+									coef1 = calculateCoef(vx[i+1], vy[i+1], vx[i+2+offset], vy[i+2+offset]);
+									angle = atanf(abs((coef2 - coef1)/(1 + coef1 * coef2))) * (180/PI) ;
+									distv = DISTANCE( (float)vx[i+1], (float)vy[i+1], (float)vx[i+2+offset], (float)vy[i+2+offset]);
+									entrou = true;
+								}
+
+								if((distv > 15.0f)){
+									if(entrou){
+										if(angle < 45){
+											px.push_back(vx[i+1]);
+											py.push_back(vy[i+1]);
+										}
+									}else{
+										px.push_back(vx[i+1]);
+										py.push_back(vy[i+1]);
+									}
+								}
+							}
+						}
+
+						if((DISTANCE(px.front(), py.front(), vx.back(), vy.back()) < 20)&&(px.size()>2)){
+							p = new GOPolygon(px, py, worldColor, worldDynamic);
+							if(p->isConvex()){
+								objects.push_back(p);
+							}else{
+								delete(p);
+								ff = new GOFreeform(vx, vy, worldColor, worldDynamic, thickness);
+								objects.push_back(ff);
+							}
+						}else{
+							ff = new GOFreeform(vx, vy, worldColor, worldDynamic, thickness);
+							objects.push_back(ff);
+						}
+						ff_vx[id].clear();
+						ff_vy[id].clear();
+						inputManager->xy.clear();
+					}
+//					ff = new GOFreeform(vx, vy, worldColor, worldDynamic, thickness);
+//					ff_vx[id].clear();
+//					ff_vy[id].clear();
+//					inputManager->xy.clear();
+//					objects.push_back(ff);
 					break;
 				case BARRIER:
 					vector<Point> p = currentWorld->GetVertices();
