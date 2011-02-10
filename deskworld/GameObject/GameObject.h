@@ -33,6 +33,12 @@ public:
 	b2Body* GetBody(){
 		return object.body;
 	}
+	RGBAColor GetColor(){
+		return color;
+	}
+	void SetColor(RGBAColor _color){
+		this->color = _color;
+	}
 	// Updates the objects.
 	virtual void Update() = 0;
 	// Render the object.

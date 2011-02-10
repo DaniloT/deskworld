@@ -42,7 +42,8 @@ enum GO_types{
 	WORLD,
 	BARRIER,
 	JOINT,
-	MOTOR
+	MOTOR,
+	GRAVITY
 };
 
 typedef struct Point{

@@ -41,3 +41,33 @@ void GOFreeform::Render(){
 		graphics->DrawCircle( (int)vx.at(i), (int)vy.at(i), (int)thickness, color);
 	}
 }
+
+float32 GOFreeform::GetRestitution(){
+	return object.body->GetFixtureList()->GetRestitution();
+}
+
+float32 GOFreeform::GetFriction(){
+	return object.body->GetFixtureList()->GetFriction();
+}
+
+float32 GOFreeform::GetDensity(){
+	return object.body->GetFixtureList()->GetDensity();
+}
+
+void GOFreeform::SetRestitution(float32 rest){
+	b2Fixture* fix;
+	while((fix =object.body->GetFixtureList()->GetNext())!= NULL)
+		fix->SetRestitution(rest);
+}
+
+void GOFreeform::SetFriction(float32 fric){
+	b2Fixture* fix;
+	while((fix =object.body->GetFixtureList()->GetNext())!= NULL)
+			fix->SetFriction(fric);
+}
+
+void GOFreeform::SetDensity(float32 dens){
+	b2Fixture* fix;
+	while((fix =object.body->GetFixtureList()->GetNext())!= NULL)
+				fix->SetDensity(dens);
+}

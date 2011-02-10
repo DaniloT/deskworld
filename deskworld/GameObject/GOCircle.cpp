@@ -34,3 +34,29 @@ void GOCircle::Update(){
 void GOCircle::Render(){
 	graphics->DrawCircle( (int)vx.at(0), (int)vy.at(0), (int)radius, color);
 }
+
+
+float32 GOCircle::GetRestitution(){
+	return object.body->GetFixtureList()->GetRestitution();
+}
+
+float32 GOCircle::GetFriction(){
+	return object.body->GetFixtureList()->GetFriction();
+}
+
+float32 GOCircle::GetDensity(){
+	return object.body->GetFixtureList()->GetDensity();
+}
+
+void GOCircle::SetRestitution(float32 rest){
+	object.body->GetFixtureList()->SetRestitution(rest);
+}
+
+void GOCircle::SetFriction(float32 fric){
+	object.body->GetFixtureList()->SetFriction(fric);
+}
+
+void GOCircle::SetDensity(float32 dens){
+	object.body->GetFixtureList()->SetDensity(dens);
+}
+

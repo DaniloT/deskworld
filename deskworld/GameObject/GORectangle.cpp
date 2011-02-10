@@ -52,3 +52,27 @@ void GORectangle::Update(){
 void GORectangle::Render(){
 	graphics->DrawRectangle(vx, vy, color);
 }
+
+float32 GORectangle::GetRestitution(){
+	return object.body->GetFixtureList()->GetRestitution();
+}
+
+float32 GORectangle::GetFriction(){
+	return object.body->GetFixtureList()->GetFriction();
+}
+
+float32 GORectangle::GetDensity(){
+	return object.body->GetFixtureList()->GetDensity();
+}
+
+void GORectangle::SetRestitution(float32 rest){
+	object.body->GetFixtureList()->SetRestitution(rest);
+}
+
+void GORectangle::SetFriction(float32 fric){
+	object.body->GetFixtureList()->SetFriction(fric);
+}
+
+void GORectangle::SetDensity(float32 dens){
+	object.body->GetFixtureList()->SetDensity(dens);
+}
