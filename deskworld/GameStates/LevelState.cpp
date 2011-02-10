@@ -146,6 +146,10 @@ int LevelState::Update(){
 
 	time = SDL_GetTicks();
 	for(Uint32 i = 0; i < inputManager->click.size(); i++){
+		worldColor.r = 0;
+		worldColor.g = 0;
+		worldColor.b = 0;
+		worldColor.a = 0;
 		menutouch = false;
 //		menuBool = false;
 //		drawBool = false;
@@ -274,76 +278,61 @@ int LevelState::Update(){
 						menuSlider[3].erase(menuSlider[3].begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 222){
 						// gravity
-					} else if ((inputManager->click[i].y < rect.y + 318) &&
-							(inputManager->click[i].y > rect.y + 306) &&
-							(inputManager->click[i].x < rect.x + 46) &&
-							(inputManager->click[i].x > rect.x + 7)){
-						menu.erase(menu.begin()+k);
-						for (int g = 0; g < 3; g++){
-							menuSelect[g].erase(menuSelect[g].begin()+k);
-						}
-						menuSlider[0].erase(menuSlider[0].begin()+k);
-						menuSlider[1].erase(menuSlider[1].begin()+k);
-						menuSlider[2].erase(menuSlider[2].begin()+k);
-						menuSlider[3].erase(menuSlider[3].begin()+k);
-					} else if ((inputManager->click[i].y <= rect.y + 233) &&
-							(inputManager->click[i].y >= rect.y + 217) &&
+					} //else if ((inputManager->click[i].y < rect.y + 318) &&
+//							(inputManager->click[i].y > rect.y + 306) &&
+//							(inputManager->click[i].x < rect.x + 46) &&
+//							(inputManager->click[i].x > rect.x + 7)){
+//						// reset
+//						menu.erase(menu.begin()+k);
+//						for (int g = 0; g < 3; g++){
+//							menuSelect[g].erase(menuSelect[g].begin()+k);
+//						}
+//						menuSlider[0].erase(menuSlider[0].begin()+k);
+//						menuSlider[1].erase(menuSlider[1].begin()+k);
+//						menuSlider[2].erase(menuSlider[2].begin()+k);
+//						menuSlider[3].erase(menuSlider[3].begin()+k);
+					/*}*/ else if ((inputManager->click[i].y <= rect.y + 241) &&
+							(inputManager->click[i].y >= rect.y + 225) &&
 							(inputManager->click[i].x <= rect.x + 131) &&
 							(inputManager->click[i].x >= rect.x + 71)) {
-
-//						menuSliderTemp[0] = new ImageLoader("slider.png", (worldColor.r/(4.25))+(rect.x + 71), rect.y + 225);
-//						menuSliderTemp[1] = new ImageLoader("slider.png", (worldColor.g/(4.25))+(rect.x + 71), rect.y + 245);
-//						menuSliderTemp[2] = new ImageLoader("slider.png", (worldColor.b/(4.25))+(rect.x + 71), rect.y + 265);
-//						menuSliderTemp[3] = new ImageLoader("slider.png", (worldColor.a/(4.25))+(rect.x + 71), rect.y + 285);
+						menuSlider[0][k]->UpdatePos(inputManager->click[i].x, rect.y + 225);
+						worldColor.r = (Uint8) ((menuSlider[0][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.g = (Uint8) ((menuSlider[1][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.b = (Uint8) ((menuSlider[2][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.a = (Uint8) ((menuSlider[3][k]->GetRect().x - 71 - rect.x)*4.25);
+						currentWorld->SetWorldColor(worldColor);
+					} else if ((inputManager->click[i].y <= rect.y + 261) &&
+							(inputManager->click[i].y >= rect.y + 245) &&
+							(inputManager->click[i].x <= rect.x + 131) &&
+							(inputManager->click[i].x >= rect.x + 71)) {
+						menuSlider[1][k]->UpdatePos(inputManager->click[i].x, rect.y + 245);
+						worldColor.r = (Uint8) ((menuSlider[0][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.g = (Uint8) ((menuSlider[1][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.b = (Uint8) ((menuSlider[2][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.a = (Uint8) ((menuSlider[3][k]->GetRect().x - 71 - rect.x)*4.25);
+						currentWorld->SetWorldColor(worldColor);
+					} else if ((inputManager->click[i].y <= rect.y + 281) &&
+							(inputManager->click[i].y >= rect.y + 265) &&
+							(inputManager->click[i].x <= rect.x + 131) &&
+							(inputManager->click[i].x >= rect.x + 71)) {
+						menuSlider[2][k]->UpdatePos(inputManager->click[i].x, rect.y + 265);
+						worldColor.r = (Uint8) ((menuSlider[0][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.g = (Uint8) ((menuSlider[1][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.b = (Uint8) ((menuSlider[2][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.a = (Uint8) ((menuSlider[3][k]->GetRect().x - 71 - rect.x)*4.25);
+						currentWorld->SetWorldColor(worldColor);
+					} else if ((inputManager->click[i].y <= rect.y + 301) &&
+							(inputManager->click[i].y >= rect.y + 285) &&
+							(inputManager->click[i].x <= rect.x + 131) &&
+							(inputManager->click[i].x >= rect.x + 71)) {
+						menuSlider[3][k]->UpdatePos(inputManager->click[i].x, rect.y + 285);
+						worldColor.r = (Uint8) ((menuSlider[0][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.g = (Uint8) ((menuSlider[1][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.b = (Uint8) ((menuSlider[2][k]->GetRect().x - 71 - rect.x)*4.25);
+						worldColor.a = (Uint8) ((menuSlider[3][k]->GetRect().x - 71 - rect.x)*4.25);
+						currentWorld->SetWorldColor(worldColor);
 					}
 
-//					} else if (inputManager->click[i].y < rect.y + 183){
-//						RGBAColor worldColor;
-//						worldColor.r = 15;
-//						worldColor.g = 15;
-//						worldColor.b = 15;
-//						worldColor.a = 245;
-//						currentWorld->SetWorldColor(worldColor);
-//					} else if (inputManager->click[i].y < rect.y + 200){
-//						RGBAColor worldColor;
-//						worldColor.r = 235;
-//						worldColor.g = 39;
-//						worldColor.b = 37;
-//						worldColor.a = 245;
-//						currentWorld->SetWorldColor(worldColor);
-//					} else if (inputManager->click[i].y < rect.y + 217){
-//						RGBAColor worldColor;
-//						worldColor.r = 34;
-//						worldColor.g = 255;
-//						worldColor.b = 34;
-//						worldColor.a = 245;
-//						currentWorld->SetWorldColor(worldColor);
-//					} else if (inputManager->click[i].y < rect.y + 234){
-//						RGBAColor worldColor;
-//						worldColor.r = 34;
-//						worldColor.g = 34;
-//						worldColor.b = 255;
-//						worldColor.a = 245;
-//						currentWorld->SetWorldColor(worldColor);
-//					} else if (inputManager->click[i].y < rect.y + 251){
-//						RGBAColor worldColor;
-//						worldColor.r = 255;
-//						worldColor.g = 236;
-//						worldColor.b = 139;
-//						worldColor.a = 245;
-//						currentWorld->SetWorldColor(worldColor);
-//					} else {
-//						RGBAColor worldColor;
-//						worldColor.r = 250;
-//						worldColor.g = 240;
-//						worldColor.b = 230;
-//						worldColor.a = 245;
-//						currentWorld->SetWorldColor(worldColor);
-//					}
-//					menu.erase(menu.begin()+k);
-//					for (int g = 0; g < 3; g++){
-//						menuSelect[g].erase(menuSelect[g].begin()+k);
-//					}
 					drawObjects[inputManager->click[i].id].drawing = false;
 //					drawBool = false;
 					inputManager->click[i].release = true;
