@@ -656,7 +656,7 @@ int LevelState::Update(){
 						paux.y = p[2].y;
 						worldVertices.push_back(paux);
 						paux.x = p[0].x;
-						paux.y = p[0].y;
+						paux.y = p[2].y;
 						worldVertices.push_back(paux);
 						GOWorld* w2 = new GOWorld(worldVertices);
 						w2->SetObjects(&objects);

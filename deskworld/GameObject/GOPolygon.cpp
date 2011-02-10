@@ -5,7 +5,6 @@
  *      Author: Zucca
  */
 
-
 #include "GOPolygon.h"
 
 
@@ -48,6 +47,40 @@ bool SignedAreaIsPositive(vector<int> vx, vector<int> vy){
 	centroid.y /= (6*signedArea);
 
 	return (signedArea > 0.0);
+}
+
+Point calculatePolygonCenter(vector<int> vx, vector<int> vy){
+	Point p;
+	double area = 0.0;
+	int j = 0;
+	int i = 0;
+	for(i = 0; i < vx.size(); i++){
+		j = (i+1) % vx.size();
+		area += vx[i] * vy[j];
+		area -= vy[i] * vx[j];
+	}
+	area /= 2.0;
+
+	double cx, cy;
+	cx = 0.0;
+	cy = 0.0;
+	double A = area;
+	i = 0;
+	j = 0;
+	double factor = 0.0;
+	for(i = 0; i < vx.size(); i++){
+	j = (i+1) % vx.size();
+	factor = (vx[i]*vy[j] - vx[j]*vy[i]);
+	cx += (vx[i] + vx[j])*factor;
+	cy += (vy[i] + vy[j])*factor;
+	}
+	A *= 6.0f;
+	factor = 1/A;
+	cx *= factor;
+	cy *= factor;
+	p.x = (int)cx;
+	p.y = (int)cy;
+	return p;
 }
 
 /*
@@ -100,7 +133,8 @@ GOPolygon::GOPolygon(vector<int> vx, vector<int> vy, RGBAColor color, bool dynam
 	}
 	if(this->isConvex()){
 		convex = true;
-		object = engine->CreatePolygon(this->vx, this->vy, dynamic);
+		Point p = calculatePolygonCenter(this->vx, this->vy);
+//		object = engine->CreatePolygon(p, this->vx, this->vy, dynamic);
 	}else{
 		convex = false;
 	}
