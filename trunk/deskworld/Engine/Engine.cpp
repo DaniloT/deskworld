@@ -159,17 +159,16 @@ Object Engine::CreateCircle(int posX, int posY, float32 radius, bool dynamic){
 	return obj;
 }
 
-Object Engine::CreatePolygon(vector<int> vx, vector<int> vy, bool dynamic){
+Object Engine::CreatePolygon(Point p, vector<int> vx, vector<int> vy, bool dynamic){
 	Object obj;
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
 	b2Vec2* vertices = (b2Vec2*)malloc(sizeof(b2Vec2)*vx.size());
 
-
 	if(dynamic)
 		bodyDef.type = b2_dynamicBody;
 
-	bodyDef.position.Set(CONVERT(vx[0]), CONVERT(vy[0]));
+	bodyDef.position.Set(CONVERT(p.x), CONVERT(p.y));
 	obj.body = world->CreateBody(&bodyDef);
 	int32 vcount = (int32) vx.size();
 

@@ -134,7 +134,7 @@ GOPolygon::GOPolygon(vector<int> vx, vector<int> vy, RGBAColor color, bool dynam
 	if(this->isConvex()){
 		convex = true;
 		Point p = calculatePolygonCenter(this->vx, this->vy);
-//		object = engine->CreatePolygon(p, this->vx, this->vy, dynamic);
+		object = engine->CreatePolygon(p, this->vx, this->vy, dynamic);
 	}else{
 		convex = false;
 	}
