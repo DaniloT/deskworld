@@ -39,6 +39,7 @@ public:
 	Object CreateTriangle(int posX, int posY, vector<int> vx, vector<int> vy, bool dynamic);
 	Object CreateRectangle(int posX, int posY, int w, int h, bool dynamic);
 	Object CreateCircle(int posX, int posY, float32 radius, bool dynamic);
+	Object CreatePolygon(vector<int> vx, vector<int> vy, bool dynamic);
 	Object CreateFreeform(vector<int> vx, vector<int> vy, float32 radius, bool dynamic);
 	Object CreateWorld(vector<Point> vertices);
 	Object CreateBarrier(vector<Point> vertices);

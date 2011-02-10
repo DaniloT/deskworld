@@ -22,7 +22,7 @@ GOWorld::GOWorld(vector<Point> vertices) {
 }
 
 GOWorld::~GOWorld() {
-	// TODO Auto-generated destructor stub
+	engine->DestroyObject(this->wObject);
 }
 
 bool GOWorld::isInside(GameObject* object){
@@ -74,6 +74,7 @@ void GOWorld::SetGravity(b2Vec2 gravity){
 
 void GOWorld::Update(){
 	//Objects update
+	int WTF = objects->size();
 	for(Uint32 i = 0; i < objects->size() ; i++){
 		if(this->isInside(objects->at(i))){
 			b2Vec2 gravbod;

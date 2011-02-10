@@ -159,6 +159,45 @@ Object Engine::CreateCircle(int posX, int posY, float32 radius, bool dynamic){
 	return obj;
 }
 
+Object Engine::CreatePolygon(vector<int> vx, vector<int> vy, bool dynamic){
+	Object obj;
+	b2BodyDef b2BodyDef;
+	b2FixtureDef fixtureDef;
+	b2Vec2* vertices = (b2Vec2*)malloc(sizeof(b2Vec2)*vx.size());
+
+
+	if(dynamic)
+		bodyDef.type = b2_dynamicBody;
+
+	bodyDef.position.Set(CONVERT(vx[0]), CONVERT(vy[0]));
+	bodyDef.
+	obj.body = world->CreateBody(&bodyDef);
+	int32 vcount = (int32) vx.size();
+
+	if(dynamic){
+		fixtureDef.density = 1;
+		fixtureDef.friction = 0.3;
+		fixtureDef.restitution = 0.2;
+
+		for(Uint32 i = 0 ; i < vx.size() ; i++){
+			vertices[i].x = CONVERT(vx.at(i));
+			vertices[i].y = CONVERT(vy.at(i));
+		}
+		obj.shape.Set(vertices, vcount);
+		fixtureDef.shape = &obj.shape;
+		obj.body->CreateFixture(&fixtureDef);
+	} else{
+		for(Uint32 i = 0 ; i < vx.size() ; i++){
+			vertices[i].x = CONVERT(vx.at(i));
+			vertices[i].y = CONVERT(vy.at(i));
+		}
+		obj.shape.Set(vertices, vcount);
+		obj.body->CreateFixture(&obj.shape, 0.0);
+	}
+
+	return obj;
+}
+
 Object Engine::CreateFreeform(vector<int> vx, vector<int> vy, float32 radius, bool dynamic){
 	Object obj;
 	b2BodyDef bodyDef;
