@@ -541,7 +541,10 @@ int LevelState::Update(){
 				GOFreeform* ff;
 				GOCircle* c;
 				GOBarrier* b;
-				GOPolygon* p;
+				GOPolygon* poly;
+				int difx, dify;
+				vector<Point> p;
+				Point paux;
 				switch(worldTool){
 				case triangle:
 					// Mouse point above from origin
@@ -648,11 +651,11 @@ int LevelState::Update(){
 						}
 
 						if((DISTANCE(px.front(), py.front(), vx.back(), vy.back()) < 20)&&(px.size()>2)){
-							p = new GOPolygon(px, py, worldColor, worldDynamic);
-							if(p->isConvex()){
-								objects.push_back(p);
+							poly = new GOPolygon(px, py, worldColor, worldDynamic);
+							if(poly->isConvex()){
+								objects.push_back(poly);
 							}else{
-								delete(p);
+								delete(poly);
 								ff = new GOFreeform(vx, vy, worldColor, worldDynamic, thickness);
 								objects.push_back(ff);
 							}
@@ -671,12 +674,12 @@ int LevelState::Update(){
 //					objects.push_back(ff);
 					break;
 				case BARRIER:
-					vector<Point> p = currentWorld->GetVertices();
-					int difx = abs(drawObjects[id].xMouse - p[0].x);
+					p = currentWorld->GetVertices();
+					difx = abs(drawObjects[id].xMouse - p[0].x);
 					if(difx > abs(drawObjects[id].xMouse - p[1].x)){
 						difx = abs(drawObjects[id].xMouse - p[1].x);
 					}
-					int dify = abs(drawObjects[id].yMouse - p[0].y);
+					dify = abs(drawObjects[id].yMouse - p[0].y);
 					if(dify > abs(drawObjects[id].yMouse - p[2].y)){
 						dify = abs(drawObjects[id].yMouse - p[2].y);
 					}
@@ -691,7 +694,6 @@ int LevelState::Update(){
 						delete(currentWorld);
 						//first subworld
 						vector<Point> worldVertices;
-						Point paux;
 						paux.x = p[0].x;
 						paux.y = p[0].y;
 						worldVertices.push_back(paux);
@@ -737,7 +739,6 @@ int LevelState::Update(){
 						delete(currentWorld);
 						//first subworld
 						vector<Point> worldVertices;
-						Point paux;
 						paux.x = p[0].x;
 						paux.y = p[0].y;
 						worldVertices.push_back(paux);
@@ -773,6 +774,13 @@ int LevelState::Update(){
 						worlds.push_back(w1);
 						worlds.push_back(w2);
 					}
+					break;
+				case GRAVITY:
+					int xdif = drawObjects[id].xMouse - drawObjects[id].xOrig;
+					int ydif = drawObjects[id].yMouse - drawObjects[id].yOrig;
+					b2Vec2 gravchange;
+					gravchange.Set(CONVERT(xdif),CONVERT(ydif));
+					currentWorld->SetGravity(gravchange);
 					break;
 				}
 
@@ -984,7 +992,8 @@ void LevelState::Render(){
 					break;
 				}
 			}
-
+			vector<Point> p;
+			int difx,dify;
 			if(inputManager->isTouching(id)){
 				vector<int> vx, vy;
 				switch(worldTool){
@@ -1061,12 +1070,12 @@ void LevelState::Render(){
 						}
 					break;
 				case BARRIER:
-					vector<Point> p = currentWorld->GetVertices();
-					int difx = abs(drawObjects[id].xMouse - p[0].x);
+					p = currentWorld->GetVertices();
+					difx = abs(drawObjects[id].xMouse - p[0].x);
 					if(difx > abs(drawObjects[id].xMouse - p[1].x)){
 						difx = abs(drawObjects[id].xMouse - p[1].x);
 					}
-					int dify = abs(drawObjects[id].yMouse - p[0].y);
+					dify = abs(drawObjects[id].yMouse - p[0].y);
 					if(dify > abs(drawObjects[id].yMouse - p[2].y)){
 						dify = abs(drawObjects[id].yMouse - p[2].y);
 					}
@@ -1075,6 +1084,9 @@ void LevelState::Render(){
 					}else{
 						graphics->DrawLine(p[0].x, drawObjects[id].yMouse, p[1].x, drawObjects[id].yMouse, worldColor);
 					}
+					break;
+				case GRAVITY:
+						graphics->DrawLine(drawObjects[id].xOrig, drawObjects[id].yOrig, drawObjects[id].xMouse, drawObjects[id].yMouse, worldColor);
 					break;
 				}
 			}
