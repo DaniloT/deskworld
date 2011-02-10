@@ -20,6 +20,8 @@
 
 #define CONVERT(pix) (((float32)(pix))/PIXELS_PER_METRE)
 
+#define PI 3.14159265
+
 #define WIDTH 1024
 
 #define HEIGHT 768

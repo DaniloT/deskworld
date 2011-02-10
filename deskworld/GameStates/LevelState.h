@@ -22,6 +22,7 @@
 #include "../GameObject/GOTriangle.h"
 #include "../GameObject/GORectangle.h"
 #include "../GameObject/GOCircle.h"
+#include "../GameObject/GOPolygon.h"
 #include "../GameObject/GOFreeform.h"
 #include "../GameObject/GOWorld.h"
 #include "../GameObject/GOBarrier.h"
