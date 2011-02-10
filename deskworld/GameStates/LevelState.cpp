@@ -276,6 +276,15 @@ int LevelState::Update(){
 						menuSlider[1].erase(menuSlider[1].begin()+k);
 						menuSlider[2].erase(menuSlider[2].begin()+k);
 						menuSlider[3].erase(menuSlider[3].begin()+k);
+					} else if ((inputManager->click[i].y <= rect.y + 233) &&
+							(inputManager->click[i].y >= rect.y + 217) &&
+							(inputManager->click[i].x <= rect.x + 131) &&
+							(inputManager->click[i].x >= rect.x + 71)) {
+
+//						menuSliderTemp[0] = new ImageLoader("slider.png", (worldColor.r/(4.25))+(rect.x + 71), rect.y + 225);
+//						menuSliderTemp[1] = new ImageLoader("slider.png", (worldColor.g/(4.25))+(rect.x + 71), rect.y + 245);
+//						menuSliderTemp[2] = new ImageLoader("slider.png", (worldColor.b/(4.25))+(rect.x + 71), rect.y + 265);
+//						menuSliderTemp[3] = new ImageLoader("slider.png", (worldColor.a/(4.25))+(rect.x + 71), rect.y + 285);
 					}
 
 //					} else if (inputManager->click[i].y < rect.y + 183){
@@ -751,16 +760,21 @@ int LevelState::Update(){
 						menuSelectTemp[2] = NULL;
 					}
 				}
+				//1 pixel = 4.25 cor;
+				menuSliderTemp[0] = new ImageLoader("slider.png", (worldColor.r/(4.25))+(rect.x + 71), rect.y + 225);
+				menuSliderTemp[1] = new ImageLoader("slider.png", (worldColor.g/(4.25))+(rect.x + 71), rect.y + 245);
+				menuSliderTemp[2] = new ImageLoader("slider.png", (worldColor.b/(4.25))+(rect.x + 71), rect.y + 265);
+				menuSliderTemp[3] = new ImageLoader("slider.png", (worldColor.a/(4.25))+(rect.x + 71), rect.y + 285);
 				//Max
 //				menuSliderTemp[0] = new ImageLoader("slider.png", rect.x + 131, rect.y + 225);
 //				menuSliderTemp[1] = new ImageLoader("slider.png", rect.x + 131, rect.y + 245);
 //				menuSliderTemp[2] = new ImageLoader("slider.png", rect.x + 131, rect.y + 265);
 //				menuSliderTemp[3] = new ImageLoader("slider.png", rect.x + 131, rect.y + 285);
 				//Min
-				menuSliderTemp[0] = new ImageLoader("slider.png", rect.x + 70, rect.y + 225);
-				menuSliderTemp[1] = new ImageLoader("slider.png", rect.x + 70, rect.y + 245);
-				menuSliderTemp[2] = new ImageLoader("slider.png", rect.x + 70, rect.y + 265);
-				menuSliderTemp[3] = new ImageLoader("slider.png", rect.x + 70, rect.y + 285);
+//				menuSliderTemp[0] = new ImageLoader("slider.png", rect.x + 71, rect.y + 225);
+//				menuSliderTemp[1] = new ImageLoader("slider.png", rect.x + 71, rect.y + 245);
+//				menuSliderTemp[2] = new ImageLoader("slider.png", rect.x + 71, rect.y + 265);
+//				menuSliderTemp[3] = new ImageLoader("slider.png", rect.x + 71, rect.y + 285);
 				menu.push_back(menuTemp);
 				menuSelect[0].push_back(menuSelectTemp[0]);
 				menuSelect[1].push_back(menuSelectTemp[1]);
