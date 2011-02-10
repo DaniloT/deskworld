@@ -137,7 +137,8 @@ int LevelState::Update(){
 	Point p;
 	ImageLoader* menuTemp;
 	ImageLoader* menuSelectTemp[3];
-	ImageLoader* menuSliderTemp[7];
+	ImageLoader* menuSliderTemp[4];
+	b2Fixture* fixTemp;
 
 	if(inputManager->isKeyDown(SDLK_ESCAPE)){
 		SDL_Event* event = new SDL_Event();
@@ -294,7 +295,8 @@ int LevelState::Update(){
 						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 222){
 						// gravity
-
+//						currentWorld->SetCurrentTool(erase);
+//						menu.erase(menu.begin()+k);
 					} //else if ((inputManager->click[i].y < rect.y + 318) &&
 //							(inputManager->click[i].y > rect.y + 306) &&
 //							(inputManager->click[i].x < rect.x + 46) &&
@@ -507,6 +509,7 @@ int LevelState::Update(){
 					drawObjects[inputManager->clickObj[j].id].drawing = false;
 					inputManager->clickObj[i].remove = true;
 					inputManager->clickObj[i].release = false;
+					fixTemp = engine->mouseJoint[inputManager->clickObj[j].id]->GetBodyB()->GetFixtureList();
 					break;
 				}
 			}
@@ -914,17 +917,31 @@ int LevelState::Update(){
 						rect = menuTemp->GetRect();
 					}
 					menuObj.push_back(menuTemp);
-					menuSliderTemp[3] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 81);
-					menuSliderTemp[4] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 101);
-					menuSliderTemp[5] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 121);
-					menuSliderTemp[6] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 141);
-					menuSliderObj[0].push_back(menuSliderTemp[3]);
-					menuSliderObj[1].push_back(menuSliderTemp[3]);
-					menuSliderObj[2].push_back(menuSliderTemp[3]);
-					menuSliderObj[3].push_back(menuSliderTemp[3]);
-					menuSliderObj[4].push_back(menuSliderTemp[4]);
-					menuSliderObj[5].push_back(menuSliderTemp[5]);
-					menuSliderObj[6].push_back(menuSliderTemp[6]);
+					b2Fixture* fixAux = fixTemp;
+					if (fixTemp->GetNext() == NULL) {
+						menuSliderTemp[0] = new ImageLoader("slider.png", ((fixAux->GetDensity()*100)/1.67)+(rect.x + 80), rect.y + 21);
+						menuSliderTemp[1] = new ImageLoader("slider.png", ((fixAux->GetFriction()*100)/1.67)+(rect.x + 80), rect.y + 41);
+						menuSliderTemp[2] = new ImageLoader("slider.png", ((fixAux->GetRestitution()*100)/1.67)+(rect.x + 80), rect.y + 61);
+//						menuSliderTemp[3] = new ImageLoader("slider.png", (fixTemp->.r/(4.25))+(rect.x + 80), rect.y + 81);
+//						menuSliderTemp[4] = new ImageLoader("slider.png", (worldColor.g/(4.25))+(rect.x + 80), rect.y + 101);
+//						menuSliderTemp[5] = new ImageLoader("slider.png", (worldColor.b/(4.25))+(rect.x + 80), rect.y + 121);
+//						menuSliderTemp[6] = new ImageLoader("slider.png", (worldColor.a/(4.25))+(rect.x + 80), rect.y + 141);
+					} else {
+						menuSliderTemp[0] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 21);
+						menuSliderTemp[1] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 41);
+						menuSliderTemp[2] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 61);
+//						menuSliderTemp[3] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 81);
+//						menuSliderTemp[4] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 101);
+//						menuSliderTemp[5] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 121);
+//						menuSliderTemp[6] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 141);
+					}
+					menuSliderObj[0].push_back(menuSliderTemp[0]);
+					menuSliderObj[1].push_back(menuSliderTemp[1]);
+					menuSliderObj[2].push_back(menuSliderTemp[2]);
+//					menuSliderObj[3].push_back(menuSliderTemp[3]);
+//					menuSliderObj[4].push_back(menuSliderTemp[4]);
+//					menuSliderObj[5].push_back(menuSliderTemp[5]);
+//					menuSliderObj[6].push_back(menuSliderTemp[6]);
 					drawObjects[id].menuObj = false;
 				}
 			}
@@ -1081,7 +1098,7 @@ void LevelState::Render(){
 	}
 	for(Uint32 k = 0; k < menuObj.size(); k++){
 		menuObj[k]->Render();
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 3; i++) {
 			menuSliderObj[i][k]->Render();
 		}
 	}
