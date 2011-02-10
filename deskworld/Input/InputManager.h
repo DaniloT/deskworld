@@ -56,7 +56,7 @@ class InputManager : public TuioListener {
 	InputManager* instance;
 	InputManager();
 public:
-	vector<Click> click;
+	vector<Click> click, clickObj;
 	multimap<int, point > xy;
 	bool quit;
 	bool motion_event;

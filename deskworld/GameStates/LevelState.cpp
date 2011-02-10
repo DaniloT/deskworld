@@ -32,6 +32,7 @@ void LevelState::Load(){
 	for (int i = 0; i < 10001; i++) {
 		drawObjects[i].drawing = false;
 		drawObjects[i].menu = false;
+		drawObjects[i].menuObj = false;
 		drawObjects[i].xMouse = 0;
 		drawObjects[i].xOrig = 0;
 		drawObjects[i].yMouse = 0;
@@ -136,7 +137,7 @@ int LevelState::Update(){
 	Point p;
 	ImageLoader* menuTemp;
 	ImageLoader* menuSelectTemp[3];
-	ImageLoader* menuSliderTemp[4];
+	ImageLoader* menuSliderTemp[7];
 
 	if(inputManager->isKeyDown(SDLK_ESCAPE)){
 		SDL_Event* event = new SDL_Event();
@@ -151,6 +152,7 @@ int LevelState::Update(){
 		worldColor.b = 0;
 		worldColor.a = 0;
 		menutouch = false;
+		jointEvent = false;
 //		menuBool = false;
 //		drawBool = false;
 		//Test mouse or touch down
@@ -433,6 +435,7 @@ int LevelState::Update(){
 //			menuBool = false;
 //			drawBool = true;
 			drawObjects[inputManager->click[i].id].menu = false;
+			drawObjects[inputManager->click[i].id].menuObj = false;
 			inputManager->click[i].release = true;
 			drawObjects[inputManager->click[i].id].drawing = true;
 //			drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
@@ -463,7 +466,15 @@ int LevelState::Update(){
 //							}
 							drawObjects[inputManager->click[j].id].xOrig = inputManager->click[j].x;
 							drawObjects[inputManager->click[j].id].yOrig = inputManager->click[j].y;
-							drawObjects[inputManager->click[j].id].menu = true;
+//							if (jointEvent) {
+//								inputManager->clickObj.push_back(inputManager->click[j]);
+////								drawObjects[inputManager->click[j].id].menuObj = true;
+//								drawObjects[inputManager->click[j].id].menu = true;
+//
+//							} else {
+								drawObjects[inputManager->click[j].id].menu = true;
+//								drawObjects[inputManager->click[j].id].menuObj = false;
+//							}
 							drawObjects[inputManager->click[j].id].drawing = false;
 							inputManager->click[i].remove = true;
 							inputManager->click[i].release = false;
@@ -474,29 +485,31 @@ int LevelState::Update(){
 			}
 		}
 		if (inputManager->click[i].release) {
-//			int newId = inputManager->click[i].id;
-//			if (inputManager->isTouching(newId)) {
-//				newId = 9000;
-//			}
-//			while (inputManager->isTouching(newId)) {
-//				newId--;
-//			}
-//			if (newId != inputManager->click[i].id){
-				drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-				drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
-//				drawObjects[newId].xMouse = drawObjects[inputManager->click[i].id].xMouse;
-//				drawObjects[newId].yMouse = drawObjects[inputManager->click[i].id].yMouse;
-//				drawObjects[newId].drawing = drawObjects[inputManager->click[i].id].drawing;
-//				drawObjects[newId].menu = drawObjects[inputManager->click[i].id].menu;
-//				if (jointEvent) {
-//					engine->MouseDown(inputManager->click[i].x, inputManager->click[i].y, newId);
-////					engine->mouseJoint[newId] = engine->mouseJoint[inputManager->click[i].id];
-//					engine->DestroyMouseJoint(inputManager->click[i].id);
-//				}
-//				inputManager->click[i].id = newId;
-//			}
-//////			drawObjects[inputManager->click[i].id].menu = menuBool;
-//			drawObjects[inputManager->click[i].id].drawing = true;
+			if (jointEvent) {
+				inputManager->clickObj.push_back(inputManager->click[i]);
+			}
+			drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
+			drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
+		}
+	}
+	for(Uint32 i = 0; i < inputManager->clickObj.size(); i++){
+		for (Uint32 j = i+1; j < inputManager->clickObj.size(); j++) {
+			if((inputManager->clickObj[j].time - inputManager->clickObj[i].time) < TIMELIMIT){
+				if ((inputManager->clickObj[j].x > (inputManager->clickObj[i].x - MENUPROX)) &&
+						(inputManager->clickObj[j].x < (inputManager->clickObj[i].x + MENUPROX)) &&
+						(inputManager->clickObj[j].y > (inputManager->clickObj[i].y - MENUPROX)) &&
+						(inputManager->clickObj[j].y < (inputManager->clickObj[i].y + MENUPROX))){
+					inputManager->clickObj[j].remove = true;
+					drawObjects[inputManager->clickObj[j].id].xOrig = inputManager->clickObj[j].x;
+					drawObjects[inputManager->clickObj[j].id].yOrig = inputManager->clickObj[j].y;
+					drawObjects[inputManager->clickObj[j].id].menuObj = true;
+					drawObjects[inputManager->clickObj[j].id].menu = false;
+					drawObjects[inputManager->clickObj[j].id].drawing = false;
+					inputManager->clickObj[i].remove = true;
+					inputManager->clickObj[i].release = false;
+					break;
+				}
+			}
 		}
 	}
 	for(int i = 0; i < inputManager->getNumIds(); i++){
@@ -885,16 +898,39 @@ int LevelState::Update(){
 					b2Vec2 p(CONVERT(inputManager->touchPosX(id)), CONVERT(inputManager->touchPosY(id)));
 					engine->mouseJoint[id]->SetTarget(p);
 				}
+				if (drawObjects[id].menuObj){
+					if (menuTemp != NULL){
+	//					delete menuTemp;
+						menuTemp = NULL;
+					}
+					menuTemp = new ImageLoader("menuobject.png", drawObjects[id].xOrig, drawObjects[id].yOrig);
+					rect = menuTemp->GetRect();
+					if ((rect.x + rect.w) > WIDTH){
+						menuTemp->UpdatePos(rect.x-rect.w, rect.y);
+						rect = menuTemp->GetRect();
+					}
+					if ((rect.y + rect.h) > HEIGHT){
+						menuTemp->UpdatePos(rect.x, rect.y-rect.h);
+						rect = menuTemp->GetRect();
+					}
+					menuObj.push_back(menuTemp);
+					menuSliderTemp[3] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 81);
+					menuSliderTemp[4] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 101);
+					menuSliderTemp[5] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 121);
+					menuSliderTemp[6] = new ImageLoader("slider.png", (rect.x + 80), rect.y + 141);
+					menuSliderObj[0].push_back(menuSliderTemp[3]);
+					menuSliderObj[1].push_back(menuSliderTemp[3]);
+					menuSliderObj[2].push_back(menuSliderTemp[3]);
+					menuSliderObj[3].push_back(menuSliderTemp[3]);
+					menuSliderObj[4].push_back(menuSliderTemp[4]);
+					menuSliderObj[5].push_back(menuSliderTemp[5]);
+					menuSliderObj[6].push_back(menuSliderTemp[6]);
+					drawObjects[id].menuObj = false;
+				}
 			}
 		}
 	}
 
-//	for(Uint32 i = 0; i < inputManager->click.size(); i++){
-//		if (inputManager->click[i].release) {
-//			drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
-//			drawObjects[inputManager->click[i].id].yOrig = inputManager->click[i].y;
-//		}
-//	}
 	//Worlds update
 	for(Uint32 i = 0; i < worlds.size() ; i++){
 		worlds[i]->Update();
@@ -1042,6 +1078,12 @@ void LevelState::Render(){
 		menuSlider[1][k]->Render();
 		menuSlider[2][k]->Render();
 		menuSlider[3][k]->Render();
+	}
+	for(Uint32 k = 0; k < menuObj.size(); k++){
+		menuObj[k]->Render();
+		for (int i = 0; i < 7; i++) {
+			menuSliderObj[i][k]->Render();
+		}
 	}
 
 }

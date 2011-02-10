@@ -35,7 +35,7 @@
 typedef struct DrawObject{
 	int xOrig, yOrig, xMouse, yMouse; // Origin Coordinates of draw.
 	bool drawing;	//indicates if user is drawing.
-	bool menu; //indicates if the click opens a menu.
+	bool menu, menuObj; //indicates if the click opens a menu.
 } DrawObject;
 
 class LevelState: public State {
@@ -48,9 +48,9 @@ class LevelState: public State {
 	ImageLoader* background;
 	ImageLoader* fechar;
 	vector<Point> menuP;
-	vector<ImageLoader*> menu;
+	vector<ImageLoader*> menu, menuObj;
 	vector<ImageLoader*> menuSelect[3];
-	vector<ImageLoader*> menuSlider[4];
+	vector<ImageLoader*> menuSlider[4], menuSliderObj[7];
 //	ImageLoader* menu;
 //	ImageLoader* menuSelect[4];
 	Audio* bgMusic;
