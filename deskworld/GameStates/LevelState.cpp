@@ -29,7 +29,6 @@ void LevelState::Load(){
 	menuSelect[0].clear();
 	menuSelect[1].clear();
 	menuSelect[2].clear();
-	menuSelect[3].clear();
 	for (int i = 0; i < 10001; i++) {
 		drawObjects[i].drawing = false;
 		drawObjects[i].menu = false;
@@ -165,73 +164,126 @@ int LevelState::Update(){
 				if (inputManager->isTouchInside(menu[k], inputManager->click[i].id)) {
 					menutouch = true;
 					rect = menu[k]->GetRect();
-					if (inputManager->click[i].y < rect.y + 29){
+					if (inputManager->click[i].y < rect.y + 18){
+						if (inputManager->click[i].x > rect.x + 138){
+							menu.erase(menu.begin()+k);
+							for (int g = 0; g < 3; g++){
+								menuSelect[g].erase(menuSelect[g].begin()+k);
+							}
+						}
+					} else if (inputManager->click[i].y < rect.y + 42){
 						currentWorld->SetDynamic(false);
-					} else if (inputManager->click[i].y < rect.y + 51){
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
+					} else if (inputManager->click[i].y < rect.y + 62){
 						currentWorld->SetDynamic(true);
-					} else if (inputManager->click[i].y < rect.y + 71){
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
+					} else if (inputManager->click[i].y < rect.y + 82){
 						currentWorld->SetCurrentTool(freeform);
-					} else if (inputManager->click[i].y < rect.y + 89){
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
+					} else if (inputManager->click[i].y < rect.y + 102){
 						currentWorld->SetCurrentTool(circle);
-					} else if (inputManager->click[i].y < rect.y + 110){
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
+					} else if (inputManager->click[i].y < rect.y + 122){
 						currentWorld->SetCurrentTool(rectangle);
-					} else if (inputManager->click[i].y < rect.y + 127){
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
+					} else if (inputManager->click[i].y < rect.y + 142){
 						currentWorld->SetCurrentTool(triangle);
-					} else if (inputManager->click[i].y < rect.y + 146){
-						currentWorld->SetCurrentTool(erase);
-					} else if (inputManager->click[i].y < rect.y + 166){
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
+					} else if (inputManager->click[i].y < rect.y + 162){
 						if(bgMusic->isPlaying()){
 							bgMusic->Pause();
 						}else{
 							bgMusic->Resume();
 						}
-					} else if (inputManager->click[i].y < rect.y + 183){
-						RGBAColor worldColor;
-						worldColor.r = 15;
-						worldColor.g = 15;
-						worldColor.b = 15;
-						worldColor.a = 245;
-						currentWorld->SetWorldColor(worldColor);
-					} else if (inputManager->click[i].y < rect.y + 200){
-						RGBAColor worldColor;
-						worldColor.r = 235;
-						worldColor.g = 39;
-						worldColor.b = 37;
-						worldColor.a = 245;
-						currentWorld->SetWorldColor(worldColor);
-					} else if (inputManager->click[i].y < rect.y + 217){
-						RGBAColor worldColor;
-						worldColor.r = 34;
-						worldColor.g = 255;
-						worldColor.b = 34;
-						worldColor.a = 245;
-						currentWorld->SetWorldColor(worldColor);
-					} else if (inputManager->click[i].y < rect.y + 234){
-						RGBAColor worldColor;
-						worldColor.r = 34;
-						worldColor.g = 34;
-						worldColor.b = 255;
-						worldColor.a = 245;
-						currentWorld->SetWorldColor(worldColor);
-					} else if (inputManager->click[i].y < rect.y + 251){
-						RGBAColor worldColor;
-						worldColor.r = 255;
-						worldColor.g = 236;
-						worldColor.b = 139;
-						worldColor.a = 245;
-						currentWorld->SetWorldColor(worldColor);
-					} else {
-						RGBAColor worldColor;
-						worldColor.r = 250;
-						worldColor.g = 240;
-						worldColor.b = 230;
-						worldColor.a = 245;
-						currentWorld->SetWorldColor(worldColor);
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
+					} else if (inputManager->click[i].y < rect.y + 182){
+						//divide world
+					} else if (inputManager->click[i].y < rect.y + 202){
+						currentWorld->SetCurrentTool(erase);
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
+					} else if (inputManager->click[i].y < rect.y + 222){
+						// gravity
+					} else if ((inputManager->click[i].y < rect.y + 318) &&
+							(inputManager->click[i].y > rect.y + 306) &&
+							(inputManager->click[i].x < rect.x + 46) &&
+							(inputManager->click[i].x > rect.x + 7)){
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
 					}
-					menu.erase(menu.begin()+k);
-					for (int g = 0; g < 4; g++){
-						menuSelect[g].erase(menuSelect[g].begin()+k);
-					}
+
+//					} else if (inputManager->click[i].y < rect.y + 183){
+//						RGBAColor worldColor;
+//						worldColor.r = 15;
+//						worldColor.g = 15;
+//						worldColor.b = 15;
+//						worldColor.a = 245;
+//						currentWorld->SetWorldColor(worldColor);
+//					} else if (inputManager->click[i].y < rect.y + 200){
+//						RGBAColor worldColor;
+//						worldColor.r = 235;
+//						worldColor.g = 39;
+//						worldColor.b = 37;
+//						worldColor.a = 245;
+//						currentWorld->SetWorldColor(worldColor);
+//					} else if (inputManager->click[i].y < rect.y + 217){
+//						RGBAColor worldColor;
+//						worldColor.r = 34;
+//						worldColor.g = 255;
+//						worldColor.b = 34;
+//						worldColor.a = 245;
+//						currentWorld->SetWorldColor(worldColor);
+//					} else if (inputManager->click[i].y < rect.y + 234){
+//						RGBAColor worldColor;
+//						worldColor.r = 34;
+//						worldColor.g = 34;
+//						worldColor.b = 255;
+//						worldColor.a = 245;
+//						currentWorld->SetWorldColor(worldColor);
+//					} else if (inputManager->click[i].y < rect.y + 251){
+//						RGBAColor worldColor;
+//						worldColor.r = 255;
+//						worldColor.g = 236;
+//						worldColor.b = 139;
+//						worldColor.a = 245;
+//						currentWorld->SetWorldColor(worldColor);
+//					} else {
+//						RGBAColor worldColor;
+//						worldColor.r = 250;
+//						worldColor.g = 240;
+//						worldColor.b = 230;
+//						worldColor.a = 245;
+//						currentWorld->SetWorldColor(worldColor);
+//					}
+//					menu.erase(menu.begin()+k);
+//					for (int g = 0; g < 3; g++){
+//						menuSelect[g].erase(menuSelect[g].begin()+k);
+//					}
 					drawObjects[inputManager->click[i].id].drawing = false;
 					inputManager->click[i].release = true;
 //					drawObjects[inputManager->click[i].id].xOrig = inputManager->click[i].x;
@@ -646,7 +698,7 @@ int LevelState::Update(){
 //					delete menuTemp;
 					menuTemp = NULL;
 				}
-				menuTemp = new ImageLoader("menutemp.jpg", drawObjects[id].xOrig, drawObjects[id].yOrig);
+				menuTemp = new ImageLoader("menu.png", drawObjects[id].xOrig, drawObjects[id].yOrig);
 				rect = menuTemp->GetRect();
 				if ((rect.x + rect.w) > WIDTH){
 					menuTemp->UpdatePos(rect.x-rect.w, rect.y);
@@ -657,47 +709,33 @@ int LevelState::Update(){
 					rect = menuTemp->GetRect();
 				}
 				if (worldDynamic) {
-					menuSelectTemp[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 29);
+					menuSelectTemp[0] = new ImageLoader("menuselect.png", rect.x, rect.y + 46);
 				} else {
-					menuSelectTemp[0] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 9);
+					menuSelectTemp[0] = new ImageLoader("menuselect.png", rect.x, rect.y + 26);
 				}
 				if (worldTool == freeform){
-					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 51);
+					menuSelectTemp[1] = new ImageLoader("menuselect.png", rect.x, rect.y + 66);
 				} else if (worldTool == circle){
-					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 71);
+					menuSelectTemp[1] = new ImageLoader("menuselect.png", rect.x, rect.y + 86);
 				} else if (worldTool == rectangle){
-					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 89);
+					menuSelectTemp[1] = new ImageLoader("menuselect.png", rect.x, rect.y + 106);
 				} else if (worldTool == triangle){
-					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 110);
+					menuSelectTemp[1] = new ImageLoader("menuselect.png", rect.x, rect.y + 126);
 				} else {
-					menuSelectTemp[1] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 127);
+					menuSelectTemp[1] = new ImageLoader("menuselect.png", rect.x, rect.y + 186);
 				}
 				if (!bgMusic->isPlaying()){
-					menuSelectTemp[2] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 146);
+					menuSelectTemp[2] = new ImageLoader("menuselect.png", rect.x, rect.y + 146);
 				} else {
 					if (menuSelectTemp[2] != NULL){
 //						delete menuSelectTemp[2];
 						menuSelectTemp[2] = NULL;
 					}
 				}
-				if (worldColor.g == 15){
-					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 166);
-				} else if (worldColor.g == 39){
-					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 183);
-				} else if (worldColor.g == 255){
-					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 200);
-				} else if (worldColor.g == 34){
-					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 217);
-				} else if (worldColor.g == 236){
-					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 234);
-				} else {
-					menuSelectTemp[3] = new ImageLoader("menutempselect.jpg", rect.x, rect.y + 251);
-				}
 				menu.push_back(menuTemp);
 				menuSelect[0].push_back(menuSelectTemp[0]);
 				menuSelect[1].push_back(menuSelectTemp[1]);
 				menuSelect[2].push_back(menuSelectTemp[2]);
-				menuSelect[3].push_back(menuSelectTemp[3]);
 				drawObjects[id].menu = false;
 			} else {
 				//Mouse up to destroy joint
@@ -865,7 +903,7 @@ void LevelState::Render(){
 	fechar->Render();
 	for(Uint32 k = 0; k < menu.size(); k++){
 		menu[k]->Render();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			if (menuSelect[i][k] != NULL) {
 				menuSelect[i][k]->Render();
 			}

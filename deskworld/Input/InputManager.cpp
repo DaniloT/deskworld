@@ -87,6 +87,12 @@ void InputManager::pollEvents() {
 		} else {
 			if (click[i].release) {
 				cout << "release, pos: " << i << ", id: " << click[i].id << endl;
+				if (isTouching(click[i].id)) {
+					click[i].id = 9000;
+				}
+				while (isTouching(click[i].id)) {
+					click[i].id--;
+				}
 				touch[click[i].id].x = click[i].x;
 				touch[click[i].id].y = click[i].y;
 				touch[click[i].id].tocou = true;
