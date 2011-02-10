@@ -9,7 +9,7 @@
 
 GOWorld::GOWorld(vector<Point> vertices) {
 	gravity.SetZero();
-	currentTool = BARRIER;
+	currentTool = circle;
 	toolColor.r = 15;
 	toolColor.g = 15;
 	toolColor.b = 15;

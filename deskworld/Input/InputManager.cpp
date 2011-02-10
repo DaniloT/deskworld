@@ -87,12 +87,12 @@ void InputManager::pollEvents() {
 		} else {
 			if (click[i].release) {
 				cout << "release, pos: " << i << ", id: " << click[i].id << endl;
-				if (isTouching(click[i].id)) {
-					click[i].id = 9000;
-				}
-				while (isTouching(click[i].id)) {
-					click[i].id--;
-				}
+//				if (isTouching(click[i].id)) {
+//					click[i].id = 9000;
+//				}
+//				while (isTouching(click[i].id)) {
+//					click[i].id--;
+//				}
 				touch[click[i].id].x = click[i].x;
 				touch[click[i].id].y = click[i].y;
 				touch[click[i].id].tocou = true;
@@ -126,10 +126,10 @@ void InputManager::pollEvents() {
 			clickTemp.release = false;
 			clickTemp.time = SDL_GetTicks();
 			click.push_back(clickTemp);
-			touch[event.user.code].tocou = true;
-			touch[event.user.code].tocando = true;
-			touch[event.user.code].x = data->x;
-			touch[event.user.code].y = data->y;
+//			touch[event.user.code].tocou = true;
+//			touch[event.user.code].tocando = true;
+//			touch[event.user.code].x = data->x;
+//			touch[event.user.code].y = data->y;
 		}else if(event.type == CURSOR_REMOVEEVENT){
 			for(Uint32 i = 0; i < click.size(); i++){
 				if ((click[i].id == event.user.code) && (!click[i].updated)) {
