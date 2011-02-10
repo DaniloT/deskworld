@@ -47,7 +47,7 @@ class LevelState: public State {
 	ImageLoader* background;
 	ImageLoader* fechar;
 	vector<ImageLoader*> menu;
-	vector<ImageLoader*> menuSelect[4];
+	vector<ImageLoader*> menuSelect[3];
 //	ImageLoader* menu;
 //	ImageLoader* menuSelect[4];
 	Audio* bgMusic;
