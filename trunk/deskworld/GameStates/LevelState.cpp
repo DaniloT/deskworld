@@ -295,8 +295,17 @@ int LevelState::Update(){
 						menuP.erase(menuP.begin()+k);
 					} else if (inputManager->click[i].y < rect.y + 222){
 						// gravity
-//						currentWorld->SetCurrentTool(erase);
-//						menu.erase(menu.begin()+k);
+						currentWorld->SetCurrentTool(GRAVITY);
+						menu.erase(menu.begin()+k);
+						for (int g = 0; g < 3; g++){
+							menuSelect[g].erase(menuSelect[g].begin()+k);
+						}
+						menuSlider[0].erase(menuSlider[0].begin()+k);
+						menuSlider[1].erase(menuSlider[1].begin()+k);
+						menuSlider[2].erase(menuSlider[2].begin()+k);
+						menuSlider[3].erase(menuSlider[3].begin()+k);
+						menuP.erase(menuP.begin()+k);
+
 					} //else if ((inputManager->click[i].y < rect.y + 318) &&
 //							(inputManager->click[i].y > rect.y + 306) &&
 //							(inputManager->click[i].x < rect.x + 46) &&
