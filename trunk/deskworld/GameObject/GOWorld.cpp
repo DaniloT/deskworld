@@ -9,7 +9,7 @@
 
 GOWorld::GOWorld(vector<Point> vertices) {
 	gravity.SetZero();
-	currentTool = rectangle;
+	currentTool = BARRIER;
 	toolColor.r = 15;
 	toolColor.g = 15;
 	toolColor.b = 15;
@@ -46,6 +46,10 @@ RGBAColor GOWorld::GetWorldColor(){
 
 bool GOWorld::GetDynamic(){
 	return dynamic;
+}
+
+vector<Point> GOWorld::GetVertices(){
+	return vertices;
 }
 
 void GOWorld::SetCurrentTool(uint8 tool){

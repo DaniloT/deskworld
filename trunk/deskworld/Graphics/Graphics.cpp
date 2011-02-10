@@ -45,7 +45,8 @@ Graphics::~Graphics() {
 
 void Graphics::DrawLine(int xOrigin, int yOrigin, int x, int y, RGBAColor color){
 	glColor4ub(color.r,color.g,color.b,color.a);
-	glBegin(GL_LINE);
+	glLineWidth(4.0);
+	glBegin(GL_LINES);
 		glVertex2i(xOrigin,yOrigin);
 		glVertex2i(x,y);
 	glEnd();

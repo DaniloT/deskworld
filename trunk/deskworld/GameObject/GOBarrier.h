@@ -8,15 +8,13 @@
 #ifndef GOBARRIER_H_
 #define GOBARRIER_H_
 
-#include "../Common.h"
 #include "GameObject.h"
 
-class GOBarrier : GameObject{
-	vector<Point> interpoints;
+class GOBarrier : public GameObject{
 public:
-	GOBarrier(vector<Point> vertices, RGBAColor color, bool passable);
+	GOBarrier(vector<int> vx, vector<int> vy, RGBAColor color);
 	virtual ~GOBarrier();
-	void SetInterpoints(Point p);
+	void Update();
 	void Render();
 };
 
