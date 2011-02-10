@@ -63,3 +63,27 @@ void GOTriangle::Update(){
 void GOTriangle::Render(){
 	graphics->DrawTriangle(vx[0], vy[0], vx[1], vy[1], vx[2], vy[2], color);
 }
+
+float32 GOTriangle::GetRestitution(){
+	return object.body->GetFixtureList()->GetRestitution();
+}
+
+float32 GOTriangle::GetFriction(){
+	return object.body->GetFixtureList()->GetFriction();
+}
+
+float32 GOTriangle::GetDensity(){
+	return object.body->GetFixtureList()->GetDensity();
+}
+
+void GOTriangle::SetRestitution(float32 rest){
+	object.body->GetFixtureList()->SetRestitution(rest);
+}
+
+void GOTriangle::SetFriction(float32 fric){
+	object.body->GetFixtureList()->SetFriction(fric);
+}
+
+void GOTriangle::SetDensity(float32 dens){
+	object.body->GetFixtureList()->SetDensity(dens);
+}
