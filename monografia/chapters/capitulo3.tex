@@ -15,7 +15,7 @@ Para o reconhecimento de toques é fundamental a implementação de um sistema de v
 
 As imagens devem ser capturadas rapidamente em sequência, de modo que a detecção de movimento ocorra isenta de erros. A captura dessas imagens se dá por intermédio de uma câmera sem filtro infravermelho com um filtro para luz visível, como o negativo de filme fotográfico, de forma a simplificar seu formato, facilitando o seu tratamento e evitando que se confundam com as demais imagens de fundo que não são inerentes ao toque na superfície do acrílico. Depois de capturadas, as imagens são filtradas de modo que os toques estejam destacados. Por fim, os conjuntos de \textit{pixels} agrupados que possuem intensidade semelhantes, os chamados \textit{blobs}, são detectados e mapeados, demarcando a posição exata onde o toque foi realizado.
 
-Conforme mencionado no capítulo anterior, existem dois principais métodos de iluminação de uma mesa multitoque, \textit{FTIR}(\textit{Frustrated Total Internal Refraction}) e \textit{DI}(\textit{Diffuse Illumination}). \textit{FTIR} trata-se de uma iluminação em que \textit{LEDs}(textit{Light-Emitting Diode}) são postos em paralelo a superfície de acrílico da mesa, ou dentro do acrílico, de modo que os feixes de luz fiquem presos em seu interior, sendo refletidos internamente devido ao fenômeno de reflexão interna total~[\citenum{TIR}].
+Conforme mencionado no capítulo anterior, existem dois principais métodos de iluminação de uma mesa multitoque, \textit{FTIR}(\textit{Frustrated Total Internal Refraction}) e \textit{DI}(\textit{Diffuse Illumination}). \textit{FTIR} trata-se de uma iluminação em que \textit{LED}s infravermelhos são postos em paralelo a superfície de acrílico da mesa, ou dentro do acrílico, de modo que os feixes de luz fiquem presos em seu interior, sendo refletidos internamente devido ao fenômeno de reflexão interna total~[\citenum{TIR}].
 Cada vez que um toque é aplicado sobre o acrílico, a iluminação é refletida para fora da superfície, iluminando o ponto de toque. Na iluminação \textit{DI}, por outro lado, os \textit{LED}s localizam-se abaixo da superfície de acrílico e sua luz incide na direção do acrílico, iluminando de baixo para cima, tornando imagens acima do acrílico visíveis, incluindo o fundo além do ponto do toque. Como é apresentado em~[\citenum{virttable}], a iluminação por \textit{FTIR} é mais adequada para detecção de toques, enquanto a iluminação por \textit{DI} é mais indicada para se detectar marcadores fiduciais sobre a mesa. A Figura~\ref{iluminacoes} demonstra as imagens capturadas por uma câmera localizada dentro de uma mesa multitoque para os diferentes tipos de iluminação.
 
 \begin{figure}[h!]
@@ -97,15 +97,19 @@ Quando uma câmera captura uma imagem sobre uma superfície plana, essa imagem pos
 
 Segundo \textit{Muller}~[\citenum{muller}], essa correção realiza um mapeamento de pontos na imagem em relação a um ponto do espaço. Para tal, é necessário considerar a distância focal, o centro da imagem, o tamanho de cada pixel, o coeficiente de distorção radial da lente, as propriedades da própria câmera, bem como o vetor de translação e a matriz de rotação que analisam o espaço em que se encontra a câmera.
 
-Assim, um ponto na câmera pode ser corrigido de acordo com a fórmula \textit{m = A[Rt]M}, onde \textit{A} é a matriz que possui os fatores da câmera (Figura~\ref{matrizA}), \textit{M} é um ponto do espaço, \textit{R} é a matriz de rotação da câmera e \textit{t} é o vetor de translação da mesma.
+Assim, um ponto na câmera pode ser corrigido de acordo com a equação \begin{equation}m = A[Rt]M\label{eq:correcaodistorcao}\end{equation} onde \textit{A} é a matriz que possui os fatores da câmera (Equação~\ref{eq:matrizA}), \textit{M} é um ponto do espaço, \textit{R} é a matriz de rotação da câmera e \textit{t} é o vetor de translação da mesma.
 
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=1]{MatrizA.jpg}
-	\caption{Matriz \textit{A}~[\citenum{pedrosaulo}].}
-	\label{matrizA}
-	\end{center}
-\end{figure}
+\begin{equation}
+	A =
+	\begin{vmatrix}
+	  f_{x}   &	0		& c_{x}	\\ 
+	  0			& f_{x}	&	0		\\
+	  0			&	0		&	1
+	\end{vmatrix}
+	\label{eq:matrizA}
+\end{equation}
+
+Equação dos fatores da câmera, onde f\textsubscript{x},f\textsubscript{y} e c\textsubscript{x},c\textsubscript{y} correspondem, respectivamente, a distância focal e o centro da câmera em um ponto (x,y) arbitrário da imagem.
 
 \section{Aspectos de mesas com superfície multitoque}
 \label{cap3.2}
@@ -121,7 +125,7 @@ O tamanho de uma mesa multitoque deve ser proporcional a sua utilização. Se for 
 
 Idealmente, os \textit{softwares} devem funcionar independentemente do tamanho da mesa, permitindo que o mesmo seja utilizado em projetos similares. No entanto, mesmo sem este planejamento, existem maneiras de tratar isso. A mesa pode ser projetada para se utilizar um dispositivo apontador, permitindo a um usuário alcançar pontos mais distantes, ou então possuir uma função que mude o tamanho da tela e a posicione mais perto do usuário.
 
-Em geral, as mesas possuem um tamanho maior que os monitores de vídeo tradicionais, o que produz um problema sobre a resolução da imagem projetada. A maioria dos projetores possuem resolução padrão de 800x600 ou 1024x768 pixels, o que, para mesas grandes, é insuficiente e produz uma imagem distorcida. Para contornar isso, a solução é utilizar um projetor \textit{short-throw} de alta resolução \textit{WXGA (Wide eXtended Graphics Array)}, capaz de atingir uma resolução de alta definição \textit{HD} de \textit{720p} ou até \textit{1080p}.
+Em geral, as mesas possuem um tamanho maior que os monitores de vídeo tradicionais, o que produz um problema sobre a resolução da imagem projetada. A maioria dos projetores possuem resolução padrão de 800x600 ou 1024x768 pixels, o que, para mesas grandes, é insuficiente e produz uma imagem distorcida. Para contornar isso, a solução é utilizar um projetor \textit{short-throw} de alta resolução \textit{WXGA (Wide eXtended Graphics Array)}, capaz de atingir qualidade de imagem projetada em alta definição como o \textit{720p}(resolução 1280x720 com varredura progressiva~\ref{}) ou até o \textit{1080p}(resolução 1650x1080 com varredura progressiva~\ref{}). Projetores \textit{short-throw} são capazes de projetarem imagens maiores em relação a sua distância da superfície de projeção, quando comparados a projetores convencionais.
 
 \subsection{Interfaces}
 \label{cap3.2.2}
@@ -131,7 +135,7 @@ Como citado por Brandão et al.~[\citenum{pedrosaulo}], interfaces sensíveis ao t
 Como mencionado no início deste capítulo, a maioria \textit{softwares} existentes são desenvolvidos para utilização por meio de teclado e \textit{mouse}. No caso do \textit{mouse}, a área apontada pelo cursor é bem pequena, logo, as interfaces possuem poucos píxeis para a seleção. No entanto, em interfaces sensíveis ao toque há uma configuração diferente, pois o dedo humano é maior que o ponteiro do um \textit{mouse}, podendo acarretar em perda de precisão na detecção do local do toque. Segundo Brandão et al.~[\citenum{pedrosaulo}], a qualidade da câmera é um fator determinante na precisão da interface, pois como ela captura a imagem a ser processada, diversos aspectos como luz, distância focal e resolução alteram a imagem capturada afetando a usabilidade para o usuário.
 Isto porque, em imagens muito claras é difícil identificar corretamente os \textit{blobs}, sendo assim, a câmera deve possuir um filtro de luz. A distância focal da câmera deve suportar a distância entre a superfície da mesa e a câmera para que a imagem não seja capturada sem foco. Além disso, a câmera deve possuir uma boa resolução para capturar imagens com melhor qualidade.
 
-É fundamental salientar que o aumento da resolução resulta em uma amostragem mais alta, o que auxilia nas dificuldades relativas à precisão da câmera. Contudo, a questão do tamanho do toque deve ser considerada durante a construção da interface, pois este pode ser maior que o botão desejado e abranger uma região maior que a esperada. Em geral, o ponto tomado como referência da posição do toque é o seu ponto central.
+É fundamental salientar que o aumento da resolução resulta em uma amostragem de \textit{pixels} mais alta em cada imagem, o que auxilia nas dificuldades relativas à precisão da câmera, pois permite que as capturas apresentem com mais fidelidade o local dos \textit{blob}s. Contudo, a questão do tamanho do toque deve ser considerada durante a construção da interface, pois este pode ser maior que o botão desejado e abranger uma região maior que a esperada. Em geral, o ponto tomado como referência da posição do toque é o seu ponto central.
 
 Além desses problemas, existe a questão do ponto de visão do usuário. Quando um usuário utiliza um computador, ele está acostumado a possuir uma interface virada para ele. No caso da mesa, há vários usuários e eles podem estar olhando a mesa de ângulos diferentes. A interface deve ser agradável para todos os usuários que forem utilizar a mesa. A diferença de ângulo de visões é melhor exemplificado na Figura~\ref{OK}.
 

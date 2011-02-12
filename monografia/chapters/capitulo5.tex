@@ -32,7 +32,7 @@ O simulador de física \textit{Deskworld} tem como principal proposta deixar a ca
 
 \subsection{Regras e Objetos}
 \label{cap5.1.3}
-Basicamente, pode-se criar qualquer tipo de objeto 2D, com ou sem o auxílio das ferramentas fornecidas. A construção funciona similarmente ao desenho virtual, onde o dedo representa o lápis e a superfície da mesa o papel. Os objetos podem ser criados de forma livre, ou com auxílio do software que tenta aproximar os desenhos do usuário a linhas retas, facilitando a construção de polígonos.
+Basicamente, pode-se criar qualquer objeto bidimensional, com o auxílio das ferramentas fornecidas. A construção funciona similarmente ao desenho virtual, onde o dedo representa o lápis e a superfície da mesa o papel. Os objetos podem ser criados de forma livre, ou com auxílio do software que tenta aproximar os desenhos do usuário a polígonos convexos.
 
 Para a alteração de regras do mundo, ferramentas utilizadas ou propriedades dos objetos, o usuário possui um menu, que pode ser acessado através de dois toques subsequentes em um local da tela. Os itens do menu podem ser selecionados com um único toque neles.
 
@@ -84,14 +84,14 @@ Para facilitar a implementação do \textit{software}, foram utilizadas diversas b
 \subsubsection{\textit{SDL} e \textit{OpenGL}}
 \label{cap5.2.2.1}
 
-Por oferecer uma boa abstração de \textit{hardware}, ser bem difundida no mercado de jogos e possuir ampla documentação, utilizou-se a \textit{SDL} para disponibilizar o acesso ao ambiente. Em conjunto com a \textit{SDL}, na parte gráfica, foi utilizada a \textit{OpenGL} (\textit{Open Graphics Library}), que realiza a renderização das imagens.
+Por oferecer uma boa abstração de \textit{hardware}, ser bem difundida no mercado de jogos e possuir ampla documentação, utilizou-se a \textit{SDL} para disponibilizar o acesso ao ambiente. Em conjunto com a \textit{SDL}, na parte gráfica, foi utilizada a \textit{OpenGL}, que realiza a renderização das imagens.
 
 A \textit{SDL\_mixer} é utilizada para permitir a reprodução de diversas faixas de áudio simultaneamente.
 
 \subsubsection{Protocolo \textit{TUIO}}
 \label{cap5.2.2.2}
 
-A comunicação entre o usuário da mesa e o aplicativo é realizada de acordo com o protocolo \textit{TUIO}~[\citenum{TUIO}] (\textit{Tangible User Interface System}). Este protocolo é especificado para atender as necessidades de comunicação das interfaces tangíveis, que são interfaces sensíveis ao toque, capazes de serem controladas por movimentos corporais e gestos. A implementação é simples e visa melhorar a performance na comunicação. Para isso, ele opera sobre a camada \textit{UDP}(\textit{User Datagram Protocol}) de transporte utilizando três tipos de mensagens: \textit{set}, \textit{alive} e \textit{fseq}. As mensagens \textit{set} são utilizadas para informar o estado de um objeto. Mensagens \textit{alive} indicam o conjunto de objetos presentes na interface através de uma identificação única atribuída a cada novo elemento reconhecido. Mensagens \textit{fseq} são transmitidas antes da etapa de atualização de cada quadro, para marcá-lo unicamente, associando-o a cada mensagem \textit{set} e \textit{alive}. A seguir é apresentado um  resumo do funcionamento do protocolo:
+A comunicação entre o usuário da mesa e o aplicativo é realizada de acordo com o protocolo \textit{TUIO}~[\citenum{TUIO}]. Este protocolo é especificado para atender as necessidades de comunicação das interfaces tangíveis, que são interfaces sensíveis ao toque, capazes de serem controladas por movimentos corporais e gestos. A implementação é simples e visa melhorar a performance na comunicação. Para isso, ele opera sobre a camada \textit{UDP}(\textit{User Datagram Protocol}) de transporte utilizando três tipos de mensagens: \textit{set}, \textit{alive} e \textit{fseq}. As mensagens \textit{set} são utilizadas para informar o estado de um objeto. Mensagens \textit{alive} indicam o conjunto de objetos presentes na interface através de uma identificação única atribuída a cada novo elemento reconhecido. Mensagens \textit{fseq} são transmitidas antes da etapa de atualização de cada quadro, para marcá-lo unicamente, associando-o a cada mensagem \textit{set} e \textit{alive}. A seguir é apresentado um  resumo do funcionamento do protocolo:
 
 \begin{itemize}
 	\item Parâmetros do objeto são enviados após mudança de estado, por intermédio da mensagem \textit{set}.
@@ -100,7 +100,7 @@ A comunicação entre o usuário da mesa e o aplicativo é realizada de acordo com o
 	\item Mensagens \textit{fseq} associam um ID a um conjunto de mensagens \textit{set} e \textit{alive} do quadro.
 \end{itemize}
 
-Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o TUIO implementa redundância de informação para se precaver contra a perda de dados na transmissão. Além disso, o estado de um objeto, mesmo inalterado, é enviado periodicamente em uma mensagem \textit{set}. Portanto, o protocolo é ideal para ser utilizado em aplicativos controlados por interfaces multitoque, otimizando a interação e confiabilidade da comunicação. Na Tabela~\ref{tab:tabela1_param_TUIO}, pode-se observar todos os parâmetros que são enviados a cada mensagem do protocolo \textit{TUIO}.
+Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o TUIO implementa redundância de informação para se precaver contra a perda de dados na transmissão. Além disso, o estado de um objeto, mesmo inalterado, é enviado periodicamente em uma mensagem \textit{set}. Portanto, o protocolo é adequado para ser utilizado em aplicativos controlados por interfaces multitoque, otimizando a interação e confiabilidade da comunicação. Na Tabela~\ref{tab:tabela1_param_TUIO}, pode-se observar todos os parâmetros que são enviados a cada mensagem do protocolo \textit{TUIO}. A posição, tal como vetor de movimento, aceleração, largura e altura do \textit{blob} são variáveis do tipo flutuante, pois o protocolo TUIO mapeia a tela a nível com valores entre 0 e 1.
 
 \begin{table}[htbp]
   \centering
@@ -134,7 +134,7 @@ Seu funcionamento consiste na aplicação de filtros configuráveis, como os mostra
 \section{Arquitetura e Detalhes de Implementação}
 \label{cap5.3}
 
-A evolução da tecnologia dos \textit{hardwares} para computadores pessoais proporcionou grande desenvolvimento à indústria de jogos eletrônicos, levando-a a aprimorar seu produto ao longo do tempo. Este caminho foi marcado pela formação de grandes equipes e pela extensiva carga de codificação. Os jogos eletrônicos mais modernos podem ultrapassar um milhão de linhas de código de acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}]. Portanto, foi necessário organizar estes extensivos códigos a fim de obter uma melhor performace no desenvolvimento de novos jogos. Esta organização pode ser realizada por meio da adoção de uma arquitetura bem definida.
+A evolução da tecnologia dos \textit{hardwares} para computadores pessoais proporcionou grande desenvolvimento à indústria de jogos eletrônicos, levando-a a aprimorar seu produto ao longo do tempo. Este caminho foi marcado pela formação de grandes equipes e pela extensiva carga de codificação. Os jogos eletrônicos mais modernos podem ultrapassar um milhão de linhas de código de acordo com \textit{Rabin et al.}~[\citenum{I2GMDVP}]. Portanto, foi necessário organizar estes extensivos códigos a fim de obter um melhor desempenho no desenvolvimento de novos jogos. Esta organização pode ser realizada por meio da adoção de uma arquitetura bem definida.
 
 \subsection{Arquitetura do \textit{Deskworld}}
 \label{cap5.3.1}
