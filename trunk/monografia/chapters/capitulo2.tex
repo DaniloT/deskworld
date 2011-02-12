@@ -6,7 +6,7 @@ Neste capítulo, primeiramente são expostos os principais trabalhos relativos a i
 \label{cap2.1}
 As mesas com superfície multi-toque são relativamente recentes no mercado, porém seu alto custo fez com que não fossem muito proliferadas. Devido a isto, alternativas foram feitas para construção de mesas de baixo custo. Uma alternativa criativa foi proposta por~[\citenum{mtmini}], onde demonstra-se a viabilidade da montagem de uma pequena mesa com superfície multitoque com menos de US\$50,00. Com materiais de baixo custo como papelão, papel e vidro, construiram uma mesa utilizando um computador pessoal e uma \textit{webcam}. Outras alternativas artesanais incluem, por exemplo, a construída para o jogo \textit{Eco-Defense}~[\citenum{pedrosaulo}], a elaborada para o jogo \textit{IRTaktiks}~[\citenum{IRTaktiks}], bem como a \textit{Virttable}~[\citenum{virttable}].
 
-Diversas utilidades são propostas para essas mesas. Tem-se por exemplo a \textit{Reactable}~[\citenum{react}] (Figura~\ref{react}), disponível desde 2008, que, apesar de não possibilitar o toque do usuário, utiliza marcadores fiduciais para habilitar a interação de seus usuários com a música, fornecendo um instrumento musical diferente. Ela é utilizada em concertos e eventos.
+Diversas utilidades são propostas para essas mesas, não somente para toques, como também para marcadores fiduciais, que são peças com desenhos diferentes neles onde, uma vez em contato com a mesa, seu sistema de processamento de imagens consegue identificar esses padrões e associá-los a diferentes ações. Tem-se por exemplo a \textit{Reactable}~[\citenum{react}] (Figura~\ref{react}), disponível desde 2008, que, apesar de não possibilitar o toque do usuário, utiliza marcadores fiduciais para habilitar a interação de seus usuários com a música, fornecendo um instrumento musical diferente. Ela é utilizada em concertos e eventos.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -28,37 +28,7 @@ Outro exemplo é a \textit{Microsoft Surface}~[\citenum{microsoftsurface}] (Figur
 
 Essas duas mesas são as mais populares, apesar de existirem outros projetos comerciais e desenvolvidos para exibições, como a \textit{Touch Magix}~[\citenum{Touchmagix}] ou a desenvolvida pela companhia \textit{Ideum}, visto em~[\citenum{ideum}].
 
-A idéia presente em todas é a mesma, ou seja, utilizar um projetor multimídia para projetar a imagem na superfície da mesa, na qual o usuário pode tocar para interagir com o \textit{software}. A superfície é iluminada com a utilização de \textit{LED}s (\textit{Light-emitting diode}) infravermelhos e os toques são detectados por uma câmera sem filtro infravermelho que os interpreta em relação à posição na mesa. Existem várias maneiras de iluminar uma mesa. As principais são DI (\textit{Diffuse Ilumination}) e FTIR (\textit{Frustrated Total Internal Reflection}).
-
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.40]{touch_table.jpg}
-	\caption{Projeto de mesa multitoque com DI~[\citenum{scient}]}
-	\label{touchtable}
-	\end{center}
-\end{figure}
-
-A iluminação por DI, ilustrada na Figura~\ref{touchtable}, refere-se aos \textit{LED}s que iluminam a mesa por baixo do acrílico. Esse método é utilizado, por exemplo, na \textit{Microsoft Surface}~[\citenum{microsoftsurface}] e na mesa construída para o jogo \textit{Eco-Defense}~[\citenum{pedrosaulo}].
-
-O outro método de iluminação é o FTIR, acompanhado na Figura~\ref{FTIR}. Nesta técnica, os LEDS são embutidos no acrílico da superfície da mesa. Assim, a luz proveniente dos LEDs sofre de um fenômeno denominado reflexão interna total frustada. Isso significa que a iluminação fica retida dentro do acrílico sem conseguir sair. Ao momento que um dedo toca na superfície, a capacidade de refração da superfície muda, o que permite que a luz saia e ilumine o toque, onde uma câmera infravermelho consegue captar essa luz, detectando o local do toque. Esse tipo de detecção é normalmente mais precisa que a detecção por DI, pois sofre menos interferência do fundo. Entretanto, ela é inadequada no reconhecimento de marcadores fiduciais, pois dependendo do material desses marcadores, não há nitidez na iluminação FTIR para poder identificar e distinguir as marcas se a superfície não tiver seu coeficiente de refração alterado.
-
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.50]{touch_FTIR_port.jpg}
-	\caption{Esquema de detecção de toque FTIR (adaptada de~[\citenum{scient}])}
-	\label{FTIR}
-	\end{center}
-\end{figure}
-
-Outra abordagem trata da combinação entre as duas abordagens anteriores, exemplificado pela \textit{Virttable}~[\citenum{virttable}] (Figura~\ref{virttable}), que utiliza este método procurando proporcionar a melhor detecção possível de toques e marcadores fiduciais simultaneamente. Um problema desta abordagem é a interferência do fundo para a detecção de toques, fazendo com que o ambiente no qual a mesa se encontra tenha que ser controlado para sua correta iluminação. No entanto, em relação a uma mesa com iluminação exclusivamente DI, os toques são mais bem iluminados, facilitando as detecções.
-
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.17]{virttable.jpg}
-	\caption{Projeto da mesa \textit{Virttable}~[\citenum{virttable}]}
-	\label{virttable}
-	\end{center}
-\end{figure}
+A idéia presente em todas é a mesma, ou seja, utilizar um projetor multimídia para projetar a imagem na superfície da mesa, na qual o usuário pode tocar para interagir com o \textit{software}. A superfície é iluminada com a utilização de \textit{LED}s (\textit{Light-Emitting Diode}) infravermelhos e os toques são detectados por uma câmera sem filtro infravermelho que os interpreta em relação à posição na mesa. Existem várias maneiras de iluminar uma mesa. As principais são DI (\textit{Diffuse Ilumination}) e FTIR (\textit{Frustrated Total Internal Reflection}), que serão explicadas mais detalhadamente no Capítulo~\ref{cap3}.
 
 \section{\textit{Softwares} interativos para mesas com superfície multitoque}
 \label{cap2.2}
