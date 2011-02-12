@@ -3,20 +3,52 @@
 
 Tradicionalmente, existe a prática de implementar jogos e outros \textit{softwares} direcionados a um único usuário. Algumas iniciativas até consideram dois ou mais usuários, porém, cada um realizando seu \textit{input} via teclado, \textit{joystick} ou \textit{mouse}. \textit{Softwares} desenvolvidos para superfícies multitoque, no entanto,  possuem um paradigma diferente, sendo fundamental o desenvolvimento de suporte a um número indeterminado de usuários, que podem compartilhar uma única superfície multitoque por meio da qual é realizado \textit{input} simultâneo. Por isso são utilizadas técnicas diferentes para reconhecimento de cada toque e para o processamento das imagens que traduzem cada \textit{input}.
 
-Neste capítulo são apresentadas as técnicas para detecção de toques. Ou seja, é detalhado como as imagens obtidas pela câmera são processadas para detecção da formação e movimentação de \textit{blobs} que correspondem aos toques e gestos sobre a mesa. Este processamento envolve a aplicação de filtros, além da correção da imagem para eliminar a distorção. Também são discutidos aspectos gerais das mesas multitoque, tais como seu tamanho e a interface com o usuário. Por fim, analisa-se como trabalhar com um número indeterminado de usuários e como é feita a detecção de múltiplos gestos sobre a mesa.
+Neste capítulo são apresentadas as técnicas para detecção de toques. Ou seja, é detalhado como as imagens obtidas pela câmera são processadas para detecção da formação e movimentação de \textit{blobs}(\textit{Bright Luminescent Objects}) que correspondem aos toques e gestos sobre a mesa. Este processamento envolve a aplicação de filtros, além da correção da imagem para eliminar a distorção. Também são discutidos aspectos gerais das mesas multitoque, tais como seu tamanho e a interface com o usuário. Por fim, analisa-se como trabalhar com um número indeterminado de usuários e como é feita a detecção de múltiplos gestos sobre a mesa.
 
 \section{Processamento de Toques}
 \label{cap3.1}
 
-Para o reconhecimento de toques é fundamental a implementação de um sistema de visão computacional. Como é explicado em~[\citenum{pedrosaulo}], a visão computacional trata da capacidade dos computadores de capturar informações sobre o ambiente e processá-las, interpretando o que foi capturado. Assim, se faz necessário um sistema capaz de interpretar o toque em uma mesa, identificando seu local de ocorrência e extraindo, das imagens obtidas, informações sobre ele. Esse sistema é composto por um computador tradicional, uma \textit{webcam} sem filtro infravermelho, porém, com um filtro para luz visível e um projetor multimídia. O projetor, localizado sob a mesa, projeta imagens na supefície de acrílico, que funciona como uma tela de projeção. Enquanto isso, a \textit{webcam}, também localizada sob a mesa, captura imagens da superfície que serão interpretadas por um \textit{software} responsável por identificar o local dos toques.
+Para o reconhecimento de toques é fundamental a implementação de um sistema de visão computacional. Como é explicado em~[\citenum{pedrosaulo}], a visão computacional trata da capacidade dos computadores de capturar informações visuais sobre o ambiente e processá-las, interpretando o que foi capturado. Assim, se faz necessário um sistema capaz de interpretar o toque em uma mesa, identificando seu local de ocorrência e extraindo, das imagens obtidas, informações sobre ele. Esse sistema é composto por um computador tradicional, uma \textit{webcam} sem filtro infravermelho, porém, com um filtro para luz visível e um projetor multimídia. O projetor, localizado sob a mesa, projeta imagens na supefície de acrílico. Enquanto isso, a \textit{webcam}, também localizada sob a mesa, captura imagens da superfície que serão interpretadas por um \textit{software} responsável por identificar o local dos toques.
+
+\subsection{Métodos de Iluminação de Mesas Multi-Toque}
+\label{cap3.1.1novo}
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.40]{touch_table.jpg}
+	\caption{Projeto de mesa multitoque com DI~[\citenum{scient}]}
+	\label{touchtable}
+	\end{center}
+\end{figure}
+
+Como mencionado no capítulo anterior, existem dois tipos de iluminação principais, \textit{DI}(\textit{Diffuse Illumination}) e \textit{FTIR}(\textit{Frustrated Total Internal Refraction}). A iluminação por \textit{DI}, ilustrada na Figura~\ref{touchtable}, consiste de \textit{LED}s que iluminam a mesa por baixo do acrílico. Esse método é utilizado, por exemplo, na \textit{Microsoft Surface}~[\citenum{microsoftsurface}] e na mesa construída para o jogo \textit{Eco-Defense}~[\citenum{pedrosaulo}]. Ao se utilizar este método, tem que se cuidar para que a iluminação seja igualmente espalhada pela superfície, pois diferenças de iluminação podem dificultar a detecção de toques corretamente em partes diferentes da mesa. Além disto, esta iluminação ilumina além do toque tudo que está acima da superfície da mesa, possuindo muita interferência do fundo. Assim, o ambiente no qual se encontra a mesa deve ser controlado para seu correto funcionamento.
+
+O outro método de iluminação é o \textit{FTIR}, acompanhado na Figura~\ref{FTIR}. Nesta técnica, os LEDS são dispostos paralelos ao acrílico da superfície da mesa, ou diretamente dentro do acrílico através de furos ao seu redor. Assim, a luz proveniente dos LEDs sofre de um fenômeno denominado reflexão interna total frustada~[\citenum{TIR}]. Isso significa que a iluminação fica retida dentro do acrílico sem conseguir sair. Ao momento que um dedo toca na superfície, a capacidade de refração da superfície muda, o que permite que a luz saia e ilumine o toque, onde uma câmera infravermelho consegue captar este dedo, detectando o local do toque. Esse tipo de detecção é normalmente mais precisa que a detecção por \textit{DI}, pois sofre menos interferência do fundo. Entretanto, ela é inadequada no reconhecimento de marcadores fiduciais, pois dependendo do material desses marcadores, não há nitidez na iluminação \textit{FTIR} para poder identificar e distinguir as marcas se a superfície não tiver seu coeficiente de refração alterado.
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.50]{touch_FTIR_port.jpg}
+	\caption{Esquema de detecção de toque FTIR (adaptada de~[\citenum{scient}])}
+	\label{FTIR}
+	\end{center}
+\end{figure}
+
+Outra abordagem trata da combinação entre as duas abordagens anteriores, exemplificado pela \textit{Virttable}~[\citenum{virttable}] (Figura~\ref{virttable}), que utiliza este método procurando proporcionar a melhor detecção possível de toques e marcadores fiduciais simultaneamente. Um problema desta abordagem é a interferência do fundo para a detecção de toques, fazendo com que o ambiente no qual a mesa se encontra tenha que ser controlado para sua correta detecção análogo a iluminação DI. No entanto, em relação a uma mesa com iluminação exclusivamente DI, os toques são mais bem iluminados, facilitando as detecções, o que torna este método mais adequado ao tratamento de fiduciais e toques juntos.
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.17]{virttable.jpg}
+	\caption{Projeto da mesa \textit{Virttable}~[\citenum{virttable}]}
+	\label{virttable}
+	\end{center}
+\end{figure}
 
 \subsection{Processamento das Imagens}
 \label{cap3.1.1}
 
 As imagens devem ser capturadas rapidamente em sequência, de modo que a detecção de movimento ocorra isenta de erros. A captura dessas imagens se dá por intermédio de uma câmera sem filtro infravermelho com um filtro para luz visível, como o negativo de filme fotográfico, de forma a simplificar seu formato, facilitando o seu tratamento e evitando que se confundam com as demais imagens de fundo que não são inerentes ao toque na superfície do acrílico. Depois de capturadas, as imagens são filtradas de modo que os toques estejam destacados. Por fim, os conjuntos de \textit{pixels} agrupados que possuem intensidade semelhantes, os chamados \textit{blobs}, são detectados e mapeados, demarcando a posição exata onde o toque foi realizado.
 
-Conforme mencionado no capítulo anterior, existem dois principais métodos de iluminação de uma mesa multitoque, \textit{FTIR}(\textit{Frustrated Total Internal Refraction}) e \textit{DI}(\textit{Diffuse Illumination}). \textit{FTIR} trata-se de uma iluminação em que \textit{LED}s infravermelhos são postos em paralelo a superfície de acrílico da mesa, ou dentro do acrílico, de modo que os feixes de luz fiquem presos em seu interior, sendo refletidos internamente devido ao fenômeno de reflexão interna total~[\citenum{TIR}].
-Cada vez que um toque é aplicado sobre o acrílico, a iluminação é refletida para fora da superfície, iluminando o ponto de toque. Na iluminação \textit{DI}, por outro lado, os \textit{LED}s localizam-se abaixo da superfície de acrílico e sua luz incide na direção do acrílico, iluminando de baixo para cima, tornando imagens acima do acrílico visíveis, incluindo o fundo além do ponto do toque. Como é apresentado em~[\citenum{virttable}], a iluminação por \textit{FTIR} é mais adequada para detecção de toques, enquanto a iluminação por \textit{DI} é mais indicada para se detectar marcadores fiduciais sobre a mesa. A Figura~\ref{iluminacoes} demonstra as imagens capturadas por uma câmera localizada dentro de uma mesa multitoque para os diferentes tipos de iluminação.
+Conforme mencionado na seção anterior, existem dois principais métodos de iluminação de uma mesa multitoque, \textit{FTIR}(\textit{Frustrated Total Internal Refraction}) e \textit{DI}(\textit{Diffuse Illumination}). Como é apresentado em~[\citenum{virttable}], a iluminação por \textit{FTIR} é mais adequada para detecção de toques, enquanto a iluminação por \textit{DI} é mais indicada para se detectar marcadores fiduciais sobre a mesa. A Figura~\ref{iluminacoes} demonstra as imagens capturadas por uma câmera localizada dentro da mesa \textit{Virttable} para os diferentes tipos de iluminação, ilustrando seu efeito sobre toques e marcadores fiduciais.
 
 \begin{figure}[h!]
 	\centering
@@ -29,7 +61,7 @@ Cada vez que um toque é aplicado sobre o acrílico, a iluminação é refletida para
 	\label{iluminacoes}
 \end{figure}
 
-Dependendo do método de iluminação, filtros diferentes devem ser aplicados, como explicado em~[\citenum{muller}], de forma a se excluir interferências e selecionar apenas os toques. A biblioteca \textit{Community Core Vision}~[\citenum{ccv}], utilizada neste trabalho, possui diversos filtros os quais serão descritos nos capítulos seguintes.
+Dependendo do método de iluminação, filtros diferentes devem ser aplicados, como explicado em~[\citenum{muller}], de forma a se excluir interferências e selecionar apenas os toques. A biblioteca \textit{Community Core Vision}~[\citenum{ccv}], utilizada neste trabalho, possui diversos filtros. Os filtros utilizados serão descritos no Capítulo~\ref{cap4}.
 
 
 % Na iluminação híbrida, deve-se aplicar todos os filtros correspondentes as duas iluminações para obter a melhor imagem possível. Assim, os filtros a serem aplicados são apresentados na Figura~[\ref{filtros}]. São eles:
@@ -54,10 +86,10 @@ Dependendo do método de iluminação, filtros diferentes devem ser aplicados, como
 \subsection{Detecção de \textit{Blobs}}
 \label{cap3.1.2}
 
-Conforme apresentado na seção anterior, os chamados \textit{blobs} são os resultados da detecção dos toques na superfície. Para interpretar esses \textit{blobs}, existem dois processos essenciais, denominados de \textit{Blob-detection}, que interpreta o local em que o \textit{blob} foi criado nas imagens filtradas anteriores, e \textit{Blob-tracking}, que é a análise dos \textit{blobs} em uma sequência de imagens.
+Conforme apresentado na seção anterior, os chamados \textit{blobs}(\textit{Bright Luminescent Objects}) são os resultados da detecção dos toques na superfície. Para interpretar esses \textit{blobs}, existem dois processos essenciais, denominados de \textit{Blob-detection}, que interpreta o local em que o \textit{blob} foi criado nas imagens filtradas anteriores, e \textit{Blob-tracking}, que é a análise dos \textit{blobs} em uma sequência de imagens.
 Utilizando essas duas análises, pode-se identificar a criação de \textit{blobs}, verificar seus movimentos durante sua vida útil, e identificar a criação de novos \textit{blobs} no sistema. É importante ressaltar que a detecção de \textit{blobs} deve ser realizada a cada frame.
 
-A partir da imagem final capturada pela câmera é observado os contornos dos \textit{blobs} que aparecem e são analisados para identificar se eles correspondem ao toque de dedos ou a marcadores fiduciais. Se for um toque, uma elipse é feita sobre ele, e com base nela, pode ser identificada a posição, orientação e tamanho do \textit{blob}. Esse \textit{blob} então é adicionado a uma lista para ser processado.
+Após passar pela cadeia de filtros aplicados sobre a imagem da câmera,  ela alcança seu estágio final aonde são destacadas as interações com a interface. A partir dessa imagem final é observado os contornos dos \textit{blobs} que aparecem e são analisados para identificar se eles correspondem ao toque de dedos ou a marcadores fiduciais. Se for um toque, uma elipse é feita sobre ele, e com base nela, pode ser identificada a posição, orientação e tamanho do \textit{blob}. Esse \textit{blob} então é adicionado a uma lista para ser processado.
 
 Com base nessa lista, o \textit{blob-tracking} tem que ser feito para identificar a movimentação e criação dos \textit{blobs}. Usando o frame anterior de referência, verifica-se se o \textit{blob} foi criado, removido ou atualizado. Para se fazer essa análise, são utilizados dois conjuntos: \textit{P} e \textit{Q}. O conjunto \textit{P} contém a lista de pontos que representam os \textit{blobs} do frame anterior. Como exemplo, apresenta-se um conjunto \textit{P} com pontos (1,1) e (4,4), ilustrado no gráfico da Figura~\ref{grafP}.
 
@@ -111,6 +143,18 @@ Assim, um ponto na câmera pode ser corrigido de acordo com a equação \begin{equa
 
 Equação dos fatores da câmera, onde f\textsubscript{x},f\textsubscript{y} e c\textsubscript{x},c\textsubscript{y} correspondem, respectivamente, a distância focal e o centro da câmera em um ponto (x,y) arbitrário da imagem.
 
+Essas medições podem ser realizadas analizando uma imagem com um padrão reconhecido sendo colocada em pontos diferentes da câmera. Ao se processar esta imagem, pode-se medir a diferença entre o seu tamanho ideal e o tamanho obtido para se obter os valores ditos antes. Porém, filtros que aplicam esta correção podem ser pesados, deixando mais lenta a captura de toques.
+
+Uma alternativa a esta correção seria a adaptação de toques, como é feito pela \textit{CCV} (\textit{Community Core Vision}). Neste caso, são desenhados pontos na superfície em que o usuário deve tocar quando requisitado, como pode ser observado na Figura~\ref{calibrando}. Assim, o programa grava a posição em que o toque foi realizado, e ao se realizar um toque futuramente, sua posição é recalculada imediatamente baseada na proximidade com os pontos obtidos na calibração. Esta forma é mais eficiente que a aplicação do filtro de \textit{barrel correction}, e possui uma precisão boa dependendo de quantos pontos forem usados na calibração.
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.5]{calibrando.jpg}
+	\caption{Calibração de pontos na \textit{CCV}~[\citenum{calibrando}].}
+	\label{calibrando}
+	\end{center}
+\end{figure} 
+
 \section{Aspectos de mesas com superfície multitoque}
 \label{cap3.2}
 
@@ -141,7 +185,7 @@ Além desses problemas, existe a questão do ponto de visão do usuário. Quando um 
 
 \begin{figure}[h!]
 	\begin{center}
-	\includegraphics[scale=1]{ok.jpg}
+	\includegraphics[scale=0.8]{ok.jpg}
 	\caption{O tradicional botão \textit{OK} visto por dois ângulos distintos~[\citenum{pedrosaulo}].}
 	\label{OK}
 	\end{center}
@@ -177,7 +221,7 @@ A maioria dos \textit{softwares} leva em consideração que os gestos são oriundos
 	
 \end{itemize}
 
-Poucos \textit{softwares} implementam algum tipo de gesto usando somente um ponto de contato compostos de desenhos, como o que ocorre no jogo \textit{Black and White}~[\citenum{blackandwhite}] em que o jogador pode selecionar um poder diferente dependendo do movimento que faz com o mouse, ilustrado na Figura~\ref{blackwhite}.
+Poucos \textit{softwares} implementam algum tipo de gesto diferente usando somente um ponto de contato compostos de desenhos, como o que ocorre no jogo \textit{Black and White}~[\citenum{blackandwhite}] em que o jogador pode selecionar um poder diferente dependendo do movimento que faz com o mouse, ilustrado na Figura~\ref{blackwhite}.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -207,3 +251,4 @@ Em uma mesa multitoque a possibilidade de identificação de vários pontos de cont
 		
 \end{itemize}
 
+Além destes, podem existir vários gestos não tradicionais, como múltiplos pontos de contato seguindo em direções diferentes para selecionar uma opção, por exemplo, como pode ser observado em~[\citenum{touchmenu}]. Analisando a quantia de pontos possíveis em uma mesa, existem inúmeras possibilidades de gestos usando combinações de pontos de contato.
