@@ -32,7 +32,7 @@ O simulador de física \textit{Deskworld} tem como principal proposta deixar a ca
 
 \subsection{Regras e Objetos}
 \label{cap5.1.3}
-Basicamente, pode-se criar qualquer objeto bidimensional, com o auxílio das ferramentas fornecidas. A construção funciona similarmente ao desenho virtual, onde o dedo representa o lápis e a superfície da mesa o papel. Os objetos podem ser criados de forma livre, ou com auxílio do software que tenta aproximar os desenhos do usuário a polígonos convexos.
+Basicamente, pode-se criar qualquer objeto bidimensional, com o auxílio das ferramentas fornecidas. A construção funciona similarmente ao desenho virtual, onde o dedo representa o lápis e a superfície da mesa o papel. Os objetos podem ser criados de forma livre, com o usuário desenhando-os como quiser, ou com auxílio do software que tenta aproximar os desenhos do usuário a polígonos convexos.
 
 Para a alteração de regras do mundo, ferramentas utilizadas ou propriedades dos objetos, o usuário possui um menu, que pode ser acessado através de dois toques subsequentes em um local da tela. Os itens do menu podem ser selecionados com um único toque neles.
 
@@ -60,12 +60,12 @@ A interface utilizada para testes é a mesa cuja construção foi descrita no Capít
 \section{Ferramentas de suporte}
 \label{cap5.2}
 
-Nesta seção, serão descritas as ferramentas de suporte utilizadas na construção do simulador \textit{Deskworld}, tais como game engine e bibliotecas.
+Nesta seção, serão descritas as ferramentas de suporte, que fornecem aplicações reutilizáveis para facilitar o desenvolvimento de \textit{softwares}, utilizadas na construção do simulador \textit{Deskworld}, tais como game engine e bibliotecas.
 
 \subsection{\textit{Game Engine}}
 \label{cap5.2.1}
 
-A \textit{engine} utilizada no desenvolvimento deste software foi a Box2D~[\citenum{Box2Dmanual}]. A principal funcionalidade da \textit{Box2D}, no contexto desse \textit{software}, foi auxiliar na criação dos objetos e no tratamento de eventos relacionados à simulação das leis da física. Tais eventos são:
+A \textit{engine} utilizada no desenvolvimento deste software foi a Box2D~[\citenum{Box2Dmanual}]. Esta engine é livre, ou seja, pode ser utilizada sem nenhum custo. A principal funcionalidade da \textit{Box2D}, no contexto desse \textit{software}, foi auxiliar na criação dos objetos e no tratamento de eventos relacionados à simulação das leis da física. Tais eventos são:
 
 \begin{itemize}
 	\item Gravidade
@@ -74,12 +74,12 @@ A \textit{engine} utilizada no desenvolvimento deste software foi a Box2D~[\cite
 	\item Força de atrito
 \end{itemize}
 
-Além dessas funcionalidades, a \textit{Box2D} é responsável pela gerência de memória, junção de objetos e/ou a fixação deles.
+Além dessas funcionalidades, a \textit{Box2D} é responsável pela gerência de memória, junção de objetos e/ou a fixação deles. Sua escolha foi baseada em boa performace, simulação física de ambientes bidimensionais, além da estabilidade de seu código.
 
 \subsection{\textit{Bibliotecas de apoio}}
 \label{cap5.2.2}
 
-Para facilitar a implementação do \textit{software}, foram utilizadas diversas bibliotecas. Uma das bibliotecas padrão do C++, a \textit{STL} \textit{(Standart Template Library)}, possui algumas estruturas complexas de dados já implementadas, sendo amplamente utilizada neste simulador. Para a parte gráfica do jogo foi utilizada a biblioteca \textit{SDL}~[\citenum{sdl}]  \textit{(Simple Direct Layer)} em conjunto com a \textit{OpenGL}~[\citenum{opengl}]  (\textit{Open Graphics Library}). Com relação ao áudio, utilizou-se a biblitoca \textit{SDL\_mixer}~[\citenum{sdlmixer}] . Para tratamento de \textit{input} foi utilizada a biblioteca do protocolo \textit{TUIO}~[\citenum{TUIO}] (\textit{Tangible User Interface System}).
+Para facilitar a implementação do \textit{software}, foram utilizadas diversas bibliotecas. Uma das bibliotecas padrão do C++, a \textit{STL} \textit{(Standart Template Library)}, possui algumas estruturas complexas de dados já implementadas, sendo amplamente utilizada neste simulador. Para a parte gráfica do jogo foi utilizada a biblioteca \textit{SDL}~[\citenum{sdl}]  \textit{(Simple Direct Layer)} em conjunto com a \textit{OpenGL}~[\citenum{opengl}]  (\textit{Open Graphics Library}). Com relação ao áudio, utilizou-se a biblitoca \textit{SDL\_mixer}~[\citenum{sdlmixer}] . Para tratamento de \textit{input} foi utilizada a biblioteca do protocolo \textit{TUIO}~[\citenum{TUIO}] (\textit{Tangible User Interface System}) para receber as mensagens enviadas pelo \textit{CCV}~[\citenum{ccv}] (\textit{Community Core Vision}) explicado mais a frente.
 
 \subsubsection{\textit{SDL} e \textit{OpenGL}}
 \label{cap5.2.2.1}
