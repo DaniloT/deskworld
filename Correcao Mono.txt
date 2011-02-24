@@ -18,10 +18,8 @@ Como dimensioanr os leds, dimensoes, sensibilidade da camera.
 
 * Lamar:
 cap 4 mais detalhes sobre potencia, corrente, resistores, coisas de engenheiro...
-cap 4 mencionar algo sobre a ventilacao.
 cap 4 aplicacoes matematicas que definem filtros, nao sei como explicar isso, filtros foram usados direto da aplicacao no CCV por ordem de teste e erro.
 cap 5 resultados obtidos, medidas de desempenho, limitacoes, sensibilidade, resolucao, precisao, ...
-cap 6 mencionar sensibilidade e precisao novamente.
 
 * Carla:
 cap 5 adicionar screenshots do jogo.
@@ -92,7 +90,9 @@ cap 3 transformar matriz de figura para equacao.
 cap 3 explicar melhor o que sao projetores short throw e resolucoes de 720p e 1080p.
 cap 3 reescrever texto apra explicar o que significa diminuir precisao com aumento de amostragem.
 adicionar infravermelhos depois de todas mencoes de leds.
+cap 4 mencionar algo sobre a ventilacao.
 cap 5 explicar pq eh float parametros de mensagens tuio.
+cap 6 mencionar sensibilidade e precisao novamente.
 
 
 * Carla :
