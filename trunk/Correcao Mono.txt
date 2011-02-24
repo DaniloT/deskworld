@@ -1,0 +1,106 @@
+- Falta Corrigir:
+* Berger:
+cap 5 diagrama de classes nao da para enxergar, arrumar.
+
+* Jacobi:
+cap 2 pergunta se outras mesas utilizam mesmo projetores, procurar melhor sobre a microsoft surface que eh a unica duvida.
+cap 6 adicionar mais reflexoes sobre tamanho e aplicacao da mesa
+- Essas foram as unicas correcoes de monografia, o resto abaixo sao as perguntas que ele deixou anotadas na monografia e talvez devamos incluir algumas respostas:
+Pede referencia para como foi feito decisao de quantia de leds.
+Pede para explicar testes com a pelicula. Nao sei se devemos, nao pegamos a estrutura da pelicula para saber exatamente onde ta o erro, pq nao funcionou, soh testamos e nao deu.
+Pergunta quantia de toques simultaneos possiveis. Pesquisar, testei ate 10000 sem problema, nao sei ate quando pode ir, nao me pareceu limitado.
+Pede criterios para explicar design da mesa. Acho que nao devemos tambem explicar isto, nao teve um design exatamente planejado.
+Pergunta como se relaciona deskworld com outros, nao entendi.
+Pede ligaçao entre mesa e engine.
+Custo total.
+De onde vem os problemas.
+Como dimensioanr os leds, dimensoes, sensibilidade da camera.
+
+* Lamar:
+cap 4 mais detalhes sobre potencia, corrente, resistores, coisas de engenheiro...
+cap 4 mencionar algo sobre a ventilacao.
+cap 4 aplicacoes matematicas que definem filtros, nao sei como explicar isso, filtros foram usados direto da aplicacao no CCV por ordem de teste e erro.
+cap 5 resultados obtidos, medidas de desempenho, limitacoes, sensibilidade, resolucao, precisao, ...
+cap 6 mencionar sensibilidade e precisao novamente.
+
+* Carla:
+cap 5 adicionar screenshots do jogo.
+
+o seguinte sao as anotacoes da professora sobre perguntas, quando acabar correcoes, verificar se algo foi somente mencionado oralmente ou se esta corrigido:
+- anotacoes da carla sobre berger
+encaixar o nosso trabalho no historico dos jogos eletronicos.
+falar mais da utilizacao da mesa, pra que serve, treinamento corporativo, mercado corporativo.
+3.11 indentificacao do toque - notas de rodape com algumas definicoes
+diagrama ilustrando os passos para deteccao.
+4.6 ficou pequena, detalhar mais os filtros utilizados.
+5.6 explicar pq usou box2d
+melhorar diagrama de classes.
+conclusao explicar pq foi adequado a interface o software.
+conclusao explicar o problema do transporte da mesa.
+- anotacoes da carla sobre jacobi
+microsoft surface usa projetor? confirmar
+quantos leds, pq desse numero, colocou isso como definido.
+na construcao da mesa colocar o porq das escolhas.
+explicar pq a pelicula deu problema e se usou papel vegetal.
+- anotacoes da carla sobre lamar
+final do cap 5, relatar resultados obtidos.
+colocar potencia do circuito.
+explicar o que faz cada filtro
+
+
+
+
+
+- Foi Corrigido:
+* Berger:
+Referencias
+cap 1 pede exemplos de software, jah estao lah, exemplos de mesa sao os fornecidos, pediu para citar referencias que nao tem a ver, sao exemplos de softwares pra mesa, fala que o mercado de console eh bem diferente do de mesas, tentamos reescrever um pouco paragrafo abaixo dos consoles de nova geracao e controles ("Como mencionado acima, os principais consoles...") para melhor indicar relacao de mercados.
+cap 1 pede objetivos gerais e especificos, jah estao na introducao mas no final de outro paragrafo, foi separado pra melhor destacar
+cap 2 retirado explicacoes das iluminacoes, passadas para o cap 3
+cap 2 explica melhor marcadores fiduciais no paragrafo que introduz a reactable.
+cap 3 explicado melhor a diferenca da imagem original a imagem final, segunda paragrafo da deteccao de blobs.
+cap 3 explicado como estimar valores para matriz de correcao, transformado matriz em equacao.
+cap 3 adicionado explicacao sobre alternativa para corrigir a imagem, adicionado figura da calibracao do CCV.
+cap 3 pediu para melhorar a qualidade de figuras, especificamente do botao de OK e do jogo black and white. Nao sei se foi a impressao em preto e branco, mas nao achei figura melhor para mostrar o input gestual no black and white, acho melhor deixar essa, e o ponto de visão do demonstrado pelo botão OK não precisa de mais qualidade na minha opinião, mas se necessário, busco outro figura que substitua.
+cap 3 reclama que termina abruptamente, tentamos colocar uma melhor finalizacao.
+cap 3 pede nota de rodapé explicando o que significa extrudado. (ignorado, não achamos necessário nota, é o nome do acrílico escolhido, tem a ver com a forma que foi cortado, não diz respeito ao trabalho.)
+cap 3 diz que definicao de gesto com um ponto de contato proposta, logo após figura do black and white, é a propria definicao de gestos, e que eh diferente de assinatura. Nao entendi o que quis dizer com isso, paragrafo me pareceu bom. (ignorado, achamos o paragrafo adequado, talvez depois peçamos ao professor para explicar melhor.)
+cap 4 separado valores de unidades (1cm vira 1 cm)
+cap 4, retirado alta resolucao da ps eye como um dos motivos visto que ela, mesmo podendo alcancar 640x480, ainda assim possui baixa resolucao.
+cap 4 explicado melhor aplicacao de filme fotografico, seu motivo.
+cap 4 filtro exigido arrumado, reescrito para explicar direito o rectify sem deixar impressao que soh esta sendo usado por exigencia.
+cap 4 traduzido todos nomes de filtro para portugues.
+cap 4 pede para detalhar melhor os filtros, seus parametros. Nao sei exatamente se devemos atender este pedido, me parece meio estranho botar os valores que foram usados na configuracao do CCV pois ela eh extremamente variavel, dependendo da iluminacao externa jah se utilizam outros parametros... (ignorado, jah colocamos os filtros selecionados e explicamos seus motivos, acreditamos ser o suficiente, considerando que sempre que mexemos na mesa mudamos os parametros nao achamos que faria muito sentido coloca-los.)
+cap 5 pede para trocar locais onde esta design por projeto.
+cap 5 pede para introduzir com descricao do software na apresentacao, achou um pouco melhor. (ignorado, local proposto explica o que tem a vir pelo capitulo, nao achamos bom colocar uma descriçao mais detalhada sobre o software no inicio, ele ja esta mais bem explicado algumas secoes a frente no capitulo.)
+cap 5 inicio sobre as ferramentas em regras e objetos dao a entender que as ferramentas nao servem para nada, reescrever isso.
+cap 5 um pouco mais abaixo, final do mesmo paragrafo, disse que entende a frase OK mas esta estranha, tentar reescrever.
+cap 5 pede definicao de ferramentas de suporte.
+cap 5 Box2D pergunta se eh free e pq escolhemos usar ela.
+cap 5 frase das bibliotecas de apoio deixa a entender que a biblioteca TUIO realiza a deteccao de blobs, explicar melhor.
+cap 5 pede vantagem de se usar TUIO (ignorado, jah esta explicada no resto da secao)
+cap 5 secao TUIO, pede para explicar o que sao interfaces tangiveis. (ignorado, esta explicado logo mais a frente)
+cap 6 explicar pq foi adequada a escolha do software.
+cap 6 explicar consequencias das escolhas assim que menciona-las.
+cap 6 explicar problema de eficiencia de biblioteca utilizada.
+cap 6 marcou parte escrita sobre problema de remontagem da mesa e escreveu secao 4.1, acredito que queira que mencione problemas da estrutura empenada no cap 4. (resolvemos ignorar, achamos melhor na conclusao)
+
+* Jacobi:
+
+* Lamar:
+cap 3 transformar matriz de figura para equacao.
+cap 3 explicar melhor o que sao projetores short throw e resolucoes de 720p e 1080p.
+cap 3 reescrever texto apra explicar o que significa diminuir precisao com aumento de amostragem.
+adicionar infravermelhos depois de todas mencoes de leds.
+cap 5 explicar pq eh float parametros de mensagens tuio.
+
+
+* Carla :
+Título do trabalho.
+Agradecimentos.
+Figura do projeto da mesa com numeros grandes.
+trocar palavra idela por adequado.
+trocar barulho por ruido
+
+
+PS: todas correcoes possuiram correcoes de ortografia, pequenas reescrituras de palavras sem muito impacto, remocao de pleonasmos e correcao de hifens errados, esses erros nao serao mencionados na correcao mas serao aplicados diretamente na monografia ao corrigir os outros.
