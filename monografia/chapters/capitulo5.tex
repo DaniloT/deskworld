@@ -32,9 +32,26 @@ O simulador de física \textit{Deskworld} tem como principal proposta deixar a ca
 
 \subsection{Regras e Objetos}
 \label{cap5.1.3}
-Basicamente, pode-se criar qualquer objeto bidimensional, com o auxílio das ferramentas fornecidas. A construção funciona similarmente ao desenho virtual, onde o dedo representa o lápis e a superfície da mesa o papel. Os objetos podem ser criados de forma livre, com o usuário desenhando-os como quiser, ou com auxílio do software que tenta aproximar os desenhos do usuário a polígonos convexos.
 
-Para a alteração de regras do mundo, ferramentas utilizadas ou propriedades dos objetos, o usuário possui um menu, que pode ser acessado através de dois toques subsequentes em um local da tela. Os itens do menu podem ser selecionados com um único toque neles.
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.6]{screen.png}
+	\caption{Tela do \textit{software Deskworld}.}
+	\label{jogo}
+	\end{center}
+\end{figure}
+
+Basicamente, pode-se criar qualquer objeto bidimensional, com o auxílio das ferramentas fornecidas. A construção funciona similarmente ao desenho virtual, onde o dedo representa o lápis e a superfície da mesa o papel. Os objetos podem ser criados de forma livre, com o usuário desenhando-os como quiser, ou com auxílio do software, através de suas ferramentas ou utilizando a forma livre que, ao fechar uma forma, tenta aproximar os desenhos do usuário a polígonos convexos, como pode ser observado na Figura~\ref{aprox}.
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.6]{aproximacao.png}
+	\caption{Aproximação de formas a polígonos convexos.}
+	\label{aprox}
+	\end{center}
+\end{figure}
+
+Para a alteração de regras do mundo, ferramentas utilizadas ou propriedades dos objetos, o usuário possui um menu, que pode ser acessado através de dois toques subsequentes em um local disponível da tela. Os itens do menu podem ser selecionados com um único toque neles.
 
 Cada objeto pode ter as seguintes características:
 \begin{itemize}
@@ -47,9 +64,12 @@ Cada objeto pode ter as seguintes características:
 	\item Velocidade
 \end{itemize}
 
-Dentre as características acima, a densidade, o coeficiente de atrito, o coeficiente de restituição de força e a massa podem ser alterados pelo usuário a qualquer momento, utilizando o menu.
+Dentre as características acima, a densidade, o coeficiente de atrito e o coeficiente de restituição de força podem ser alterados pelo usuário a qualquer momento, utilizando o menu de objetos, acessado da mesma maneira em que se acessa o menu tradicional, mas com o duplo clique sendo em cima de um objeto ao invés de um local disponível da tela. As demais são calculadas automaticamente, de acordo com as interações dos objetos com o mundo, como por colisões, movimentações ou alterações de gravidade.
 
-Além dessas propriedades, os objetos podem interagir entre si por meio de juntas, colisões ou motores adicionados aos objetos, que aplicam uma força constante sobre um objeto. As juntas são entidades que permite fixar um objeto a outro. Funciona, analogamente, a colocar um prego para juntar dois pedaços de madeira. Também é possível a separação de mundos com gravidades diferentes e cores de pincéis diferentes entre si.
+%Além dessas propriedades, os objetos podem interagir entre si por meio de juntas, colisões ou motores adicionados aos objetos, que aplicam uma força constante sobre um objeto. As juntas são entidades que permite fixar um objeto a outro. Funciona, analogamente, a colocar um prego para juntar dois pedaços de madeira.
+Além dessas propriedades, a cor dos objetos pode ser alterada pelo menu, bem como a gravidade do mundo. Também é possível a separação de mundos com gravidades diferentes e cores de pincéis diferentes entre si. O usuário ainda tem acesso a um apagador, para retirar do mundo qualquer objeto que não queira mais. Caso o usuário apague uma divisão entre mundos, os mundos continuam divididos e com suas propriedades diferentes, mas os objetos existentes em cada mundo podem transitar livremente entre os mundos unidos. A última propriedade disponível no menu é o \textit{Mute}, que pode ser selecionado para se desligar a música do jogo caso algum usuário deseje, ou ligar novamente caso esteja desligada.
+
+As ferramentas e objetos disponíveis estão ilustradas na Figura~\ref{jogo}.
 
 Neste \textit{software} interativo, não existem regras pré-definidas. Fica a critério do usuário definir suas regras enquanto interage com o \textit{software} criando cenários e objetos.
 
