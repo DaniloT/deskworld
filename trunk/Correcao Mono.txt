@@ -1,9 +1,6 @@
 - Falta Corrigir:
-* Berger:
-cap 5 diagrama de classes nao da para enxergar, arrumar.
-
 * Jacobi:
-- Essas foram as unicas correcoes de monografia, o resto abaixo sao as perguntas que ele deixou anotadas na monografia e talvez devamos incluir algumas respostas:
+- Abaixo sao as perguntas que ele deixou anotadas na monografia e talvez devamos incluir algumas respostas:
 Pede referencia para como foi feito decisao de quantia de leds.
 Pede para explicar testes com a pelicula. Nao sei se devemos, nao pegamos a estrutura da pelicula para saber exatamente onde ta o erro, pq nao funcionou, soh testamos e nao deu.
 Pergunta quantia de toques simultaneos possiveis. Pesquisar, testei ate 10000 sem problema, nao sei ate quando pode ir, nao me pareceu limitado.
@@ -19,29 +16,23 @@ cap 4 mais detalhes sobre potencia, corrente, resistores, coisas de engenheiro..
 cap 4 aplicacoes matematicas que definem filtros, nao sei como explicar isso, filtros foram usados direto da aplicacao no CCV por ordem de teste e erro.
 cap 5 resultados obtidos, medidas de desempenho, limitacoes, sensibilidade, resolucao, precisao, ...
 
-* Carla:
-cap 5 adicionar screenshots do jogo.
+
 
 o seguinte sao as anotacoes da professora sobre perguntas, quando acabar correcoes, verificar se algo foi somente mencionado oralmente ou se esta corrigido:
 - anotacoes da carla sobre berger
-encaixar o nosso trabalho no historico dos jogos eletronicos.
-falar mais da utilizacao da mesa, pra que serve, treinamento corporativo, mercado corporativo.
 3.11 indentificacao do toque - notas de rodape com algumas definicoes
 diagrama ilustrando os passos para deteccao.
-4.6 ficou pequena, detalhar mais os filtros utilizados.
-5.6 explicar pq usou box2d
 melhorar diagrama de classes.
 conclusao explicar pq foi adequado a interface o software.
 conclusao explicar o problema do transporte da mesa.
 - anotacoes da carla sobre jacobi
-microsoft surface usa projetor? confirmar
 quantos leds, pq desse numero, colocou isso como definido.
 na construcao da mesa colocar o porq das escolhas.
 explicar pq a pelicula deu problema e se usou papel vegetal.
 - anotacoes da carla sobre lamar
 final do cap 5, relatar resultados obtidos.
 colocar potencia do circuito.
-explicar o que faz cada filtro
+
 
 
 
@@ -76,6 +67,7 @@ cap 5 Box2D pergunta se eh free e pq escolhemos usar ela.
 cap 5 frase das bibliotecas de apoio deixa a entender que a biblioteca TUIO realiza a deteccao de blobs, explicar melhor.
 cap 5 pede vantagem de se usar TUIO (ignorado, jah esta explicada no resto da secao)
 cap 5 secao TUIO, pede para explicar o que sao interfaces tangiveis. (ignorado, esta explicado logo mais a frente)
+cap 5 diagrama de classes nao da para enxergar, arrumar.
 cap 6 explicar pq foi adequada a escolha do software.
 cap 6 explicar consequencias das escolhas assim que menciona-las.
 cap 6 explicar problema de eficiencia de biblioteca utilizada.
@@ -101,6 +93,7 @@ Agradecimentos.
 Figura do projeto da mesa com numeros grandes.
 trocar palavra idela por adequado.
 trocar barulho por ruido
+cap 5 adicionar screenshots do jogo.
 
 
 PS: todas correcoes possuiram correcoes de ortografia, pequenas reescrituras de palavras sem muito impacto, remocao de pleonasmos e correcao de hifens errados, esses erros nao serao mencionados na correcao mas serao aplicados diretamente na monografia ao corrigir os outros.
