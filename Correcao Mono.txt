@@ -3,8 +3,6 @@
 cap 5 diagrama de classes nao da para enxergar, arrumar.
 
 * Jacobi:
-cap 2 pergunta se outras mesas utilizam mesmo projetores, procurar melhor sobre a microsoft surface que eh a unica duvida.
-cap 6 adicionar mais reflexoes sobre tamanho e aplicacao da mesa
 - Essas foram as unicas correcoes de monografia, o resto abaixo sao as perguntas que ele deixou anotadas na monografia e talvez devamos incluir algumas respostas:
 Pede referencia para como foi feito decisao de quantia de leds.
 Pede para explicar testes com a pelicula. Nao sei se devemos, nao pegamos a estrutura da pelicula para saber exatamente onde ta o erro, pq nao funcionou, soh testamos e nao deu.
@@ -84,6 +82,8 @@ cap 6 explicar problema de eficiencia de biblioteca utilizada.
 cap 6 marcou parte escrita sobre problema de remontagem da mesa e escreveu secao 4.1, acredito que queira que mencione problemas da estrutura empenada no cap 4. (resolvemos ignorar, achamos melhor na conclusao)
 
 * Jacobi:
+cap 2 pergunta se outras mesas utilizam mesmo projetores, procurar melhor sobre a microsoft surface que eh a unica duvida. (Sim, realmente utiliza projetor no esquema DI, não foi alterado nada na monografia.)
+cap 6 adicionar mais reflexoes sobre tamanho e aplicacao da mesa
 
 * Lamar:
 cap 3 transformar matriz de figura para equacao.
