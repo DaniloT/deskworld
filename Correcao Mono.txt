@@ -20,18 +20,13 @@ cap 5 resultados obtidos, medidas de desempenho, limitacoes, sensibilidade, reso
 
 o seguinte sao as anotacoes da professora sobre perguntas, quando acabar correcoes, verificar se algo foi somente mencionado oralmente ou se esta corrigido:
 - anotacoes da carla sobre berger
-3.11 indentificacao do toque - notas de rodape com algumas definicoes
+3.11 indentificacao do toque - notas de rodape com algumas definicoes (ignorado, nao vimos necessidade)
 diagrama ilustrando os passos para deteccao.
-melhorar diagrama de classes.
-conclusao explicar pq foi adequado a interface o software.
-conclusao explicar o problema do transporte da mesa.
 - anotacoes da carla sobre jacobi
 quantos leds, pq desse numero, colocou isso como definido.
 na construcao da mesa colocar o porq das escolhas.
 explicar pq a pelicula deu problema e se usou papel vegetal.
-- anotacoes da carla sobre lamar
-final do cap 5, relatar resultados obtidos.
-colocar potencia do circuito.
+
 
 
 
