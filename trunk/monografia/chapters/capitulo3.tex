@@ -8,6 +8,14 @@ Neste capítulo são apresentadas as técnicas para detecção de toques. Ou seja, é 
 \section{Processamento de Toques}
 \label{cap3.1}
 
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.80]{diagramatoque.jpg}
+	\caption{Diagrama do processo de detecção dos toques.}
+	\label{touchtable}
+	\end{center}
+\end{figure}
+
 Para o reconhecimento de toques é fundamental a implementação de um sistema de visão computacional. Como é explicado em~[\citenum{pedrosaulo}], a visão computacional trata da capacidade dos computadores de capturar informações visuais sobre o ambiente e processá-las, interpretando o que foi capturado. Assim, se faz necessário um sistema capaz de interpretar o toque em uma mesa, identificando seu local de ocorrência e extraindo, das imagens obtidas, informações sobre ele. Esse sistema é composto por um computador tradicional, uma \textit{webcam} sem filtro infravermelho, porém, com um filtro para luz visível e um projetor multimídia. O projetor, localizado sob a mesa, projeta imagens na supefície de acrílico. Enquanto isso, a \textit{webcam}, também localizada sob a mesa, captura imagens da superfície que serão interpretadas por um \textit{software} responsável por identificar o local dos toques.
 
 \subsection{Métodos de Iluminação de Mesas Multi-Toque}
