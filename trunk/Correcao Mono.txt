@@ -1,16 +1,3 @@
-- Falta Corrigir:
-* Jacobi:
-- Abaixo sao as perguntas que ele deixou anotadas na monografia e talvez devamos incluir algumas respostas:
-Pede referencia para como foi feito decisao de quantia de leds.
-Pergunta quantia de toques simultaneos possiveis. Pesquisar, testei ate 10000 sem problema, nao sei ate quando pode ir, nao me pareceu limitado.
-Pede ligaçao entre mesa e engine.
-
-* Lamar:
-cap 5 resultados obtidos, medidas de desempenho, limitacoes, sensibilidade, resolucao, precisao, ...
-
-
-
-- Foi Corrigido:
 * Berger:
 Referencias
 cap 1 pede exemplos de software, jah estao lah, exemplos de mesa sao os fornecidos, pediu para citar referencias que nao tem a ver, sao exemplos de softwares pra mesa, fala que o mercado de console eh bem diferente do de mesas, tentamos reescrever um pouco paragrafo abaixo dos consoles de nova geracao e controles ("Como mencionado acima, os principais consoles...") para melhor indicar relacao de mercados.
@@ -49,11 +36,14 @@ cap 6 marcou parte escrita sobre problema de remontagem da mesa e escreveu secao
 cap 2 pergunta se outras mesas utilizam mesmo projetores, procurar melhor sobre a microsoft surface que eh a unica duvida. (Sim, realmente utiliza projetor no esquema DI, não foi alterado nada na monografia.)
 cap 6 adicionar mais reflexoes sobre tamanho e aplicacao da mesa
 - Abaixo sao as perguntas que ele deixou anotadas na monografia e talvez devamos incluir algumas respostas:
+Pede referencia para como foi feito decisao de quantia de leds. (ignorado, a quantia foi dada pelo tamanho do acrilico e espaçamento que fizemos, foi uma questao soh de ver quantos cabem e decidimos assim, poderiamos facilmente botar alguns leds a mais ou a menos.)
 Pede para explicar testes com a pelicula. Nao sei se devemos, nao pegamos a estrutura da pelicula para saber exatamente onde ta o erro, pq nao funcionou, soh testamos e nao deu. (ignorado, nao fizemos um teste extensivo com outros materiais e nem sabemos explicar que material é a película, e só temos suposições do porque a pelicula nao funcionou, não temos informações suficientes para se incluir isto na monografia.)
 Pede criterios para explicar design da mesa. Acho que nao devemos tambem explicar isto, nao teve um design exatamente planejado. (ignorado, mesa nao teve design, soh fizemos uma mesa grande para varios usuarios como mencionado)
 Pergunta como se relaciona deskworld com outros, nao entendi. (ignorado, provavelmente ficou confuso pois foi uma anotaçao para uma pergunta feita somente, mas nao sabemos o que quer dizer)
 De onde vem os problemas.
 Como dimensioanr os leds, dimensoes, sensibilidade da camera. (parcialmente ignorado, sobre as dimensoes explicadas junto do led wizard, a sensibilidade nao sabemos o que mais colocar de especificação da camera, todas infos que temos está na monografia.)
+Pergunta quantia de toques simultaneos possiveis. Pesquisar, testei ate 10000 sem problema, nao sei ate quando pode ir, nao me pareceu limitado.
+Pede ligaçao entre mesa e engine.
 
 * Lamar:
 cap 3 transformar matriz de figura para equacao.
@@ -64,6 +54,7 @@ cap 4 mencionar algo sobre a ventilacao.
 cap 4 mais detalhes sobre potencia, corrente, resistores, coisas de engenheiro...
 cap 4 aplicacoes matematicas que definem filtros, nao sei como explicar isso, filtros foram usados direto da aplicacao no CCV por ordem de teste e erro. (ignorado, no nosso trabalho utilizamos uma ferramenta pronta para fazer isso justamente para evitar ter que utilizar as fórmulas de cada filtro aplicadas manualmente, acreditamos que explicar cada um dos filtros foge do escopo do nosso trabalho, exigindo conhecimentos que nós ainda não temos sobre os filtros, achamos que é mais detalhes que o necessário para o entendimento dos filtros.)
 cap 5 explicar pq eh float parametros de mensagens tuio.
+cap 5 resultados obtidos, medidas de desempenho, limitacoes, sensibilidade, resolucao, precisao, ... (colocado na conclusão)
 cap 6 mencionar sensibilidade e precisao novamente.
 
 * Carla :
