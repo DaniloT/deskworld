@@ -8,14 +8,6 @@ Neste capítulo são apresentadas as técnicas para detecção de toques. Ou seja, é 
 \section{Processamento de Toques}
 \label{cap3.1}
 
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[scale=0.80]{diagramatoque.jpg}
-	\caption{Diagrama do processo de detecção dos toques.}
-	\label{touchtable}
-	\end{center}
-\end{figure}
-
 Para o reconhecimento de toques é fundamental a implementação de um sistema de visão computacional. Como é explicado em~[\citenum{pedrosaulo}], a visão computacional trata da capacidade dos computadores de capturar informações visuais sobre o ambiente e processá-las, interpretando o que foi capturado. Assim, se faz necessário um sistema capaz de interpretar o toque em uma mesa, identificando seu local de ocorrência e extraindo, das imagens obtidas, informações sobre ele. Esse sistema é composto por um computador tradicional, uma \textit{webcam} sem filtro infravermelho, porém, com um filtro para luz visível e um projetor multimídia. O projetor, localizado sob a mesa, projeta imagens na supefície de acrílico. Enquanto isso, a \textit{webcam}, também localizada sob a mesa, captura imagens da superfície que serão interpretadas por um \textit{software} responsável por identificar o local dos toques.
 
 \subsection{Métodos de Iluminação de Mesas Multi-Toque}
@@ -71,6 +63,13 @@ Conforme mencionado na seção anterior, existem dois principais métodos de ilumin
 
 Dependendo do método de iluminação, filtros diferentes devem ser aplicados, como explicado em~[\citenum{muller}], de forma a se excluir interferências e selecionar apenas os toques. A biblioteca \textit{Community Core Vision}~[\citenum{ccv}], utilizada neste trabalho, possui diversos filtros. Os filtros utilizados serão descritos no Capítulo~\ref{cap4}.
 
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[scale=0.80]{diagramatoque.jpg}
+	\caption{Diagrama do processo de detecção dos toques.}
+	\label{touchtable}
+	\end{center}
+\end{figure}
 
 % Na iluminação híbrida, deve-se aplicar todos os filtros correspondentes as duas iluminações para obter a melhor imagem possível. Assim, os filtros a serem aplicados são apresentados na Figura~[\ref{filtros}]. São eles:
 %
@@ -177,7 +176,7 @@ O tamanho de uma mesa multitoque deve ser proporcional a sua utilização. Se for 
 
 Idealmente, os \textit{softwares} devem funcionar independentemente do tamanho da mesa, permitindo que o mesmo seja utilizado em projetos similares. No entanto, mesmo sem este planejamento, existem maneiras de tratar isso. A mesa pode ser projetada para se utilizar um dispositivo apontador, permitindo a um usuário alcançar pontos mais distantes, ou então possuir uma função que mude o tamanho da tela e a posicione mais perto do usuário.
 
-Em geral, as mesas possuem um tamanho maior que os monitores de vídeo tradicionais, o que produz um problema sobre a resolução da imagem projetada. A maioria dos projetores possuem resolução padrão de 800x600 ou 1024x768 pixels, o que, para mesas grandes, é insuficiente e produz uma imagem distorcida. Para contornar isso, a solução é utilizar um projetor \textit{short-throw} de alta resolução \textit{WXGA (Wide eXtended Graphics Array)}, capaz de atingir qualidade de imagem projetada em alta definição como o \textit{720p}(resolução 1280x720 com varredura progressiva~\ref{}) ou até o \textit{1080p}(resolução 1650x1080 com varredura progressiva~\ref{}). Projetores \textit{short-throw} são capazes de projetarem imagens maiores em relação a sua distância da superfície de projeção, quando comparados a projetores convencionais.
+Em geral, as mesas possuem um tamanho maior que os monitores de vídeo tradicionais, o que produz um problema sobre a resolução da imagem projetada. A maioria dos projetores possuem resolução padrão de 800x600 ou 1024x768 pixels, o que, para mesas grandes, é insuficiente e produz uma imagem distorcida. Para contornar isso, a solução é utilizar um projetor \textit{short-throw} de alta resolução \textit{WXGA (Wide eXtended Graphics Array)}, capaz de atingir qualidade de imagem projetada em alta definição como o \textit{720p}(resolução 1280x720 com varredura progressiva) ou até o \textit{1080p}(resolução 1650x1080 com varredura progressiva). Projetores \textit{short-throw} são capazes de projetarem imagens maiores em relação a sua distância da superfície de projeção, quando comparados a projetores convencionais.
 
 \subsection{Interfaces}
 \label{cap3.2.2}
