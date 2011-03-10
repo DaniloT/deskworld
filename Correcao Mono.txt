@@ -40,7 +40,7 @@ Pede referencia para como foi feito decisao de quantia de leds. (ignorado, a qua
 Pede para explicar testes com a pelicula. Nao sei se devemos, nao pegamos a estrutura da pelicula para saber exatamente onde ta o erro, pq nao funcionou, soh testamos e nao deu. (ignorado, nao fizemos um teste extensivo com outros materiais e nem sabemos explicar que material é a película, e só temos suposições do porque a pelicula nao funcionou, não temos informações suficientes para se incluir isto na monografia.)
 Pede criterios para explicar design da mesa. Acho que nao devemos tambem explicar isto, nao teve um design exatamente planejado. (ignorado, mesa nao teve design, soh fizemos uma mesa grande para varios usuarios como mencionado)
 Pergunta como se relaciona deskworld com outros, nao entendi. (ignorado, provavelmente ficou confuso pois foi uma anotaçao para uma pergunta feita somente, mas nao sabemos o que quer dizer)
-De onde vem os problemas.
+De onde vem os problemas. (mesa empenada, suportes extras, já explicado.)
 Como dimensioanr os leds, dimensoes, sensibilidade da camera. (parcialmente ignorado, sobre as dimensoes explicadas junto do led wizard, a sensibilidade nao sabemos o que mais colocar de especificação da camera, todas infos que temos está na monografia.)
 Pergunta quantia de toques simultaneos possiveis. Pesquisar, testei ate 10000 sem problema, nao sei ate quando pode ir, nao me pareceu limitado.
 Pede ligaçao entre mesa e engine.
