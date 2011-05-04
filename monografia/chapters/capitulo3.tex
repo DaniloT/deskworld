@@ -61,13 +61,13 @@ Conforme mencionado na seção anterior, existem dois principais métodos de ilumin
 	\label{iluminacoes}
 \end{figure}
 
-Dependendo do método de iluminação, filtros diferentes devem ser aplicados, como explicado em~[\citenum{muller}], de forma a se excluir interferências e selecionar apenas os toques. A biblioteca \textit{Community Core Vision}~[\citenum{ccv}], utilizada neste trabalho, possui diversos filtros. Os filtros utilizados serão descritos no Capítulo~\ref{cap4}.
+Dependendo do método de iluminação, filtros diferentes devem ser aplicados, como explicado em~[\citenum{muller}], de forma a se excluir interferências e selecionar apenas os toques. A biblioteca \textit{Community Core Vision}~[\citenum{ccv}], utilizada neste trabalho, possui diversos filtros. Os filtros utilizados serão descritos no Capítulo~\ref{cap4}. Este processo de detecção de toques pode ser observado na Figura~\ref{diagtoques}.
 
 \begin{figure}[h!]
 	\begin{center}
 	\includegraphics[scale=0.80]{diagramatoque.jpg}
 	\caption{Diagrama do processo de detecção dos toques.}
-	\label{touchtable}
+	\label{diagtoques}
 	\end{center}
 \end{figure}
 
@@ -96,7 +96,7 @@ Dependendo do método de iluminação, filtros diferentes devem ser aplicados, como
 Conforme apresentado na seção anterior, os chamados \textit{blobs}(\textit{Bright Luminescent Objects}) são os resultados da detecção dos toques na superfície. Para interpretar esses \textit{blobs}, existem dois processos essenciais, denominados de \textit{Blob-detection}, que interpreta o local em que o \textit{blob} foi criado nas imagens filtradas anteriores, e \textit{Blob-tracking}, que é a análise dos \textit{blobs} em uma sequência de imagens.
 Utilizando essas duas análises, pode-se identificar a criação de \textit{blobs}, verificar seus movimentos durante sua vida útil, e identificar a criação de novos \textit{blobs} no sistema. É importante ressaltar que a detecção de \textit{blobs} deve ser realizada a cada frame.
 
-Após passar pela cadeia de filtros aplicados sobre a imagem da câmera,  ela alcança seu estágio final aonde são destacadas as interações com a interface. A partir dessa imagem final é observado os contornos dos \textit{blobs} que aparecem e são analisados para identificar se eles correspondem ao toque de dedos ou a marcadores fiduciais. Se for um toque, uma elipse é feita sobre ele, e com base nela, pode ser identificada a posição, orientação e tamanho do \textit{blob}. Esse \textit{blob} então é adicionado a uma lista para ser processado.
+Após passar pela cadeia de filtros aplicados sobre a imagem da câmera,  ela alcança seu estágio final onde são destacadas as interações com a interface. A partir dessa imagem final são observados os contornos dos \textit{blobs} que aparecem e são analisados para identificar se eles correspondem ao toque de dedos ou a marcadores fiduciais. Se for um toque, uma elipse é feita sobre ele, e com base nela, pode ser identificada a posição, orientação e tamanho do \textit{blob}. Esse \textit{blob} então é adicionado a uma lista para ser processado.
 
 Com base nessa lista, o \textit{blob-tracking} tem que ser feito para identificar a movimentação e criação dos \textit{blobs}. Usando o frame anterior de referência, verifica-se se o \textit{blob} foi criado, removido ou atualizado. Para se fazer essa análise, são utilizados dois conjuntos: \textit{P} e \textit{Q}. O conjunto \textit{P} contém a lista de pontos que representam os \textit{blobs} do frame anterior. Como exemplo, apresenta-se um conjunto \textit{P} com pontos (1,1) e (4,4), ilustrado no gráfico da Figura~\ref{grafP}.
 
@@ -176,7 +176,7 @@ O tamanho de uma mesa multitoque deve ser proporcional a sua utilização. Se for 
 
 Idealmente, os \textit{softwares} devem funcionar independentemente do tamanho da mesa, permitindo que o mesmo seja utilizado em projetos similares. No entanto, mesmo sem este planejamento, existem maneiras de tratar isso. A mesa pode ser projetada para se utilizar um dispositivo apontador, permitindo a um usuário alcançar pontos mais distantes, ou então possuir uma função que mude o tamanho da tela e a posicione mais perto do usuário.
 
-Em geral, as mesas possuem um tamanho maior que os monitores de vídeo tradicionais, o que produz um problema sobre a resolução da imagem projetada. A maioria dos projetores possuem resolução padrão de 800x600 ou 1024x768 pixels, o que, para mesas grandes, é insuficiente e produz uma imagem distorcida. Para contornar isso, a solução é utilizar um projetor \textit{short-throw} de alta resolução \textit{WXGA (Wide eXtended Graphics Array)}, capaz de atingir qualidade de imagem projetada em alta definição como o \textit{720p}(resolução 1280x720 com varredura progressiva) ou até o \textit{1080p}(resolução 1650x1080 com varredura progressiva). Projetores \textit{short-throw} são capazes de projetarem imagens maiores em relação a sua distância da superfície de projeção, quando comparados a projetores convencionais.
+Em geral, as mesas possuem um tamanho maior que os monitores de vídeo tradicionais, o que produz um problema sobre a resolução da imagem projetada. A maioria dos projetores possuem resolução padrão de 800x600 ou 1024x768 pixels, o que, para mesas grandes, é insuficiente e produz uma imagem distorcida. Para contornar isso, a solução é utilizar um projetor \textit{short-throw} de alta resolução \textit{WXGA (Wide eXtended Graphics Array)}, capaz de atingir qualidade de imagem projetada em alta definição como o \textit{720p} (resolução 1280x720 com varredura progressiva) ou até o \textit{1080p} (resolução 1650x1080 com varredura progressiva). Projetores \textit{short-throw} são capazes de projetarem imagens maiores em relação a sua distância da superfície de projeção, quando comparados a projetores convencionais.
 
 \subsection{Interfaces}
 \label{cap3.2.2}
@@ -258,4 +258,4 @@ Em uma mesa multitoque a possibilidade de identificação de vários pontos de cont
 		
 \end{itemize}
 
-Além destes, podem existir vários gestos não tradicionais, como múltiplos pontos de contato seguindo em direções diferentes para selecionar uma opção, por exemplo, como pode ser observado em~[\citenum{touchmenu}]. Analisando a quantia de pontos possíveis em uma mesa, existem inúmeras possibilidades de gestos usando combinações de pontos de contato.
+Além destes, podem existir vários gestos não tradicionais, como, por exemplo, múltiplos pontos de contato seguindo em direções diferentes para selecionar uma opção[\citenum{touchmenu}]. Tendo em vista o grande número de pontos possíveis em uma mesa multitoque, existem inúmeras possibilidades de gestos usando diferentes combinações de pontos de contato.
