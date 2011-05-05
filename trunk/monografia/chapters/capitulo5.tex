@@ -80,12 +80,12 @@ A interface utilizada para testes é a mesa cuja construção foi descrita no Capít
 \section{Ferramentas de suporte}
 \label{cap5.2}
 
-Nesta seção, serão descritas as ferramentas de suporte, que fornecem aplicações reutilizáveis para facilitar o desenvolvimento de \textit{softwares}, utilizadas na construção do simulador \textit{Deskworld}, tais como game engine e bibliotecas.
+Nesta seção, serão descritas as ferramentas de suporte, que fornecem aplicações reutilizáveis para facilitar o desenvolvimento de \textit{softwares}, utilizadas na construção do simulador \textit{Deskworld}, tais como \textit{game engine} e bibliotecas.
 
 \subsection{\textit{Game Engine}}
 \label{cap5.2.1}
 
-A \textit{engine} utilizada no desenvolvimento deste software foi a Box2D~[\citenum{Box2Dmanual}]. Esta engine é livre, ou seja, pode ser utilizada sem nenhum custo. A principal funcionalidade da \textit{Box2D}, no contexto desse \textit{software}, foi auxiliar na criação dos objetos e no tratamento de eventos relacionados à simulação das leis da física. Tais eventos são:
+A \textit{engine} utilizada no desenvolvimento deste software foi a Box2D~[\citenum{Box2Dmanual}]. Esta \textit{engine} é livre, ou seja, pode ser utilizada sem nenhum custo. A principal funcionalidade da \textit{Box2D}, no contexto desse \textit{software}, foi auxiliar na criação dos objetos e no tratamento de eventos relacionados à simulação das leis da física. Tais eventos são:
 
 \begin{itemize}
 	\item Gravidade
@@ -99,7 +99,7 @@ Além dessas funcionalidades, a \textit{Box2D} é responsável pela gerência de mem
 \subsection{\textit{Bibliotecas de apoio}}
 \label{cap5.2.2}
 
-Para facilitar a implementação do \textit{software}, foram utilizadas diversas bibliotecas. Uma das bibliotecas padrão do C++, a \textit{STL} \textit{(Standart Template Library)}, possui algumas estruturas complexas de dados já implementadas, sendo amplamente utilizada neste simulador. Para a parte gráfica do jogo foi utilizada a biblioteca \textit{SDL}~[\citenum{sdl}]  \textit{(Simple Direct Layer)} em conjunto com a \textit{OpenGL}~[\citenum{opengl}]  (\textit{Open Graphics Library}). Com relação ao áudio, utilizou-se a biblitoca \textit{SDL\_mixer}~[\citenum{sdlmixer}] . Para tratamento de \textit{input} foi utilizada a biblioteca do protocolo \textit{TUIO}~[\citenum{TUIO}] (\textit{Tangible User Interface System}) para receber as mensagens enviadas pelo \textit{CCV}~[\citenum{ccv}] (\textit{Community Core Vision}) explicado mais a frente.
+Para facilitar a implementação do \textit{software}, foram utilizadas diversas bibliotecas. Uma das bibliotecas padrão do C++, a \textit{STL} \textit{(Standart Template Library)}, possui algumas estruturas complexas de dados já implementadas, sendo amplamente utilizada neste simulador. Para a parte gráfica do jogo foi utilizada a biblioteca \textit{SDL}~[\citenum{sdl}]  \textit{(Simple Direct Layer)} em conjunto com a \textit{OpenGL}~[\citenum{opengl}]  (\textit{Open Graphics Library}). Com relação ao áudio, utilizou-se a biblitoca \textit{SDL\_mixer}~[\citenum{sdlmixer}] . Para tratamento de \textit{input} foi utilizada a biblioteca do protocolo \textit{TUIO}~[\citenum{TUIO}] (\textit{Tangible User Interface System}), responsável por receber as mensagens enviadas pelo \textit{CCV}~[\citenum{ccv}] (\textit{Community Core Vision}), explicado mais a frente.
 
 \subsubsection{\textit{SDL} e \textit{OpenGL}}
 \label{cap5.2.2.1}
@@ -147,7 +147,7 @@ Apesar da camada UDP de transporte não oferecer garantia de entrega dos dados, o
 	\end{center}
 \end{figure}
 
-O \textit{CCV} (\textit{Community Core Vision})~[\citenum{ccv}] é um aplicativo para auxiliar no processamento de imagens capturadas pela câmera em interações com superfícies multi-toque. A Figura~\ref{ccv} apresenta um \textit{screenshot} do aplicativo. Ele lida com o acompanhamento dos \textit{blobs} de luz infravermelha, enviando mensagens para o \textit{Deskworld}, tais como o encostar do dedo, o deslocar do dedo e o retirar do dedo. Interage com a maioria dos dispositivos de captura de vídeo, sendo muito útil para um projeto de software que utilize uma mesa multitoque.  Atualmente, possui suporte para plataformas \textit{Windows} e \textit{Linux}, 32 ou 64 \textit{bits}, e \textit{MacOS}. Ele permite, por padrão, uma quantia máxima de 20 toques simultâneos, porém este número pode ser modificado em seu arquivo de configuração. Neste trabalho, foram testados até 30 toques ao mesmo tempo diretamente com a mesa, porém o valor de toques máximos possui a possibilidade de ser incrementado ainda mais.
+O \textit{CCV} (\textit{Community Core Vision})~[\citenum{ccv}] é um aplicativo para auxiliar no processamento de imagens capturadas pela câmera em interações com superfícies multi-toque. A Figura~\ref{ccv} apresenta um \textit{screenshot} do aplicativo. Ele lida com o acompanhamento dos \textit{blobs} de luz infravermelha, enviando mensagens para o \textit{Deskworld}, tais como o encostar do dedo, o deslocar do dedo e o retirar do dedo. Interage com a maioria dos dispositivos de captura de vídeo, sendo muito útil para um projeto de software que utilize uma mesa multitoque.  Atualmente, possui suporte para plataformas \textit{Windows} e \textit{Linux}, 32 ou 64 \textit{bits}, e \textit{MacOS}. Ele permite, por padrão, uma quantia máxima de 20 toques simultâneos, porém este número pode ser modificado em seu arquivo de configuração. Neste trabalho, foram testados até 30 toques ao mesmo tempo diretamente com a mesa, entretanto o valor de toques máximos possui a possibilidade de ser incrementado ainda mais.
 
 Seu funcionamento consiste na aplicação de filtros configuráveis, como os mostrados na Figura~\ref{filtros} no capítulo anterior. Em seu arquivo de configuração, \textit{config.xml}, pode-se modificar os dados da câmera, tais como resolução e frames por segundo; o \textit{CCV} irá automaticamente ajustar a câmera selecionada para os dados mais próximos suportados. A execução do \textit{CCV} funciona de acordo com o paradigma cliente-servidor, onde o mesmo atua como servidor e a aplicação como cliente. Esta comunicação cliente-servidor é feita utilizando o protocolo TUIO~[\citenum{TUIO}] \textit{(Tangible User Interface System)}, utilizando pontos normais x e y enviados via \textit{TCP}, ou em pacotes especiais para aplicativos \textit{Flash}, permitindo uma arquitetura distribuída, onde o aplicativo é executado separadamente da aplicação de processamento de imagens.
 
