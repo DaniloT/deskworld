@@ -3,7 +3,7 @@
 
 Tradicionalmente, existe a prática de implementar jogos e outros \textit{softwares} direcionados a um único usuário. Algumas iniciativas até consideram dois ou mais usuários, porém, cada um realizando seu \textit{input} via teclado, \textit{joystick} ou \textit{mouse}. \textit{Softwares} desenvolvidos para superfícies multitoque, no entanto,  possuem um paradigma diferente, sendo fundamental o desenvolvimento de suporte a um número indeterminado de usuários, que podem compartilhar uma única superfície multitoque por meio da qual é realizado \textit{input} simultâneo. Por isso são utilizadas técnicas diferentes para reconhecimento de cada toque e para o processamento das imagens que traduzem cada \textit{input}.
 
-Neste capítulo são apresentadas as técnicas para detecção de toques. Ou seja, é detalhado como as imagens obtidas pela câmera são processadas para detecção da formação e movimentação de \textit{blobs}(\textit{Bright Luminescent Objects}) que correspondem aos toques e gestos sobre a mesa. Este processamento envolve a aplicação de filtros, além da correção da imagem para eliminar a distorção. Também são discutidos aspectos gerais das mesas multitoque, tais como seu tamanho e a interface com o usuário. Por fim, analisa-se como trabalhar com um número indeterminado de usuários e como é feita a detecção de múltiplos gestos sobre a mesa.
+Neste capítulo são apresentadas as técnicas para detecção de toques. Ou seja, é deta\-lhado como as imagens obtidas pela câmera são processadas para detecção da formação e movimentação de \textit{blobs}(\textit{Bright Luminescent Objects}) que correspondem aos toques e gestos sobre a mesa. Este processamento envolve a aplicação de filtros, além da correção da imagem para eliminar a distorção. Também são discutidos aspectos gerais das mesas multitoque, tais como seu tamanho e a interface com o usuário. Por fim, analisa-se como trabalhar com um número indeterminado de usuários e como é feita a detecção de múltiplos gestos sobre a mesa.
 
 \section{Processamento de Toques}
 \label{cap3.1}
@@ -33,7 +33,7 @@ O outro método de iluminação é o \textit{FTIR}, acompanhado na Figura~\ref{FTIR}
 	\end{center}
 \end{figure}
 
-Outra abordagem trata da combinação entre as duas abordagens anteriores, exemplificado pela \textit{Virttable}~[\citenum{virttable}] (Figura~\ref{virttable}), que utiliza este método procurando proporcionar a melhor detecção possível de toques e marcadores fiduciais simultaneamente. Um problema desta abordagem é a interferência do fundo para a detecção de toques, fazendo com que o ambiente no qual a mesa se encontra tenha que ser controlado para sua correta detecção análogo a iluminação DI. No entanto, em relação a uma mesa com iluminação exclusivamente DI, os toques são mais bem iluminados, facilitando as detecções, o que torna este método mais adequado ao tratamento de fiduciais e toques juntos.
+Outra abordagem trata da combinação entre as duas abordagens anteriores, exemplificado pela \textit{Virttable}~[\citenum{virttable}] (Figura~\ref{virttable}), que utiliza este método procurando proporcionar a melhor detecção possível de toques e marcadores fiduciais simultaneamente. Um pro\-blema desta abordagem é a interferência do fundo para a detecção de toques, fazendo com que o ambiente no qual a mesa se encontra tenha que ser controlado para sua correta detecção análogo a iluminação DI. No entanto, em relação a uma mesa com iluminação exclusivamente DI, os toques são mais bem iluminados, facilitando as detecções, o que torna este método mais adequado ao tratamento de fiduciais e toques juntos.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -150,7 +150,7 @@ Assim, um ponto na câmera pode ser corrigido de acordo com a equação \begin{equa
 
 Equação dos fatores da câmera, onde f\textsubscript{x},f\textsubscript{y} e c\textsubscript{x},c\textsubscript{y} correspondem, respectivamente, a distância focal e o centro da câmera em um ponto (x,y) arbitrário da imagem.
 
-Essas medições podem ser realizadas analizando uma imagem com um padrão reconhecido sendo colocada em pontos diferentes da câmera. Ao se processar esta imagem, pode-se medir a diferença entre o seu tamanho ideal e o tamanho obtido para se obter os valores ditos antes. Porém, filtros que aplicam esta correção podem ser pesados, deixando mais lenta a captura de toques.
+Essas medições podem ser realizadas analizando uma imagem com um padrão reconhe\-cido sendo colocada em pontos diferentes da câmera. Ao se processar esta imagem, pode-se medir a diferença entre o seu tamanho ideal e o tamanho obtido para se obter os valores ditos antes. Porém, filtros que aplicam esta correção podem ser pesados, deixando mais lenta a captura de toques.
 
 Uma alternativa a esta correção seria a adaptação de toques, como é feito pela \textit{CCV} (\textit{Community Core Vision}). Neste caso, são desenhados pontos na superfície em que o usuário deve tocar quando requisitado, como pode ser observado na Figura~\ref{calibrando}. Assim, o programa grava a posição em que o toque foi realizado, e ao se realizar um toque futuramente, sua posição é recalculada imediatamente baseada na proximidade com os pontos obtidos na calibração. Esta forma é mais eficiente que a aplicação do filtro de \textit{barrel correction}, e possui uma precisão boa dependendo de quantos pontos forem usados na calibração.
 
@@ -213,7 +213,7 @@ A solução, nesse caso, é trocar a cor para todos os toques, ou então implementar
 A maioria dos \textit{softwares} leva em consideração que os gestos são oriundos apenas de um único \textit{input}, o \textit{mouse}. Assim, são implementados geralmente gestos com um ponto de contato. Tradicionalmente, existem o seguintes gestos:
 
 \begin{itemize}
-	\item{\textit{Click} (Figura~\ref{ClickDrag}(a))}: gesto mais simples e tradicional. É detectado ao se estabelecer um ponto de contato que é retirado logo em seguida.
+	\item{\textit{Click} (Figura~\ref{ClickDrag}(a))}: gesto mais simples e tradicional. É detectado ao se esta\-belecer um ponto de contato que é retirado logo em seguida.
 	
 	\begin{figure}[h!]
 	\centering
@@ -224,7 +224,7 @@ A maioria dos \textit{softwares} leva em consideração que os gestos são oriundos
 	\label{ClickDrag}
 	\end{figure}
 		
-	\item{\textit{Drag} (Figura~\ref{ClickDrag}(b))}: continuação do gesto acima (Click), identificado ao se estabelecer um ponto de contato seguido de movimentação antes da retirada do contato.
+	\item{\textit{Drag} (Figura~\ref{ClickDrag}(b))}: continuação do gesto acima (Click), identificado ao se esta\-belecer um ponto de contato seguido de movimentação antes da retirada do contato.
 	
 \end{itemize}
 
