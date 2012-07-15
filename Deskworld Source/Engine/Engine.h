@@ -1,8 +1,11 @@
 /*
- * Engine.h
+ * Universidade de Brasilia
+ * Instituto de Ciencias Exatas
+ * Departamento de Ciencia da Computacao
  *
- *  Created on: 21/08/2010
- *      Author: Zucca
+ * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
+ * 			Victor Sampaio Zucca 		  - 06/25566
+ *
  */
 
 #ifndef ENGINE_H_

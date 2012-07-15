@@ -3,8 +3,8 @@
  * Instituto de Ciencias Exatas
  * Departamento de Ciencia da Computacao
  *
- * 	Danilo Gaby Andersen Trindade
- * 	Victor Sampaio Zucca
+ * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
+ * 			Victor Sampaio Zucca 		  - 06/25566
  *
  * Descricao: Classe que trata o input do jogo. Abstracao entre a SDL e o jogo.
  */

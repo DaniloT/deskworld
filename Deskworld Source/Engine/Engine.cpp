@@ -1,18 +1,19 @@
 /*
- * Engine.cpp
+ * Universidade de Brasilia
+ * Instituto de Ciencias Exatas
+ * Departamento de Ciencia da Computacao
  *
- *  Created on: 21/08/2010
- *      Author: Zucca
+ * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
+ * 			Victor Sampaio Zucca 		  - 06/25566
+ *
  */
 
 #include "Engine.h"
 
 Engine::Engine() {
-	// TODO Auto-generated constructor stub
 }
 
 Engine::~Engine() {
-	// TODO Auto-generated destructor stub
 }
 
 void Engine::Initialize(){

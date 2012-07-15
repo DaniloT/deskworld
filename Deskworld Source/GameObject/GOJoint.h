@@ -1,8 +1,11 @@
 /*
- * GOJoint.h
+ * Universidade de Brasilia
+ * Instituto de Ciencias Exatas
+ * Departamento de Ciencia da Computacao
  *
- *  Created on: 08/02/2011
- *      Author: Zucca
+ * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
+ * 			Victor Sampaio Zucca 		  - 06/25566
+ *
  */
 
 #ifndef GOJOINT_H_

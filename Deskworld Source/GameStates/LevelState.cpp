@@ -4,7 +4,7 @@
  * Departamento de Ciencia da Computacao
  *
  *
- * Autores:  Danilo Gaby Andersen Trindade - 06/82039
+ * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
  * 			 Victor Sampaio Zucca 		  - 06/25566
  *
  * Descricao: State in game do jogo.

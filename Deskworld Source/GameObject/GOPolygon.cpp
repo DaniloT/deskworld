@@ -1,14 +1,17 @@
 /*
- * GOPolygon.cpp
+ * Universidade de Brasilia
+ * Instituto de Ciencias Exatas
+ * Departamento de Ciencia da Computacao
  *
- *  Created on: 05/02/2011
- *      Author: Zucca
+ * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
+ * 			Victor Sampaio Zucca 		  - 06/25566
+ *
  */
 
 #include "GOPolygon.h"
 
 
-//postive signed area means counter clockwise
+//positive signed area means counter clockwise
 //negative signed area means clockwise.
 bool SignedAreaIsPositive(vector<int> vx, vector<int> vy){
 	b2Vec2 centroid;
