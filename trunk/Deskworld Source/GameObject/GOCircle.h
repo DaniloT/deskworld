@@ -1,8 +1,11 @@
 /*
- * GOCircle.h
+ * Universidade de Brasilia
+ * Instituto de Ciencias Exatas
+ * Departamento de Ciencia da Computacao
  *
- *  Created on: 19/01/2011
- *      Author: Zucca
+ * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
+ * 			Victor Sampaio Zucca 		  - 06/25566
+ *
  */
 
 #ifndef GOCIRCLE_H_

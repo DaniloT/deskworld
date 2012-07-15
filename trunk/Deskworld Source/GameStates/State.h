@@ -3,11 +3,9 @@
  * Instituto de Ciencias Exatas
  * Departamento de Ciencia da Computacao
  *
- * Introducao ao Desenvolvimento de Jogos - 01/2010
  *
  * Alunos:  Danilo Gaby Andersen Trindade - 06/82039
  * 			Victor Sampaio Zucca 		  - 06/25566
- * Turma: A
  *
  * Descricao: Descricao de um state do jogo.
  */
