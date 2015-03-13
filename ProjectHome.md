@@ -1,0 +1,1 @@
+Projeto criado como requisito parcial para a graduação em Ciência da Computação (Bacharelado) na Universidade de Brasília, trata de um simulador de física 2D feito para mesas multi-toque.
