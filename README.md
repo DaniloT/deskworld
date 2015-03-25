@@ -14,8 +14,7 @@ Simply run the "Deskworld.exe" file located in the "Deskworld Source" folder. Or
 * How to play the game:
 
 The game tries to simplify UI so it would be visible no matter where one would be around the table playing it. It uses mostly gestures to communicate.
-Controls:
-- Double click on any free space to open the menu. Touch an option to select it. (the controls do not work on drag, just on direct touch). Below are the menu options explained:
+- Controls: Double click on any free space to open the menu. Touch an option to select it. (the controls do not work on drag, just on direct touch). Following are the menu options explained:
 -- Dynamic/Static: Mutually exclusive options. On dynamic, object will acquire the default physics value and behave accordingly. On static, objects remain still and are fixed on their position.
 -- Freeform: Touch on the screen with one finger and drag it to draw the currently selected shape. The form is made as you are dragging the finger around.
 -- Circle, Triangle and Rectangle: Touch on the screen with one finger and drag it to draw the currently selected shape. The place touched will be the center of the shape, and the object will expand and contract size as you move your finger across the screen.
